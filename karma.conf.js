@@ -14,7 +14,7 @@ module.exports = function (config) {
       'js/spec/*.spec.js',
 
       // Fixtures
-      { pattern: 'spec/fixtures/**/*.json', included: false, served: true }
+      { pattern: 'inputs/*.txt', included: false, served: true }
     ],
     reporters: ['spec'],
     port: 9876,

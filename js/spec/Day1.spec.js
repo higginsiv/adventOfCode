@@ -2012,7 +2012,7 @@ describe("Day 1", () => {
 					numOfIncreases++
 				}
 			}
-			console.log(numOfIncreases);
+			console.log('Day 1 Puzzle 1: ' + numOfIncreases);
 			expect(true).toBeTruthy();
 		});
 	});
@@ -2030,7 +2030,7 @@ describe("Day 1", () => {
 					numOfSlidingIncreases++
 				}
 			}
-			console.log(numOfSlidingIncreases);
+			console.log('Day 1 Puzzle 2: ' + numOfSlidingIncreases);
 			expect(true).toBeTruthy();
 		});
 	});

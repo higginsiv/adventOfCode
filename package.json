@@ -1,18 +1,14 @@
 {
-  "name": " ",
+  "name": "AdventOfCode2021",
   "version": "0.0.1",
-  "description": "",
+  "description": "Unit tests for Advent of Code 2021",
   "keywords": "",
   "license": "",
-  "author": "",
+  "author": "William Higgins",
   "scripts": {
-    "build": "parcel build index.html",
-    "dev": "parcel index.html --open",
-    "start": "npm run build && npm run dev",
     "test": "karma start"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.12.4",
     "karma": "^6.3.4",
     "karma-chrome-launcher": "^3.1.0",
     "karma-jasmine": "^3.1.1",
