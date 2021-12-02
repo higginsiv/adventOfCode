@@ -16,6 +16,5 @@ data.forEach(function(element) {
 		aim -= parseInt(movement[1]);
 	}
 });
-console.log(horizontal);
-console.log(depth);
-console.log(horizontal*depth);
+
+console.log('Day 2 Puzzle 2: ' + horizontal*depth);
