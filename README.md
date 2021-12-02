@@ -1,4 +1,9 @@
 # Advent Of Code 2021
-Day 1: Used Karma test runner to solve the problem
-npm run test
-Day 2: Began writing in node. node js/DayX-Y.js
+https://adventofcode.com/
+
+Run the code for a given Day and problem with the following. Answers
+will be printed to the console
+- node js/DayX/problemY.js
+
+Note that every user will have unique input and the committed input.txt 
+is simply my own.
