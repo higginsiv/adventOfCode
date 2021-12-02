@@ -1,11 +1,12 @@
 const fr = require('../tools/fileReader');
-const data = fr.getInput(1);
+const data = fr.getInput(1)
+	.map(x => parseInt(x));
 
 let numOfSlidingIncreases = 0;
 
 for (let i = 3; i < data.length; i++) {
-	let current = parseInt(data[i]) + parseInt(data[i-1]) + parseInt(data[i-2]);
-	let previous = parseInt(data[i-1]) + parseInt(data[i-2]) + parseInt(data[i-3]);
+	let current = data[i] + data[i-1] + data[i-2];
+	let previous = data[i-1] + data[i-2] + data[i-3];
 
 	if (current > previous) {
 		numOfSlidingIncreases++
