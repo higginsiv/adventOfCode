@@ -2001,28 +2001,16 @@ describe("Day 1", () => {
 		'8562';
 	describe('Day 1 Puzzle 1', () => {
 		it('should find the number of increases', () => {
-			let sample = '199\n' +
-				'200\n' +
-				'208\n' +
-				'210\n' +
-				'200\n' +
-				'207\n' +
-				'240\n' +
-				'269\n' +
-				'260\n' +
-				'263';
-
 			let inputArray = input.split('\n');
-			console.log(inputArray.length);
 			let numOfIncreases = 0;
+
 			for (let i=1; i < inputArray.length; i++) {
 				let current = parseInt(inputArray[i]);
 				let previous = parseInt(inputArray[i-1]);
-				console.log('entry: ' + i + ' current: ' + inputArray[i] + ' previous: ' + inputArray[i-1]);
+
 				if (current > previous) {
 					numOfIncreases++
 				}
-				// console.log(inputArray[i]);
 			}
 			console.log(numOfIncreases);
 			expect(true).toBeTruthy();
@@ -2032,16 +2020,15 @@ describe("Day 1", () => {
 	describe('Day 1 Puzzle 2', () => {
 		it('should find the number of sliding increases', () => {
 			let inputArray = input.split('\n');
-			console.log(inputArray.length);
 			let numOfSlidingIncreases = 0;
+
 			for (let i=3; i < inputArray.length; i++) {
 				let current = parseInt(inputArray[i]) + parseInt(inputArray[i-1]) + parseInt(inputArray[i-2]);
 				let previous = parseInt(inputArray[i-1]) + parseInt(inputArray[i-2]) + parseInt(inputArray[i-3]);
-				// console.log('entry: ' + i + ' current: ' + inputArray[i] + ' previous: ' + inputArray[i-1]);
+
 				if (current > previous) {
 					numOfSlidingIncreases++
 				}
-				// console.log(inputArray[i]);
 			}
 			console.log(numOfSlidingIncreases);
 			expect(true).toBeTruthy();
