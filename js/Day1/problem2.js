@@ -1,14 +1,11 @@
-const fs = require('fs');
-const inputArray = fs
-	.readFileSync("./js/Day1/input.txt")
-	.toString()
-	.split('\n');
+const fr = require('../tools/fileReader');
+const data = fr.getInput(1);
 
 let numOfSlidingIncreases = 0;
 
-for (let i = 3; i < inputArray.length; i++) {
-	let current = parseInt(inputArray[i]) + parseInt(inputArray[i-1]) + parseInt(inputArray[i-2]);
-	let previous = parseInt(inputArray[i-1]) + parseInt(inputArray[i-2]) + parseInt(inputArray[i-3]);
+for (let i = 3; i < data.length; i++) {
+	let current = parseInt(data[i]) + parseInt(data[i-1]) + parseInt(data[i-2]);
+	let previous = parseInt(data[i-1]) + parseInt(data[i-2]) + parseInt(data[i-3]);
 
 	if (current > previous) {
 		numOfSlidingIncreases++

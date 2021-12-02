@@ -1,8 +1,5 @@
-const fs = require('fs');
-const data = fs
-	.readFileSync("./js/Day2/input.txt")
-	.toString()
-	.split('\n');
+const fr = require('../tools/fileReader');
+const data = fr.getInput(2);
 
 let horizontal = 0;
 let depth = 0;
