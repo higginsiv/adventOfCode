@@ -5,9 +5,9 @@ let gamma = [];
 let epsilon = [];
 let digitCounter = []
 
-data.forEach(function(x) {
+data.forEach((x) => {
 	let digits = x.split("");
-	digits.forEach(function(y, index) {
+	digits.forEach((y, index) => {
 		if (digitCounter[index] == null) {
 			digitCounter[index] = {
 				numZero: 0,
@@ -22,8 +22,8 @@ data.forEach(function(x) {
 	});
 });
 
-digitCounter.forEach(function(x, index) {
-	gamma[index] = digitCounter[index].numZero > digitCounter[index].numOne ? 0 : 1;
+digitCounter.forEach((x, index) => {
+	gamma[index] = x.numZero > x.numOne ? 0 : 1;
 	epsilon[index] = (gamma[index] * -1) + 1;
 })
 
