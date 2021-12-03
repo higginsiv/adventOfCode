@@ -1,4 +1,4 @@
-const fr = require('../tools/fileReader');
+const fr = require('../../tools/fileReader');
 const data = fr.getInput(null);
 
 let numOfSlidingIncreases = 0;

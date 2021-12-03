@@ -1,4 +1,4 @@
-const fr = require('../tools/fileReader');
+const fr = require('../../tools/fileReader');
 const data = fr.getInput(2);
 
 let horizontal = 0;
