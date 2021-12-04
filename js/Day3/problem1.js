@@ -6,20 +6,20 @@ let epsilon = [];
 let digitCounter = []
 
 data.forEach((x) => {
-	let digits = x.split("");
-	digits.forEach((y, index) => {
-		if (digitCounter[index] == null) {
-			digitCounter[index] = {
-				numZero: 0,
-				numOne: 0
-			};
-		}
-		if (y === '0') {
-			digitCounter[index].numZero++;
-		} else {
-			digitCounter[index].numOne++;
-		}
-	});
+	x.split("")
+		.forEach((y, index) => {
+			if (digitCounter[index] == null) {
+				digitCounter[index] = {
+					numZero: 0,
+					numOne: 0
+				};
+			}
+			if (y === '0') {
+				digitCounter[index].numZero++;
+			} else {
+				digitCounter[index].numOne++;
+			}
+		});
 });
 
 digitCounter.forEach((x, index) => {
