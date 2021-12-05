@@ -1,18 +1,13 @@
 const fr = require('../tools/fileReader');
+const tool = require('./tools.js');
+
 const data = fr.getInput(5);
 // const data = fr.getInput(5, '\n', 'testInput.txt');
 
 let grid = []
 
 for (let i = 0; i < data.length; i++) {
-	let coordinates = data[i].split(' -> ');
-
-	// 'p'relimnary points before reordering
-	let point1p = coordinates[0].split(',').map(x => parseInt(x));
-	let point2p = coordinates[1].split(',').map(x => parseInt(x));
-
-	let horLine = point1p[1] === point2p[1];
-	let vertLine = point1p[0] === point2p[0];
+	const [point1p, point2p, horLine, vertLine] = tool.getPoints(data[i]);
 
 	if (!horLine && !vertLine) {
 		// Only consider horizontal or vertical lines, no diagonals
