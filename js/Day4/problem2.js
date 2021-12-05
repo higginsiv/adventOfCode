@@ -1,4 +1,8 @@
+// NOTE: This implementation is intentionally suboptimal to practice with the reduce command
+
 const fr = require('../tools/fileReader');
+
+// TODO: allow file reader utility to pass in delimiter so that we don't need awkward traversal here
 const data = fr.getInput(4);
 
 const drawn = data[0].split(',');
@@ -29,6 +33,8 @@ drawn.forEach(num => {
 				board[index] = 'X';
 			}
 
+			// TODO: Could be simplified with modulo arithmetic
+			// TODO: Could be broken into a shared function with problem 1
 			if (
 				board[0] + board[1] + board[2] + board[3] + board[4] === 'XXXXX'
 				|| board[5] + board[6] + board[7] + board[8] + board[9] === 'XXXXX'

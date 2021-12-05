@@ -1,3 +1,5 @@
+// NOTE: This implementation is intentionally suboptimal to practice with the reduce command
+
 const fr = require('../tools/fileReader');
 const data = fr.getInput(4);
 
