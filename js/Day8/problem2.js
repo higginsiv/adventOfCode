@@ -46,8 +46,6 @@ input.forEach((x, index) => {
 			} else if (!solvedDigits[5] && solvedDigits[9] && digit.length === 5) {
 				if (JSON.stringify(solvedDigits[3]) != JSON.stringify(digit.split(''))) {
 					let temp = digit.split('');
-					// console.log('three: ' + solvedDigits[3]);
-					// console.log('five: ' + temp);
 					let dif = solvedDigits[9].filter(x => !temp.includes(x));
 					if (dif.length === 1) {
 						solvedDigits[5] = temp;
@@ -57,10 +55,6 @@ input.forEach((x, index) => {
 			} else if (!solvedDigits[2] && solvedDigits[0] && solvedDigits[1] && solvedDigits[3]
 				&& solvedDigits[4] && solvedDigits[5] && solvedDigits[6] && solvedDigits[7]
 				&& solvedDigits[8] && solvedDigits[9]) {
-
-				solvedDigits.forEach((x, index) => {
-					// console.log(index + ' : ' + x);
-				})
 
 				let temp = digit.split('');
 				let tempString = JSON.stringify(temp);
@@ -74,37 +68,28 @@ input.forEach((x, index) => {
 					&& JSON.stringify(solvedDigits[7]) != tempString
 					&& JSON.stringify(solvedDigits[8]) != tempString
 					&& JSON.stringify(solvedDigits[9]) != tempString) {
-					// console.log(temp);
+
 					solvedDigits[2] = temp;
 
 					// all are now solved
-					solvedDigits.forEach((x, index) => {
-						// console.log(index + ' : ' + x);
-					})
 					let outputEntries = output[index].split(' ');
-					// console.log(outputEntries)
 
 					let outputString = '';
-					outputEntries.forEach((x, index) => {
+					outputEntries.forEach((x) => {
 							let digits = x.split('');
-							// console.log('d: ' + digits);
+
 							solvedDigits.forEach((y, index) => {
-								// console.log('y:' + y);
 								let solvedDigit = y;
-								// console.log(solvedDigit);
 								if (digits.every(x => solvedDigit.includes(x)) && digits.length === solvedDigit.length) {
-									console.log(index + ' ' + digits + ' ' + solvedDigit);
 									outputString += index;
 								}
 							});
 
 						}
 					);
-					console.log(outputString);
 
 					sumOutput += parseInt(outputString);
 					solved = true;
-
 				}
 			}
 		});
