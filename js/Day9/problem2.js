@@ -19,9 +19,8 @@ basins.sort((x, y) => y - x);
 console.log('Day 9 Puzzle 2: ' + basins[0] * basins[1] * basins[2]);
 
 function getBasin(x, y, value, traversed) {
-	let basinVal = 1
 	if (value === 9 || (traversed[x] && traversed[x][y])) {
-		return 0
+		return 0;
 	}
 
 	if (!traversed[x]) {
@@ -30,6 +29,7 @@ function getBasin(x, y, value, traversed) {
 
 	traversed[x][y] = 1;
 
+	let basinVal = 1;
 	if (data[x][y - 1] !== undefined && data[x][y - 1] > value) {
 		basinVal += (getBasin(x, y - 1, data[x][y - 1], traversed));
 	}
