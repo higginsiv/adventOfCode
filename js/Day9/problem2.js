@@ -16,8 +16,7 @@ data.forEach((line, index) => {
 });
 
 basins.sort((x, y) => y - x);
-
-
+console.log('Day 9 Puzzle 2: ' + basins[0] * basins[1] * basins[2]);
 
 function getBasin(x, y, value, traversed) {
 	let basinVal = value === 9 ? 0 : 1
@@ -46,5 +45,3 @@ function getBasin(x, y, value, traversed) {
 
 	return basinVal;
 }
-
-console.log('Day 9 Puzzle 2: ' + basins[0] * basins[1] * basins[2]);
