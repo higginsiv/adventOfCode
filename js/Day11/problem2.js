@@ -10,12 +10,11 @@ const data = fr.getInput(11).map(x => {
 	return line;
 });
 
-let allFlashLine = -1;
+let allFlashStep = -1;
 
 let step = 0;
-while (allFlashLine === -1) {
+while (allFlashStep === -1) {
 	step++;
-	// step 1
 	for (let line of data) {
 		for (let octo of line) {
 			octo.val++;
@@ -23,15 +22,14 @@ while (allFlashLine === -1) {
 		}
 	}
 
-	// step 2
-	let flash = true;
-	while (flash) {
-		flash = false;
+	let flashOccurred = true;
+	while (flashOccurred) {
+		flashOccurred = false;
 		for (let i = 0; i < data.length; i++) {
 			for (let j = 0; j < data[i].length; j++) {
 				let octo = data[i][j];
 				if (octo.val > 9 && !octo.flashed) {
-					flash = true;
+					flashOccurred = true;
 					octo.flashed = true;
 
 					let neighbors = [];
@@ -92,9 +90,8 @@ while (allFlashLine === -1) {
 		}
 	}
 	if (allFlashed) {
-		console.log('hello');
-		allFlashLine = step;
+		allFlashStep = step;
 	}
 }
 
-console.log('Day 11 Puzzle 2: ' + allFlashLine);
+console.log('Day 11 Puzzle 2: ' + allFlashStep);

@@ -13,7 +13,6 @@ const data = fr.getInput(11).map(x => {
 let flashes = 0;
 
 for (let i = 0; i < 100; i++) {
-	// step 1
 	for (let line of data) {
 		for (let octo of line) {
 			octo.val++;
@@ -21,15 +20,14 @@ for (let i = 0; i < 100; i++) {
 		}
 	}
 
-	// step 2
-	let flash = true;
-	while (flash) {
-		flash = false;
+	let flashOccurred = true;
+	while (flashOccurred) {
+		flashOccurred = false;
 		for (let i = 0; i < data.length; i++) {
 			for (let j = 0; j < data[i].length; j++) {
 				let octo = data[i][j];
 				if (octo.val > 9 && !octo.flashed) {
-					flash = true;
+					flashOccurred = true;
 					flashes++;
 					octo.flashed = true;
 
