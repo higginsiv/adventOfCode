@@ -11,7 +11,7 @@ data.forEach(segment => {
 			});
 		}
 		let x = points.get(point);
-		// push to 0 if index is 1 and 1 if index is 0
+		// push the other point of this segment
 		x.opts.push(seg[(index * -1) + 1]);
 	});
 });
