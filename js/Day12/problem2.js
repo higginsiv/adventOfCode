@@ -19,7 +19,7 @@ data.forEach(segment => {
 let paths = 0;
 traverse('start');
 
-function traverse(point, visited, smallVisit = false) {
+function traverse(point, visited, multiSmallVisit = false) {
 	if (visited == null) {
 		visited = ['start'];
 	} else {
@@ -32,11 +32,11 @@ function traverse(point, visited, smallVisit = false) {
 	}
 
 	points.get(point).opts.forEach(x => {
-		if ((!visited.includes(x) || x !== x.toLowerCase() || smallVisit === false) && x !== 'start') {
+		if ((!visited.includes(x) || x !== x.toLowerCase() || multiSmallVisit === false) && x !== 'start') {
 			traverse(
 				x,
 				[...visited],
-				smallVisit || (visited.includes(x) && x === x.toLowerCase())
+				multiSmallVisit || (visited.includes(x) && x === x.toLowerCase())
 			);
 		}
 	});
