@@ -44,4 +44,4 @@ const highest = Math.max(...letterCounts.values());
 const lowest = Math.min(...letterCounts.values());
 const dif = highest - lowest;
 
-console.log(dif);
+console.log('Day 14 Puzzle 2: ' + dif);
