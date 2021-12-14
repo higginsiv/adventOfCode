@@ -17,9 +17,9 @@ start.forEach((x, index) => {
 	letterCounts.set(x, (letterCounts.get(x) || 0) + 1);
 
 	if (index + 1 < start.length) {
-		let k1 = x;
-		let k2 = start[index + 1];
-		let key = k1 + k2;
+		const k1 = x;
+		const k2 = start[index + 1];
+		const key = k1 + k2;
 		pairCounts.set(key, (pairCounts.get(key) || 0) + 1);
 	}
 });
@@ -27,17 +27,17 @@ start.forEach((x, index) => {
 for (let i = 0; i < 40; i++) {
 	let newPairCounts = new Map();
 	pairCounts.forEach((val, key) => {
-		let keys = key.split('');
-		let addition = rules.get(key);
+		const keys = key.split('');
+		const addition = rules.get(key);
 		letterCounts.set(addition, (letterCounts.get(addition) || 0) + val);
 
-		let p1 = keys[0] + addition;
-		let p2 = addition + keys[1];
+		const p1 = keys[0] + addition;
+		const p2 = addition + keys[1];
 		newPairCounts.set(p1, (newPairCounts.get(p1) || 0) + val);
 		newPairCounts.set(p2, (newPairCounts.get(p2) || 0) + val);
 	});
 
-	pairCounts = new Map(newPairCounts);
+	pairCounts = newPairCounts;
 }
 
 const highest = Math.max(...letterCounts.values());
