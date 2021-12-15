@@ -12,7 +12,7 @@ const goalY = data[0].length - 1;
 traverse(0, 0, 0);
 
 function traverse(x, y, riskCount) {
-	if (x > goalX || y > goalY) {
+	if (x > goalX || y > goalY || x < 0 || y < 0) {
 		return;
 	}
 
@@ -30,6 +30,8 @@ function traverse(x, y, riskCount) {
 
 	traverse(x + 1, y, riskCount);
 	traverse(x, y + 1, riskCount);
+	// Not actually needed for my data set
+	traverse(x, y - 1, riskCount);
 }
 
 console.log('Day 15 Puzzle 1: ' + data[goalX][goalY].lowRisk);
