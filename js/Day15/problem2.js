@@ -39,7 +39,7 @@ const goalY = bigData[0].length - 1;
 
 traverse(0, 0, 0);
 
-function traverse(x, y, riskCount) {
+async function traverse(x, y, riskCount) {
 	if (x > goalX || y > goalY || x < 0 || y < 0) {
 		return;
 	}
@@ -50,9 +50,19 @@ function traverse(x, y, riskCount) {
 
 	const currentLowRisk = bigData[x][y].lowRisk;
 
-	if (currentLowRisk == null || bigData[x][y].lowRisk > riskCount) {
+	if (currentLowRisk == null || currentLowRisk > riskCount) {
 		bigData[x][y].lowRisk = riskCount;
 	} else {
+		return;
+	}
+
+	const goalLowRisk = bigData[goalX][goalY].lowRisk;
+	const xDelta = goalX - x;
+	const yDelta = goalY - y;
+
+	if (goalLowRisk && (bigData[x][y].lowRisk + xDelta + yDelta) >= goalLowRisk) {
+		// trimCount++;
+		// trimmedPaths.set(x + ':' + y, true);
 		return;
 	}
 
