@@ -1,5 +1,5 @@
 const fr = require('../tools/fileReader');
-const data = fr.getInput(7, ',')
+const data = fr.getInput("07", ',')
 	.map(x => parseInt(x))
 	.sort((x, y) => x - y);
 

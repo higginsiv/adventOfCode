@@ -1,7 +1,7 @@
 // NOTE: This implementation is intentionally suboptimal to practice with the reduce command
 
 const fr = require('../tools/fileReader');
-const data = fr.getInput(4);
+const data = fr.getInput("04");
 
 const drawn = data[0].split(',');
 

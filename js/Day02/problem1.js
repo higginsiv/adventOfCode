@@ -1,5 +1,5 @@
 const fr = require('../tools/fileReader');
-const data = fr.getInput(2);
+const data = fr.getInput("02");
 
 let horizontal = 0;
 let depth = 0;

@@ -1,5 +1,5 @@
 const fr = require('../tools/fileReader');
-let data = fr.getInput(6, ',').map(x => parseInt(x));
+let data = fr.getInput("06", ',').map(x => parseInt(x));
 
 let fishDays = [];
 

@@ -3,7 +3,7 @@
 const fr = require('../tools/fileReader');
 
 // TODO: allow file reader utility to pass in delimiter so that we don't need awkward traversal here
-const data = fr.getInput(4);
+const data = fr.getInput("04");
 
 const drawn = data[0].split(',');
 

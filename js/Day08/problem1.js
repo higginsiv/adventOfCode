@@ -1,5 +1,5 @@
 const fr = require('../tools/fileReader');
-const data = fr.getInput(8);
+const data = fr.getInput("08");
 
 let input = [];
 let output = [];

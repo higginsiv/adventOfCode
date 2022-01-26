@@ -1,5 +1,5 @@
 const fr = require('../tools/fileReader');
-const data = fr.getInput(3);
+const data = fr.getInput("03");
 
 let gamma = [];
 let epsilon = [];

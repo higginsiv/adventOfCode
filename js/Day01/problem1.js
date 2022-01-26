@@ -1,5 +1,5 @@
 const fr = require('../tools/fileReader');
-const data = fr.getInput(1)
+const data = fr.getInput("01")
 	.map(x => parseInt(x));
 
 let numOfIncreases = 0;
