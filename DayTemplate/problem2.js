@@ -1,4 +1,7 @@
 const fr = require('../../../tools/fileReader');
-const data = fr.getInput("2021",null);
+const year = "";
+const day = "";
+const data = fr.getInput(year,day);
 
-console.log('Day _ Puzzle 2: ');
+
+console.log('Year ' + year + ' Day ' + day + ' Puzzle 2: ' );
