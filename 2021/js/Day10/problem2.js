@@ -1,5 +1,5 @@
 const fr = require('../../../tools/fileReader');
-const data = fr.getInput("2021",10, '\n', 'input.txt').map(x => x.split(''));
+const data = fr.getInput("2021",10).map(x => x.split(''));
 
 const symbols = new Map([
 	['{', '}'],

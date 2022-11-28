@@ -1,6 +1,6 @@
 const fs = require('fs');
 const fr = require('../../../tools/fileReader');
-const data = fr.getInput("2021",13, '\n\n', 'input.txt');
+const data = fr.getInput("2021",13);
 
 let coordinates = data[0].split('\n').map(x => x.split(',').map(y => parseInt(y)));
 let folds = data[1].split('\n').map(x => {

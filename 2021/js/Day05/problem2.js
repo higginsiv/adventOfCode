@@ -2,7 +2,7 @@ const fr = require('../../../tools/fileReader');
 const tool = require('./tools.js');
 
 const data = fr.getInput("2021","05");
-// const data = fr.getInput("2021",5, '\n', 'testInput.txt');
+// const data = fr.getInput("2021",5, /\r?\n/, 'testInput.txt');
 
 let grid = []
 

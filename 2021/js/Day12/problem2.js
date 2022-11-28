@@ -1,5 +1,5 @@
 const fr = require('../../../tools/fileReader');
-const data = fr.getInput("2021",12, '\n', 'input.txt').map(x => x.split('-'));
+const data = fr.getInput("2021",12).map(x => x.split('-'));
 
 // create point map
 let points = new Map();

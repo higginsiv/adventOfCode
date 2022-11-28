@@ -1,5 +1,5 @@
 const fr = require('../../../tools/fileReader');
-const data = fr.getInput("2021","08", '\n', 'input.txt');
+const data = fr.getInput("2021","08");
 
 let input = [];
 let output = [];

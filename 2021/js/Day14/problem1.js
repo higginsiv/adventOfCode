@@ -1,5 +1,5 @@
 const fr = require('../../../tools/fileReader');
-const data = fr.getInput("2021",14, '\n\n', 'input.txt');
+const data = fr.getInput("2021",14);
 
 let start = data[0].split('');
 let rulesRaw = data[1].split('\n').map(x => x.split(' -> '));

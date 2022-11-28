@@ -1,5 +1,5 @@
 const fr = require('../../../tools/fileReader');
-const data = fr.getInput("2021","09", '\n', 'input.txt').map(x => x.split('').map(x => parseInt(x)));
+const data = fr.getInput("2021","09").map(x => x.split('').map(x => parseInt(x)));
 
 let basins = [];
 
