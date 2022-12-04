@@ -1,7 +1,6 @@
 const fr = require('../../../tools/fileReader');
-const year = "";
-const day = "";
+const {year, day, part} = ["2022","","2"];
 const data = fr.getInput(year,day);
 
-
-console.log('Year ' + year + ' Day ' + day + ' Puzzle 2: ' );
+let answer;
+console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ':' + answer);
