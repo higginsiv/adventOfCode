@@ -4,7 +4,7 @@ const data = fr.getInput(year,day,"");
 
 let answer;
 
-const groupSize = 14
+const groupSize = 14;
 for (let i = 0; i < data.length; i++) {
     let currentGroup = data.slice(i, i + groupSize);
     if (currentGroup.every((current, index) => {
