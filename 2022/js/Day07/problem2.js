@@ -1,5 +1,5 @@
 const fr = require("../../../tools/fileReader");
-const [year, day, part] = ["2022", "07", "1"];
+const [year, day, part] = ["2022", "07", "2"];
 const data = fr.getInput(year, day).map((command) => command.split(" "));
 
 const root = "/";
