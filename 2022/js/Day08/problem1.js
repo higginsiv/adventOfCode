@@ -1,3 +1,8 @@
+// todo optimization ideas
+// rotate the array and just calc horizontal against both
+// use smart traversal to not check certain directions if you know element < maxElement in row
+// store max of each direction in a ds that you check against instead of iterating until you reach a higher value
+
 const fr = require("../../../tools/fileReader");
 const [year, day, part] = ["2022", "08", "1"];
 const data = fr
