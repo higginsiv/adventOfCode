@@ -79,7 +79,7 @@ function isEmpty(x, y) {
 function dropSand() {
   while (true) {
     let status = sandFall(500, 0);
-    if (status === VOID || status === CLOGGED) {
+    if (status === CLOGGED) {
       break;
     }
   }
