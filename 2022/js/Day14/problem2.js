@@ -7,9 +7,13 @@ const ROCK = "#";
 const SAND = "O";
 const MORE = 1;
 const VOID = 0;
+const CLOGGED = -1;
+const sandSource = [500, 0];
 
 let cave = [];
 let highestRock = 0;
+let leftestRock = Infinity;
+let rightestRock = -Infinity;
 let sandFallen = 0;
 
 data.forEach((path) => {
@@ -22,6 +26,14 @@ data.forEach((path) => {
 
     if (highy > highestRock) {
       highestRock = highy;
+    }
+
+    if (lowx < leftestRock) {
+      leftestRock = lowx;
+    }
+
+    if (highx > rightestRock) {
+      rightestRock = highx;
     }
 
     if (p1x === p2x) {
@@ -44,20 +56,43 @@ data.forEach((path) => {
   }
 });
 
+highestRock += 2;
+console.log(leftestRock);
+console.log(rightestRock);
+console.log(highestRock);
+cave[highestRock] = [];
+for (let i = leftestRock - 1; i <= rightestRock + 100; i++) {
+  cave[highestRock][i] = ROCK;
+}
+
+console.log(sandSource[0]);
+console.log(sandSource[1]);
 function sandFall(x, y) {
+//   console.log(x + " " + y);
   if (y >= highestRock) {
     return VOID;
   }
   if (isEmpty(x, y + 1)) {
-    return sandFall(x, y + 1);
-  } else if (isEmpty(x - 1, y + 1)) {
-    return sandFall(x - 1, y + 1);
-  } else if (isEmpty(x + 1, y + 1)) {
-    return sandFall(x + 1, y + 1);
+    return sandFall(x, y + 1, x, y);
+  } else if (isEmpty(x - 1, y + 1, x, y)) {
+    return sandFall(x - 1, y + 1, x, y);
+  } else if (isEmpty(x + 1, y + 1, x, y)) {
+    return sandFall(x + 1, y + 1, x, y);
+  } else if (x === sandSource[0] && y === sandSource[1]) {
+    sandFallen++;
+    if (cave[y] == null) {
+        cave[y] = [];
+    }
+    cave[y][x] = SAND;
+    return CLOGGED;
   } else {
     sandFallen++;
+    // console.log(sandFallen);
+    if (cave[y] == null) {
+        cave[y] = [];
+    }
     cave[y][x] = SAND;
-    return MORE;
+    return [prevX, prevY];
   }
 }
 
@@ -66,17 +101,20 @@ function isEmpty(x, y) {
     cave[y] = [];
   }
 
-  return cave[y][x] !== ROCK && cave[y][x] !== SAND;
+  return y < highestRock && cave[y][x] !== ROCK && cave[y][x] !== SAND;
 }
 
-while (true) {
-  if (sandFall(500, 0) === VOID) {
-    break;
+function dropSand() {
+  while (true) {
+    let status = sandFall(500, 0);
+    if (status === VOID || status === CLOGGED) {
+      break;
+    }
   }
 }
 
 function printCave() {
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < highestRock + 3; i++) {
     if (cave[i] == null) {
       cave[i] = [];
     }
@@ -91,5 +129,7 @@ function printCave() {
   }
 }
 
+dropSand();
+printCave();
 let answer = sandFallen;
 console.log("Year " + year + " Day " + day + " Puzzle " + part + ": " + answer);
