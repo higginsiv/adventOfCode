@@ -1,3 +1,4 @@
+console.time();
 const fr = require('../../../tools/fileReader');
 const [year, day, part] = ["2022","15","1"];
 const data = fr.getInput(year,day).map(x => {
@@ -54,3 +55,4 @@ function getDistance(x, y, a, b) {
 
 let answer = invalidPoints.size;
 console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
+console.timeEnd();
