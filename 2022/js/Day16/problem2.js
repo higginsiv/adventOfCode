@@ -130,31 +130,7 @@ function navigate(
     startValve = goalValve;
     ellyValve = ellyGoalValve;
 
-    // SETUP FLOWS
-
-    let flowToValve = new Map();
-    let ellyFlowToValve = new Map();
-    
-    unopenedValves.forEach((x) => {
-      let valve = valves.get(x);
-      let distance = distances.get(startValve.name + "." + valve.name);
-      let flow = getBenefit(valve.flow, distance, time);
-      flowToValve.set(flow, valve);
-
-      let ellyDistance = distances.get(ellyValve.name + "." + valve.name);
-      let ellyFlow = getBenefit(valve.flow, ellyDistance, time);
-      ellyFlowToValve.set(ellyFlow, valve);
-    });
-
-    let sortedFlows = Array.from(flowToValve.keys())
-      .sort((a, b) => b - a)
-
-    let ellySortedFlows = Array.from(ellyFlowToValve.keys())
-      .sort((a, b) => b - a)
-
-    // END SETUP FLOWS
-
-    if (sortedFlows.length === 0) {
+    if (unopenedValves.length === 0) {
         // if there is nowhere for person to go, just keep iterating until time expires
         return navigate(
             time - 1,
@@ -172,13 +148,13 @@ function navigate(
     unopenedValves.forEach((x) => {
       // find valve for person
 
-      goalValve = flowToValve.get(x);
+      goalValve = valves.get(x);
       goalValveTime =
         distances.get(startValve.name + "." + goalValve.name) + TIME_TO_OPEN;
       let localUnopened = unopenedValves.slice();
       localUnopened.splice(localUnopened.indexOf(goalValve.name), 1);
 
-      if (ellySortedFlows.length === 0) {
+      if (localUnopened.length === 0) {
         // if there is nowhere for elly to go, just keep iterating until time expires
         return navigate(
             time - 1,
@@ -192,15 +168,16 @@ function navigate(
             localUnopened
           );
       }
-      ellySortedFlows.forEach((y) => {
+      localUnopened.forEach((y) => {
         // find valve for elly
         // lazily assume that no two choices have the same total flow value. Instead of pruning list of Person's choice, just skip it as an option for Elly
         if (y !== x) {
-          ellyGoalValve = ellyFlowToValve.get(y);
+          ellyGoalValve = valves.get(y);
           ellyGoalValveTime =
             distances.get(ellyValve.name + "." + ellyGoalValve.name) +
             TIME_TO_OPEN;
-          localUnopened.splice(localUnopened.indexOf(ellyGoalValve.name), 1);
+          let ellyLocal = localUnopened.slice();
+          ellyLocal.splice(localUnopened.indexOf(ellyGoalValve.name), 1);
 
           let total = navigate(
             time - 1,
@@ -211,7 +188,7 @@ function navigate(
             ellyGoalValve,
             goalValveTime - 1,
             ellyGoalValveTime - 1,
-            localUnopened
+            ellyLocal
           );
           if (total > bestTotal) {
             bestTotal = total;
@@ -225,22 +202,7 @@ function navigate(
 
     startValve = goalValve;
 
-    // SETUP FLOWS
-
-    let flowToValve = new Map();
-    unopenedValves.forEach((x) => {
-      let valve = valves.get(x);
-      let distance = distances.get(startValve.name + "." + valve.name);
-      let flow = getBenefit(valve.flow, distance, time);
-      flowToValve.set(flow, valve);
-    });
-
-    let sortedFlows = Array.from(flowToValve.keys())
-      .sort((a, b) => b - a)
-
-    // END SETUP FLOWS
-
-    if (sortedFlows.length === 0) {
+    if (unopenedValves.length === 0) {
         // if there is nowhere for person to go, just keep iterating until time expires
         return navigate(
             time - 1,
@@ -255,8 +217,8 @@ function navigate(
           );
       }
     let bestTotal = totalFlow;
-    sortedFlows.forEach((x) => {
-      goalValve = flowToValve.get(x);
+    unopenedValves.forEach((x) => {
+      goalValve = valves.get(x);
       goalValveTime =
         distances.get(startValve.name + "." + goalValve.name) + TIME_TO_OPEN;
       let localUnopened = unopenedValves.slice();
@@ -284,22 +246,7 @@ function navigate(
 
     ellyValve = ellyGoalValve;
 
-    // SETUP FLOWS
-
-    let ellyFlowToValve = new Map();
-    unopenedValves.forEach((x) => {
-      let valve = valves.get(x);
-      let ellyDistance = distances.get(ellyValve.name + "." + valve.name);
-      let ellyFlow = getBenefit(valve.flow, ellyDistance, time);
-      ellyFlowToValve.set(ellyFlow, valve);
-    });
-
-    let ellySortedFlows = Array.from(ellyFlowToValve.keys())
-      .sort((a, b) => b - a)
-
-    // END SETUP FLOWS
-
-    if (ellySortedFlows.length === 0) {
+    if (unopenedValves.length === 0) {
         // if there is nowhere for elly to go, just keep iterating until time expires
         return navigate(
             time - 1,
@@ -314,8 +261,8 @@ function navigate(
           );
       }
     let bestTotal = totalFlow;
-    ellySortedFlows.forEach((x) => {
-      ellyGoalValve = ellyFlowToValve.get(x);
+    unopenedValves.forEach((x) => {
+      ellyGoalValve = valves.get(x);
       ellyGoalValveTime =
         distances.get(ellyValve.name + "." + ellyGoalValve.name) + TIME_TO_OPEN;
       let localUnopened = unopenedValves.slice();
