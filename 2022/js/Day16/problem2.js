@@ -284,18 +284,6 @@ function navigate(
     ellyGoalValveTime - 1,
     unopenedValves
   );
-
-  // if at goal
-  // add pressure * time remaining to total
-  // recurse for every valve left on list
-  // if both at goal
-  // choose A for person
-  // recurse for every valve left for elephant
-  // choose A for elephant
-  // recurse for every valve left for human
 }
 
 console.log("Year " + year + " Day " + day + " Puzzle " + part + ": " + answer);
-
-// rename unopenedValves
-// rename startValve
