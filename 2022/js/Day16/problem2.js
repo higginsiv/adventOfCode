@@ -107,22 +107,8 @@ function navigate(
   unopenedValves
 ) {
   if (time < 0) {
-    // if (goalValveTime === 0) {
-    //     totalFlow += getBenefit(goalValve.flow, 0, time);
-    // }
-    // if (ellyGoalValveTime === 0) {
-    //     totalFlow += getBenefit(ellyGoalValve.flow, 0, time);
-    // }
     return totalFlow;
   }
-
-  //   if (unopenedValves.length === 0) {
-  //     console.log('empty');
-  //     // TODO return final math
-  //     // totalFlow += getBenefit(goalValve.flow, 0, time);
-  //     // totalFlow += getBenefit(ellyGoalValve.flow, 0, time);
-  //     return totalFlow;
-  //   }
 
   if (goalValveTime === 0 && ellyGoalValveTime === 0) {
     totalFlow += getBenefit(goalValve.flow, 0, time);
