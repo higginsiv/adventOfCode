@@ -5,7 +5,6 @@ const KEY = 811589153;
 class Point {
   value;
   index;
-  visited = false;
   constructor(value, index) {
     this.value = value;
     this.index = index;
