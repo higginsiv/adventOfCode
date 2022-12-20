@@ -43,13 +43,13 @@ valves.forEach((x) => {
   }
 });
 
-const timeToMove = 1;
-const timeToOpen = 1;
+const TIME_TO_MOVE = 1;
+const TIME_TO_OPEN = 1;
 const NUM_OF_PATHS = 15;
 const START = "AA";
 
 function getBenefit(flow, distance, time) {
-  return (time - timeToMove * distance - timeToOpen) * flow;
+  return (time - TIME_TO_MOVE * distance - TIME_TO_OPEN) * flow;
 }
 
 function calculateDistance(v1, v2, visited = [], totalDistance = 0) {
@@ -85,7 +85,7 @@ valves.forEach((x) => {
 
 let answer = navigate(30, 0, valves.get(START), usefulValves);
 
-function navigate(time, totalFlow, startValve, unopenedValves) {
+function navigate(time, totalFlow, currentValve, unopenedValves) {
   if (time < 0) {
     return totalFlow;
   }
@@ -97,7 +97,7 @@ function navigate(time, totalFlow, startValve, unopenedValves) {
   let flowToValve = new Map();
   unopenedValves.forEach((x) => {
     let valve = valves.get(x);
-    let distance = distances.get(startValve.name + '.' + valve.name);
+    let distance = distances.get(currentValve.name + '.' + valve.name);
     let flow = getBenefit(valve.flow, distance, time);
     flowToValve.set(flow, valve);
   });
@@ -105,8 +105,8 @@ function navigate(time, totalFlow, startValve, unopenedValves) {
   // The slicing is an optional performance concern where I prune out undesired paths. Unfortunately I required nothing be pruned to solve p1
   let sortedFlows = Array.from(flowToValve.keys()).sort((a,b) => b-a).filter(x => {
     let valve = flowToValve.get(x);
-    let distance = distances.get(startValve.name + '.' + valve.name);
-    return time - distance - timeToOpen > 0
+    let distance = distances.get(currentValve.name + '.' + valve.name);
+    return time - distance - TIME_TO_OPEN > 0
   }).slice(0, NUM_OF_PATHS);
 
   let bestTotal = totalFlow;
@@ -115,7 +115,7 @@ function navigate(time, totalFlow, startValve, unopenedValves) {
     let localUnopened = unopenedValves.slice();
     localUnopened.splice(localUnopened.indexOf(valve.name), 1);
 
-    let total = navigate(time - distances.get(startValve.name + '.' + valve.name) - timeToOpen, totalFlow + x, valve, localUnopened);
+    let total = navigate(time - distances.get(currentValve.name + '.' + valve.name) - TIME_TO_OPEN, totalFlow + x, valve, localUnopened);
     if (total > bestTotal) {
         bestTotal = total;
     }
