@@ -15,7 +15,6 @@ let data = fr
   .getInput(year, day)
   .map((x, index) => new Point(parseInt(x), index));
 
-let runIt = true;
 let i = 0;
 while (i < data.length) {
   if (data[i].visited) {
@@ -29,14 +28,13 @@ while (i < data.length) {
   }
 }
 
-let zeroIndex =
-  data.reduce((ans, x, index) => {
-    if (x.value === 0) {
-      return index - 1;
-    } else {
-      return ans;
-    }
-  }, 0);
+let zeroIndex = data.reduce((ans, x, index) => {
+  if (x.value === 0) {
+    return index - 1;
+  } else {
+    return ans;
+  }
+}, 0);
 
 const stack = data[((zeroIndex + 1000) % data.length) + 1].value;
 const dubs = data[((zeroIndex + 2000) % data.length) + 1].value;
