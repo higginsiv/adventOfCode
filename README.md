@@ -3,7 +3,7 @@ https://adventofcode.com/
 
 Run the code for a given Day (X) and Problem (Y) with the following. Answers
 will be printed to the console
-- node js/DayX/problemY.js
+- node yyyy/js/DayX/problemY.js
 
 ### Notes
 
