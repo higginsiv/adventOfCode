@@ -27,17 +27,6 @@ let faces = new Map(
     [6, face6]]
 )
 
-let grid = data[0].split(EOL).map(x => x.split(''));
-let moves = data[1].replaceAll(CLOCK, ' R ').replaceAll(COUNTER, ' L ').split(' ').map(x => {
-    if (x === CLOCK || x === COUNTER) {
-        return x;
-    } else {
-        return parseInt(x);
-    }
-})
-
-buildCube();
-
 function buildCube() {
     grid = data[0].split(EOL).map(x => x.split(''));
 
@@ -250,6 +239,17 @@ class Position {
         this.dir = dir;
     }
 }
+
+let grid = data[0].split(EOL).map(x => x.split(''));
+let moves = data[1].replaceAll(CLOCK, ' R ').replaceAll(COUNTER, ' L ').split(' ').map(x => {
+    if (x === CLOCK || x === COUNTER) {
+        return x;
+    } else {
+        return parseInt(x);
+    }
+})
+
+buildCube();
 
 let pos = new Position(0, faces.get(ONE)[0].indexOf(FREE), EAST, 1);
 moves.forEach((x, index) => {
