@@ -105,6 +105,3 @@ moves.forEach(x => {
 
 let answer = (1000 * (pos.row + 1)) + (4 * (pos.col + 1)) + pos.dir;
 console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
-
-// 73369 too low
-// 177156 too low
