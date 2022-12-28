@@ -1,6 +1,6 @@
 const fr = require('../../../tools/fileReader');
 const [year, day, part] = ["2021","17","2"];
-const [minX, maxX, minY, maxY] = fr.getInput(year,day).map(x => {
+const [MIN_X, MAX_X, MIN_Y, MAX_Y] = fr.getInput(year,day).map(x => {
     x = x.replace('target area: x=', '');
     x = x.replaceAll('..', ' ');
     x = x.replace(',', '');
@@ -12,7 +12,7 @@ const [minX, maxX, minY, maxY] = fr.getInput(year,day).map(x => {
 const [xStart, yStart] = [0, 0];
 
 class Velocity {
-    x;
+    xs = new Set();
     y;
     steps;
     constructor(y, steps) {
@@ -20,42 +20,69 @@ class Velocity {
         this.steps = steps;
     }
 }
-// Idea here is that Y must equal 0 again on the downswing, and the fastest y can
-// be going has to still barely clip the bottom of the valid y box. This probably 
-// doesn't work directly for non negative y's but yolo
-const yVelMax = factorialAddition(yStart - minY) - Math.abs(minY);
-const yVelMin = minY;
 
-console.log(yVelMin)
-console.log(yVelMax)
+const yVelMax = Math.abs(MIN_Y);
+const yVelMin = MIN_Y;
+
 let velocities = [];
+let stepsToXs = new Map();
+let uniqueVelocities = new Set();
 for (let yVel = yVelMin; yVel <= yVelMax; yVel++) {
     let vel = yVel;
     let pos = yStart;
     let steps = 0;
     while (true) {
         steps++;
-        pos += yVel;
-        if (pos >= minY && pos <= maxY) {
+        pos += vel;
+        if (pos >= MIN_Y && pos <= MAX_Y) {
             velocities.push(new Velocity(yVel, steps))
         }
-        if (pos <= minY) {
-            console.log('another')
+        if (pos <= MIN_Y) {
             break;
         }
         vel--;
     } 
 }
 
-console.log(velocities)
+velocities.forEach(vel => {
+    let cachedXs = stepsToXs.get(vel.steps);
+    if (cachedXs != null) {
+        vel.xs = cachedXs;
+    } else {
+        for (let x = 0; x <= MAX_X; x++) {
+            const xVel = findXPosition(x, vel.steps);
+            if (xVel >= MIN_X && xVel <= MAX_X) {
+                vel.xs.add(x);
+            }
+        }
+        stepsToXs.set(vel.steps, vel.xs);
+    }
+    vel.xs.forEach(xVel => {
+        uniqueVelocities.add(xVel + '.' + vel.y);
+    })
+});
+
+function findXPosition(vel, steps) {
+    let pos = xStart;
+    while (steps > 0) {
+        pos += vel;
+        if (vel > 0) {
+            vel--;
+        }
+        steps--;
+    }
+    return pos;
+}
+
 /** Idk the math name but imagine a factorial that adds intstead of multiplying */
-function factorialAddition(int) {
+function factorialAdditionWithLimits(int, limit) {
     let res = 0;
-    while (int > 0) {
+    while (int > 0 && limit > 0) {
         res += int;
         int--;
+        limit--;
     }
     return res;
 }
 
-console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
+console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + uniqueVelocities.size);
