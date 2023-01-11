@@ -12,7 +12,10 @@ const MOVES = 10000000;
 
 let currIndex = 0;
 for (let i = 0; i < MOVES; i++) {
-    console.log(i)
+    if (i % 100000 === 0) {
+        console.log(i)
+
+    }
     let curr = data[currIndex];
     let removed = data.splice(currIndex + 1, 3);
 
@@ -36,7 +39,7 @@ for (let i = 0; i < MOVES; i++) {
 
     if (data.indexOf(nextCup) > data.length - 5) {
         while (data.indexOf(nextCup) !== 0) {
-            data.push(data.shift())
+            data.unshift(data.pop())
         }
         currIndex = 0;
     }
