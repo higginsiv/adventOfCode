@@ -46,14 +46,26 @@ const data = fr.getInput(year,day).map(x => {
 })
 
 let intersections = new Set();
-segments1.get(HOR).forEach(([horP1, horP2]) => {
-    let y = horP1[1];
-    segments2.get(VERT).forEach(([vertP1, vertP2]) => {
-        let x = vertP1[0];
+getIntersections(segments1, segments2);
+getIntersections(segments2, segments1);
+
+let answer = [...intersections].map(x => {
+    return Math.abs(x[0]) + Math.abs(x[1]);
+}).sort((a, b) => a - b)[0];
+
+function getIntersections(horizontalSegments, verticalSegments) {
+    horizontalSegments.get(HOR).forEach(([horP1, horP2]) => {
+        let y = horP1[1];
+        let [lowX, highX] = [horP1[0], horP2[0]].sort((a,b) => a - b);
+        verticalSegments.get(VERT).forEach(([vertP1, vertP2]) => {
+            let x = vertP1[0];
+            let [lowY, highY] = [vertP1[1], vertP2[1]].sort((a,b) => a - b);
+            if (lowY <= y && y <= highY && lowX <= x && x <= highX) {
+                intersections.add([x, y]);
+            }
+        })
     })
-})
-console.log(segments1.get(HOR))
-console.log(segments1.get(VERT))
-let answer;
+}
+
 console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
 console.timeEnd();
