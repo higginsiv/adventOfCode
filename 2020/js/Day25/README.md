@@ -38,8 +38,6 @@ What encryption key is the handshake trying to establish?
 
 Your puzzle answer was 17673381.
 
-The first half of this puzzle is complete! It provides one gold star: *
-
 --- Part Two ---
 The light turns green and the door unlocks. As you collapse onto the bed in your room, your pager goes off!
 
@@ -53,8 +51,12 @@ The reindeer carefully explores the contents of your room while you figure out h
 
 Looks like you only needed 49 stars after all.
 
-You don't have enough stars to pay the deposit, though. You need 5 more.
+If you like, you can .
 
-Although it hasn't changed, you can still get your puzzle input.
+Both parts of this puzzle are complete! They provide two gold stars: **
 
-You can [Share] this puzzle.
+At this point, all that is left is for you to admire your Advent calendar.
+
+If you still want to see it, you can get your puzzle input.
+
+You can also [Share] this puzzle.
