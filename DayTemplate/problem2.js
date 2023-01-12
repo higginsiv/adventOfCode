@@ -1,6 +1,6 @@
 console.time();
 const fr = require('../../../tools/fileReader');
-const [year, day, part] = ["2022","","2"];
+const [year, day, part] = ["2019","","2"];
 const data = fr.getInput(year,day);
 
 let answer;
