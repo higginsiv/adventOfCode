@@ -1,12 +1,10 @@
 console.time();
 const fr = require('../../../tools/fileReader');
 const ic = require('../common/IntCode.js');
-const [year, day, part] = ["2019","02","1"];
+const [year, day, part] = ["2019","05","2"];
 let data = fr.getInput(year,day, ',').map(x => parseInt(x));
-data[1] = 12;
-data[2] = 2;
 
-let answer = ic.run(data, 0)
+let answer = ic.run(data, 0, 5)
 
-console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer[0]);
+console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer[answer.length - 2]);
 console.timeEnd();
