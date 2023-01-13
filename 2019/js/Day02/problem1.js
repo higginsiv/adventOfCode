@@ -6,7 +6,8 @@ let data = fr.getInput(year,day, ',').map(x => parseInt(x));
 data[1] = 12;
 data[2] = 2;
 
-let answer = ic.run(data, 0)
+ic.run(data, 0);
+let answer = data[0]
 
-console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer[0]);
+console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
 console.timeEnd();

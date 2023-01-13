@@ -1,5 +1,6 @@
 module.exports = {
-    run: run
+    run: run,
+	runAsync: runAsync
 }
 
 const OP_1 = 1;
@@ -17,9 +18,15 @@ const [POSITION, IMMEDIATE] = [0, 1];
 const MODES = [POSITION, IMMEDIATE];
 const DEFAULT_MODE = POSITION;
 
-let out;
-function run(memory, pointer = 0, input) {
-	out = [];
+async function runAsync(memory, pointer = 0, input) {
+	return run(memory, pointer, input);
+}
+
+function run(memory, pointer = 0, input, out = []) {
+	// console.log('i')
+	// console.log(input)
+	// console.log('o')
+	// console.log(out)
 	let opCode;
 	while (opCode !== 99) {
 		let opCodeWhole = String(memory[pointer]);
@@ -30,7 +37,7 @@ function run(memory, pointer = 0, input) {
 			}
 			return parseInt(x)
 		});
-	
+
 		let pointerMod;
 		switch (opCode) {
 			case OP_1:
@@ -46,7 +53,7 @@ function run(memory, pointer = 0, input) {
 				pointerMod = 2;
 				break;
 			case OP_4:
-				output(pointer + 1, memory)
+				output(pointer + 1, memory, out)
 				pointerMod = 2;
 				break;
 			case OP_5:
@@ -73,7 +80,6 @@ function run(memory, pointer = 0, input) {
 		pointer += pointerMod;
 	}
 
-	out.push(memory[0]);
 	return out;
 }
 
@@ -111,10 +117,15 @@ function mult(pos1, pos2, dest, data, modes) {
 }
 
 function saveInput(pos, memory, input) {
-	memory[memory[pos]] = input;
+	while (input.length === 0) {
+		console.log('waiting')
+	}
+
+	memory[memory[pos]] = input.shift();
 }
 
-function output(pos, memory) {
+function output(pos, memory, out) {
+	console.log('pushing')
 	out.push(memory[memory[pos]])
 }
 

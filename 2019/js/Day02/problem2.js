@@ -14,7 +14,8 @@ for (let noun = 0; noun < 99; noun++) {
         memory[1] = noun;
         memory[2] = verb;
 
-        answer = ic.run(memory)[0];
+        ic.run(memory);
+        answer = memory[0];
         if (answer === ANSWER) {
             answerFound = true;
             answer = 100 * noun + verb;
