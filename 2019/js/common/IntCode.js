@@ -21,20 +21,14 @@ const DEFAULT_MODE = POSITION;
 async function runAsync(memory, pointer, input, out) {
 	return new Promise((resolve, reject) => {
 		let result = run(memory, pointer, input, out);
-		console.log(result)
 		resolve(result);
 	});
 }
 
 async function run(memory, pointer = 0, input, out = []) {
-	// console.log('i')
-	// console.log(input)
-	// console.log('o')
-	// console.log(out)
 	let opCode;
 	while (opCode !== 99) {
 		let opCodeWhole = String(memory[pointer]);
-		// console.log(opCodeWhole)
 		opCode = parseInt(opCodeWhole.substring(opCodeWhole.length - 2));
 		let parameterModes = opCodeWhole.substring(0, opCodeWhole.length - 2).split('').reverse().map(x => {
 			if (x === "") {
@@ -122,15 +116,9 @@ function mult(pos1, pos2, dest, data, modes) {
 
 async function saveInput(pos, memory, input, parentResolve) {
 	if (input.length === 0) {
-		// console.log('waiting for input')
-
 		await new Promise((resolve, reject) => {
-			// console.log('timeout')
 			setTimeout(saveInput, 1, pos, memory, input, resolve);
 		})
-		// if (parentResolve != null) {
-		// 	parentResolve()
-		// }
 	} else {
 		memory[memory[pos]] = input.shift();
 		if (parentResolve != null) {
@@ -140,7 +128,6 @@ async function saveInput(pos, memory, input, parentResolve) {
 }
 
 function output(pos, memory, out) {
-	// console.log('pushing to output')
 	out.push(memory[memory[pos]])
 }
 

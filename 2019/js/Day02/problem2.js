@@ -14,18 +14,14 @@ for (let noun = 0; noun < 99; noun++) {
         memory[1] = noun;
         memory[2] = verb;
 
-        ic.run(memory);
-        answer = memory[0];
-        if (answer === ANSWER) {
-            answerFound = true;
-            answer = 100 * noun + verb;
-            break;
-        }
-    }
-    if (answerFound) {
-        break;
+        ic.run(memory).then(() => {
+            answer = memory[0];
+            if (answer === ANSWER) {
+                answerFound = true;
+                answer = 100 * noun + verb;
+                console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
+                console.timeEnd();
+            }
+        })
     }
 }
-
-console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
-console.timeEnd();

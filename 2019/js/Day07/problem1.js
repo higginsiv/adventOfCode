@@ -1,7 +1,7 @@
 console.time();
 const async = require("async");
 const fr = require('../../../tools/fileReader');
-const [year, day, part] = ["2019","07","1"];
+const [year, day, part] = ["2019","07","2"];
 const MATH = require('../../../tools/math.js');
 const IC = require('../common/IntCode.js');
 const PHASES = [0, 1, 2, 3, 4];
@@ -24,8 +24,19 @@ class Amp {
     }
 }
 let phasePerms = MATH.permute(PHASES);
+reduction(phasePerms);
 
-let answer = phasePerms.reduce((maxThruster, curr, index) => {
+async function reduction(phasePerms) {
+    let answer = await phasePerms.reduce(async (maxThruster, curr, index) => {
+        let thruster = await findThruster(curr, memory);
+        return thruster > await maxThruster ? thruster : maxThruster;
+    }, -Infinity);
+
+    console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
+    console.timeEnd();
+}
+
+async function findThruster(curr, memory) {
     let amps = [];
     for (let i = 0; i < NUM_AMPS; i++) {
         if (i === 0) {
@@ -37,15 +48,15 @@ let answer = phasePerms.reduce((maxThruster, curr, index) => {
         }
     }
 
-    // console.log(amps.length)
+    let promises = []
     amps.forEach(amp => {
-        IC.run(amp.memory, 0, amp.input, amp.output)
+        promises.push(IC.runAsync(amp.memory, 0, amp.input, amp.output));
     })
+    await Promise.all(promises)
+
     let thruster = amps.pop().output.pop();
-    // console.log(thruster)
-    return thruster > maxThruster ? thruster : maxThruster;
-}, -Infinity);
 
-
-console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
-console.timeEnd();
+    return new Promise((resolve, reject) => {
+        resolve(thruster);
+    });
+}

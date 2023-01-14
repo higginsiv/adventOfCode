@@ -28,17 +28,13 @@ reduction(phasePerms);
 
 async function reduction(phasePerms) {
     let answer = await phasePerms.reduce(async (maxThruster, curr, index) => {
-        // if (index > 0) return 0;
-        console.log('index: ' + index)
         let thruster = await findThruster(curr, memory);
-        // console.log(thruster)
-    
         return thruster > await maxThruster ? thruster : maxThruster;
     }, -Infinity);
 
-    console.log(answer)
+    console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
+    console.timeEnd();
 }
-
 
 async function findThruster(curr, memory) {
     let amps = [];
@@ -48,26 +44,19 @@ async function findThruster(curr, memory) {
         } else if (i !== NUM_AMPS - 1) {
             amps.push(new Amp(AMP_KEYS[i], amps[i - 1].output, [curr[i + 1]], memory.slice()));
         } else {
-            console.log(amps[0].input)
             amps.push(new Amp(AMP_KEYS[i], amps[i - 1].output, amps[0].input , memory.slice()));
         }
     }
-    //
-    // console.log(amps.length)
+
     let promises = []
     amps.forEach(amp => {
         promises.push(IC.runAsync(amp.memory, 0, amp.input, amp.output));
-        // console.log('amp ')
     })
     await Promise.all(promises)
-    // console.log(amps[4].output)
 
     let thruster = amps.pop().output.pop();
-    // console.log(thruster)
+
     return new Promise((resolve, reject) => {
         resolve(thruster);
     });
 }
-
-// console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
-console.timeEnd();
