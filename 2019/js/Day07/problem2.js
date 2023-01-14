@@ -1,8 +1,73 @@
 console.time();
+const async = require("async");
 const fr = require('../../../tools/fileReader');
-const [year, day, part] = ["2019","","2"];
-const data = fr.getInput(year,day);
+const [year, day, part] = ["2019","07","2"];
+const MATH = require('../../../tools/math.js');
+const IC = require('../common/IntCode.js');
+const PHASES = [5, 6, 7, 8, 9];
+const NUM_AMPS = 5;
+const [A, B, C, D, E] = ['A', 'B', 'C', 'D', 'E']
+const AMP_KEYS = [A, B, C, D, E]
+let memory = fr.getInput(year,day, ',').map(x => parseInt(x));
 
-let answer;
-console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
+
+class Amp {
+    key;
+    input;
+    output;
+    memory;
+    constructor(key, input, output, memory) {
+        this.key = key;
+        this.input = input;
+        this.output = output;
+        this.memory = memory;
+    }
+}
+let phasePerms = MATH.permute(PHASES);
+reduction(phasePerms);
+
+async function reduction(phasePerms) {
+    let answer = await phasePerms.reduce(async (maxThruster, curr, index) => {
+        // if (index > 0) return 0;
+        console.log('index: ' + index)
+        let thruster = await findThruster(curr, memory);
+        // console.log(thruster)
+    
+        return thruster > await maxThruster ? thruster : maxThruster;
+    }, -Infinity);
+
+    console.log(answer)
+}
+
+
+async function findThruster(curr, memory) {
+    let amps = [];
+    for (let i = 0; i < NUM_AMPS; i++) {
+        if (i === 0) {
+            amps.push(new Amp(A, [curr[i], 0], [curr[i + 1]], memory.slice()));
+        } else if (i !== NUM_AMPS - 1) {
+            amps.push(new Amp(AMP_KEYS[i], amps[i - 1].output, [curr[i + 1]], memory.slice()));
+        } else {
+            console.log(amps[0].input)
+            amps.push(new Amp(AMP_KEYS[i], amps[i - 1].output, amps[0].input , memory.slice()));
+        }
+    }
+    //
+    // console.log(amps.length)
+    let promises = []
+    amps.forEach(amp => {
+        promises.push(IC.runAsync(amp.memory, 0, amp.input, amp.output));
+        // console.log('amp ')
+    })
+    await Promise.all(promises)
+    // console.log(amps[4].output)
+
+    let thruster = amps.pop().output.pop();
+    // console.log(thruster)
+    return new Promise((resolve, reject) => {
+        resolve(thruster);
+    });
+}
+
+// console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
 console.timeEnd();

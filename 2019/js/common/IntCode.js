@@ -18,11 +18,15 @@ const [POSITION, IMMEDIATE] = [0, 1];
 const MODES = [POSITION, IMMEDIATE];
 const DEFAULT_MODE = POSITION;
 
-async function runAsync(memory, pointer = 0, input) {
-	return run(memory, pointer, input);
+async function runAsync(memory, pointer, input, out) {
+	return new Promise((resolve, reject) => {
+		let result = run(memory, pointer, input, out);
+		console.log(result)
+		resolve(result);
+	});
 }
 
-function run(memory, pointer = 0, input, out = []) {
+async function run(memory, pointer = 0, input, out = []) {
 	// console.log('i')
 	// console.log(input)
 	// console.log('o')
@@ -30,6 +34,7 @@ function run(memory, pointer = 0, input, out = []) {
 	let opCode;
 	while (opCode !== 99) {
 		let opCodeWhole = String(memory[pointer]);
+		// console.log(opCodeWhole)
 		opCode = parseInt(opCodeWhole.substring(opCodeWhole.length - 2));
 		let parameterModes = opCodeWhole.substring(0, opCodeWhole.length - 2).split('').reverse().map(x => {
 			if (x === "") {
@@ -49,7 +54,7 @@ function run(memory, pointer = 0, input, out = []) {
 				pointerMod = 4;
 				break;
 			case OP_3:
-				saveInput(pointer + 1, memory, input)
+				await saveInput(pointer + 1, memory, input)
 				pointerMod = 2;
 				break;
 			case OP_4:
@@ -97,7 +102,7 @@ function getParameterValue(position, modes, data) {
 		case IMMEDIATE:
 			return position
 		default:
-			console.log('fuck');
+			console.log('Invalid Mode');
 	}
 }
 
@@ -105,7 +110,6 @@ function add(pos1, pos2, dest, data, modes) {
 	dest = data[dest];
 	pos1 = getParameterValue(pos1, modes, data);
 	pos2 = getParameterValue(pos2, modes, data);
-
 	data[dest] = data[pos1] + data[pos2];
 }
 
@@ -116,16 +120,27 @@ function mult(pos1, pos2, dest, data, modes) {
 	data[dest] = data[pos1] * data[pos2];
 }
 
-function saveInput(pos, memory, input) {
-	while (input.length === 0) {
-		console.log('waiting')
-	}
+async function saveInput(pos, memory, input, parentResolve) {
+	if (input.length === 0) {
+		// console.log('waiting for input')
 
-	memory[memory[pos]] = input.shift();
+		await new Promise((resolve, reject) => {
+			// console.log('timeout')
+			setTimeout(saveInput, 1, pos, memory, input, resolve);
+		})
+		// if (parentResolve != null) {
+		// 	parentResolve()
+		// }
+	} else {
+		memory[memory[pos]] = input.shift();
+		if (parentResolve != null) {
+			parentResolve();
+		}
+	}
 }
 
 function output(pos, memory, out) {
-	console.log('pushing')
+	// console.log('pushing to output')
 	out.push(memory[memory[pos]])
 }
 

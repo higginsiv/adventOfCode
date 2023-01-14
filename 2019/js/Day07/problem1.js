@@ -26,9 +26,6 @@ class Amp {
 let phasePerms = MATH.permute(PHASES);
 
 let answer = phasePerms.reduce((maxThruster, curr, index) => {
-    // TODO kick off all 5 ICs async and await them all finishing
-
-    // if (index > 0) return 0
     let amps = [];
     for (let i = 0; i < NUM_AMPS; i++) {
         if (i === 0) {
