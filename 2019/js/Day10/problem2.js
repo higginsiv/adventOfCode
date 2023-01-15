@@ -13,6 +13,7 @@ let slopes = new Set();
 let posSlopes = new Set();
 let data = fr.getInput(year, day).map((x) => x.split(''));
 
+// Find all slopes on the grid
 for (let y = 0; y < data.length; y++) {
     for (let x = data[0].length - 1; x >= 0; x--) {
         if (x === 0 && y === 0) {
