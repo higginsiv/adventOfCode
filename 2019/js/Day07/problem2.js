@@ -4,11 +4,11 @@ const fr = require('../../../tools/fileReader');
 const [year, day, part] = ["2019","07","2"];
 const MATH = require('../../../tools/math.js');
 const IC = require('../common/IntCode.js');
-const PHASES = [5, 6, 7, 8, 9];
+const PHASES = [5n, 6n, 7n, 8n, 9n];
 const NUM_AMPS = 5;
 const [A, B, C, D, E] = ['A', 'B', 'C', 'D', 'E']
 const AMP_KEYS = [A, B, C, D, E]
-let memory = fr.getInput(year,day, ',').map(x => parseInt(x));
+let memory = fr.getInput(year,day, ',').map(x => BigInt(x));
 
 
 class Amp {
@@ -40,7 +40,7 @@ async function findThruster(curr, memory) {
     let amps = [];
     for (let i = 0; i < NUM_AMPS; i++) {
         if (i === 0) {
-            amps.push(new Amp(A, [curr[i], 0], [curr[i + 1]], memory.slice()));
+            amps.push(new Amp(A, [curr[i], 0n], [curr[i + 1]], memory.slice()));
         } else if (i !== NUM_AMPS - 1) {
             amps.push(new Amp(AMP_KEYS[i], amps[i - 1].output, [curr[i + 1]], memory.slice()));
         } else {
@@ -50,7 +50,7 @@ async function findThruster(curr, memory) {
 
     let promises = []
     amps.forEach(amp => {
-        promises.push(IC.runAsync(amp.memory, 0, amp.input, amp.output));
+        promises.push(IC.runAsync(amp.memory, 0n, amp.input, amp.output));
     })
     await Promise.all(promises)
 

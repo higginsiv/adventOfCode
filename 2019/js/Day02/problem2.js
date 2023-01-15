@@ -20,6 +20,7 @@ for (let noun = 0; noun < 99; noun++) {
                 answerFound = true;
                 answer = 100 * noun + verb;
                 console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
+                console.log('Expected: 6718')
                 console.timeEnd();
             }
         })
