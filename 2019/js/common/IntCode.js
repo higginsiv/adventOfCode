@@ -148,12 +148,7 @@ async function saveInput(pos, memory, input, parentResolve, modes, relative) {
 			setTimeout(saveInput, 1, pos, memory, input, resolve, modes, relative);
 		})
 	} else {
-		// console.log(pos)
 		pos = getParameterValue(pos, modes, memory, relative, [IMMEDIATE])
-		// console.log(input)
-		// console.log(relative)
-		// console.log(pos);
-		// console.log(getValueAtLocation(pos, memory))
 		memory[pos] = input.shift();
 		if (parentResolve != null) {
 			parentResolve();
