@@ -21,14 +21,16 @@ const DEFAULT_MODE = POSITION;
 
 const DEFAULT_MEMORY_VALUE = 0n;
 
-async function runAsync(memory, pointer, input, out, relative = 0n) {
+const EVENT_OUTPUT = 'output';
+
+async function runAsync(memory, pointer, input, out, relative = 0n, eventEmitter) {
 	return new Promise((resolve, reject) => {
-		let result = run(memory, pointer, input, out, relative);
+		let result = run(memory, pointer, input, out, relative, eventEmitter);
 		resolve(result);
 	});
 }
 
-async function run(memory, pointer = 0n, input, out = [], relative = 0n) {
+async function run(memory, pointer = 0n, input, out = [], relative = 0n, eventEmitter) {
 	let opCode;
 	while (opCode !== 99) {
 		let opCodeWhole = String(getValueAtLocation(pointer, memory));
@@ -58,7 +60,7 @@ async function run(memory, pointer = 0n, input, out = [], relative = 0n) {
 				pointerMod = 2n;
 				break;
 			case OP_4:
-				output(pointer + 1n, memory, out, parameterModes, relative)
+				output(pointer + 1n, memory, out, parameterModes, relative, eventEmitter)
 				pointerMod = 2n;
 				break;
 			case OP_5:
@@ -159,12 +161,15 @@ async function saveInput(pos, memory, input, parentResolve, modes, relative) {
 	}
 }
 
-function output(pos, memory, out, modes, relative) {
+function output(pos, memory, out, modes, relative, eventEmitter) {
 	// console.log('prepos: ' + pos)
 	pos = getParameterValue(pos, modes, memory, relative)
 	// console.log('pos: ' + pos)
 	// console.log(getValueAtLocation(pos, memory))
 	out.push(getValueAtLocation(pos, memory))
+	if (eventEmitter) {
+		eventEmitter.emit(EVENT_OUTPUT);
+	}
 }
 
 function jumpIfTrue(pos1, pos2, memory, pointer, modes, relative) {
