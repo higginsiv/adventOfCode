@@ -35,7 +35,6 @@ async function run(memory, pointer = 0n, input, out = [], relative = 0n, eventEm
 	while (opCode !== 99) {
 		let opCodeWhole = String(getValueAtLocation(pointer, memory));
 		opCode = parseInt(opCodeWhole.substring(opCodeWhole.length - 2));
-		// console.log('op: ' + opCodeWhole)
 
 		let parameterModes = opCodeWhole.substring(0, opCodeWhole.length - 2).split('').reverse().map(x => {
 			if (x === "") {
