@@ -1,37 +1,24 @@
---- Day 1: Not Quite Lisp ---
-Santa was hoping for a white Christmas, but his weather machine's "snow" function is powered by stars, and he's fresh out! To save Christmas, he needs you to collect fifty stars by December 25th.
+--- Day 17: No Such Thing as Too Much ---
+The elves bought too much eggnog again - 150 liters this time. To fit it all into your refrigerator, you'll need to move it into smaller containers. You take an inventory of the capacities of the available containers.
 
-Collect stars by helping Santa solve puzzles. Two puzzles will be made available on each day in the Advent calendar; the second puzzle is unlocked when you complete the first. Each puzzle grants one star. Good luck!
+For example, suppose you have containers of size 20, 15, 10, 5, and 5 liters. If you need to store 25 liters, there are four ways to do it:
 
-Here's an easy puzzle to warm you up.
+15 and 10
+20 and 5 (the first 5)
+20 and 5 (the second 5)
+15, 5, and 5
+Filling all containers entirely, how many different combinations of containers can exactly fit all 150 liters of eggnog?
 
-Santa is trying to deliver presents in a large apartment building, but he can't find the right floor - the directions he got are a little confusing. He starts on the ground floor (floor 0) and then follows the instructions one character at a time.
-
-An opening parenthesis, (, means he should go up one floor, and a closing parenthesis, ), means he should go down one floor.
-
-The apartment building is very tall, and the basement is very deep; he will never find the top or bottom floors.
-
-For example:
-
-(()) and ()() both result in floor 0.
-((( and (()(()( both result in floor 3.
-))((((( also results in floor 3.
-()) and ))( both result in floor -1 (the first basement level).
-))) and )())()) both result in floor -3.
-To what floor do the instructions take Santa?
-
-Your puzzle answer was 280.
+Your puzzle answer was 654.
 
 --- Part Two ---
-Now, given the same instructions, find the position of the first character that causes him to enter the basement (floor -1). The first character in the instructions has position 1, the second character has position 2, and so on.
+While playing with all the containers in the kitchen, another load of eggnog arrives! The shipping and receiving department is requesting as many containers as you can spare.
 
-For example:
+Find the minimum number of containers that can exactly fit all 150 liters of eggnog. How many different ways can you fill that number of containers and still hold exactly 150 litres?
 
-) causes him to enter the basement at character position 1.
-()()) causes him to enter the basement at character position 5.
-What is the position of the character that causes Santa to first enter the basement?
+In the example above, the minimum number of containers was two. There were three ways to use that many containers, and so the answer there would be 3.
 
-Your puzzle answer was 1797.
+Your puzzle answer was 57.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 
