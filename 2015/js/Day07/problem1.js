@@ -1,6 +1,5 @@
 console.time();
 const fr = require('../../../tools/fileReader');
-const keys = require('../../../tools/keys');
 
 const [year, day, part] = ["2015","07","1"];
 
@@ -11,39 +10,39 @@ fr.getInput(year,day).map(x => x.split(' -> ')).forEach(x => {
 });
 
 function traverse(key) {
-	// if (!isNaN(key)) {
-	// 	return parseInt(key);
-	// }
-
 	let input = gates.get(key);
+
+	// Key is a number
 	if (input == null) {
-		input = key;
+		return key;
 	}
-	
-	// console.log(key);
-	// console.log(input)
+
+	// Signal input to key was a number
+	if (!isNaN(input)) {
+		return input;
+	}
+
 	input = input.split(' ');
 
+	let retValue;
 	if (input.length == 1) {
-		if (!isNaN(input[0])) {
-			const value = parseInt(input[0]);
-			gates.set(key, input[0])
-			return value;
-		}
-		return traverse(input[0]);
+		retValue = traverse(input[0]);
 	} else if (input.length == 2) {
-		return ~traverse(input[1]);
+		retValue = ~traverse(input[1]);
 	} else if (input[1] == 'AND'){
-		return traverse(input[0]) & traverse(input[2]);
+		retValue = traverse(input[0]) & traverse(input[2]);
 	} else if (input[1] == 'OR'){
-		return traverse(input[0]) | traverse(input[2]);
+		retValue = traverse(input[0]) | traverse(input[2]);
 	} else if (input[1] == 'LSHIFT'){
-		return traverse(input[0]) << traverse(input[2]);
+		retValue = traverse(input[0]) << traverse(input[2]);
 	} else if (input[1] == 'RSHIFT'){
-		return traverse(input[0]) >> traverse(input[2]);
+		retValue = traverse(input[0]) >> traverse(input[2]);
 	} else {
 		console.log('error parsing instruction: ' + input)
 	}
+
+	gates.set(key, retValue);
+	return retValue;
 }
 
 let answer = traverse('a');

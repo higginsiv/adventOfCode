@@ -1,52 +1,55 @@
 console.time();
 const fr = require('../../../tools/fileReader');
-const keys = require('../../../tools/keys');
 
-const [year, day, part] = ["2015","06","1"];
-const [ON, OFF, TOGGLE] = [0, 1, 2];
+const [year, day, part] = ["2015","07","1"];
+const OUTPUT_PART_1 = 3176;
+let gates = new Map();
 
-let lightsOn = new Map();
-
-fr.getInput(year,day).forEach(line => {
-	let instruction;
-	line = line.replace(' through ', ' ');
-	if (line.includes('turn on')) {
-		instruction = ON;
-		line = line.substring(8);
-	} else if (line.includes('turn off')) {
-		instruction = OFF;
-		line = line.substring(9);
-	} else if (line.includes('toggle')) {
-		instruction = TOGGLE;
-		line = line.substring(7);
-	}
-
-	line = line.split(' ').map(coord => coord.split(','));
-
-	let x1 = parseInt(line[0][0]);
-	let x2 = parseInt(line[1][0]);
-	let y1 = parseInt(line[0][1]);
-	let y2 = parseInt(line[1][1]);
-
-	for (let i = x1; i <= x2; i++) {
-		for (let j = y1; j <= y2; j++) {
-			let key = keys.generateKey(i, j);
-			let lightLevel = lightsOn.get(key) == null ? 0 : lightsOn.get(key);
-			if (instruction == ON) {
-				lightsOn.set(key, lightLevel + 1);
-			} else if (instruction == OFF) {
-				lightsOn.set(key, lightLevel > 0 ? lightLevel - 1 : 0);
-			} else if (instruction == TOGGLE) {
-				lightsOn.set(key, lightLevel + 2);
-			}
-		}
-	}
+fr.getInput(year,day).map(x => x.split(' -> ')).forEach(x => {
+	gates.set(x[1], x[0]);
 });
 
-let totalLight = 0;
-lightsOn.forEach(val => {
-	totalLight += val;
-});
+gates.set('b', OUTPUT_PART_1);
 
-console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + totalLight);
+function traverse(key) {
+	let input = gates.get(key);
+
+	// Key is a number
+	if (input == null) {
+		return key;
+	}
+
+	// Signal input to key was a number
+	if (!isNaN(input)) {
+		return input;
+	}
+
+	input = input.split(' ');
+
+	let retValue;
+	if (input.length == 1) {
+		retValue = traverse(input[0]);
+	} else if (input.length == 2) {
+		retValue = ~traverse(input[1]);
+	} else if (input[1] == 'AND'){
+		retValue = traverse(input[0]) & traverse(input[2]);
+	} else if (input[1] == 'OR'){
+		retValue = traverse(input[0]) | traverse(input[2]);
+	} else if (input[1] == 'LSHIFT'){
+		retValue = traverse(input[0]) << traverse(input[2]);
+	} else if (input[1] == 'RSHIFT'){
+		retValue = traverse(input[0]) >> traverse(input[2]);
+	} else {
+		console.log('error parsing instruction: ' + input)
+	}
+
+	gates.set(key, retValue);
+	return retValue;
+}
+
+let answer = traverse('a');
+if (answer < 0) {
+	answer += 65536;
+}
+console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
 console.timeEnd();
