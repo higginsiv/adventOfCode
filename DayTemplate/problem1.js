@@ -1,8 +1,8 @@
 console.time();
 const fr = require('../../../tools/fileReader');
-const [year, day, part] = ["2019","","1"];
-const data = fr.getInput(year,day);
+const [YEAR, DAY, PART] = ["2023","","1"];
+const data = fr.getInput(YEAR,DAY);
 
 let answer;
-console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
+console.log('Year ' + YEAR + ' Day ' + DAY + ' Puzzle ' + PART + ': ' + answer);
 console.timeEnd();
