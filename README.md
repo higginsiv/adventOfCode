@@ -1,9 +1,12 @@
 # Advent Of Code
 https://adventofcode.com/
 
-Run the code for a given Day (X) and Problem (Y) with the following. Answers
+Run the code for a given Year (yyyy) Day (DD) and Problem (P) with the following. Answers
 will be printed to the console
-- node yyyy/js/DayX/problemY.js
+
+```
+node yyyy/js/DayDD/problemP.js
+```
 
 ### Notes
 
