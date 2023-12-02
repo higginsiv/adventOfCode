@@ -5,4 +5,6 @@ const [YEAR, DAY, PART] = process.argv.slice(2);
 const path = `./${YEAR}/js/Day${DAY}/problem${PART}.js`;
 
 // run file at the path
+console.time('Solve!');
 require(path);
+console.timeEnd('Solve!');
