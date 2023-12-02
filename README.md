@@ -1,11 +1,11 @@
 # Advent Of Code
 https://adventofcode.com/
 
-Run the code for a given Year (yyyy) Day (DD) and Problem (P) with the following. Answers
+Run the code for a given Year (yyyy) Day (dd) and Part (p) with the following. Answers
 will be printed to the console
 
 ```
-node yyyy/js/DayDD/problemP.js
+node solve.js yyyy dd p
 ```
 
 Create a template for a given day/year by running
