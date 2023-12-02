@@ -1,3 +1,8 @@
+// Description: A graph traversal algorithm that can be used to find the best path through a graph.
+
+/**
+ * A representation of a decision point in a graph
+ */
 class Node {
     name;
     edges = [];
@@ -6,6 +11,9 @@ class Node {
     }
 }
 
+/**
+ * Connects two Nodes together with a weight/cost
+ */
 class Edge {
     startNode;
     endNode;
@@ -17,6 +25,9 @@ class Edge {
     }
 }
 
+/**
+ * A representation of a state in the graph traversal. Keeps track of all nodes visited and the total weight of the traversal.
+ */
 class State {
     currNode;
     totalWeight;
@@ -29,6 +40,16 @@ class State {
 }
 
 // todo can I add sorting and an early termination condition?
+// todo rename "data"
+/**
+ * 
+ * @param {*} startNode 
+ * @param {*} data untyped data that is used to help evaluate if the Goal has been reached
+ * @param {*} reachedGoalCallback function that evaluates if the goal has been reached.
+ * @param {*} determineBestStateCallback function that compares whether a given state is that has reached the Goal is better than the current best state.
+ * @param {*} pruneCallback function that prematurely ends the traversal if the current state is worse than the best state.
+ * @returns 
+ */
 function traverse(startNode, data, reachedGoalCallback, determineBestStateCallback, pruneCallback) {
     let startState = new State(startNode, 0, [startNode.name]);
     let queue = [startState];
