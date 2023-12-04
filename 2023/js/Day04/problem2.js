@@ -21,9 +21,9 @@ fr.getInput(YEAR,DAY).forEach((line, index) => {
         }
     });
 
-    for (let j = 0; j < cards.get(index); j++) {
-        for (let i = 1; i <= winNum; i++) {
-            cards.set(index + i, (cards.get(index + i) != null ? cards.get(index + i) : 0) + 1);
+    for (let i = 0; i < cards.get(index); i++) {
+        for (let j = 1; j <= winNum; j++) {
+            cards.set(index + j, (cards.get(index + j) != null ? cards.get(index + j) : 0) + 1);
         }
     }
 });
