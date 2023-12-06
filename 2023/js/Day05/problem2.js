@@ -34,8 +34,8 @@ function findMapping(mapp, seedRanges) {
         for (let i = 0; i < mapp.length; i++) {
             const [DEST_RANGE_START, SOURCE_RANGE_START, RANGE_LENGTH] =
                 mapp[i];
-                const SOURCE_END = SOURCE_RANGE_START + RANGE_LENGTH - 1;
-                const DEST_END = DEST_RANGE_START + RANGE_LENGTH - 1;
+            const SOURCE_END = SOURCE_RANGE_START + RANGE_LENGTH - 1;
+            const DEST_END = DEST_RANGE_START + RANGE_LENGTH - 1;
             const overlap = findOverlap(
                 [seed, seedEnd],
                 [SOURCE_RANGE_START, SOURCE_END]
@@ -46,9 +46,9 @@ function findMapping(mapp, seedRanges) {
 
                 newSeedRanges.push([
                     DEST_RANGE_START + (OVERLAP_START - SOURCE_RANGE_START),
-                    DEST_END - (SOURCE_END - OVERLAP_END)
+                    DEST_END - (SOURCE_END - OVERLAP_END),
                 ]);
-                
+
                 seedRangesWithMapping.push([OVERLAP_START, OVERLAP_END]);
             }
         }
@@ -56,30 +56,33 @@ function findMapping(mapp, seedRanges) {
 
     if (seedRangesWithMapping.length !== 0) {
         seedRangesWithMapping = condenseRanges(seedRangesWithMapping);
-
     }
 
-    getSeedRangesWithoutMapping(seedRanges, seedRangesWithMapping).forEach((range) => {
-        newSeedRanges.push(range);
-    });
+    getSeedRangesWithoutMapping(seedRanges, seedRangesWithMapping).forEach(
+        (range) => {
+            newSeedRanges.push(range);
+        }
+    );
     return newSeedRanges;
 }
 
 function getSeedRangesWithoutMapping(allSeedRanges, mappedSeedRanges) {
     let result = [];
 
-    for(let range1 of allSeedRanges) {
+    for (let range1 of allSeedRanges) {
         let parts = [range1];
 
-        for(let range2 of mappedSeedRanges) {
+        for (let range2 of mappedSeedRanges) {
             let newParts = [];
 
-            for(let part of parts) {
-                if(part[1] >= range2[0] && part[0] <= range2[1]) {
+            for (let part of parts) {
+                if (part[1] >= range2[0] && part[0] <= range2[1]) {
                     // The part overlaps with the range in B
                     // Break up the part into new parts that don't overlap with the range in B
-                    if(part[0] < range2[0]) newParts.push([part[0], range2[0] - 1]);
-                    if(part[1] > range2[1]) newParts.push([range2[1] + 1, part[1]]);
+                    if (part[0] < range2[0])
+                        newParts.push([part[0], range2[0] - 1]);
+                    if (part[1] > range2[1])
+                        newParts.push([range2[1] + 1, part[1]]);
                 } else {
                     // The part doesn't overlap with the range in B
                     // Add it to the new parts as is
@@ -109,12 +112,12 @@ function condenseRanges(ranges) {
 
     let result = [ranges[0]];
 
-    for(let i = 1; i < ranges.length; i++) {
+    for (let i = 1; i < ranges.length; i++) {
         let lastRange = result[result.length - 1];
         let currentRange = ranges[i];
 
         // If the current range overlaps with the last range, merge them
-        if(currentRange[0] <= lastRange[1]) {
+        if (currentRange[0] <= lastRange[1]) {
             lastRange[1] = Math.max(lastRange[1], currentRange[1]);
         } else {
             // Otherwise, add the current range to the result
