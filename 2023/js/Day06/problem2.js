@@ -1,20 +1,12 @@
 const fr = require('../../../tools/fileReader');
-const [YEAR, DAY, PART] = ["2023","06","2"];
-const [TIMES, DISTANCES] = fr.getInput(YEAR,DAY).map(x => {
+const [YEAR, DAY, PART] = ['2023', '06', '2'];
+const [TIME, DISTANCE] = fr.getInput(YEAR, DAY).map((x) => {
     x = x.replace(/\s+/g, '');
-    return x.match(/\d+/g).map(x => parseInt(x))
+    return x.match(/\d+/g).map((x) => parseInt(x))[0];
 });
 
-let answer = TIMES.reduce((total, curr, index) => {
-    const maxTime = curr;
-    let wins = 0;
-    for (let i = 0; i <= maxTime; i++) {
-        const distance = (i * (maxTime - i));
-        if (distance >= DISTANCES[index]) {
-            wins++;
-        }
-    }
-    return total * wins;
-}, 1);
+const x1 = (TIME + Math.sqrt(TIME * TIME - 4 * DISTANCE)) / 2;
+const x2 = (TIME - Math.sqrt(TIME * TIME - 4 * DISTANCE)) / 2;
+const wins = Math.floor(x1) - Math.floor(x2);
 
-console.log(`Year ${YEAR} Day ${DAY} Puzzle ${PART}: ${answer}`);
+console.log(`Year ${YEAR} Day ${DAY} Puzzle ${PART}: ${wins}`);
