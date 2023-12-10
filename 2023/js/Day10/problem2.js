@@ -2,7 +2,7 @@ const fr = require('../../../tools/fileReader');
 const [YEAR, DAY, PART] = ['2023', '10', '2'];
 let DATA = fr.getInput(YEAR, DAY).map((x) => x.split(''));
 const START = 'S';
-const EXPANDER = '*';
+const FLOOD = '*';
 
 const [
     NORTH_SOUTH,
@@ -21,7 +21,6 @@ const PIPES = [
     SOUTH_WEST,
     SOUTH_EAST,
 ];
-let answer;
 
 class State {
     x;
@@ -37,6 +36,8 @@ class State {
         this.startPipe = startPipe;
     }
 }
+
+// START COPIED FROM PART 1
 
 // Create a new row filled with '.' characters
 let newRow = new Array(DATA[0].length + 2).fill('.');
@@ -65,22 +66,20 @@ for (let i = 0; i < DATA.length; i++) {
     if (row.includes(START)) {
         startX = i;
         startY = row.indexOf(START);
-        PIPES.forEach(pipe => {
-        queue.push(
-            new State(
-                i,
-                row.indexOf(START),
-                pipe,
-                [getLocationKey(i, row.indexOf(START))],
-                pipe
-            )
-        );
+        PIPES.forEach((pipe) => {
+            queue.push(
+                new State(
+                    i,
+                    row.indexOf(START),
+                    pipe,
+                    [getLocationKey(i, row.indexOf(START))],
+                    pipe
+                )
+            );
         });
         break;
     }
 }
-
-printGrid(DATA);
 
 let loop;
 let startTile;
@@ -111,89 +110,111 @@ while (queue.length > 0) {
                 coordsToLookAt.push(getLocationKey(state.x - 1, state.y));
             }
             if (
-                [NORTH_SOUTH, NORTH_EAST, NORTH_WEST].includes(
-                    southNeighbor
-                ) || ([NORTH_SOUTH, NORTH_EAST, NORTH_WEST].includes(state.startPipe) && southNeighbor === START)
+                [NORTH_SOUTH, NORTH_EAST, NORTH_WEST].includes(southNeighbor) ||
+                ([NORTH_SOUTH, NORTH_EAST, NORTH_WEST].includes(
+                    state.startPipe
+                ) &&
+                    southNeighbor === START)
             ) {
                 coordsToLookAt.push(getLocationKey(state.x + 1, state.y));
             }
             break;
         case EAST_WEST:
             if (
-                [EAST_WEST, NORTH_WEST, SOUTH_WEST].includes(
-                    eastNeighbor
-                ) || ([EAST_WEST, NORTH_WEST, SOUTH_WEST].includes(state.startPipe) && eastNeighbor === START)
+                [EAST_WEST, NORTH_WEST, SOUTH_WEST].includes(eastNeighbor) ||
+                ([EAST_WEST, NORTH_WEST, SOUTH_WEST].includes(
+                    state.startPipe
+                ) &&
+                    eastNeighbor === START)
             ) {
                 coordsToLookAt.push(getLocationKey(state.x, state.y + 1));
             }
             if (
-                [EAST_WEST, NORTH_EAST, SOUTH_EAST].includes(
-                    westNeighbor
-                ) || ([EAST_WEST, NORTH_EAST, SOUTH_EAST].includes(state.startPipe) && westNeighbor === START)
+                [EAST_WEST, NORTH_EAST, SOUTH_EAST].includes(westNeighbor) ||
+                ([EAST_WEST, NORTH_EAST, SOUTH_EAST].includes(
+                    state.startPipe
+                ) &&
+                    westNeighbor === START)
             ) {
                 coordsToLookAt.push(getLocationKey(state.x, state.y - 1));
             }
             break;
         case NORTH_EAST:
             if (
-                [NORTH_SOUTH, SOUTH_EAST, SOUTH_WEST].includes(
-                    northNeighbor
-                ) || ([NORTH_SOUTH, SOUTH_EAST, SOUTH_WEST].includes(state.startPipe) && northNeighbor === START)
+                [NORTH_SOUTH, SOUTH_EAST, SOUTH_WEST].includes(northNeighbor) ||
+                ([NORTH_SOUTH, SOUTH_EAST, SOUTH_WEST].includes(
+                    state.startPipe
+                ) &&
+                    northNeighbor === START)
             ) {
                 coordsToLookAt.push(getLocationKey(state.x - 1, state.y));
             }
             if (
-                [EAST_WEST, NORTH_WEST, SOUTH_WEST].includes(
-                    eastNeighbor
-                ) || ([EAST_WEST, NORTH_WEST, SOUTH_WEST].includes(state.startPipe) && eastNeighbor === START)
+                [EAST_WEST, NORTH_WEST, SOUTH_WEST].includes(eastNeighbor) ||
+                ([EAST_WEST, NORTH_WEST, SOUTH_WEST].includes(
+                    state.startPipe
+                ) &&
+                    eastNeighbor === START)
             ) {
                 coordsToLookAt.push(getLocationKey(state.x, state.y + 1));
             }
             break;
         case NORTH_WEST:
             if (
-                [NORTH_SOUTH, SOUTH_EAST, SOUTH_WEST].includes(
-                    northNeighbor
-                )   || ([NORTH_SOUTH, SOUTH_EAST, SOUTH_WEST].includes(state.startPipe) && northNeighbor === START)
+                [NORTH_SOUTH, SOUTH_EAST, SOUTH_WEST].includes(northNeighbor) ||
+                ([NORTH_SOUTH, SOUTH_EAST, SOUTH_WEST].includes(
+                    state.startPipe
+                ) &&
+                    northNeighbor === START)
             ) {
                 coordsToLookAt.push(getLocationKey(state.x - 1, state.y));
             }
             if (
-                [EAST_WEST, NORTH_EAST, SOUTH_EAST].includes(
-                    westNeighbor
-                ) || ([EAST_WEST, NORTH_EAST, SOUTH_EAST].includes(state.startPipe) && westNeighbor === START)
+                [EAST_WEST, NORTH_EAST, SOUTH_EAST].includes(westNeighbor) ||
+                ([EAST_WEST, NORTH_EAST, SOUTH_EAST].includes(
+                    state.startPipe
+                ) &&
+                    westNeighbor === START)
             ) {
                 coordsToLookAt.push(getLocationKey(state.x, state.y - 1));
             }
             break;
         case SOUTH_WEST:
             if (
-                [NORTH_SOUTH, NORTH_EAST, NORTH_WEST].includes(
-                    southNeighbor
-                ) || ([NORTH_SOUTH, NORTH_EAST, NORTH_WEST].includes(state.startPipe) && southNeighbor === START)
+                [NORTH_SOUTH, NORTH_EAST, NORTH_WEST].includes(southNeighbor) ||
+                ([NORTH_SOUTH, NORTH_EAST, NORTH_WEST].includes(
+                    state.startPipe
+                ) &&
+                    southNeighbor === START)
             ) {
                 coordsToLookAt.push(getLocationKey(state.x + 1, state.y));
             }
             if (
-                [EAST_WEST, NORTH_EAST, SOUTH_EAST].includes(
-                    westNeighbor
-                )   || ([EAST_WEST, NORTH_EAST, SOUTH_EAST].includes(state.startPipe) && westNeighbor === START)
+                [EAST_WEST, NORTH_EAST, SOUTH_EAST].includes(westNeighbor) ||
+                ([EAST_WEST, NORTH_EAST, SOUTH_EAST].includes(
+                    state.startPipe
+                ) &&
+                    westNeighbor === START)
             ) {
                 coordsToLookAt.push(getLocationKey(state.x, state.y - 1));
             }
             break;
         case SOUTH_EAST:
             if (
-                [NORTH_SOUTH, NORTH_EAST, NORTH_WEST].includes(
-                    southNeighbor
-                ) || ([NORTH_SOUTH, NORTH_EAST, NORTH_WEST].includes(state.startPipe) && southNeighbor === START)
+                [NORTH_SOUTH, NORTH_EAST, NORTH_WEST].includes(southNeighbor) ||
+                ([NORTH_SOUTH, NORTH_EAST, NORTH_WEST].includes(
+                    state.startPipe
+                ) &&
+                    southNeighbor === START)
             ) {
                 coordsToLookAt.push(getLocationKey(state.x + 1, state.y));
             }
             if (
-                [EAST_WEST, NORTH_WEST, SOUTH_WEST].includes(
-                    eastNeighbor
-                )   || ([EAST_WEST, NORTH_WEST, SOUTH_WEST].includes(state.startPipe) && eastNeighbor === START)
+                [EAST_WEST, NORTH_WEST, SOUTH_WEST].includes(eastNeighbor) ||
+                ([EAST_WEST, NORTH_WEST, SOUTH_WEST].includes(
+                    state.startPipe
+                ) &&
+                    eastNeighbor === START)
             ) {
                 coordsToLookAt.push(getLocationKey(state.x, state.y + 1));
             }
@@ -218,39 +239,43 @@ while (queue.length > 0) {
     });
 }
 
-// Make newGrid big
+// END COPIED FROM PART 1
 
+// Make a new grid that is 3 times the size of the old one
+// I was getting out of bounds errors as I expanded the loop and this is a lazy way to prevent that
 let newGrid = DATA;
-let symbol = '.'; 
+let symbol = '.';
 
-let newArray = Array.from({ length: newGrid.length * 3 }, () => Array(newGrid[0].length * 3).fill(symbol));
+let newArray = Array.from({ length: newGrid.length * 3 }, () =>
+    Array(newGrid[0].length * 3).fill(symbol)
+);
 
 newGrid = newArray;
 
-// end make newGrid big
-printGrid(newGrid);
-
+// Get the offset of the original coordinates so that my new loop doesn't start at 0,0
 let offsetX = DATA.length;
 let offsetY = DATA[0].length;
 
 let x = startX + offsetX;
 let y = startY + offsetY;
-let addedPoints = new Set();
+
+// "Bad" columns and rows are those that are created from expanding the loop. Any non-filled
+// space in a bad column or row will not count towards the answer
 let badColumns = new Set();
 let badRows = new Set();
 
+// Lazy way to deal with the fact my loop starts and ends with the start pipe
 loop.pop();
-console.log(loop);
-// TODO get rid of loop on newGrid
-printGrid(newGrid);
+
+// Extend each pipe. For example a | is replaced by 3 |s oriented in the same direction.
+// A F is replaced by an F with a | to the south and a - to the east, etc
+// This allows me to use flood fill between pipes much easier as now something like || will become |.|
 loop.forEach((coords, index) => {
     let [origX, origY] = coords.split('|').map((x) => parseInt(x));
 
-    // console.log(`origX: ${origX} origY: ${origY}`);
-    // console.log(`${loop[index - 1]}`);
     if (index !== 0) {
-        x += (2*(origX - parseInt(loop[index - 1].split('|')[0])));
-        y += (2*(origY - parseInt(loop[index - 1].split('|')[1])));
+        x += 2 * (origX - parseInt(loop[index - 1].split('|')[0]));
+        y += 2 * (origY - parseInt(loop[index - 1].split('|')[1]));
     }
 
     let pipe = DATA[origX][origY];
@@ -259,64 +284,61 @@ loop.forEach((coords, index) => {
         pipe = startTile;
     }
 
-    // console.log(`x: ${x} y: ${y}`);
-    // console.log();
     newGrid[x][y] = pipe;
 
-    // todo better system for tracking bad rows/columns as the grid changes sizes
     if (pipe === NORTH_SOUTH) {
         badRows.add(x - 1);
         badRows.add(x + 1);
-        addedPoints.add(getLocationKey(x - 1, y));
-        addedPoints.add(getLocationKey(x + 1, y));
         newGrid[x - 1][y] = pipe;
         newGrid[x + 1][y] = pipe;
     } else if (pipe === EAST_WEST) {
         badColumns.add(y - 1);
         badColumns.add(y + 1);
-        addedPoints.add(getLocationKey(x, y - 1));
-        addedPoints.add(getLocationKey(x, y + 1)); 
         newGrid[x][y - 1] = pipe;
         newGrid[x][y + 1] = pipe;
     } else if (pipe === NORTH_EAST) {
         badColumns.add(y + 1);
         badRows.add(x - 1);
-        addedPoints.add(getLocationKey(x - 1, y));
-        addedPoints.add(getLocationKey(x, y + 1));
         newGrid[x - 1][y] = NORTH_SOUTH;
         newGrid[x][y + 1] = EAST_WEST;
     } else if (pipe === NORTH_WEST) {
         badColumns.add(y - 1);
         badRows.add(x - 1);
-        addedPoints.add(getLocationKey(x - 1, y));
-        addedPoints.add(getLocationKey(x, y - 1));
         newGrid[x - 1][y] = NORTH_SOUTH;
         newGrid[x][y - 1] = EAST_WEST;
     } else if (pipe === SOUTH_WEST) {
         badColumns.add(y - 1);
         badRows.add(x + 1);
-        addedPoints.add(getLocationKey(x + 1, y));
-        addedPoints.add(getLocationKey(x, y - 1));
         newGrid[x + 1][y] = NORTH_SOUTH;
         newGrid[x][y - 1] = EAST_WEST;
     } else if (pipe === SOUTH_EAST) {
         badColumns.add(y + 1);
         badRows.add(x + 1);
-        addedPoints.add(getLocationKey(x, y + 1));
-        addedPoints.add(getLocationKey(x + 1, y));
-        newGrid[x + 1][y] = NORTH_SOUTH;;
+        newGrid[x + 1][y] = NORTH_SOUTH;
         newGrid[x][y + 1] = EAST_WEST;
-    } 
-
+    }
 });
 
-newGrid.push(new Array(newGrid[0].length).fill('.'))
-
+// Add a new row so that I can have a spot for certain that is outside of the loop
+newGrid.push(new Array(newGrid[0].length).fill('.'));
 let floodX = newGrid.length - 1;
 let floodY = newGrid[0].length - 1;
 
 let visited = new Set();
-let area = 0;
+
+floodFill(floodX, floodY);
+
+// Sum all remaining ground tiles that are not in bad rows or columns. Note that all non-loop pipe tiles
+// were removed when we mapped the loop onto the larger grid
+let answer = 0;
+for (let i = 0; i < newGrid.length; i++) {
+    let row = newGrid[i];
+    for (let j = 0; j < row.length; j++) {
+        if (row[j] === GROUND && !badRows.has(i) && !badColumns.has(j)) {
+            answer++;
+        }
+    }
+}
 
 function floodFill(startX, startY) {
     let queue = [[startX, startY]];
@@ -324,14 +346,17 @@ function floodFill(startX, startY) {
     while (queue.length > 0) {
         let [x, y] = queue.shift();
 
-        if (x < 0 || y < 0 || x >= newGrid.length || y >= newGrid[0].length) continue;
+        if (x < 0 || y < 0 || x >= newGrid.length || y >= newGrid[0].length) {
+            continue;
+        }
 
         let locationKey = getLocationKey(x, y);
-        if (PIPES.includes(newGrid[x][y]) || visited.has(locationKey)) continue;
+        if (PIPES.includes(newGrid[x][y]) || visited.has(locationKey)) {
+            continue;
+        }
 
         visited.add(locationKey);
-        newGrid[x][y] = EXPANDER;
-        area++;
+        newGrid[x][y] = FLOOD;
 
         queue.push([x - 1, y]);
         queue.push([x + 1, y]);
@@ -340,35 +365,13 @@ function floodFill(startX, startY) {
     }
 }
 
-
-// Start flood fill from a point known to be inside the shape
-floodFill(floodX, floodY);
-
-printGrid(newGrid);
-console.log()
-let ans = 0;
-for (let i = 0; i < newGrid.length; i++) {
-    let row = newGrid[i];
-    for (let j = 0; j < row.length; j++) {
-        if (row[j] === GROUND && !badRows.has(i) && !badColumns.has(j)) {
-            ans++;
-        }
-    }
-}
-
-console.log(area);
-console.log(newGrid.length * newGrid[0].length);
-console.log(loop.length);
-console.log(addedPoints.size);
-// have to subtract one from loop because start is on there twice right now
-console.log((newGrid.length * newGrid[0].length) - area - ((loop.length - 1) * 2));
-console.log(ans);
-
-// area of grid - number of loop tiles - extra tiles I added
+// Utility function to get a unique key for a location. Can probably refactor this to not constantly convert
+// back and forth between string and int
 function getLocationKey(x, y) {
     return `${x}|${y}`;
 }
 
+// Prints grid for debugging only
 function printGrid(grid) {
     for (let row of grid) {
         console.log(row.join(''));
@@ -376,8 +379,4 @@ function printGrid(grid) {
     console.log('-------------------');
 }
 
-answer = ans;
-// I know the area of the expanded loop
-// I know the tilespace of the reduced loop
-// area - tilespace
 console.log(`Year ${YEAR} Day ${DAY} Puzzle ${PART}: ${answer}`);
