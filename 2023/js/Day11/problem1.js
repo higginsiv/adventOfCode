@@ -2,8 +2,8 @@ const fr = require('../../../tools/fileReader');
 const [YEAR, DAY, PART] = ["2023","11","1"];
 
 let galaxies = [];
-let badRows = [];
-let badColumns = [];
+let expandedRows = [];
+let expandedColumns = [];
 
 const DATA = fr.getInput(YEAR,DAY);
 DATA.forEach((line, index) => {
@@ -15,7 +15,7 @@ DATA.forEach((line, index) => {
         galaxies.push([index, match.index]);
     }
     if (galaxiesInLine === 0) {
-        badRows.push(index);
+        expandedRows.push(index);
     }
 }); 
 
@@ -28,7 +28,7 @@ for (let j = 0; j < DATA[0].length; j++) {
        }
     }
     if (!containsGalaxy) {
-        badColumns.push(j);
+        expandedColumns.push(j);
     }
 }
 
@@ -40,8 +40,8 @@ for (let i = 0; i < galaxies.length; i++) {
 }
 
 function expandedManhattanDistance(a, b) {
-    let rowsBetween = badRows.filter((row) => (row > a[0] && row < b[0]) || (row < a[0] && row > b[0]));
-    let colsBetween = badColumns.filter((col) => (col > a[1] && col < b[1]) || (col < a[1] && col > b[1]));
+    let rowsBetween = expandedRows.filter((row) => (row > a[0] && row < b[0]) || (row < a[0] && row > b[0]));
+    let colsBetween = expandedColumns.filter((col) => (col > a[1] && col < b[1]) || (col < a[1] && col > b[1]));
     return Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]) + rowsBetween.length + colsBetween.length;
 }
 
