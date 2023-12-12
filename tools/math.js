@@ -3,7 +3,8 @@ module.exports = {
         return (a * b) / getGCD(a, b);
     },
     getGCD: getGCD,
-	permute: permute
+	permute: permute,
+    getCombinations: getCombinations
 };
 
 function getGCD(a, b) {
@@ -23,3 +24,75 @@ function permute(data, perm = [], results = []) {
     }
 	return results;
 }
+function getCombinations(symbols, length) {
+    if (length === 1) {
+        return symbols;
+    }
+    let combinations = [];
+    let smallerCombinations = getCombinations(symbols, length - 1);
+    for (let symbol of symbols) {
+        for (let smallerCombination of smallerCombinations) {
+            combinations.push(symbol + smallerCombination);
+        }
+    }
+
+    return combinations;
+}
+
+// function getCombinations(symbols, minLength, maxLength) {
+//     let allCombinations = [];
+
+//     if (minLength === 0) {
+//         return allCombinations;
+//     }
+
+//     if (maxLength == null) {
+//         maxLength = minLength;
+//     }
+//     for (let length = minLength; length <= maxLength; length++) {
+//         if (length === 1) {
+//             allCombinations.push(...symbols);
+//         } else {
+//             let combinations = [];
+//             let smallerCombinations = getCombinations(symbols, length - 1, length - 1);
+
+//             for (let symbol of symbols) {
+//                 for (let smallerCombination of smallerCombinations) {
+//                     combinations.push(symbol + smallerCombination);
+//                 }
+//             }
+
+//             allCombinations.push(...combinations);
+//         }
+//     }
+
+//     return allCombinations;
+// }
+
+// function getCombinations(symbols, minLength, maxLength) {
+//     let allCombinations = [];
+//     let queue = symbols.map(symbol => [symbol]);
+
+//     if (minLength === 0) {
+//         return allCombinations;
+//     }
+//     if (maxLength == null) {
+//         maxLength = minLength;
+//     }
+//     while (queue.length > 0) {
+//         let combination = queue.shift();
+//         let length = combination.length;
+
+//         if (length >= minLength) {
+//             allCombinations.push(combination.join(''));
+//         }
+
+//         if (length < maxLength) {
+//             for (let symbol of symbols) {
+//                 queue.push([...combination, symbol]);
+//             }
+//         }
+//     }
+
+//     return allCombinations;
+// }
