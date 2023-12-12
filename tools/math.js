@@ -4,7 +4,8 @@ module.exports = {
     },
     getGCD: getGCD,
 	permute: permute,
-    getCombinations: getCombinations
+    getCombinations: getCombinations,
+    getCombinationsQueue: getCombinationsQueue
 };
 
 function getGCD(a, b) {
@@ -29,6 +30,9 @@ function getCombinations(symbols, length) {
         return symbols;
     }
     let combinations = [];
+    if (length === 0) {
+        return combinations;
+    }
     let smallerCombinations = getCombinations(symbols, length - 1);
     for (let symbol of symbols) {
         for (let smallerCombination of smallerCombinations) {
@@ -39,7 +43,26 @@ function getCombinations(symbols, length) {
     return combinations;
 }
 
-// function getCombinations(symbols, minLength, maxLength) {
+function getCombinationsQueue(symbols, length) {
+    let allCombinations = [];
+    let queue = symbols.map(symbol => [symbol]);
+
+    while (queue.length > 0) {
+        let combination = queue.shift();
+
+        if (combination.length === length) {
+            allCombinations.push(combination.join(''));
+        } else {
+            for (let symbol of symbols) {
+                queue.push([...combination, symbol]);
+            }
+        }
+    }
+
+    return allCombinations;
+}
+
+// function getCombinationsQueue(symbols, minLength, maxLength) {
 //     let allCombinations = [];
 
 //     if (minLength === 0) {

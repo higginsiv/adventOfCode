@@ -5,6 +5,7 @@ const DATA = fr.getInput(YEAR,DAY).map(x => x.split(' '));
 const [OPERATIONAL, DAMAGED, UNKNOWN] = ['.', '#', '?'];
 const SYMBOLS = [OPERATIONAL, DAMAGED];
 
+let combinations = new Map();
 let answer = DATA.reduce((total, curr, index) => {
     const springs = curr[0];
     const damages = curr[1].match(/\d+/g).map(x => parseInt(x));
@@ -20,7 +21,7 @@ let answer = DATA.reduce((total, curr, index) => {
     const knownDamages = springs.match(/#/g);
     const damagesSum = damages.reduce((total, curr) => total + curr, 0);
     // TODO could speed up by preventing combinations from being added instead of filtering after
-    let combos = MATH.getCombinations(SYMBOLS, numberOfUnknowns).filter(x => {
+    let combos = getCachedCombos(SYMBOLS, numberOfUnknowns).slice().filter(x => {
         let damagesInCombo = x.match(/#/g);
         let knownDamagesLength = knownDamages !== null ? knownDamages.length : 0;
         let damagesInComboLength = damagesInCombo !== null ? damagesInCombo.length : 0;
@@ -39,6 +40,15 @@ let answer = DATA.reduce((total, curr, index) => {
     }, 0);
 }, 0);
 
+function getCachedCombos(symbols, length) {
+    if (combinations.has(length)) {
+        return combinations.get(length);
+    }
+
+    let combos = MATH.getCombinations(symbols, length);
+    combinations.set(length, combos);
+    return combos;
+}
 function getCombinations(symbols, length, maxDamaged) {
     if (length === 1) {
         return symbols;

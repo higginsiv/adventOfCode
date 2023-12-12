@@ -16,6 +16,10 @@ class State {
         this.damages = damages;
     }
 }
+
+let cache = new Map();
+let combinations = new Map();
+
 let answer = DATA.reduce((total, curr, index) => {
     console.log('line: ' + (index + 1));
     // console.log('T: ' + total);
@@ -43,7 +47,9 @@ let answer = DATA.reduce((total, curr, index) => {
 
     let totalSumOfLine = 0;
 
-    let queue = [new State(0, unknownOrDamagedMatches.slice(), damages.slice())];
+    let queue = [
+        new State(0, unknownOrDamagedMatches.slice(), damages.slice()),
+    ];
 
     while (queue.length > 0) {
         // console.log();
@@ -53,7 +59,9 @@ let answer = DATA.reduce((total, curr, index) => {
         // if matches == 0 AND damages == 0 add to total
         // if damages ==0 AND DAMAGED > 0, reset to 0
         if (currentState.damages.length === 0) {
-            let damagedRemaining = currentState.matches.some((x) => x.includes(DAMAGED));
+            let damagedRemaining = currentState.matches.some((x) =>
+                x.includes(DAMAGED)
+            );
             if (!damagedRemaining) {
                 totalSumOfLine += currentState.total;
             }
@@ -76,7 +84,7 @@ let answer = DATA.reduce((total, curr, index) => {
                 damagesUsed.push(damages[i]);
             }
         }
-        
+
         let damagesUsedCombos = generateSubarrays(damagesUsed);
         // console.log('damgesUsedCombos: ');
         // console.log(damagesUsedCombos);
@@ -87,66 +95,93 @@ let answer = DATA.reduce((total, curr, index) => {
         damagesUsedCombos.forEach((damagesUsedCombo) => {
             let validSpringStatusCombos = 0;
 
-            // Build out a regex that matches the current number of DAMAGED and OPERATIONAL springs
-            let damagesRegex = damagesUsedCombo.reduce(
-                (total, curr, index) => {
-                    const lastRegexSymbol =
-                        index === damagesUsedCombo.length - 1 ? '*' : '+';
-                    return `${total}${DAMAGED}{${curr}}[${OPERATIONAL}]${lastRegexSymbol}`;
-                },
-                `[${OPERATIONAL}]*`
-            );
+            let key = getCacheKey(currentMatch, damagesUsedCombo.join('-'));
+            if (cache.has(key)) {
+                validSpringStatusCombos = cache.get(key);
 
-            let regex = new RegExp(`^${damagesRegex}$`, 'g');
+                // currentState.total += cached;
+            } else {
+                // Build out a regex that matches the current number of DAMAGED and OPERATIONAL springs
+                let damagesRegex = damagesUsedCombo.reduce(
+                    (total, curr, index) => {
+                        const lastRegexSymbol =
+                            index === damagesUsedCombo.length - 1 ? '*' : '+';
+                        return `${total}${DAMAGED}{${curr}}[${OPERATIONAL}]${lastRegexSymbol}`;
+                    },
+                    `[${OPERATIONAL}]*`
+                );
 
-            // Build all possible combinations of DAMAGED and OPERATIONAL springs given number of UNKNOWN springs
-            let springStatusCombos = MATH.getCombinations(SYMBOLS, numberOfUnknowns).map(
-                (x) => {
+                let regex = new RegExp(`^${damagesRegex}$`, 'g');
+
+                // Build all possible combinations of DAMAGED and OPERATIONAL springs given number of UNKNOWN springs
+                let springStatusCombos = getCachedCombos(
+                    SYMBOLS,
+                    numberOfUnknowns
+                ).map((x) => {
                     return x.split('');
-                }
-            );
+                });
 
-            // Iterate over the combinations and find the sum of ones matching damageRegex
-            let localValidSpringStatusCombos = springStatusCombos.reduce((total, combo, index) => {
-                let localSprings = currentMatch;
-                while (combo.length > 0) {
-                    let nextSymbol = combo.shift();
-                    localSprings = localSprings.replace(UNKNOWN, nextSymbol);
-                }
+                // Iterate over the combinations and find the sum of ones matching damageRegex
+                let localValidSpringStatusCombos = springStatusCombos.reduce(
+                    (total, combo, index) => {
+                        let localSprings = currentMatch;
+                        while (combo.length > 0) {
+                            let nextSymbol = combo.shift();
+                            localSprings = localSprings.replace(
+                                UNKNOWN,
+                                nextSymbol
+                            );
+                        }
 
-                let matches = localSprings.match(regex);
-                // if(matches) console.log('matches: ' + matches.length);
-                // if(!matches) console.log('matches: ' + 0)
-                return (total += (matches != null ? matches.length : 0));
-            }, 0);
-            validSpringStatusCombos += localValidSpringStatusCombos;
-            // console.log('validSpringStatusCombos ' + validSpringStatusCombos)
-
+                        let matches = localSprings.match(regex);
+                        // if(matches) console.log('matches: ' + matches.length);
+                        // if(!matches) console.log('matches: ' + 0)
+                        return (total += matches != null ? matches.length : 0);
+                    },
+                    0
+                );
+                validSpringStatusCombos += localValidSpringStatusCombos;
+                // console.log('validSpringStatusCombos ' + validSpringStatusCombos)
+            }
             let newDamages = damages.slice(damagesUsedCombo.length);
-            const newTotal = (currentState.total > 0 ? currentState.total : 1) * (validSpringStatusCombos > 0 ? validSpringStatusCombos : 1);
-            let newState = new State(newTotal, currentState.matches.slice(), newDamages);
+            const newTotal =
+                (currentState.total > 0 ? currentState.total : 1) *
+                (validSpringStatusCombos > 0 ? validSpringStatusCombos : 1);
+            let newState = new State(
+                newTotal,
+                currentState.matches.slice(),
+                newDamages
+            );
             queue.push(newState);
         });
-
-
-
     }
 
     return total + totalSumOfLine;
 }, 0);
 
 function generateSubarrays(array) {
-    return array.reduce(
-        (result, value, index) => {
-            if (index === 0) {
-                result.push([value]);
-            } else {
-                result.push([...result[result.length - 1], value]);
-            }
-            return result;
-        },
-        []
-    );
+    return array.reduce((result, value, index) => {
+        if (index === 0) {
+            result.push([value]);
+        } else {
+            result.push([...result[result.length - 1], value]);
+        }
+        return result;
+    }, []);
+}
+
+function getCacheKey(group, damage) {
+    return `${group}-${damage}`;
+}
+
+function getCachedCombos(symbols, length) {
+    if (combinations.has(length)) {
+        return combinations.get(length);
+    }
+
+    let combos = MATH.getCombinations(symbols, length);
+    combinations.set(length, combos);
+    return combos;
 }
 
 console.log(`Year ${YEAR} Day ${DAY} Puzzle ${PART}: ${answer}`);
