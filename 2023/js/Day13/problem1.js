@@ -34,6 +34,7 @@ let answer = fr.getInput(YEAR,DAY, EOL+EOL).map(x => {
         return total + (columnMirrorIndex);
     }
 
+    console.log('hmmmm')
     return total;
 }, 0);
 
