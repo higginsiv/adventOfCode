@@ -1,3 +1,4 @@
+// This solution is not original but is committed as a reference for future me.
 const fr = require('../../../tools/fileReader');
 const [YEAR, DAY, PART] = ['2023', '12', '2'];
 const MATH = require('../../../tools/math');
