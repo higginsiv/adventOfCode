@@ -1,8 +1,8 @@
 {
-  "name": "AdventOfCode",
+  "name": "advent-of-code-solutions",
   "version": "0.0.1",
-  "description": "Advent of Code",
-  "keywords": "",
+  "description": "Advent of Code solutions in JavaScript",
+  "keywords": ["Advent of Code"],
   "license": "",
   "author": "William Higgins",
   "scripts": {
