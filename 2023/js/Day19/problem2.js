@@ -135,20 +135,6 @@ function recurse(key, x, m, a, s) {
 
 recurse(START, [1, 4000], [1, 4000], [1, 4000], [1, 4000]);
 
-validRanges.sort((a,b) => {
-    let sort = a[0][1] - b[0][1];
-    if (sort === 0) {
-        sort = a[1][1] - b[1][1];
-    }
-    if (sort === 0) {
-        sort = a[2][1] - b[2][1];
-    }
-    if (sort === 0) {
-        sort = a[3][1] - b[3][1];
-    }
-    return sort;
-})
-
 let answer = validRanges.reduce((lineTotal, lineCurr) => {
         if (lineCurr[0][0] > lineCurr[0][1] || lineCurr[1][0] > lineCurr[1][1] || lineCurr[2][0] > lineCurr[2][1] || lineCurr[3][0] > lineCurr[3][1]) {
             return lineTotal;
