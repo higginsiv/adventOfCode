@@ -15,11 +15,10 @@ fs.writeFileSync(`${YEAR}/js/Day${DAY}/README.md`, '');
 
 function getTemplate(part) {
     return `const fr = require('../../../tools/fileReader');
+const OUTPUT = require('../../../tools/output');
 const [YEAR, DAY, PART] = ["${YEAR}","${DAY}","${part}"];
 const DATA = fr.getInput(YEAR,DAY);
 
 let answer;
-console.log(\`Year \${YEAR} Day \${DAY} Puzzle \${PART}: \${answer}\`);`
+OUTPUT.output(YEAR, DAY, PART, answer);`
 }
-
-
