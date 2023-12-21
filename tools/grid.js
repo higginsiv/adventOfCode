@@ -11,7 +11,7 @@ function getNeighbors(point) {
     let neighbors = [];
 
     // Generate all combinations of -1, 0, and 1 for each dimension
-    let combinations = generateCombinations(dimensions.length);
+    let combinations = generateNeighborCoordinateCombinations(dimensions.length);
 
     combinations.forEach(combination => {
         let neighbor = dimensions.slice();
@@ -26,7 +26,7 @@ function getNeighbors(point) {
     return neighbors;
 }
 
-function generateCombinations(dimensions) {
+function generateNeighborCoordinateCombinations(dimensions) {
     let combinations = [];
 
     for (let i = 0; i < Math.pow(3, dimensions); i++) {
