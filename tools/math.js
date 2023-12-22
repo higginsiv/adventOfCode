@@ -10,7 +10,9 @@ module.exports = {
     manhattanDistance3d: manhattanDistance3d,
     solveQuadratic: solveQuadratic,
     shoelace: shoelace,
-    picksTheorem: picksTheorem
+    picksTheorem: picksTheorem,
+    countPointsWithinDistance: countPointsWithinDistance,
+    countPointsAtDistance: countPointsAtDistance
 };
 
 function getGCD(a, b) {
@@ -99,4 +101,14 @@ function shoelace(vertices) {
 // Calculates area of polygon while counting it's vertices as part of the polygon
 function picksTheorem(vertices) {
     return shoelace(vertices) + 2 - vertices.length;
+}
+
+// Uses the area of a diamond to calculate the number of points within a given manhattan distance
+function countPointsWithinDistance(n) {
+    return 2 * n * (n + 1) + 1;
+}
+
+// Returns number of points at manhattan distance n
+function countPointsAtDistance(n) {
+    return 4 * n;
 }
