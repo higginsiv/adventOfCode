@@ -1,4 +1,5 @@
 const fr = require('../../../tools/fileReader');
+const { insertIntoSortedQueue } = require('../../../tools/iteration');
 const MATH = require('../../../tools/math');
 const OUTPUT = require('../../../tools/output');
 const [YEAR, DAY, PART] = ["2023","21","2"];
@@ -108,7 +109,7 @@ function traverse(start, startingStep) {
     let pointToStepsTaken = new Map();
     pointToStepsTaken.set(generateKey(start[0], start[1]), startingStep);
     while (queue.length > 0) {
-        let current = queue.pop();
+        let current = queue.shift();
 
         let neighbors = getAdjacentCoordinates(current.point[0], current.point[1]);
 
@@ -123,7 +124,7 @@ function traverse(start, startingStep) {
 
             if (bestStepsToNeighbor == null || bestStepsToNeighbor > current.stepsTaken + 1) {
                 pointToStepsTaken.set(neighborKey, current.stepsTaken + 1);
-                queue.push({point: neighbor, stepsTaken: current.stepsTaken + 1});
+                ITERATION.insertIntoSortedQueue(queue, {point: neighbor, stepsTaken: current.stepsTaken + 1}, 'stepsTaken');
             }
         });
     }

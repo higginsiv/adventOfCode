@@ -1,9 +1,10 @@
 const fr = require('../../../tools/fileReader');
 const OUTPUT = require('../../../tools/output');
+const ITERATION = require('../../../tools/iteration');
 const [YEAR, DAY, PART] = ["2023","21","1"];
 const DATA = fr.getInput(YEAR,DAY).map(x => x.split(''));
 const ROCK = '#';
-const MAX_STEPS = 7;
+const MAX_STEPS = 64;
 
 let start;
 for (let i = 0; i < DATA.length; i++) {
@@ -18,79 +19,29 @@ for (let i = 0; i < DATA.length; i++) {
     }
 }
 
-let pointToStepsTaken = new Map();
-let visitedGoals = new Set();
-let visited = new Set();
-let allPossible = new Set();
+function traverse(start, startingStep) {
+    let queue = [{point: start.slice(), stepsTaken: startingStep}];
+    let pointToStepsTaken = new Map();
+    pointToStepsTaken.set(generateKey(start[0], start[1]), startingStep);
 
-let queue = [];
-queue.push({point: start, stepsTaken: 0});
+    while (queue.length > 0) {
+        let current = queue.shift();
 
-// discover all possible ending points
-while (queue.length > 0) {
-    let current = queue.pop();
+        let neighbors = getAdjacentCoordinates(current.point[0], current.point[1]);
 
-    allPossible = new Set([...allPossible, ...getPointsAtDistance(current.point, MAX_STEPS - current.stepsTaken).filter(point => {
-        let [x,y] = point;
-        return x >= 0 && x < DATA.length && y >= 0 && y < DATA[x].length && DATA[x][y] !== ROCK;
-    }).map(x => generateKey(x[0], x[1]))]);
+        neighbors.forEach(neighbor => {
+            let neighborKey = generateKey(neighbor[0], neighbor[1]);
 
-    if (current.stepsTaken == MAX_STEPS) {
-        continue;
+            let bestStepsToNeighbor = pointToStepsTaken.get(neighborKey);
+
+            if (bestStepsToNeighbor == null || bestStepsToNeighbor > current.stepsTaken + 1) {
+                pointToStepsTaken.set(neighborKey, current.stepsTaken + 1);
+                ITERATION.insertIntoSortedQueue(queue, {point: neighbor, stepsTaken: current.stepsTaken + 1}, 'stepsTaken');
+            }
+        });
     }
 
-    let neighbors = getAdjacentCoordinates(current.point[0], current.point[1]);
-
-    neighbors.forEach(neighbor => {
-        if (DATA[neighbor[0]][neighbor[1]] === ROCK) {
-            return;
-        }
-
-        let neighborKey = generateKey(neighbor[0], neighbor[1]);
-        if (visited.has(neighborKey)) {
-            return
-        } else {
-            visited.add(neighborKey);
-            queue.push({point: neighbor, stepsTaken: current.stepsTaken + 1});
-        }
-    });
-}
-
-queue = [];
-queue.push({point: start, stepsTaken: 0});
-while (queue.length > 0) {
-    let current = queue.pop();
-
-    let currentKey = generateKey(current.point[0], current.point[1]);
-
-    if (allPossible.has(currentKey)) {
-        visitedGoals.add(currentKey);
-    }
-
-    if (visitedGoals.size === allPossible.length) {
-        break;
-    }
-
-    if (current.stepsTaken == MAX_STEPS) {
-        continue;
-    }
-
-    let neighbors = getAdjacentCoordinates(current.point[0], current.point[1]);
-
-    neighbors.forEach(neighbor => {
-        if (DATA[neighbor[0]][neighbor[1]] === ROCK) {
-            return;
-        }
-
-        let neighborKey = generateKey(neighbor[0], neighbor[1]);
-
-        let bestStepsToNeighbor = pointToStepsTaken.get(neighborKey);
-
-        if (bestStepsToNeighbor == null || bestStepsToNeighbor > current.stepsTaken + 1) {
-            pointToStepsTaken.set(neighborKey, current.stepsTaken + 1);
-            queue.push({point: neighbor, stepsTaken: current.stepsTaken + 1});
-        }
-    });
+    return pointToStepsTaken;
 }
 
 function generateKey(x,y) {
@@ -107,21 +58,6 @@ function getAdjacentCoordinates(x, y) {
 
 }
 
-function getPointsAtDistance(point, distance) {
-    let [x, y] = point;
-    let points = [];
-
-    for (let dx = -distance; dx <= distance; dx++) {
-        for (let dy = -distance; dy <= distance; dy++) {
-            if (Math.abs(dx) + Math.abs(dy) === distance) {
-                points.push([x + dx, y + dy]);
-            }
-        }
-    }
-
-    return points;
-}
-
-let answer = visitedGoals.size
+let answer = [...traverse(start.slice(), 0).values()].filter(x => x % 2 === 0 && x <= MAX_STEPS).length;
 
 OUTPUT.output(YEAR, DAY, PART, answer);
