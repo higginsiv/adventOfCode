@@ -1,4 +1,3 @@
-// TODO apparently this solution does not work for all inputs. Investigate why that is
 const fr = require('../../../tools/fileReader');
 const { insertIntoSortedQueue } = require('../../../tools/iteration');
 const OUTPUT = require('../../../tools/output');
@@ -103,6 +102,13 @@ function countEvenPointsWithinDistance(n) {
     }
     return count;
 }
+
+// With n steps you can reach MAX_STEPS / n grid centers arrayed in a diamond (like manhattan distance)
+// Of those grids, every one but those in the outer ring can be fully traversed. Grids alternate whether they are odd or even
+// The outer ring can only be traversed up to the amount of steps left once the center is reached, which is equal to 65 (similar to step 1)
+// The valid but unreached corners must then be subtracted from our total
+// Some grids will NOT have their center reached, but will have their corners reached. These must be added back in
+// TODO apparently this solution does not work for all inputs. Investigate why that is
 
 let answer = (totalOddGrids * oddFull) + (totalEvenGrids * evenFull) - ((numberOfGridsReached + 1) * oddUnreachedCorners) + ((numberOfGridsReached) * evenUnreachedCorners);
 
