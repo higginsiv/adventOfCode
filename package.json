@@ -2,13 +2,16 @@
   "name": "advent-of-code-solutions",
   "version": "0.0.1",
   "description": "Advent of Code solutions in JavaScript",
-  "keywords": ["Advent of Code"],
+  "keywords": [
+    "Advent of Code"
+  ],
   "license": "",
   "author": "William Higgins",
   "scripts": {
     "test": "echo No tests"
   },
   "dependencies": {
-    "async": "^3.2.4"
+    "async": "^3.2.4",
+    "z3-solver": "^4.12.4"
   }
 }
