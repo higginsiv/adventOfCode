@@ -53,6 +53,7 @@ function getCombinations(arr, currentWeight, buckets, bucketIndex, goalWeight, v
                     combinations.push(newBuckets);
                 }
             } else {
+                // TODO this check can be done before the goal weight is reached
                 if (bucketIndex === 0) {
                     let oldBest = bestToGoalWeight;
                     let tentQE = getQE(newBuckets[0]);
