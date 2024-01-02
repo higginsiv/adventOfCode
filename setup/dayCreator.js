@@ -5,7 +5,7 @@ const [YEAR, DAY] = process.argv.slice(2);
 console.log(`Creating advent directory for ${YEAR} Day ${DAY}`);
 
 if (!fs.existsSync(`${YEAR}/js/Day${DAY}`)){
-    fs.mkdirSync(`${YEAR}/js/Day${DAY}`);
+    fs.mkdirSync(`${YEAR}/js/Day${DAY}`, { recursive: true });
 }
 
 fs.writeFileSync(`${YEAR}/js/Day${DAY}/problem1.js`, getTemplate(1));
