@@ -1,4 +1,6 @@
 // This problem uses bitmasks even though it is more complicated than necessary just for practice with them.
+// TODO go back thru these for speed improvements
+
 const fr = require('../../../tools/fileReader');
 const OUTPUT = require('../../../tools/output');
 const [YEAR, DAY, PART] = ["2015","24","1"];

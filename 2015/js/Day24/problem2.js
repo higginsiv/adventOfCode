@@ -1,4 +1,5 @@
 // This problem uses bitmasks even though it is more complicated than necessary just for practice with them.
+// TODO go back thru these for speed improvements
 const fr = require('../../../tools/fileReader');
 const OUTPUT = require('../../../tools/output');
 const [YEAR, DAY, PART] = ["2015","24","2"];
@@ -9,13 +10,13 @@ const DATA = fr.getInput(YEAR,DAY).map(Number).reverse();
 DATA.forEach((curr, i) => {
     bitmasks.set(curr, 1 << i);
 });
-const goalWeight = DATA.reduce((total,curr) => total + curr, 0)/3;
+const goalWeight = DATA.reduce((total,curr) => total + curr, 0)/4;
 
 let combinations = [];
 let bestToGoalWeight = Infinity;
 let bestQE = Infinity;
 
-getCombinations(DATA.slice(), 0, [0, 0, 0], 0, goalWeight, 0, 0);
+getCombinations(DATA.slice(), 0, [0, 0, 0, 0], 0, goalWeight, 0, 0);
 
 function getNumberOfPresents(bucket) {
     let total = 0;
@@ -40,15 +41,15 @@ function getCombinations(arr, currentWeight, buckets, bucketIndex, goalWeight, v
             getCombinations(arr, potentialWeight, newBuckets, bucketIndex, goalWeight, visited | bitmasks.get(curr), i + 1);
         } else if (potentialWeight === goalWeight) {
             newBuckets[bucketIndex] |= bitmasks.get(curr);
-            if (bucketIndex === 1) {
-                newBuckets[2] = ~newBuckets[0] & ~newBuckets[1];
-                let bucket3Weight = 0;
+            if (bucketIndex === 2) {
+                newBuckets[3] = ~newBuckets[0] & ~newBuckets[1] & ~newBuckets[2];
+                let bucket4Weight = 0;
                 bitmasks.forEach((value, key) => {
-                    if (newBuckets[2] & value) {
-                        bucket3Weight += key;
+                    if (newBuckets[3] & value) {
+                        bucket4Weight += key;
                     }
                 });
-                if (bucket3Weight === goalWeight) {
+                if (bucket4Weight === goalWeight) {
                     combinations.push(newBuckets);
                 }
             } else {
@@ -97,12 +98,12 @@ combinations.sort((a, b) => {
                 bQE *= key;
             }
         })
-        a[3] = aQE
-        b[3] = bQE;
+        a[4] = aQE
+        b[4] = bQE;
         return aQE - bQE;
     }
     return aLength - bLength;
 })
 
-let answer = combinations[0][3];
+let answer = combinations[0][4];
 OUTPUT.output(YEAR, DAY, PART, answer);
