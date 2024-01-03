@@ -2,7 +2,7 @@ const fr = require('../../../tools/fileReader');
 const OUTPUT = require('../../../tools/output');
 const KEYS = require('../../../tools/keys');
 
-const [YEAR, DAY, PART] = ["2016","01","1"];
+const [YEAR, DAY, PART] = ["2016","01","2"];
 const [LEFT, RIGHT] = ["L", "R"];
 const [NORTH, EAST, SOUTH, WEST] = [0, 1, 2, 3];
 const DIRECTIONS = [NORTH, EAST, SOUTH, WEST];
