@@ -1,6 +1,6 @@
 const fr = require('../../../tools/fileReader');
 const OUTPUT = require('../../../tools/output');
-const [YEAR, DAY, PART] = ["2016","02","1"];
+const [YEAR, DAY, PART] = ["2016","02","2"];
 
 const KEYPAD = [['-','-','1','-','-'],['-','2','3','4','-'],['5','6','7','8','9'],['-','A','B','C','-'],['-','-','D','-','-']];
 let position = [2,0];
