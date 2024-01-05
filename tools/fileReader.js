@@ -6,4 +6,8 @@ module.exports = {
 			.toString()
 			.split(delimiter);
 	},
+	getRawInput: function (year, dayNumber, inputFile = 'input.txt') {
+		return fs.readFileSync("./" + year + "/js/Day" + dayNumber + "/" + inputFile)
+			.toString();
+	}
 }

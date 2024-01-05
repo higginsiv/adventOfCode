@@ -1,18 +1,19 @@
 # Advent Of Code
 https://adventofcode.com/
 
-Run the code for a given Year (yyyy) Day (dd) and Part (p) with the following. Answers
-will be printed to the console
-
+## Create Days
 ```
-node solve.js yyyy dd p
+npm run create --year=yyyy --dayNum=dd
 ```
 
-Create a template for a given day/year by running
+## Solve
+```
+npm run solve --year=yyyy --dayNum=dd --part=p [--legacy]
+```
 
-```
-node /setup/dayCreator.js yyyy dd
-```
+The ```--legacy``` flag will run older problems that have not been converted to be function based. Older problems handle their own input and output. Problems worked more recently only handle solving the problem, taking input as a parameter and returning output to be printed to the console. Eventually all problems will be updated to be function based and the ```--legacy``` flag will be retired
+
+
 ### Notes
 
 - Every user will have unique input, and the committed input.txt 
