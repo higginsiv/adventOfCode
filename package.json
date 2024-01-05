@@ -8,7 +8,8 @@
   "license": "",
   "author": "William Higgins",
   "scripts": {
-    "test": "echo No tests"
+    "test": "echo No tests",
+    "create": "node ./setup/dayCreator.js"
   },
   "dependencies": {
     "async": "^3.2.4",
