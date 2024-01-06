@@ -1,6 +1,6 @@
 const fs = require('node:fs');
 
-const [YEAR, DAY] = process.argv.slice(2);
+let [YEAR, DAY] = process.argv.slice(2);
 
 const LEGACY = process.env.npm_config_legacy;
 
@@ -67,6 +67,5 @@ describe(\`${YEAR} Day ${DAY}\`, () => {
     it('Part 2', () => {
         expect(part2(data).value).toBe();
     });
-});
-`;
+});`;
 }

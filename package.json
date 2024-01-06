@@ -9,7 +9,7 @@
   "author": "William Higgins",
   "scripts": {
     "test": "jest",
-    "create": "node ./setup/dayCreator.js",
+    "create": "node ./tools/dayCreator.js",
     "solve": "node ./tools/solve.js"
   },
   "dependencies": {
