@@ -1,12 +1,16 @@
 const fs = require('node:fs');
 
-const YEAR = process.env.npm_config_year;
-const DAY = process.env.npm_config_dayNum;
+const [YEAR, DAY] = process.argv.slice(2);
+
 const LEGACY = process.env.npm_config_legacy;
 
 if (!YEAR || !DAY) {
     console.error('Usage: node dayCreators.js <year> <day>');
     process.exit(1);
+}
+
+if (DAY.length === 1) {
+    DAY = DAY.padStart(2, '0');
 }
 
 if (!fs.existsSync(`${YEAR}/js/Day${DAY}`)){
@@ -35,7 +39,7 @@ OUTPUT.output(YEAR, DAY, PART, answer);`
     } else {
         return `module.exports = {solve: solve};
 
-function solve(data) {
+function solve({lines, rawData}) {
 
     let answer;
     return {value: answer};

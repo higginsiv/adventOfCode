@@ -3,12 +3,12 @@ https://adventofcode.com/
 
 ## Create Days
 ```
-npm run create --year=yyyy --dayNum=dd
+npm run create yyyy dd
 ```
 
 ## Solve
 ```
-npm run solve --year=yyyy --dayNum=dd --part=p [--legacy]
+npm run solve yyyy dd p [--legacy]
 ```
 
 The ```--legacy``` flag will run older problems that have not been converted to be function based. Older problems handle their own input and output. Problems worked more recently only handle solving the problem, taking input as a parameter and returning output to be printed to the console. Eventually all problems will be updated to be function based and the ```--legacy``` flag will be retired
