@@ -8,12 +8,15 @@
   "license": "",
   "author": "William Higgins",
   "scripts": {
-    "test": "echo No tests",
+    "test": "jest",
     "create": "node ./setup/dayCreator.js",
     "solve": "node ./tools/solve.js"
   },
   "dependencies": {
     "async": "^3.2.4",
     "z3-solver": "^4.12.4"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }

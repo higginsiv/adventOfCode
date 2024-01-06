@@ -22,6 +22,11 @@ if (!fs.existsSync(`${YEAR}/js/Day${DAY}`)){
     fs.writeFileSync(`${YEAR}/js/Day${DAY}/problem2.js`, getTemplate(2, LEGACY));
     fs.writeFileSync(`${YEAR}/js/Day${DAY}/input.txt`, '');
     fs.writeFileSync(`${YEAR}/js/Day${DAY}/README.md`, '');
+
+    if (!fs.existsSync(`${YEAR}/js/Day${DAY}/tests`)){
+        fs.mkdirSync(`${YEAR}/js/Day${DAY}/tests`, { recursive: true });
+        fs.writeFileSync(`${YEAR}/js/Day${DAY}/tests/test.js`, getTestTemplate());
+    }
 } else {
     console.error(`Directory ${YEAR}/js/Day${DAY} already exists`);
     process.exit(1);
@@ -45,4 +50,23 @@ function solve({lines, rawData}) {
     return {value: answer};
 }`;
     }
+}
+
+function getTestTemplate() {
+return `const fr = require('../../../../tools/fileReader');
+const { solve: part1 } = require(\`../problem1.js\`);
+const { solve: part2 } = require(\`../problem2.js\`);
+
+const data = fr.getInputForFunction(\'${YEAR}\', \'${DAY}\');
+
+describe(\`${YEAR} Day ${DAY}\`, () => {
+    it('Part 1', () => {
+        expect(part1(data).value).toBe();
+    });
+
+    it('Part 2', () => {
+        expect(part2(data).value).toBe();
+    });
+});
+`;
 }
