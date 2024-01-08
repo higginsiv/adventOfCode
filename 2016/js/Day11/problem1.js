@@ -9,13 +9,13 @@ function solve({ lines, rawData }) {
 
     let containment = Array(4).fill(0);
     let bitmasks = new Map();
+    let microchips = [];
+    let generators = [];
     let microchipsToGenerators = new Map();
     let numMicrochips = 0;
     let globalVisited = new Map();
-    // let shortestToClearRow = new Map();
-    // for (let i = 0; i < 4; i++) {
-    //     shortestToClearRow.set(i, Infinity);
-    // }
+    let hScores = new Map();
+    let factorBetweenMicrochipAndGenerator;
 
     lines = lines.map((line) => {
         const generators = line.match(generatorRegex) || [];
@@ -41,9 +41,13 @@ function solve({ lines, rawData }) {
             bitmasks.set(microchipKey, generatorBitmask);
             all |= microchipBitmask | generatorBitmask;
 
+            generators.push(generator);
+            microchips.push(microchipKey);
             microchipsToGenerators.set(microchipKey, generator);
         });
     });
+
+    factorBetweenMicrochipAndGenerator = Math.pow(2, numMicrochips);
 
     lines.forEach((line, i) => {
         line.generators.forEach((generator) => {
@@ -60,7 +64,7 @@ function solve({ lines, rawData }) {
             goalFloor--;
         }
     }
-    goalFloor = 2;
+    goalFloor = 3;
     console.log(goalFloor)
     let queue = [
         {
@@ -79,13 +83,14 @@ function solve({ lines, rawData }) {
         }
         // console.log(getStateKey(queue[0]))
 
-        let { elevator, state, steps, floor } = queue.shift();
-
+        let { elevator, state, steps, floor, fScore } = queue.shift();
+        // console.log(fScore)
 
         if (elevator === goalFloor && state[elevator] === all) {
             if (elevator === 3) {
                 answer = steps;
-                break;
+                console.log(answer)
+                // break;
             } else {
                 console.log('found', steps);
                 goalFloor++;
@@ -104,10 +109,36 @@ function solve({ lines, rawData }) {
             .forEach((state) => {
                 let stateKey = getStateKey(state);
                 if (!hasVisitedSooner(stateKey, state.steps)) {
-                    insertIntoSortedQueue(queue, state, 'steps');
+                    // todo calculate H-score (estimate of steps to goal)
+                    // calc F-score (H-score + steps)
+                    // store F Score
+                    // insert into queue sorted by F-score
+                    state.fScore = getFScore(state.state, stateKey, state.steps);
+                    // console.log(state.fScore)
+                    insertIntoSortedQueue(queue, state, 'fScore');
                     globalVisited.set(stateKey, state.steps);
                 }
             });
+    }
+
+    function getFScore(state, stateKey, steps) {
+        let hScore = getHScore(state, stateKey);
+        return hScore + steps;
+    }
+
+    function getHScore(state, stateKey) {
+        if (hScores.has(stateKey)) {
+            return hScores.get(stateKey);
+        }
+
+        let hScore = 0;
+        state.forEach((floor, i) => {
+            let onFloor = floor.toString(2).match(/1/g);
+            onFloor = onFloor ? onFloor.length : 0;
+            hScore += onFloor * (3 - i) * 2;
+        });
+        hScores.set(stateKey, hScore);
+        return hScore;
     }
 
     function hasVisitedSooner(key, steps) {
@@ -130,6 +161,15 @@ function solve({ lines, rawData }) {
         let combinations = getCombinations(onFloor);
 
         combinations.forEach((combination) => {
+            // Eliminate all combinations of a microchip and generator that are not compatible
+            if (combination.length > 1) {
+                combination = combination.sort((a, b) => a - b);
+                if ((microchips.includes(combination[0]) && generators.includes(combination[1]) ||
+                    microchips.includes(combination[1]) && generators.includes(combination[0])) && 
+                    combination[1] / combination[0] !== factorBetweenMicrochipAndGenerator) {
+                    return;
+                }
+            }
             if (elevator < goalFloor) {
                 let newUpState = state.slice();
                 newUpState[elevator] &= ~combination[0];
@@ -148,8 +188,12 @@ function solve({ lines, rawData }) {
             }
 
             if (
-                elevator > 0 //&& state.some((floor, i) => i < elevator && floor !== 0)
+                elevator > 0 && state.some((floor, i) => i < elevator && floor !== 0)
             ) {
+                // Don't travel down with two microchips
+                if (combination.length > 1 && microchips.includes(combination[0]) && microchips.includes(combination[1])) {
+                    return;
+                }
                 let newDownState = state.slice();
                 newDownState[elevator] &= ~combination[0];
                 newDownState[elevator - 1] |= combination[0];
@@ -158,7 +202,6 @@ function solve({ lines, rawData }) {
                     newDownState[elevator] &= ~combination[1];
                     newDownState[elevator - 1] |= combination[1];
                 }
-                //todo increment state.floor
 
                 if (isGridSafe(newDownState)) {
                     possibleStates.push({
@@ -190,11 +233,11 @@ function solve({ lines, rawData }) {
 
     function isGridSafe(grid) {
         for (floor of grid) {
-            for ([key, generator] of microchipsToGenerators) {
+            for (const [key, generator] of microchipsToGenerators) {
                 if (floor & bitmasks.get(key)) {
                     if (
                         !(floor & bitmasks.get(generator)) &&
-                        [...microchipsToGenerators.values()].some(
+                        generators.some(
                             (value) => floor & bitmasks.get(value)
                         )
                     ) {
@@ -230,3 +273,5 @@ function solve({ lines, rawData }) {
 
     return { value: answer };
 }
+
+// 49 wrong
