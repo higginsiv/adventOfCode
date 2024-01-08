@@ -11,6 +11,11 @@ function solve({ lines, rawData }) {
     let bitmasks = new Map();
     let microchipsToGenerators = new Map();
     let numMicrochips = 0;
+    let globalVisited = new Map();
+    let shortestToClearRow = new Map();
+    for (let i = 0; i < 4; i++) {
+        shortestToClearRow.set(i, Infinity);
+    }
 
     lines = lines.map((line) => {
         const generators = line.match(generatorRegex) || [];
@@ -54,10 +59,7 @@ function solve({ lines, rawData }) {
             elevator: 0,
             state: containment,
             steps: 0,
-            visited0: [],
-            visited1: [],
-            visited2: [],
-            visited3: [],
+            floor: 0,
         },
     ];
 
@@ -67,55 +69,38 @@ function solve({ lines, rawData }) {
         if (it % 100000 === 0) {
             console.log(it);
         }
-        let { elevator, state, steps, visited0, visited1, visited2, visited3 } =
-            queue.shift();
+        // console.log(getStateKey(queue[0]))
+
+        let { elevator, state, steps, floor } = queue.shift();
+
 
         if (elevator === 3 && state[elevator] === all) {
             answer = steps;
             break;
         }
 
-        switch (elevator) {
-            case 0:
-                visited0.push(state[elevator]);
-                break;
-            case 1:
-                visited1.push(state[elevator]);
-                break;
-            case 2:
-                visited2.push(state[elevator]);
-                break;
-            case 3:
-                visited3.push(state[elevator]);
-                break;
-        }
-
         let possibleStates = getPossibleStates(state, elevator);
-        // console.log(possibleStates.length)
-        // queue.push(
-            possibleStates.map((state) => ({
+        possibleStates
+            .map((state) => ({
                 state: state.state.slice(),
                 elevator: state.elevator,
                 steps: steps + 1,
-                visited0: visited0.slice(),
-                visited1: visited1.slice(),
-                visited2: visited2.slice(),
-                visited3: visited3.slice(),
-            })).forEach((state) => {
-                if (!hasVisitedState(state.state[state.elevator], state.elevator, [state.visited0, state.visited1, state.visited2, state.visited3])) {
-                    insertIntoSortedQueue(
-                        queue,
-                        state,
-                        'steps'
-                    );
+                floor: floor
+            }))
+            .forEach((state) => {
+                let stateKey = getStateKey(state);
+                if (!hasVisitedSooner(stateKey, state.steps)) {
+                    insertIntoSortedQueue(queue, state, 'steps');
+                    globalVisited.set(stateKey, state.steps);
                 }
             });
     }
 
-    function hasVisitedState(floorState, elevator, visited) {
-        return visited[elevator].some(
-            (visitedState) => visitedState === floorState
-        );
+    function hasVisitedSooner(key, steps) {
+        if (globalVisited.has(key)) {
+            return globalVisited.get(key) < steps;
+        }
+        return false;
     }
 
     function getPossibleStates(state, elevator) {
@@ -148,9 +133,9 @@ function solve({ lines, rawData }) {
                 }
             }
 
-            if (elevator > 0 && state.some((value, index) => {
-                return index < elevator && value !== 0;
-            })) {
+            if (
+                elevator > 0 && state.some((floor, i) => i < elevator && floor !== 0)
+            ) {
                 let newDownState = state.slice();
                 newDownState[elevator] &= ~combination[0];
                 newDownState[elevator - 1] |= combination[0];
@@ -159,6 +144,7 @@ function solve({ lines, rawData }) {
                     newDownState[elevator] &= ~combination[1];
                     newDownState[elevator - 1] |= combination[1];
                 }
+                //todo increment state.floor
 
                 if (isGridSafe(newDownState)) {
                     possibleStates.push({
@@ -175,12 +161,10 @@ function solve({ lines, rawData }) {
     function getCombinations(array) {
         let result = [];
 
-        // Add each individual element to the result
         for (let i = 0; i < array.length; i++) {
             result.push([array[i]]);
         }
 
-        // Add all combinations of two elements to the result
         for (let i = 0; i < array.length; i++) {
             for (let j = i + 1; j < array.length; j++) {
                 result.push([array[i], array[j]]);
@@ -191,13 +175,8 @@ function solve({ lines, rawData }) {
     }
 
     function isGridSafe(grid) {
-        let gridSafe = true;
-        // todo make this iterative so I can break
-        grid.forEach((floor, index) => {
-            // console.log('floor ' + index + ': ' + floor);
-            let floorSafe = true;
-            // todo make this iterative so I can break
-            microchipsToGenerators.forEach((generator, key) => {
+        for (floor of grid) {
+            for ([key, generator] of microchipsToGenerators) {
                 if (floor & bitmasks.get(key)) {
                     if (
                         !(floor & bitmasks.get(generator)) &&
@@ -205,17 +184,34 @@ function solve({ lines, rawData }) {
                             (value) => floor & bitmasks.get(value)
                         )
                     ) {
-                        // console.log('here');
-                        floorSafe = false;
+                        return false;
                     }
                 }
-            });
-            if (!floorSafe) {
-                gridSafe = false;
             }
-        });
+        }
 
-        return gridSafe;
+        return true;
+    }
+
+    function getStateKey(state) {
+        let pairs = [];
+        for ([key, generator] of microchipsToGenerators) {
+            let floors = {microchip: 0, generator: 0}
+            for (const floor of state.state) {
+                if (floor & bitmasks.get(key)) {
+                    floors.microchip = state.state.indexOf(floor);
+                }
+                if (floor & bitmasks.get(generator)) {
+                    floors.generator = state.state.indexOf(floor);
+                }
+            }
+            pairs.push(floors);
+        }
+        pairs.sort((a, b) => a.microchip - b.microchip || a.generator - b.generator);
+        let stateKey = pairs.reduce((total, curr) => {
+            return total + curr.microchip + ',' + curr.generator + '-'
+        }, '') + state.elevator;
+        return stateKey;
     }
 
     return { value: answer };
