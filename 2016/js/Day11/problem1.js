@@ -1,5 +1,5 @@
 module.exports = { solve: solve };
-
+// console.log = () => {};
 function solve({ lines, rawData }) {
     let { insertIntoSortedQueue } = require('../../../tools/iteration.js');
     let answer;
@@ -12,10 +12,10 @@ function solve({ lines, rawData }) {
     let microchipsToGenerators = new Map();
     let numMicrochips = 0;
     let globalVisited = new Map();
-    let shortestToClearRow = new Map();
-    for (let i = 0; i < 4; i++) {
-        shortestToClearRow.set(i, Infinity);
-    }
+    // let shortestToClearRow = new Map();
+    // for (let i = 0; i < 4; i++) {
+    //     shortestToClearRow.set(i, Infinity);
+    // }
 
     lines = lines.map((line) => {
         const generators = line.match(generatorRegex) || [];
@@ -54,6 +54,14 @@ function solve({ lines, rawData }) {
         });
     });
 
+    let goalFloor = containment.length - 1;
+    for (let i = containment.length - 1; i >= 0; i--) {
+        if (containment[i] === 0) {
+            goalFloor--;
+        }
+    }
+    goalFloor = 2;
+    console.log(goalFloor)
     let queue = [
         {
             elevator: 0,
@@ -74,9 +82,15 @@ function solve({ lines, rawData }) {
         let { elevator, state, steps, floor } = queue.shift();
 
 
-        if (elevator === 3 && state[elevator] === all) {
-            answer = steps;
-            break;
+        if (elevator === goalFloor && state[elevator] === all) {
+            if (elevator === 3) {
+                answer = steps;
+                break;
+            } else {
+                console.log('found', steps);
+                goalFloor++;
+                queue = [{ elevator: elevator, state: state, steps: steps, floor: floor}];
+            }
         }
 
         let possibleStates = getPossibleStates(state, elevator);
@@ -116,7 +130,7 @@ function solve({ lines, rawData }) {
         let combinations = getCombinations(onFloor);
 
         combinations.forEach((combination) => {
-            if (elevator < 3) {
+            if (elevator < goalFloor) {
                 let newUpState = state.slice();
                 newUpState[elevator] &= ~combination[0];
                 newUpState[elevator + 1] |= combination[0];
@@ -134,7 +148,7 @@ function solve({ lines, rawData }) {
             }
 
             if (
-                elevator > 0 && state.some((floor, i) => i < elevator && floor !== 0)
+                elevator > 0 //&& state.some((floor, i) => i < elevator && floor !== 0)
             ) {
                 let newDownState = state.slice();
                 newDownState[elevator] &= ~combination[0];
