@@ -7,7 +7,7 @@ function solve({ lines, rawData }) {
     const generatorRegex = /\b(\w+)(?=\s*generator)/g;
     const compatibleRegex = /\b(\w+-compatible)\b/g;
 
-    let containment = Array(4).map(() => ({ generators: 0, microchips: 0 }));
+    let containment = Array(4).fill(0);
     let bitmasks = new Map();
     let microchips = [];
     let generators = [];
@@ -33,25 +33,39 @@ function solve({ lines, rawData }) {
             let microchipBitmask = 1 << microchipsMasked;
             microchipsMasked++;
 
-            bitmasks.set(generator, microchipBitmask);
-            all |= microchipBitmask;
+            let generatorBitmask = 1 << (numMicrochips + generatorsMasked);
+            generatorsMasked++;
 
-            generators.push(microchipBitmask);
-            microchips.push(microchipBitmask);
+            let microchipKey = generator + '-compatible';
+            bitmasks.set(generator, microchipBitmask);
+            bitmasks.set(microchipKey, generatorBitmask);
+            all |= microchipBitmask | generatorBitmask;
+
+            generators.push(generator);
+            microchips.push(microchipKey);
+            microchipsToGenerators.set(microchipKey, generator);
         });
     });
 
+    factorBetweenMicrochipAndGenerator = Math.pow(2, numMicrochips);
+
     lines.forEach((line, i) => {
         line.generators.forEach((generator) => {
-            containment[i].generators |= bitmasks.get(generator);
+            containment[i] |= bitmasks.get(generator);
         });
         line.microchips.forEach((microchip) => {
-            containment[i].microchips |= bitmasks.get(microchip.replace('-compatible', ''));
+            containment[i] |= bitmasks.get(microchip);
         });
     });
 
     let goalFloor = containment.length - 1;
-
+    for (let i = containment.length - 1; i >= 0; i--) {
+        if (containment[i] === 0) {
+            goalFloor--;
+        }
+    }
+    goalFloor = 3;
+    console.log(goalFloor)
     let queue = [
         {
             elevator: 0,
@@ -72,10 +86,16 @@ function solve({ lines, rawData }) {
         let { elevator, state, steps, floor, fScore } = queue.shift();
         // console.log(fScore)
 
-        if (elevator === goalFloor && state[elevator].microchips === all && state[elevator].generators === all) {
+        if (elevator === goalFloor && state[elevator] === all) {
+            if (elevator === 3) {
                 answer = steps;
                 console.log(answer)
-                break;
+                // break;
+            } else {
+                console.log('found', steps);
+                goalFloor++;
+                queue = [{ elevator: elevator, state: state, steps: steps, floor: floor}];
+            }
         }
 
         let possibleStates = getPossibleStates(state, elevator);
@@ -89,6 +109,10 @@ function solve({ lines, rawData }) {
             .forEach((state) => {
                 let stateKey = getStateKey(state);
                 if (!hasVisitedSooner(stateKey, state.steps)) {
+                    // todo calculate H-score (estimate of steps to goal)
+                    // calc F-score (H-score + steps)
+                    // store F Score
+                    // insert into queue sorted by F-score
                     state.fScore = getFScore(state.state, stateKey, state.steps);
                     // console.log(state.fScore)
                     insertIntoSortedQueue(queue, state, 'fScore');
@@ -126,35 +150,15 @@ function solve({ lines, rawData }) {
 
     function getPossibleStates(state, elevator) {
         let possibleStates = [];
-        let [microchips, generators] = state[elevator];
-        let microchipsOnFloor = [];
-        let generatorsOnFloor = [];
+        let floorState = state[elevator];
+        let onFloor = [];
         bitmasks.forEach((value, key) => {
-            if (microchips & value) {
-                microchipsOnFloor.push(value);
-            }
-            if (generators & value) {
-                generatorsOnFloor.push(value);
+            if (floorState & value) {
+                onFloor.push(value);
             }
         });
 
-        let [singleMicrochips, singleGenerators, microChipPairs, generatorPairs, microchipAndGeneratorPairs] = getCombinations(microchipsOnFloor, generatorsOnFloor);
-
-        singleMicrochips.forEach((microchip) => {
-// bogus commit because power is out
-        });
-
-        singleGenerators.forEach((generator) => {
-        });
-
-        microChipPairs.forEach((pair) => {
-        });
-
-        generatorPairs.forEach((pair) => {
-        });
-
-        microchipAndGeneratorPairs.forEach((pair) => {
-        });
+        let combinations = getCombinations(onFloor);
 
         combinations.forEach((combination) => {
             // Eliminate all combinations of a microchip and generator that are not compatible
@@ -211,28 +215,16 @@ function solve({ lines, rawData }) {
         return possibleStates;
     }
 
-    function getCombinations(microchips, generators) {
-        let result = {singleMicrochips: [], singleGenerators: [], microChipPairs: [], generatorPairs: [], microchipAndGeneratorPairs: []};
+    function getCombinations(array) {
+        let result = [];
 
-        for (let i = 0; i < microchips.length; i++) {
-            result.singleMicrochips.push(microchips[i]);
-
-            for (let j = i + 1; j < microchips.length; j++) {
-                result.microChipPairs.push([microchips[i], microchips[j]]);
-            }
-
-            for (let j = 0; j < generators.length; j++) {
-                if (microchips[i] === generators[j]) {
-                    result.microchipAndGeneratorPairs.push([microchips[i], generators[j]]);
-                }
-            }
+        for (let i = 0; i < array.length; i++) {
+            result.push([array[i]]);
         }
 
-        for (let i = 0; i < generators.length; i++) {
-            result.singleGenerators.push(generators[i]);
-
-            for (let j = i + 1; j < generators.length; j++) {
-                result.generatorPairs.push([generators[i], generators[j]]);
+        for (let i = 0; i < array.length; i++) {
+            for (let j = i + 1; j < array.length; j++) {
+                result.push([array[i], array[j]]);
             }
         }
 
