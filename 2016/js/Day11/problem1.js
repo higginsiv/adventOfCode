@@ -55,9 +55,9 @@ function solve({ lines, rawData }) {
     });
 
     let goalFloor = containment.length - 1;
-    console.log('goal', goalFloor);
+    // console.log('goal', goalFloor);
 
-    console.log(containment);
+    // console.log(containment);
     let queue = [
         {
             elevator: 0,
@@ -71,9 +71,9 @@ function solve({ lines, rawData }) {
     let it = 0;
     while (queue.length > 0) {
         it++;
-        // if (it % 100000 === 0) {
+        if (it % 100000 === 0) {
             console.log('iter',it);
-        // }
+        }
         // console.log(getStateKey(queue[0]))
 
         let { elevator, state, steps, floor, fScore, minFloor } = queue.shift();
@@ -85,7 +85,7 @@ function solve({ lines, rawData }) {
             state[elevator].generators === all
         ) {
             answer = steps;
-            console.log(answer);
+            // console.log(answer);
             break;
         }
 
@@ -100,14 +100,14 @@ function solve({ lines, rawData }) {
             }))
             .forEach((state) => {
                 let stateKey = getStateKey(state);
-                console.log('stateKey', stateKey);
+                // console.log('stateKey', stateKey);
                 if (!hasVisitedSooner(stateKey, state.steps)) {
                     state.fScore = getFScore(
                         state.state,
                         stateKey,
                         state.steps
                     );
-                    console.log('fscore', state.fScore);
+                    // console.log('fscore', state.fScore);
                     insertIntoSortedQueue(queue, state, 'fScore');
                     globalVisited.set(stateKey, state.steps);
                 }
@@ -142,8 +142,8 @@ function solve({ lines, rawData }) {
     }
 
     function getPossibleStates(state, elevator, minFloor) {
-        console.log();
-        console.log('elevator', elevator);
+        // console.log();
+        // console.log('elevator', elevator);
         let possibleStates = [];
         let { microchips, generators } = state[elevator];
         let microchipsOnFloor = [];
@@ -156,12 +156,12 @@ function solve({ lines, rawData }) {
                 generatorsOnFloor.push(value);
             }
         });
-        console.log(
-            'microchipsOnFloor',
-            microchipsOnFloor,
-            'generatorsOnFloor',
-            generatorsOnFloor
-        );
+        // console.log(
+        //     'microchipsOnFloor',
+        //     microchipsOnFloor,
+        //     'generatorsOnFloor',
+        //     generatorsOnFloor
+        // );
         let {
             singleMicrochips,
             singleGenerators,
@@ -169,14 +169,14 @@ function solve({ lines, rawData }) {
             generatorPairs,
             microchipAndGeneratorPairs,
         } = getCombinations(microchipsOnFloor, generatorsOnFloor);
-        console.log(
-            singleMicrochips,
-            singleGenerators,
-            microChipPairs,
-            generatorPairs,
-            microchipAndGeneratorPairs
-        );
-        console.log('minFloor', minFloor);
+        // console.log(
+        //     singleMicrochips,
+        //     singleGenerators,
+        //     microChipPairs,
+        //     generatorPairs,
+        //     microchipAndGeneratorPairs
+        // );
+        // console.log('minFloor', minFloor);
 
         singleMicrochips.forEach((entity) => {
             // up or down
@@ -203,7 +203,7 @@ function solve({ lines, rawData }) {
                 }
             }
 
-            if (elevator > state.minFloor) {
+            if (elevator > minFloor) {
                 let newDownState = structuredClone(state);
                 newDownState[elevator].microchips &= ~entity;
                 newDownState[elevator - 1].microchips |= entity;
@@ -239,7 +239,7 @@ function solve({ lines, rawData }) {
                 }
             }
 
-            if (elevator > state.minFloor) {
+            if (elevator > minFloor) {
                 let newDownState = structuredClone(state);
                 newDownState[elevator].generators &= ~entity;
                 newDownState[elevator - 1].generators |= entity;
@@ -325,7 +325,7 @@ function solve({ lines, rawData }) {
                 }
             }
 
-            if (elevator > state.minFloor) {
+            if (elevator > minFloor) {
                 let newDownState = structuredClone(state);
                 newDownState[elevator].microchips &= ~pair[0];
                 newDownState[elevator - 1].generators |= pair[0];
@@ -341,7 +341,7 @@ function solve({ lines, rawData }) {
                 }
             }
         });
-        console.log('possibleStates', possibleStates.length);
+        // console.log('possibleStates', possibleStates.length);
         return possibleStates;
     }
 
@@ -392,7 +392,7 @@ function solve({ lines, rawData }) {
                     !(floor.generators & microchip) &&
                     floor.generators & ~microchip
                 ) {
-                    console.log('not safe', floor.microchips, floor.generators)
+                    // console.log('not safe', floor.microchips, floor.generators)
                     return false;
                 }
             }
