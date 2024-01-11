@@ -58,6 +58,7 @@ function solve({ lines, rawData }) {
             state: containment,
             steps: 0,
             floor: 0,
+            minFloor: 0,
         },
     ];
 
@@ -84,7 +85,8 @@ function solve({ lines, rawData }) {
                 state: state.state.slice(),
                 elevator: state.elevator,
                 steps: steps + 1,
-                floor: floor
+                floor: floor,
+                minFloor: minFloor
             }))
             .forEach((state) => {
                 let stateKey = getStateKey(state);
@@ -141,19 +143,51 @@ function solve({ lines, rawData }) {
         let [singleMicrochips, singleGenerators, microChipPairs, generatorPairs, microchipAndGeneratorPairs] = getCombinations(microchipsOnFloor, generatorsOnFloor);
 
         singleMicrochips.forEach((microchip) => {
-// bogus commit because power is out
+            // up or down
+            if (elevator < goalFloor) {
+                let newUpState = state.slice();
+                newUpState[elevator] &= ~microchip;
+                newUpState[elevator + 1] |= microchip;
+
+                // TODO: should I compare keys first?
+                if (isGridSafe(newUpState)) {
+                    possibleStates.push({
+                        state: newUpState,
+                        elevator: elevator + 1,
+                        minFloor: newUpState[elevator] === 0 ? elevator + 1 : state.minFloor,
+                    });
+                }
+            }
+
+            if (elevator > state.minFloor) {
+                let newDownState = state.slice();
+                newDownState[elevator] &= ~microchip;
+                newDownState[elevator - 1] |= microchip;
+
+                if (isGridSafe(newDownState)) {
+                    possibleStates.push({
+                        state: newDownState,
+                        elevator: elevator - 1,
+                        minFloor: minFloor,
+                    });
+                }
+            }
         });
 
         singleGenerators.forEach((generator) => {
+            // up or down
         });
 
         microChipPairs.forEach((pair) => {
+            // up
         });
 
         generatorPairs.forEach((pair) => {
+            // up
         });
 
         microchipAndGeneratorPairs.forEach((pair) => {
+            // up or down
         });
 
         combinations.forEach((combination) => {
