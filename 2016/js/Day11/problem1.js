@@ -71,9 +71,9 @@ function solve({ lines, rawData }) {
     let it = 0;
     while (queue.length > 0) {
         it++;
-        if (it % 100000 === 0) {
-            console.log(it);
-        }
+        // if (it % 100000 === 0) {
+            console.log('iter',it);
+        // }
         // console.log(getStateKey(queue[0]))
 
         let { elevator, state, steps, floor, fScore, minFloor } = queue.shift();
@@ -181,6 +181,7 @@ function solve({ lines, rawData }) {
         singleMicrochips.forEach((entity) => {
             // up or down
             if (elevator < goalFloor) {
+                // TODO replace clone with just using microchips from earlier
                 let newUpState = structuredClone(state);
                 // console.log('before', newUpState[elevator])
 
@@ -190,7 +191,6 @@ function solve({ lines, rawData }) {
 
                 // TODO: should I compare keys first?
                 if (isGridSafe(newUpState)) {
-                    console.log('minFloor', minFloor);
                     possibleStates.push({
                         state: newUpState,
                         elevator: elevator + 1,
@@ -383,13 +383,16 @@ function solve({ lines, rawData }) {
     }
 
     function isGridSafe(grid) {
+        // console.log('grid', grid)
         for (floor of grid) {
+            // console.log('floor', floor)
             for (const microchip of allMicrochips) {
                 if (
                     floor.microchips & microchip &&
-                    !(floor.generators & allMicrochips) &&
+                    !(floor.generators & microchip) &&
                     floor.generators & ~microchip
                 ) {
+                    console.log('not safe', floor.microchips, floor.generators)
                     return false;
                 }
             }
@@ -401,13 +404,13 @@ function solve({ lines, rawData }) {
     function getStateKey(state) {
         let pairs = [];
         for (const microchip of allMicrochips) {
-            let floors = { microchip: 0, generator: 0 };
-            for (const floor of state.state) {
-                if (floor.microchips & microchip) {
-                    floors.microchip = state.state.indexOf(floor);
+            let floors = { microchip: null, generator: null };
+            for (let i = 0; i < 4; i++) {
+                if (state.state[i].microchips & microchip) {
+                    floors.microchip = i;
                 }
-                if (floor.generators & microchip) {
-                    floors.generator = state.state.indexOf(floor);
+                if (state.state[i].generators & microchip) {
+                    floors.generator = i;
                 }
             }
             pairs.push(floors);
