@@ -7,9 +7,11 @@ function solve({ lines, rawData }) {
     const generatorRegex = /\b(\w+)(?=\s*generator)/g;
     const compatibleRegex = /\b(\w+-compatible)\b/g;
 
-    let containment = Array(4).map(() => ({ generators: 0, microchips: 0 }));
+    let containment = Array(4)
+        .fill()
+        .map(() => ({ generators: 0, microchips: 0 }));
     let bitmasks = new Map();
-    let microchips = [];
+    let allMicrochips = [];
     let generators = [];
     let microchipsToGenerators = new Map();
     let numMicrochips = 0;
@@ -37,7 +39,7 @@ function solve({ lines, rawData }) {
             all |= microchipBitmask;
 
             generators.push(microchipBitmask);
-            microchips.push(microchipBitmask);
+            allMicrochips.push(microchipBitmask);
         });
     });
 
@@ -46,12 +48,16 @@ function solve({ lines, rawData }) {
             containment[i].generators |= bitmasks.get(generator);
         });
         line.microchips.forEach((microchip) => {
-            containment[i].microchips |= bitmasks.get(microchip.replace('-compatible', ''));
+            containment[i].microchips |= bitmasks.get(
+                microchip.replace('-compatible', '')
+            );
         });
     });
 
     let goalFloor = containment.length - 1;
+    console.log('goal', goalFloor);
 
+    console.log(containment);
     let queue = [
         {
             elevator: 0,
@@ -70,29 +76,38 @@ function solve({ lines, rawData }) {
         }
         // console.log(getStateKey(queue[0]))
 
-        let { elevator, state, steps, floor, fScore } = queue.shift();
+        let { elevator, state, steps, floor, fScore, minFloor } = queue.shift();
         // console.log(fScore)
 
-        if (elevator === goalFloor && state[elevator].microchips === all && state[elevator].generators === all) {
-                answer = steps;
-                console.log(answer)
-                break;
+        if (
+            elevator === goalFloor &&
+            state[elevator].microchips === all &&
+            state[elevator].generators === all
+        ) {
+            answer = steps;
+            console.log(answer);
+            break;
         }
 
-        let possibleStates = getPossibleStates(state, elevator);
+        let possibleStates = getPossibleStates(state, elevator, minFloor);
         possibleStates
             .map((state) => ({
-                state: state.state.slice(),
+                state: structuredClone(state.state),
                 elevator: state.elevator,
                 steps: steps + 1,
                 floor: floor,
-                minFloor: minFloor
+                minFloor: minFloor,
             }))
             .forEach((state) => {
                 let stateKey = getStateKey(state);
+                console.log('stateKey', stateKey);
                 if (!hasVisitedSooner(stateKey, state.steps)) {
-                    state.fScore = getFScore(state.state, stateKey, state.steps);
-                    // console.log(state.fScore)
+                    state.fScore = getFScore(
+                        state.state,
+                        stateKey,
+                        state.steps
+                    );
+                    console.log('fscore', state.fScore);
                     insertIntoSortedQueue(queue, state, 'fScore');
                     globalVisited.set(stateKey, state.steps);
                 }
@@ -126,12 +141,14 @@ function solve({ lines, rawData }) {
         return false;
     }
 
-    function getPossibleStates(state, elevator) {
+    function getPossibleStates(state, elevator, minFloor) {
+        console.log();
+        console.log('elevator', elevator);
         let possibleStates = [];
-        let [microchips, generators] = state[elevator];
+        let { microchips, generators } = state[elevator];
         let microchipsOnFloor = [];
         let generatorsOnFloor = [];
-        bitmasks.forEach((value, key) => {
+        allMicrochips.forEach((value) => {
             if (microchips & value) {
                 microchipsOnFloor.push(value);
             }
@@ -139,30 +156,57 @@ function solve({ lines, rawData }) {
                 generatorsOnFloor.push(value);
             }
         });
+        console.log(
+            'microchipsOnFloor',
+            microchipsOnFloor,
+            'generatorsOnFloor',
+            generatorsOnFloor
+        );
+        let {
+            singleMicrochips,
+            singleGenerators,
+            microChipPairs,
+            generatorPairs,
+            microchipAndGeneratorPairs,
+        } = getCombinations(microchipsOnFloor, generatorsOnFloor);
+        console.log(
+            singleMicrochips,
+            singleGenerators,
+            microChipPairs,
+            generatorPairs,
+            microchipAndGeneratorPairs
+        );
+        console.log('minFloor', minFloor);
 
-        let [singleMicrochips, singleGenerators, microChipPairs, generatorPairs, microchipAndGeneratorPairs] = getCombinations(microchipsOnFloor, generatorsOnFloor);
-
-        singleMicrochips.forEach((microchip) => {
+        singleMicrochips.forEach((entity) => {
             // up or down
             if (elevator < goalFloor) {
-                let newUpState = state.slice();
-                newUpState[elevator] &= ~microchip;
-                newUpState[elevator + 1] |= microchip;
+                let newUpState = structuredClone(state);
+                // console.log('before', newUpState[elevator])
+
+                newUpState[elevator].microchips &= ~entity;
+                // console.log('after', newUpState[elevator])
+                newUpState[elevator + 1].microchips |= entity;
 
                 // TODO: should I compare keys first?
                 if (isGridSafe(newUpState)) {
+                    console.log('minFloor', minFloor);
                     possibleStates.push({
                         state: newUpState,
                         elevator: elevator + 1,
-                        minFloor: newUpState[elevator] === 0 ? elevator + 1 : state.minFloor,
+                        minFloor:
+                            newUpState[minFloor].microchips === 0 &&
+                            newUpState[minFloor].generators === 0
+                                ? minFloor + 1
+                                : minFloor,
                     });
                 }
             }
 
             if (elevator > state.minFloor) {
-                let newDownState = state.slice();
-                newDownState[elevator] &= ~microchip;
-                newDownState[elevator - 1] |= microchip;
+                let newDownState = structuredClone(state);
+                newDownState[elevator].microchips &= ~entity;
+                newDownState[elevator - 1].microchips |= entity;
 
                 if (isGridSafe(newDownState)) {
                     possibleStates.push({
@@ -174,79 +218,141 @@ function solve({ lines, rawData }) {
             }
         });
 
-        singleGenerators.forEach((generator) => {
+        singleGenerators.forEach((entity) => {
             // up or down
-        });
-
-        microChipPairs.forEach((pair) => {
-            // up
-        });
-
-        generatorPairs.forEach((pair) => {
-            // up
-        });
-
-        microchipAndGeneratorPairs.forEach((pair) => {
-            // up or down
-        });
-
-        combinations.forEach((combination) => {
-            // Eliminate all combinations of a microchip and generator that are not compatible
-            if (combination.length > 1) {
-                combination = combination.sort((a, b) => a - b);
-                if ((microchips.includes(combination[0]) && generators.includes(combination[1]) ||
-                    microchips.includes(combination[1]) && generators.includes(combination[0])) && 
-                    combination[1] / combination[0] !== factorBetweenMicrochipAndGenerator) {
-                    return;
-                }
-            }
             if (elevator < goalFloor) {
-                let newUpState = state.slice();
-                newUpState[elevator] &= ~combination[0];
-                newUpState[elevator + 1] |= combination[0];
-                if (combination.length > 1) {
-                    newUpState[elevator] &= ~combination[1];
-                    newUpState[elevator + 1] |= combination[1];
-                }
+                let newUpState = structuredClone(state);
+                newUpState[elevator].generators &= ~entity;
+                newUpState[elevator + 1].generators |= entity;
 
+                // TODO: should I compare keys first?
                 if (isGridSafe(newUpState)) {
                     possibleStates.push({
                         state: newUpState,
                         elevator: elevator + 1,
+                        minFloor:
+                            newUpState[minFloor].microchips === 0 &&
+                            newUpState[minFloor].generators === 0
+                                ? minFloor + 1
+                                : minFloor,
                     });
                 }
             }
 
-            if (
-                elevator > 0 && state.some((floor, i) => i < elevator && floor !== 0)
-            ) {
-                // Don't travel down with two microchips
-                if (combination.length > 1 && microchips.includes(combination[0]) && microchips.includes(combination[1])) {
-                    return;
-                }
-                let newDownState = state.slice();
-                newDownState[elevator] &= ~combination[0];
-                newDownState[elevator - 1] |= combination[0];
-
-                if (combination.length > 1) {
-                    newDownState[elevator] &= ~combination[1];
-                    newDownState[elevator - 1] |= combination[1];
-                }
+            if (elevator > state.minFloor) {
+                let newDownState = structuredClone(state);
+                newDownState[elevator].generators &= ~entity;
+                newDownState[elevator - 1].generators |= entity;
 
                 if (isGridSafe(newDownState)) {
                     possibleStates.push({
                         state: newDownState,
                         elevator: elevator - 1,
+                        minFloor: minFloor,
                     });
                 }
             }
         });
 
+        microChipPairs.forEach((pair) => {
+            // up
+            if (elevator < goalFloor) {
+                let newUpState = structuredClone(state);
+                newUpState[elevator].microchips &= ~pair[0];
+                newUpState[elevator + 1].microchips |= pair[0];
+                newUpState[elevator].microchips &= ~pair[1];
+                newUpState[elevator + 1].microchips |= pair[1];
+
+                // TODO: should I compare keys first?
+                if (isGridSafe(newUpState)) {
+                    possibleStates.push({
+                        state: newUpState,
+                        elevator: elevator + 1,
+                        minFloor:
+                            newUpState[minFloor].microchips === 0 &&
+                            newUpState[minFloor].generators === 0
+                                ? minFloor + 1
+                                : minFloor,
+                    });
+                }
+            }
+        });
+
+        generatorPairs.forEach((pair) => {
+            // up
+            if (elevator < goalFloor) {
+                let newUpState = structuredClone(state);
+                newUpState[elevator].generators &= ~pair[0];
+                newUpState[elevator + 1].generators |= pair[0];
+                newUpState[elevator].generators &= ~pair[1];
+                newUpState[elevator + 1].generators |= pair[1];
+
+                // TODO: should I compare keys first?
+                if (isGridSafe(newUpState)) {
+                    possibleStates.push({
+                        state: newUpState,
+                        elevator: elevator + 1,
+                        minFloor:
+                            newUpState[minFloor].microchips === 0 &&
+                            newUpState[minFloor].generators === 0
+                                ? minFloor + 1
+                                : minFloor,
+                    });
+                }
+            }
+        });
+
+        microchipAndGeneratorPairs.forEach((pair) => {
+            // up or down
+            if (elevator < goalFloor) {
+                let newUpState = structuredClone(state);
+                newUpState[elevator].microchips &= ~pair[0];
+                newUpState[elevator + 1].microchips |= pair[0];
+                newUpState[elevator].generators &= ~pair[1];
+                newUpState[elevator + 1].generators |= pair[1];
+
+                // TODO: should I compare keys first?
+                if (isGridSafe(newUpState)) {
+                    possibleStates.push({
+                        state: newUpState,
+                        elevator: elevator + 1,
+                        minFloor:
+                            newUpState[minFloor].microchips === 0 &&
+                            newUpState[minFloor].generators === 0
+                                ? minFloor + 1
+                                : minFloor,
+                    });
+                }
+            }
+
+            if (elevator > state.minFloor) {
+                let newDownState = structuredClone(state);
+                newDownState[elevator].microchips &= ~pair[0];
+                newDownState[elevator - 1].generators |= pair[0];
+                newDownState[elevator].microchips &= ~pair[1];
+                newDownState[elevator - 1].generators |= pair[1];
+
+                if (isGridSafe(newDownState)) {
+                    possibleStates.push({
+                        state: newDownState,
+                        elevator: elevator - 1,
+                        minFloor: minFloor,
+                    });
+                }
+            }
+        });
+        console.log('possibleStates', possibleStates.length);
         return possibleStates;
     }
 
     function getCombinations(microchips, generators) {
-        let result = {singleMicrochips: [], singleGenerators: [], microChipPairs: [], generatorPairs: [], microchipAndGeneratorPairs: []};
+        let result = {
+            singleMicrochips: [],
+            singleGenerators: [],
+            microChipPairs: [],
+            generatorPairs: [],
+            microchipAndGeneratorPairs: [],
+        };
 
         for (let i = 0; i < microchips.length; i++) {
             result.singleMicrochips.push(microchips[i]);
@@ -257,7 +363,10 @@ function solve({ lines, rawData }) {
 
             for (let j = 0; j < generators.length; j++) {
                 if (microchips[i] === generators[j]) {
-                    result.microchipAndGeneratorPairs.push([microchips[i], generators[j]]);
+                    result.microchipAndGeneratorPairs.push([
+                        microchips[i],
+                        generators[j],
+                    ]);
                 }
             }
         }
@@ -275,16 +384,13 @@ function solve({ lines, rawData }) {
 
     function isGridSafe(grid) {
         for (floor of grid) {
-            for (const [key, generator] of microchipsToGenerators) {
-                if (floor & bitmasks.get(key)) {
-                    if (
-                        !(floor & bitmasks.get(generator)) &&
-                        generators.some(
-                            (value) => floor & bitmasks.get(value)
-                        )
-                    ) {
-                        return false;
-                    }
+            for (const microchip of allMicrochips) {
+                if (
+                    floor.microchips & microchip &&
+                    !(floor.generators & allMicrochips) &&
+                    floor.generators & ~microchip
+                ) {
+                    return false;
                 }
             }
         }
@@ -294,22 +400,26 @@ function solve({ lines, rawData }) {
 
     function getStateKey(state) {
         let pairs = [];
-        for ([key, generator] of microchipsToGenerators) {
-            let floors = {microchip: 0, generator: 0}
+        for (const microchip of allMicrochips) {
+            let floors = { microchip: 0, generator: 0 };
             for (const floor of state.state) {
-                if (floor & bitmasks.get(key)) {
+                if (floor.microchips & microchip) {
                     floors.microchip = state.state.indexOf(floor);
                 }
-                if (floor & bitmasks.get(generator)) {
+                if (floor.generators & microchip) {
                     floors.generator = state.state.indexOf(floor);
                 }
             }
             pairs.push(floors);
         }
-        pairs.sort((a, b) => a.microchip - b.microchip || a.generator - b.generator);
-        let stateKey = pairs.reduce((total, curr) => {
-            return total + curr.microchip + ',' + curr.generator + '-'
-        }, '') + state.elevator;
+
+        pairs.sort(
+            (a, b) => a.microchip - b.microchip || a.generator - b.generator
+        );
+        let stateKey =
+            pairs.reduce((total, curr) => {
+                return total + curr.microchip + ',' + curr.generator + '-';
+            }, '') + state.elevator;
         return stateKey;
     }
 
