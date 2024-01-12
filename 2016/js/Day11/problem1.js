@@ -1,5 +1,5 @@
 module.exports = { solve: solve };
-// console.log = () => {};
+
 function solve({ lines, rawData }) {
     let { insertIntoSortedQueue } = require('../../../tools/iteration.js');
     const [MICROCHIPS, GENERATORS] = [0, 1];
@@ -51,9 +51,7 @@ function solve({ lines, rawData }) {
     });
 
     let goalFloor = containment.length - 1;
-    // console.log('goal', goalFloor);
 
-    // console.log(containment);
     let queue = [
         {
             elevator: 0,
@@ -64,16 +62,8 @@ function solve({ lines, rawData }) {
         },
     ];
 
-    let it = 0;
     while (queue.length > 0) {
-        it++;
-        if (it % 100000 === 0) {
-            console.log('iter',it);
-        }
-        // console.log(getStateKey(queue[0]))
-
         let { elevator, state, steps, floor, fScore, minFloor } = queue.shift();
-        // console.log(fScore)
 
         if (
             elevator === goalFloor &&
@@ -81,7 +71,6 @@ function solve({ lines, rawData }) {
             state[elevator][GENERATORS] === all
         ) {
             answer = steps;
-            // console.log(answer);
             break;
         }
 
@@ -96,14 +85,14 @@ function solve({ lines, rawData }) {
             }))
             .forEach((possibility) => {
                 let stateKey = getStateKey(possibility);
-                // console.log('stateKey', stateKey);
+
                 if (!hasVisitedSooner(stateKey, possibility.steps)) {
                     possibility.fScore = getFScore(
                         possibility.state,
                         stateKey,
                         possibility.steps
                     );
-                    // console.log('fscore', state.fScore);
+
                     insertIntoSortedQueue(queue, possibility, 'fScore');
                     globalVisited.set(stateKey, possibility.steps);
                 }
@@ -132,7 +121,7 @@ function solve({ lines, rawData }) {
 
     function hasVisitedSooner(key, steps) {
         if (globalVisited.has(key)) {
-            return globalVisited.get(key) < steps;
+            return globalVisited.get(key) <= steps;
         }
         return false;
     }
@@ -313,7 +302,6 @@ function solve({ lines, rawData }) {
                 }
             }
         });
-        // console.log('possibleStates', possibleStates.length);
         return possibleStates;
     }
 
@@ -403,5 +391,3 @@ function solve({ lines, rawData }) {
 
     return { value: answer };
 }
-
-// 49 wrong
