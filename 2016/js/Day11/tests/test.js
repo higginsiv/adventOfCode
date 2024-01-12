@@ -12,14 +12,14 @@ describe(`2016 Day 11`, () => {
             'The third floor contains a lithium generator',
             'The fourth floor contains nothing relevant.',
         ];
-        console.log(lines);
         expect(part1({ lines }).value).toBe(11);
     });
-    // it('Part 1', () => {
-    //     expect(part1(data).value).toBe();
-    // });
 
-    // it('Part 2', () => {
-    //     expect(part2(data).value).toBe();
-    // });
+    it('Part 1', () => {
+        expect(part1(data).value).toBe(47);
+    });
+
+    it('Part 2', () => {
+        expect(part2(data).value).toBe(71);
+    });
 });
