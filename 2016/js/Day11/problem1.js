@@ -87,25 +87,25 @@ function solve({ lines, rawData }) {
 
         let possibleStates = getPossibleStates(state, elevator, minFloor);
         possibleStates
-            .map((state) => ({
-                state: structuredClone(state.state),
-                elevator: state.elevator,
+            .map((possibility) => ({
+                state: possibility.state,
+                elevator: possibility.elevator,
                 steps: steps + 1,
                 floor: floor,
                 minFloor: minFloor,
             }))
-            .forEach((state) => {
-                let stateKey = getStateKey(state);
+            .forEach((possibility) => {
+                let stateKey = getStateKey(possibility);
                 // console.log('stateKey', stateKey);
-                if (!hasVisitedSooner(stateKey, state.steps)) {
-                    state.fScore = getFScore(
-                        state.state,
+                if (!hasVisitedSooner(stateKey, possibility.steps)) {
+                    possibility.fScore = getFScore(
+                        possibility.state,
                         stateKey,
-                        state.steps
+                        possibility.steps
                     );
                     // console.log('fscore', state.fScore);
-                    insertIntoSortedQueue(queue, state, 'fScore');
-                    globalVisited.set(stateKey, state.steps);
+                    insertIntoSortedQueue(queue, possibility, 'fScore');
+                    globalVisited.set(stateKey, possibility.steps);
                 }
             });
     }
