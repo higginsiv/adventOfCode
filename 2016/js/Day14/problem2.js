@@ -8,12 +8,20 @@ function solve({lines, rawData}) {
     let allHashes = {};
     let index = 0;
     let numKeys = 0;
-    let uniqueHashes = {};
+
+
+    let initialStream = {
+        key: 0,
+        hashes: [],
+        nextStream: null
+    }
+
+    let streams = [initialStream];
 
     while (numKeys < 64) {
         if (index % 1000 === 0)console.log(index)
 
-        let expandedHash = getExpandedHash(`${rawData}${index}`);
+        let expandedHash = getExpandedHashRecursive(`${rawData}${index}`, 2017)[2016];
 
         let matches = expandedHash.match(/(.)\1\1/);
         if (matches && matches[1]) {
@@ -21,7 +29,7 @@ function solve({lines, rawData}) {
             let regex = new RegExp(`${char}{5}`);
 
             for (let i = 1; i <= 1000; i++) {
-                let hash2 = getExpandedHash(`${rawData}${index+i}`);
+                let hash2 = getExpandedHashRecursive(`${rawData}${index+i}`, 2017)[2016];
 
                 if (hash2.match(regex)) {
                     console.log('found')
@@ -33,68 +41,36 @@ function solve({lines, rawData}) {
         index++;
     }
 
-    function getExpandedHash(str) {
-        let hash = str;
-        for (let i = 0; i <= LOOPS; i++) {
-            hash = getHash(hash);
-        }
-        return hash;
-    }
+    // function getExpandedHash(str) {
+    //     let hash = str;
+    //     for (let i = 0; i <= LOOPS; i++) {
+    //         hash = getHash(hash);
+    //     }
+    //     return hash;
+    // }
 
-    function getHashes(str) {
-        if (allHashes[str]) {
-            return allHashes[str];
-        } else {
+    function getHash(str) {
+        if (!allHashes[str]) {
             const hash = CREATE_HASH('md5').update(str).digest('hex');
-            allHashes[str] = [hash];
-            return [hash];
-        }
+            allHashes[str] = hash;
+        } 
+        return allHashes[str];
     }
 
     function getExpandedHashRecursive(str, n) {
-        if (n === 0) {
-            return [str];
+        // console.log(n)
+        if (n <= 0) {
+            return [];
         }
 
-        let hashes = getHashes(str);
+        let hashes = getHash(str);
         let numHashes = hashes.length;
         let hashToSend = hashes[numHashes - 1];
 
         let downStreamHashes = getExpandedHashRecursive(hashToSend, n-numHashes);
-        allHashes[str].push(...downStreamHashes);
+        allHashes[str] = allHashes[str].concat(downStreamHashes);
         return [...hashes, ...downStreamHashes];
     }
-    // function hashNTimes(hash, n) {
-    //     if (n === 0) {
-    //         return hash;
-    //     }
-
-    //     if (!hashes[hash]) {
-    //         hashes[hash] = [];
-    //     }
-
-    //     if (hashes[hash].length >= n) {
-    //         return hashes[hash][n-1];
-    //     } else {
-    //         let numOfHashes = hashes[hash].length;
-    //         if (numOfHashes !== 0) {
-    //             let furthestHash = hashes[hash][numOfHashes - 1];
-    //             let newN = n - numOfHashes;
-    //             return hashNTimes(furthestHash, newN);
-    //         }
-    //         let furthestHash = hashes[hash][numOfHashes - 1];
-    //         let newN = n - numOfHashses;
-
-    //         let nextHash = CREATE_HASH('md5').update(hash).digest('hex');
-    //         hashes[hash].push(nextHash);
-    //         return hashNTimes(nextHash, n);
-    //     }
-
-    //     let currentHash = CREATE_HASH('md5').update(`${rawData}${index}`).digest('hex');
-    //     let value = hashNTimes(, n-1);
-    //     hashes[index] = value;
-    //     return value;
-    // }
 
     // while (numKeys < 64) {
     //     if (index % 1000 === 0)console.log(index)
