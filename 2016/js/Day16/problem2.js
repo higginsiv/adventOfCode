@@ -12,15 +12,15 @@ function solve({lines, rawData}) {
 
     a = a.substr(0, DISK_SIZE);
 
-    let checksum = a;
+    let checksum = a.split('');
     while (checksum.length % 2 === 0) {
-        let newChecksum = '';
+        let newChecksum = [];
         for (let i = 0; i < checksum.length; i += 2) {
-            newChecksum += (checksum[i] === checksum[i + 1]) ? '1' : '0';
+            newChecksum.push((checksum[i] === checksum[i + 1]) ? '1' : '0');
         }
         checksum = newChecksum;
     }
 
-    let answer = checksum;
+    let answer = checksum.join('');
     return {value: answer};
 }
