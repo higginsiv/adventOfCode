@@ -6,7 +6,6 @@ function solve({lines, rawData}) {
     const OPEN = ['b', 'c', 'd', 'e', 'f'];
     const MAX = 3;
 
-    let visited = new Set();
     let queue = [{x: 0, y: 0, path: '', pathLength: 0}];
     let answer;
 
