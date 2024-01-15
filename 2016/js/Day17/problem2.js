@@ -6,17 +6,19 @@ function solve({lines, rawData}) {
     const OPEN = ['b', 'c', 'd', 'e', 'f'];
     const MAX = 3;
 
+    let visited = new Set();
     let queue = [{x: 0, y: 0, path: '', pathLength: 0}];
     let answer;
 
     while (queue.length > 0) {
         let state = queue.shift();
-
         if (state.x === 3 && state.y === 3) {
             answer = Math.max(answer || 0, state.pathLength);
+            continue;
         }
 
-        queue = queue.concat(getNeighbors(state));
+        let neighbors = getNeighbors(state);
+        neighbors.forEach(neighbor => queue.push(neighbor));
     }
 
     function getHash(path) {
