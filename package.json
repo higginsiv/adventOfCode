@@ -8,7 +8,8 @@
   "license": "",
   "author": "William Higgins",
   "scripts": {
-    "test": "jest",
+    "test": "jest --config ./jest-all.config.json",
+    "test:fast": "jest --config ./jest-fast.config.json",
     "create": "node ./tools/dayCreator.js",
     "solve": "node ./tools/solve.js"
   },
