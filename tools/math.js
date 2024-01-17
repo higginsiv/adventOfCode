@@ -12,7 +12,8 @@ module.exports = {
     shoelace: shoelace,
     picksTheorem: picksTheorem,
     countPointsWithinDistance: countPointsWithinDistance,
-    countPointsAtDistance: countPointsAtDistance
+    countPointsAtDistance: countPointsAtDistance,
+    condenseRanges: condenseRanges
 };
 
 function getGCD(a, b) {
@@ -111,4 +112,23 @@ function countPointsWithinDistance(n) {
 // Returns number of points at manhattan distance n
 function countPointsAtDistance(n) {
     return 4 * n;
+}
+
+function condenseRanges(ranges) {
+    ranges.sort((a, b) => a[0] - b[0]);
+
+    let result = [ranges[0]];
+
+    for (let i = 1; i < ranges.length; i++) {
+        let range = ranges[i];
+        let lastRange = result[result.length - 1];
+
+        if (range[0] <= lastRange[1] + 1) {
+            lastRange[1] = Math.max(range[1], lastRange[1]);
+        } else {
+            result.push(range);
+        }
+    }
+
+    return result;
 }
