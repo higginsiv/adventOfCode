@@ -1,8 +1,9 @@
 {
     "testPathIgnorePatterns": [
         "/node_modules/",
-        "2016/js/Day16/",
         "2016/js/Day12/",
-        "2016/js/Day14/"
+        "2016/js/Day14/",
+        "2016/js/Day16/",
+        "2016/js/Day18/"
     ]
 }
