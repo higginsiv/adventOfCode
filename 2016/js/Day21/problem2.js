@@ -60,12 +60,11 @@ function solve({ lines, rawData }) {
     }
 
     let scrambled = 'fbgdceah';
-    let passwordOptions = permute(scrambled.split(''));
-    let password;
+    let passwordOptions = permute('abcdefgh'.split(''));
     let answer;
 
     for (let i = 0; i < passwordOptions.length; i++) {
-        password = scramble(passwordOptions[i]);
+        const password = scramble(passwordOptions[i]);
         if (password === scrambled) {
             answer = passwordOptions[i].join('');
             break;
