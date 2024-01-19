@@ -18,6 +18,14 @@ function solve({ lines, rawData }) {
         }
     }
 
+    function getValue(param) {
+        if (Number.isInteger(param)) {
+            return param;
+        } else {
+            return registers[param];
+        }
+    }
+
     lines = lines.map((line) => line.split(' ').map((value) => {
         let numValue = Number(value);
         return Number.isInteger(numValue) ? numValue : value;
@@ -36,15 +44,10 @@ function solve({ lines, rawData }) {
             i++;
             continue;
         }
+        
         switch (instruction) {
             case 'cpy':
-                let valueToCopy;
-                if (Number.isInteger(param1)) {
-                    valueToCopy = param1;
-                } else {
-                    valueToCopy = registers[param1];
-                }
-                registers[param2] = valueToCopy;
+                registers[param2] = getValue(param1);
                 i++;
                 break;
             case 'inc':
@@ -56,19 +59,8 @@ function solve({ lines, rawData }) {
                 i++;
                 break;
             case 'jnz':
-                let shouldJump;
-                if (Number.isInteger(param1)) {
-                    shouldJump = param1;
-                } else {
-                    shouldJump = registers[param1];
-                }
-
-                if (shouldJump !== 0) {
-                    if (Number.isInteger(param2)) {
-                        i += param2;
-                    } else {
-                        i += registers[param2];
-                    }
+                if (getValue(param1) !== 0) {
+                    i += getValue(param2);
                 } else {
                     i++;
                 }
