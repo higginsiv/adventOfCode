@@ -25,7 +25,7 @@ if (!fs.existsSync(`${YEAR}/js/Day${DAY}`)){
 
     if (!fs.existsSync(`${YEAR}/js/Day${DAY}/tests`)){
         fs.mkdirSync(`${YEAR}/js/Day${DAY}/tests`, { recursive: true });
-        fs.writeFileSync(`${YEAR}/js/Day${DAY}/tests/${YEAR}-${DAY}-test.js`, getTestTemplate());
+        fs.writeFileSync(`${YEAR}/js/Day${DAY}/tests/${YEAR}-${DAY}.test.js`, getTestTemplate());
     }
 } else {
     console.error(`Directory ${YEAR}/js/Day${DAY} already exists`);
