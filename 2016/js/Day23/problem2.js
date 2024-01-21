@@ -26,31 +26,6 @@ function solve({ lines, rawData }) {
         }
     }
 
-    function replace(lines, start, instructionsBack, multiplier) {
-        lines.splice(start, 1);
-        let i = start - 1;
-
-        while (i >= start - instructionsBack) {
-            let [instruction, param1, param2] = lines[i];
-            if (instruction === 'inc') {
-                lines[i][0] = 'mul';
-                lines[i].push(multiplier);
-            } else if (instruction === 'dec') {
-                lines[i][0] = 'mul';
-                lines[i].push(-multiplier);
-            } else if (instruction === 'jnz' && !Number.isInteger(param1)) {
-                replace(
-                    lines,
-                    i,
-                    getValue(param2),
-                    multiplier * getValue(param1)
-                );
-                i -= getValue(param2);
-            }
-            i--;
-        }
-    }
-
     // todo what if tgl hasn't been triggered yet?
     function multiply(
         lines,
@@ -59,17 +34,32 @@ function solve({ lines, rawData }) {
         multiplier,
         localRegisters = { a: 0, b: 0, c: 0, d: 0 }
     ) {
-        // console.log('multiply', start, backwardSteps, multiplier);
+        console.log('multiply', start, backwardSteps, multiplier);
         let i = start - 1;
 
         while (i >= start - backwardSteps) {
             let [instruction, param1, param2] = lines[i];
-            // console.log('instruction', i, instruction, param1, param2)
+            console.log('----instruction', i, instruction, param1, param2)
             if (instruction === 'inc') {
+                // console.log('----inc', i, instruction, param1, param2, getValue(param1), getValue(param2))
+                // console.log('------localRegisters', localRegisters)
+                // console.log('------multiplier', multiplier)
                 localRegisters[param1] += multiplier;
+                // console.log('------localRegisters', localRegisters)
+
             } else if (instruction === 'dec') {
+                // console.log('----dec', i, instruction, param1, param2, getValue(param1), getValue(param2))
+                // console.log('------localRegisters', localRegisters)
+                // console.log('------multiplier', multiplier)
                 localRegisters[param1] -= multiplier;
-            } else if (instruction === 'jnz' && !Number.isInteger(param1)) {
+                // console.log('------localRegisters', localRegisters)
+
+            } else if (instruction === 'jnz' && !Number.isInteger(param1) && getValue(param1) !== 0) {
+                console.log('----jnz', i, instruction, param1, param2)
+                if (getValue(param1) > 0) {
+                    console.log('pozzy')
+                    process.exit();
+                }
                 localRegisters = multiply(
                     lines,
                     i,
@@ -77,7 +67,12 @@ function solve({ lines, rawData }) {
                     multiplier * getValue(param1),
                     localRegisters
                 );
-                i -= getValue(param2);
+                i += getValue(param2);
+            } else if (instruction === 'cpy') {
+                // TODO this doesn't work because the value of in register differes from local Registers
+                registers[param2] = getValue(param1);
+            } else {
+                console.log('----break', i, instruction, param1, param2, getValue(param1), getValue(param2));
             }
             i--;
         }
@@ -120,7 +115,7 @@ function solve({ lines, rawData }) {
                 i++;
                 break;
             case 'jnz':
-                if (!Number.isInteger(param1)) {
+                if (!Number.isInteger(param1) && getValue(param1) !== 0) {
                     let localRegisters = multiply(lines, i, -1* getValue(param2), getValue(param1));
                     registers.a += localRegisters.a;
                     registers.b += localRegisters.b;
