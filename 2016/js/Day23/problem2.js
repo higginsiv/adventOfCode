@@ -26,7 +26,20 @@ function solve({ lines, rawData }) {
         }
     }
 
-    // todo what if tgl hasn't been triggered yet?
+    function multiply2(lines, start, backwardSteps, multiplier) {
+        let i = start - backwardSteps;
+
+        while (i < start) {
+            let [instruction, param1, param2] = lines[i];
+            console.log('----instruction', i, instruction, param1, param2)
+        }
+    }
+    // todo this doesn't work because the instructions are going in reverse. Instructions that are supposed to go first might impact
+    // future ones. For example something like this:
+    // cpy b c
+    // inc a
+    // dec c
+    // jnz c -3
     function multiply(
         lines,
         start,
@@ -44,14 +57,14 @@ function solve({ lines, rawData }) {
                 // console.log('----inc', i, instruction, param1, param2, getValue(param1), getValue(param2))
                 // console.log('------localRegisters', localRegisters)
                 // console.log('------multiplier', multiplier)
-                localRegisters[param1] += multiplier;
+                registers[param1] += multiplier;
                 // console.log('------localRegisters', localRegisters)
 
             } else if (instruction === 'dec') {
                 // console.log('----dec', i, instruction, param1, param2, getValue(param1), getValue(param2))
                 // console.log('------localRegisters', localRegisters)
                 // console.log('------multiplier', multiplier)
-                localRegisters[param1] -= multiplier;
+                registers[param1] -= multiplier;
                 // console.log('------localRegisters', localRegisters)
 
             } else if (instruction === 'jnz' && !Number.isInteger(param1) && getValue(param1) !== 0) {
@@ -60,7 +73,7 @@ function solve({ lines, rawData }) {
                     console.log('pozzy')
                     process.exit();
                 }
-                localRegisters = multiply(
+                multiply(
                     lines,
                     i,
                     -1*getValue(param2),
@@ -69,7 +82,8 @@ function solve({ lines, rawData }) {
                 );
                 i += getValue(param2);
             } else if (instruction === 'cpy') {
-                // TODO this doesn't work because the value of in register differes from local Registers
+                // Note: including the cpy is necessary to reset the inner loop
+                console.log('----cpy', i, instruction, param1, param2, getValue(param1), getValue(param2));
                 registers[param2] = getValue(param1);
             } else {
                 console.log('----break', i, instruction, param1, param2, getValue(param1), getValue(param2));
@@ -116,11 +130,11 @@ function solve({ lines, rawData }) {
                 break;
             case 'jnz':
                 if (!Number.isInteger(param1) && getValue(param1) !== 0) {
-                    let localRegisters = multiply(lines, i, -1* getValue(param2), getValue(param1));
-                    registers.a += localRegisters.a;
-                    registers.b += localRegisters.b;
-                    registers.c += localRegisters.c;
-                    registers.d += localRegisters.d;
+                    multiply(lines, i, -1* getValue(param2), getValue(param1));
+                    // registers.a += localRegisters.a;
+                    // registers.b += localRegisters.b;
+                    // registers.c += localRegisters.c;
+                    // registers.d += localRegisters.d;
                     i++;
                 } else if (getValue(param1) !== 0) {
                     i += getValue(param2);
