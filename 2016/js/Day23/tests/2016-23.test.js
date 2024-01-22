@@ -10,6 +10,6 @@ describe(`2016 Day 23`, () => {
     });
 
     it('Part 2', () => {
-        expect(part2(data).value).toBe();
+        expect(part2(data).value).toBe(479009076);
     });
 });

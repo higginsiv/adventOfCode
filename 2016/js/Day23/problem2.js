@@ -31,67 +31,34 @@ function solve({ lines, rawData }) {
 
         while (i < start) {
             let [instruction, param1, param2] = lines[i];
-            console.log('----instruction', i, instruction, param1, param2)
-        }
-    }
-    // todo this doesn't work because the instructions are going in reverse. Instructions that are supposed to go first might impact
-    // future ones. For example something like this:
-    // cpy b c
-    // inc a
-    // dec c
-    // jnz c -3
-    function multiply(
-        lines,
-        start,
-        backwardSteps,
-        multiplier,
-        localRegisters = { a: 0, b: 0, c: 0, d: 0 }
-    ) {
-        console.log('multiply', start, backwardSteps, multiplier);
-        let i = start - 1;
+                // Todo validate instructions
 
-        while (i >= start - backwardSteps) {
-            let [instruction, param1, param2] = lines[i];
             console.log('----instruction', i, instruction, param1, param2)
-            if (instruction === 'inc') {
-                // console.log('----inc', i, instruction, param1, param2, getValue(param1), getValue(param2))
-                // console.log('------localRegisters', localRegisters)
-                // console.log('------multiplier', multiplier)
+            if (instruction === 'cpy') {
+                registers[param2] = getValue(param1);
+            } else if (instruction === 'inc') {
                 registers[param1] += multiplier;
-                // console.log('------localRegisters', localRegisters)
-
             } else if (instruction === 'dec') {
-                // console.log('----dec', i, instruction, param1, param2, getValue(param1), getValue(param2))
-                // console.log('------localRegisters', localRegisters)
-                // console.log('------multiplier', multiplier)
-                registers[param1] -= multiplier;
-                // console.log('------localRegisters', localRegisters)
-
-            } else if (instruction === 'jnz' && !Number.isInteger(param1) && getValue(param1) !== 0) {
-                console.log('----jnz', i, instruction, param1, param2)
-                if (getValue(param1) > 0) {
-                    console.log('pozzy')
-                    process.exit();
+                if (i === start - 1) {
+                    registers[param1] = 0;
+                } else {
+                    registers[param1]--;
                 }
-                multiply(
+            } else if (instruction === 'jnz' && !Number.isInteger(param1) && getValue(param1) !== 0) {
+                // if (getValue(param1) > 0) {
+                //     console.log('pozzy')
+                //     process.exit();
+                // }
+                multiply2(
                     lines,
                     i,
                     -1*getValue(param2),
-                    multiplier * getValue(param1),
-                    localRegisters
-                );
-                i += getValue(param2);
-            } else if (instruction === 'cpy') {
-                // Note: including the cpy is necessary to reset the inner loop
-                console.log('----cpy', i, instruction, param1, param2, getValue(param1), getValue(param2));
-                registers[param2] = getValue(param1);
+                    multiplier * getValue(param1)                );
             } else {
                 console.log('----break', i, instruction, param1, param2, getValue(param1), getValue(param2));
             }
-            i--;
+            i++;
         }
-
-        return localRegisters;
     }
 
     lines = lines.map((line) =>
@@ -101,7 +68,7 @@ function solve({ lines, rawData }) {
         })
     );
 
-    let registers = { a: 7, b: 0, c: 0, d: 0 };
+    let registers = { a: 12, b: 0, c: 0, d: 0 };
     let i = 0;
 
     while (true) {
@@ -130,7 +97,7 @@ function solve({ lines, rawData }) {
                 break;
             case 'jnz':
                 if (!Number.isInteger(param1) && getValue(param1) !== 0) {
-                    multiply(lines, i, -1* getValue(param2), getValue(param1));
+                    multiply2(lines, i, -1* getValue(param2), getValue(param1));
                     // registers.a += localRegisters.a;
                     // registers.b += localRegisters.b;
                     // registers.c += localRegisters.c;
@@ -165,3 +132,39 @@ function solve({ lines, rawData }) {
     let answer = registers['a'];
     return { value: answer };
 }
+
+// a = 0;
+// b = 3;
+// a++;
+// b--;
+// repeat until b = 0;
+
+// 0, 3
+// 1,2
+// 2,1
+// 3,0
+
+// 1 + 2(1)
+
+// a = 0;
+// b = 3;
+// c = 3;
+
+// b = 3;
+// a++;
+// b--;
+// repeat until b = 0;
+// a++;
+// c--;
+// repeat until c = 0;
+
+// 0, 3, 3
+// 1, 2, 3
+// 2, 1, 3
+// 3, 0, 3
+// 4, 0, 2
+// 4, 3, 2
+// 5, 2, 2
+// 6, 1, 2
+// 7, 0, 2
+// 8, 0, 1
