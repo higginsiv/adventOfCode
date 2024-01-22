@@ -26,10 +26,12 @@ function solve({ lines, rawData }) {
         }
     }
 
-    lines = lines.map((line) => line.split(' ').map((value) => {
-        let numValue = Number(value);
-        return Number.isInteger(numValue) ? numValue : value;
-    }));
+    lines = lines.map((line) =>
+        line.split(' ').map((value) => {
+            let numValue = Number(value);
+            return Number.isInteger(numValue) ? numValue : value;
+        })
+    );
 
     let registers = { a: 7, b: 0, c: 0, d: 0 };
     let i = 0;
@@ -44,18 +46,18 @@ function solve({ lines, rawData }) {
             i++;
             continue;
         }
-        
+
         switch (instruction) {
             case 'cpy':
                 registers[param2] = getValue(param1);
                 i++;
                 break;
             case 'inc':
-                registers[param1]++
+                registers[param1]++;
                 i++;
                 break;
             case 'dec':
-                registers[param1]--
+                registers[param1]--;
                 i++;
                 break;
             case 'jnz':
@@ -67,12 +69,17 @@ function solve({ lines, rawData }) {
                 break;
             case 'tgl':
                 let instructionToToggle = i + registers[param1];
-                if (instructionToToggle >= 0 && instructionToToggle < lines.length) {
+                if (
+                    instructionToToggle >= 0 &&
+                    instructionToToggle < lines.length
+                ) {
                     let toggledInstruction = lines[instructionToToggle];
                     if (toggledInstruction.length === 2) {
-                        toggledInstruction[0] = toggledInstruction[0] === 'inc' ? 'dec' : 'inc';
+                        toggledInstruction[0] =
+                            toggledInstruction[0] === 'inc' ? 'dec' : 'inc';
                     } else {
-                        toggledInstruction[0] = toggledInstruction[0] === 'jnz' ? 'cpy' : 'jnz';
+                        toggledInstruction[0] =
+                            toggledInstruction[0] === 'jnz' ? 'cpy' : 'jnz';
                     }
                 }
                 i++;

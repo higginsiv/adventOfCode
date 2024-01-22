@@ -26,14 +26,12 @@ function solve({ lines, rawData }) {
         }
     }
 
-    function multiply2(lines, start, backwardSteps, multiplier) {
+    function multiply(lines, start, backwardSteps, multiplier) {
         let i = start - backwardSteps;
 
         while (i < start) {
             let [instruction, param1, param2] = lines[i];
-                // Todo validate instructions
 
-            console.log('----instruction', i, instruction, param1, param2)
             if (instruction === 'cpy') {
                 registers[param2] = getValue(param1);
             } else if (instruction === 'inc') {
@@ -44,18 +42,17 @@ function solve({ lines, rawData }) {
                 } else {
                     registers[param1]--;
                 }
-            } else if (instruction === 'jnz' && !Number.isInteger(param1) && getValue(param1) !== 0) {
-                // if (getValue(param1) > 0) {
-                //     console.log('pozzy')
-                //     process.exit();
-                // }
-                multiply2(
+            } else if (
+                instruction === 'jnz' &&
+                !Number.isInteger(param1) &&
+                getValue(param1) !== 0
+            ) {
+                multiply(
                     lines,
                     i,
-                    -1*getValue(param2),
-                    multiplier * getValue(param1)                );
-            } else {
-                console.log('----break', i, instruction, param1, param2, getValue(param1), getValue(param2));
+                    -1 * getValue(param2),
+                    multiplier * getValue(param1)
+                );
             }
             i++;
         }
@@ -97,11 +94,7 @@ function solve({ lines, rawData }) {
                 break;
             case 'jnz':
                 if (!Number.isInteger(param1) && getValue(param1) !== 0) {
-                    multiply2(lines, i, -1* getValue(param2), getValue(param1));
-                    // registers.a += localRegisters.a;
-                    // registers.b += localRegisters.b;
-                    // registers.c += localRegisters.c;
-                    // registers.d += localRegisters.d;
+                    multiply(lines, i, -1 * getValue(param2), getValue(param1));
                     i++;
                 } else if (getValue(param1) !== 0) {
                     i += getValue(param2);
@@ -132,39 +125,3 @@ function solve({ lines, rawData }) {
     let answer = registers['a'];
     return { value: answer };
 }
-
-// a = 0;
-// b = 3;
-// a++;
-// b--;
-// repeat until b = 0;
-
-// 0, 3
-// 1,2
-// 2,1
-// 3,0
-
-// 1 + 2(1)
-
-// a = 0;
-// b = 3;
-// c = 3;
-
-// b = 3;
-// a++;
-// b--;
-// repeat until b = 0;
-// a++;
-// c--;
-// repeat until c = 0;
-
-// 0, 3, 3
-// 1, 2, 3
-// 2, 1, 3
-// 3, 0, 3
-// 4, 0, 2
-// 4, 3, 2
-// 5, 2, 2
-// 6, 1, 2
-// 7, 0, 2
-// 8, 0, 1
