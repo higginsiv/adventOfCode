@@ -17,7 +17,11 @@ if (DAY.length === 1) {
 
 let parts;
 if (!PART) {
-    parts = ['1', '2'];
+    if (DAY === '25') {
+        parts = ['1'];
+    } else {
+        parts = ['1', '2'];
+    }
 } else {
     parts = [PART];
 }
