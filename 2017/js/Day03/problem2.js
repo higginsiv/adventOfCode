@@ -1,8 +1,18 @@
-console.time();
-const fr = require('../../../tools/fileReader');
-const [year, day, part] = ["2019","","2"];
-const data = fr.getInput(year,day);
+module.exports = {solve: solve};
 
-let answer;
-console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
-console.timeEnd();
+function solve({lines, rawData}) {
+    function getKey(x, y) {
+        return `${x},${y}`;
+    }
+    
+    let current = 0;
+    const goal = parseInt(rawData);
+
+    while (current < goal) {
+        current++;
+    }
+    let answer;
+    return {value: answer};
+}
+
+// n-1 + n-2 + n-5 + n-6

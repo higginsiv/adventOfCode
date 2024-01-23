@@ -1,21 +1,49 @@
-console.time();
-const fr = require('../../../tools/fileReader');
-const [year, day, part] = ["2017","03","1"];
-const GOAL = fr.getInput(year,day).map(x => parseInt(x))[0];
+module.exports = { solve: solve };
 
-const INC = 8;
-console.log(GOAL)
-let steps = 0;
-let adder = 4;
-let total = 0;
+function solve({ lines, rawData }) {
+    const { ceil, abs } = Math;
 
-while (total + adder <= GOAL) {
-    total += adder;
-    adder += INC;
+    function getEastAtRing(ring) {
+        if (ring === 0) {
+            return 1;
+        }
+        return 8 * (ring - 1) + 1 + getEastAtRing(ring - 1);
+    }
+
+    function getRing(num) {
+        let ring = 0;
+        let maxInRing = 1;
+        let modifier = 8;
+        while (num > maxInRing) {
+            ring++;
+            maxInRing += modifier;
+            modifier += 8;
+        }
+        return ring;
+    }
+
+    const input = parseInt(rawData);
+
+    const ring = getRing(input);
+
+    const east = getEastAtRing(ring);
+    const north = east + 2 * ring;
+    const west = north + 2 * ring;
+    const south = west + 2 * ring;
+
+    const fencePost = ceil((north - east) / 2);
+
+    let offset;
+    if (input <= east + fencePost && input >= east - fencePost) {
+        offset = input - east;
+    } else if (input <= north + fencePost && input >= north - fencePost) {
+        offset = input - north;
+    } else if (input <= west + fencePost && input >= west - fencePost) {
+        offset = input - west;
+    } else if (input <= south + fencePost && input >= south - fencePost) {
+        offset = input - south;
+    }
+
+    let answer = abs(offset) + ring;
+    return { value: answer };
 }
-
-console.log(GOAL - total);
-
-let answer;
-console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
-console.timeEnd();
