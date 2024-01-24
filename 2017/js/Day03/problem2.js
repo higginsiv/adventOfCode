@@ -21,15 +21,13 @@ function solve({ lines, rawData }) {
     }
 
     function getValue(x, y) {
-        let currentValue = 0;
-        let neighbors = getNeighbors(x, y);
+        const newValue = getNeighbors(x, y).reduce((total, key) => {
+            return total + results.get(key);
+        }, 0);
 
-        for (let neighbor of neighbors) {
-            currentValue += results.get(neighbor) || 0;
-        }
-        results.set(getKey(x, y), currentValue);
+        results.set(getKey(x, y), newValue);
 
-        return currentValue;
+        return newValue;
     }
 
     let minX = 0;
