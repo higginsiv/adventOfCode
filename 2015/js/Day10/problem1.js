@@ -6,18 +6,18 @@ const ITERATIONS = 40;
 let current = fr.getInput(year, day, '').map((x) => parseInt(x));
 
 for (let i = 0; i < ITERATIONS; i++) {
-  let next = [];
-  while (current.length > 0) {
-    let char = current.shift();
-    let numChar = 1;
-    while (current[0] == char) {
-      current.shift();
-      numChar++;
+    let next = [];
+    while (current.length > 0) {
+        let char = current.shift();
+        let numChar = 1;
+        while (current[0] == char) {
+            current.shift();
+            numChar++;
+        }
+        next.push(numChar);
+        next.push(char);
     }
-    next.push(numChar);
-    next.push(char);
-  }
-  current = next;
+    current = next;
 }
 
 let answer = current.length;

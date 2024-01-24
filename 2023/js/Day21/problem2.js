@@ -9,15 +9,15 @@ const MAX_STEPS = 26501365;
 let start;
 
 for (let i = 0; i < DATA.length; i++) {
-  for (let j = 0; j < DATA[i].length; j++) {
-    if (DATA[i][j] === 'S') {
-      start = [i, j];
-      break;
+    for (let j = 0; j < DATA[i].length; j++) {
+        if (DATA[i][j] === 'S') {
+            start = [i, j];
+            break;
+        }
     }
-  }
-  if (start != null) {
-    break;
-  }
+    if (start != null) {
+        break;
+    }
 }
 
 let distanceToNextStart = DATA.length;
@@ -30,82 +30,83 @@ let totalEvenGrids = countEvenPointsWithinDistance(numberOfGridsReached);
 let traversal = traverse(start.slice(), 0);
 
 let oddUnreachedCorners = [...traversal.values()].filter((distance) => {
-  return distance % 2 === 1 && distance > stepsRemaining;
+    return distance % 2 === 1 && distance > stepsRemaining;
 }).length;
 
 let evenUnreachedCorners = [...traversal.values()].filter((distance) => {
-  return distance % 2 === 0 && distance > stepsRemaining;
+    return distance % 2 === 0 && distance > stepsRemaining;
 }).length;
 
 let evenFull = [...traversal.values()].filter((distance) => {
-  return distance % 2 === 0;
+    return distance % 2 === 0;
 }).length;
 
 let oddFull = [...traversal.values()].filter((distance) => {
-  return distance % 2 === 1;
+    return distance % 2 === 1;
 }).length;
 
 function traverse(start, startingStep) {
-  let queue = [{ point: start.slice(), stepsTaken: startingStep }];
-  let pointToStepsTaken = new Map();
-  pointToStepsTaken.set(generateKey(start[0], start[1]), startingStep);
-  while (queue.length > 0) {
-    let current = queue.shift();
+    let queue = [{ point: start.slice(), stepsTaken: startingStep }];
+    let pointToStepsTaken = new Map();
+    pointToStepsTaken.set(generateKey(start[0], start[1]), startingStep);
+    while (queue.length > 0) {
+        let current = queue.shift();
 
-    let neighbors = getAdjacentCoordinates(current.point[0], current.point[1]);
+        let neighbors = getAdjacentCoordinates(current.point[0], current.point[1]);
 
-    neighbors.forEach((neighbor) => {
-      if (DATA[neighbor[0]][neighbor[1]] === ROCK) {
-        return;
-      }
+        neighbors.forEach((neighbor) => {
+            if (DATA[neighbor[0]][neighbor[1]] === ROCK) {
+                return;
+            }
 
-      let neighborKey = generateKey(neighbor[0], neighbor[1]);
+            let neighborKey = generateKey(neighbor[0], neighbor[1]);
 
-      let bestStepsToNeighbor = pointToStepsTaken.get(neighborKey);
+            let bestStepsToNeighbor = pointToStepsTaken.get(neighborKey);
 
-      if (bestStepsToNeighbor == null || bestStepsToNeighbor > current.stepsTaken + 1) {
-        pointToStepsTaken.set(neighborKey, current.stepsTaken + 1);
-        insertIntoSortedQueue(
-          queue,
-          { point: neighbor, stepsTaken: current.stepsTaken + 1 },
-          'stepsTaken',
-        );
-      }
-    });
-  }
+            if (bestStepsToNeighbor == null || bestStepsToNeighbor > current.stepsTaken + 1) {
+                pointToStepsTaken.set(neighborKey, current.stepsTaken + 1);
+                insertIntoSortedQueue(
+                    queue,
+                    { point: neighbor, stepsTaken: current.stepsTaken + 1 },
+                    'stepsTaken',
+                );
+            }
+        });
+    }
 
-  return pointToStepsTaken;
+    return pointToStepsTaken;
 }
 
 function generateKey(x, y) {
-  return `${x},${y}`;
+    return `${x},${y}`;
 }
 
 function getAdjacentCoordinates(x, y) {
-  return [
-    [x - 1, y],
-    [x + 1, y],
-    [x, y - 1],
-    [x, y + 1],
-  ].filter(
-    ([x, y]) => x >= 0 && x < DATA.length && y >= 0 && y < DATA[x].length && DATA[x][y] !== ROCK,
-  );
+    return [
+        [x - 1, y],
+        [x + 1, y],
+        [x, y - 1],
+        [x, y + 1],
+    ].filter(
+        ([x, y]) =>
+            x >= 0 && x < DATA.length && y >= 0 && y < DATA[x].length && DATA[x][y] !== ROCK,
+    );
 }
 
 function countOddPointsWithinDistance(n) {
-  let count = 1;
-  for (let i = 0; i <= n; i += 2) {
-    count += 4 * i;
-  }
-  return count;
+    let count = 1;
+    for (let i = 0; i <= n; i += 2) {
+        count += 4 * i;
+    }
+    return count;
 }
 
 function countEvenPointsWithinDistance(n) {
-  let count = 0;
-  for (let i = 1; i <= n; i += 2) {
-    count += 4 * i;
-  }
-  return count;
+    let count = 0;
+    for (let i = 1; i <= n; i += 2) {
+        count += 4 * i;
+    }
+    return count;
 }
 
 // With n steps you can reach MAX_STEPS / n grid centers arrayed in a diamond (like manhattan distance)
@@ -116,9 +117,9 @@ function countEvenPointsWithinDistance(n) {
 // TODO apparently this solution does not work for all inputs. Investigate why that is
 
 let answer =
-  totalOddGrids * oddFull +
-  totalEvenGrids * evenFull -
-  (numberOfGridsReached + 1) * oddUnreachedCorners +
-  numberOfGridsReached * evenUnreachedCorners;
+    totalOddGrids * oddFull +
+    totalEvenGrids * evenFull -
+    (numberOfGridsReached + 1) * oddUnreachedCorners +
+    numberOfGridsReached * evenUnreachedCorners;
 
 OUTPUT.output(YEAR, DAY, PART, answer);

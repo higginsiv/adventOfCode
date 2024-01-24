@@ -13,21 +13,21 @@ let largest = -Infinity;
 let offset = 0;
 
 while (true) {
-  let current = data[index + offset];
-  total += current;
-  smallest = Math.min(smallest, current);
-  largest = Math.max(largest, current);
+    let current = data[index + offset];
+    total += current;
+    smallest = Math.min(smallest, current);
+    largest = Math.max(largest, current);
 
-  if (total > GOAL) {
-    smallest = Infinity;
-    largest = -Infinity;
-    total = 0;
-    offset++;
-    index = 0;
-  } else if (total === GOAL) {
-    break;
-  }
-  index++;
+    if (total > GOAL) {
+        smallest = Infinity;
+        largest = -Infinity;
+        total = 0;
+        offset++;
+        index = 0;
+    } else if (total === GOAL) {
+        break;
+    }
+    index++;
 }
 
 let answer = smallest + largest;

@@ -1,12 +1,12 @@
 const fr = require('../../../tools/fileReader');
 const [year, day, part] = ['2021', '17', '1'];
 const [minX, maxX, minY, maxY] = fr.getInput(year, day).map((x) => {
-  x = x.replace('target area: x=', '');
-  x = x.replaceAll('..', ' ');
-  x = x.replace(',', '');
-  x = x.replace('y=', '');
-  x = x.split(' ').map((y) => parseInt(y));
-  return x;
+    x = x.replace('target area: x=', '');
+    x = x.replaceAll('..', ' ');
+    x = x.replace(',', '');
+    x = x.replace('y=', '');
+    x = x.split(' ').map((y) => parseInt(y));
+    return x;
 })[0];
 
 const [xStart, yStart] = [0, 0];
@@ -18,12 +18,12 @@ let answer = factorialAddition(yStart - minY) - Math.abs(minY);
 
 /** Idk the math name but imagine a factorial that adds intstead of multiplying */
 function factorialAddition(int) {
-  let res = 0;
-  while (int > 0) {
-    res += int;
-    int--;
-  }
-  return res;
+    let res = 0;
+    while (int > 0) {
+        res += int;
+        int--;
+    }
+    return res;
 }
 
 console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);

@@ -39,14 +39,14 @@ module.exports = { solve: solve };
 // Step 5: Once "a" reaches 0, loop back to step 1. "a" will be reset to the "d" value. This keeps the loop infinite
 
 function solve({ lines, rawData }) {
-  const answerFloor = Number(lines[2].split(' ')[1]) * Number(lines[1].split(' ')[1]);
-  const answerFloorBinary = answerFloor.toString(2);
+    const answerFloor = Number(lines[2].split(' ')[1]) * Number(lines[1].split(' ')[1]);
+    const answerFloorBinary = answerFloor.toString(2);
 
-  let firstGreaterThanFloorBinary = '';
-  while (firstGreaterThanFloorBinary.length < answerFloorBinary.length) {
-    firstGreaterThanFloorBinary += '10';
-  }
+    let firstGreaterThanFloorBinary = '';
+    while (firstGreaterThanFloorBinary.length < answerFloorBinary.length) {
+        firstGreaterThanFloorBinary += '10';
+    }
 
-  const answer = parseInt(firstGreaterThanFloorBinary, 2) - answerFloor;
-  return { value: answer };
+    const answer = parseInt(firstGreaterThanFloorBinary, 2) - answerFloor;
+    return { value: answer };
 }

@@ -8,12 +8,12 @@ let password = '';
 let index = 0;
 
 while (password.length < 8) {
-  const HASH = CREATE_HASH('md5').update(`${DATA}${index}`).digest('hex');
+    const HASH = CREATE_HASH('md5').update(`${DATA}${index}`).digest('hex');
 
-  if (HASH.startsWith('00000')) {
-    password += HASH[5];
-  }
-  index++;
+    if (HASH.startsWith('00000')) {
+        password += HASH[5];
+    }
+    index++;
 }
 
 OUTPUT.output(YEAR, DAY, PART, password);

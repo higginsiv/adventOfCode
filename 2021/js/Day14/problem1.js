@@ -7,27 +7,27 @@ let rulesRaw = data[1].split('\n').map((x) => x.split(' -> '));
 // TODO can simplify this mapping
 let rules = new Map();
 rulesRaw.forEach((x) => {
-  rules.set(x[0], x[1]);
+    rules.set(x[0], x[1]);
 });
 
 let totalOccurrences = new Map();
 start.forEach((x) => {
-  totalOccurrences.set(x, (totalOccurrences.get(x) || 0) + 1);
+    totalOccurrences.set(x, (totalOccurrences.get(x) || 0) + 1);
 });
 
 let current = [...start];
 for (let step = 0; step < 10; step++) {
-  let newArray = [];
-  for (let i = 0; i < current.length; i++) {
-    newArray.push(current[i]);
+    let newArray = [];
+    for (let i = 0; i < current.length; i++) {
+        newArray.push(current[i]);
 
-    if (i + 1 < current.length) {
-      const addition = rules.get(current[i] + current[i + 1]);
-      newArray.push(addition);
-      totalOccurrences.set(addition, (totalOccurrences.get(addition) || 0) + 1);
+        if (i + 1 < current.length) {
+            const addition = rules.get(current[i] + current[i + 1]);
+            newArray.push(addition);
+            totalOccurrences.set(addition, (totalOccurrences.get(addition) || 0) + 1);
+        }
     }
-  }
-  current = [...newArray];
+    current = [...newArray];
 }
 
 const highest = Math.max(...totalOccurrences.values());

@@ -10,15 +10,15 @@ const input = fr.getInput(year, day)[0];
 let num = 0;
 
 while (true) {
-  let hashed = crypto
-    .createHash('md5')
-    .update(input + num)
-    .digest('hex');
+    let hashed = crypto
+        .createHash('md5')
+        .update(input + num)
+        .digest('hex');
 
-  if (hashed.startsWith(START_GOAL)) {
-    break;
-  }
-  num++;
+    if (hashed.startsWith(START_GOAL)) {
+        break;
+    }
+    num++;
 }
 
 console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + num);

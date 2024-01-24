@@ -6,10 +6,10 @@ const ITERATIONS = 50;
 let data = fr.getInput(year, day)[0];
 
 for (let i = 0; i < ITERATIONS; i++) {
-  data = data
-    .match(/(\d)\1{0,}/g)
-    .map((x) => x.length + x[0])
-    .join('');
+    data = data
+        .match(/(\d)\1{0,}/g)
+        .map((x) => x.length + x[0])
+        .join('');
 }
 
 let answer = data.length;

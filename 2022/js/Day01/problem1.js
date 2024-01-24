@@ -10,15 +10,15 @@ let elfIndex = 0;
 let calorieMax = 0;
 
 data.forEach((element) => {
-  if (element == '') {
-    if (elfCalories[elfIndex] > calorieMax) {
-      calorieMax = elfCalories[elfIndex];
+    if (element == '') {
+        if (elfCalories[elfIndex] > calorieMax) {
+            calorieMax = elfCalories[elfIndex];
+        }
+        elfIndex++;
+        elfCalories[elfIndex] = 0;
+    } else {
+        elfCalories[elfIndex] += parseInt(element);
     }
-    elfIndex++;
-    elfCalories[elfIndex] = 0;
-  } else {
-    elfCalories[elfIndex] += parseInt(element);
-  }
 });
 
 console.log('Year ' + year + ' Day ' + day + ' Puzzle 1: ' + calorieMax);

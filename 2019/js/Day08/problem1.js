@@ -12,32 +12,32 @@ let currZeros = 0;
 let currOnes = 0;
 let currTwos = 0;
 const data = fr
-  .getInput(year, day, '')
-  .map((x) => parseInt(x))
-  .forEach((x, index) => {
-    if (index % LAYER_SIZE === LAYER_SIZE - 1) {
-      if (currZeros < minZeros) {
-        minZeros = currZeros;
-        minZeroOnes = currOnes;
-        minZeroTwos = currTwos;
-      }
-      currZeros = 0;
-      currOnes = 0;
-      currTwos = 0;
-    }
+    .getInput(year, day, '')
+    .map((x) => parseInt(x))
+    .forEach((x, index) => {
+        if (index % LAYER_SIZE === LAYER_SIZE - 1) {
+            if (currZeros < minZeros) {
+                minZeros = currZeros;
+                minZeroOnes = currOnes;
+                minZeroTwos = currTwos;
+            }
+            currZeros = 0;
+            currOnes = 0;
+            currTwos = 0;
+        }
 
-    switch (x) {
-      case 0:
-        currZeros++;
-        break;
-      case 1:
-        currOnes++;
-        break;
-      case 2:
-        currTwos++;
-        break;
-    }
-  });
+        switch (x) {
+            case 0:
+                currZeros++;
+                break;
+            case 1:
+                currOnes++;
+                break;
+            case 2:
+                currTwos++;
+                break;
+        }
+    });
 
 let answer = minZeroOnes * minZeroTwos;
 console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);

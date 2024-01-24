@@ -29,131 +29,131 @@ locToSteps.set(createKey(0, 0), 0);
 let stepsToGoal = Infinity;
 
 let location = {
-  x: 0,
-  y: 0,
+    x: 0,
+    y: 0,
 };
 
 let stepsTaken = [1n];
 let input = [1n];
 let output = [];
 ic.runAsync(memory, 0n, input, output, 0n, eventEmitter).then((answer) => {
-  console.log('dead');
+    console.log('dead');
 });
 
 function receiveInput() {
-  let status = output.shift();
-  console.log('status: ' + status);
-  let nextMove;
-  let lastDirectionTraveled;
-  switch (status) {
-    case WALL:
-      lastDirectionTraveled = stepsTaken[stepsTaken.length - 1];
-      updatePosition(lastDirectionTraveled);
-      grid.set(createKey(location.x, location.y), WALL);
-      updatePosition(getOpposite(lastDirectionTraveled));
-      stepsTaken.pop();
-      break;
-    case EMPTY:
-      lastDirectionTraveled = stepsTaken[stepsTaken.length - 1];
-      updatePosition(lastDirectionTraveled);
-      locToSteps.set(createKey(location.x, location.y), stepsTaken.length);
+    let status = output.shift();
+    console.log('status: ' + status);
+    let nextMove;
+    let lastDirectionTraveled;
+    switch (status) {
+        case WALL:
+            lastDirectionTraveled = stepsTaken[stepsTaken.length - 1];
+            updatePosition(lastDirectionTraveled);
+            grid.set(createKey(location.x, location.y), WALL);
+            updatePosition(getOpposite(lastDirectionTraveled));
+            stepsTaken.pop();
+            break;
+        case EMPTY:
+            lastDirectionTraveled = stepsTaken[stepsTaken.length - 1];
+            updatePosition(lastDirectionTraveled);
+            locToSteps.set(createKey(location.x, location.y), stepsTaken.length);
 
-      grid.set(createKey(location.x, location.y), EMPTY);
-      // console.log(location)
+            grid.set(createKey(location.x, location.y), EMPTY);
+            // console.log(location)
 
-      break;
-    case GOAL:
-      lastDirectionTraveled = stepsTaken[stepsTaken.length - 1];
-      updatePosition(lastDirectionTraveled);
-      stepsToGoal = stepsToGoal > stepsTaken.length ? stepsTaken.length : stepsToGoal;
-      locToSteps.set(createKey(location.x, location.y), stepsTaken.length);
-      grid.set(createKey(location.x, location.y), GOAL);
+            break;
+        case GOAL:
+            lastDirectionTraveled = stepsTaken[stepsTaken.length - 1];
+            updatePosition(lastDirectionTraveled);
+            stepsToGoal = stepsToGoal > stepsTaken.length ? stepsTaken.length : stepsToGoal;
+            locToSteps.set(createKey(location.x, location.y), stepsTaken.length);
+            grid.set(createKey(location.x, location.y), GOAL);
 
-      updatePosition(getOpposite(lastDirectionTraveled));
-      stepsTaken.pop();
-      console.log('g: ' + stepsToGoal);
-      break;
-    default:
-      console.log('Invalid Status');
-  }
-
-  nextMove = pickNextMove();
-  // console.log('next: ' + nextMove)
-  // todo bail out if total steps > goal steps
-  if (nextMove === NO_MOVES) {
-    console.log(stepsTaken.length);
-    if (stepsTaken.length === 0) {
-      console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + blocks);
-      console.log('Expected: ');
-      console.timeEnd();
-      process.exit();
-    } else {
-      input.push(getOpposite(stepsTaken.pop()));
+            updatePosition(getOpposite(lastDirectionTraveled));
+            stepsTaken.pop();
+            console.log('g: ' + stepsToGoal);
+            break;
+        default:
+            console.log('Invalid Status');
     }
-  } else {
-    stepsTaken.push(nextMove);
-    input.push(nextMove);
-  }
+
+    nextMove = pickNextMove();
+    // console.log('next: ' + nextMove)
+    // todo bail out if total steps > goal steps
+    if (nextMove === NO_MOVES) {
+        console.log(stepsTaken.length);
+        if (stepsTaken.length === 0) {
+            console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + blocks);
+            console.log('Expected: ');
+            console.timeEnd();
+            process.exit();
+        } else {
+            input.push(getOpposite(stepsTaken.pop()));
+        }
+    } else {
+        stepsTaken.push(nextMove);
+        input.push(nextMove);
+    }
 }
 
 function createKey(row, col) {
-  return row + DELIM + col;
+    return row + DELIM + col;
 }
 
 function getOpposite(key) {
-  switch (key) {
-    case NORTH:
-      return SOUTH;
-    case SOUTH:
-      return NORTH;
-    case EAST:
-      return WEST;
-    case WEST:
-      return EAST;
-    default:
-      console.log('Invalid Opposite: ' + key);
-  }
+    switch (key) {
+        case NORTH:
+            return SOUTH;
+        case SOUTH:
+            return NORTH;
+        case EAST:
+            return WEST;
+        case WEST:
+            return EAST;
+        default:
+            console.log('Invalid Opposite: ' + key);
+    }
 }
 
 function updatePosition(dir) {
-  switch (dir) {
-    case NORTH:
-      location.x--;
-      break;
-    case SOUTH:
-      location.x++;
-      break;
-    case EAST:
-      location.y++;
-      break;
-    case WEST:
-      location.y--;
-      break;
-    default:
-      console.log('Invalid update: ' + dir);
-  }
-  // console.log(location)
+    switch (dir) {
+        case NORTH:
+            location.x--;
+            break;
+        case SOUTH:
+            location.x++;
+            break;
+        case EAST:
+            location.y++;
+            break;
+        case WEST:
+            location.y--;
+            break;
+        default:
+            console.log('Invalid update: ' + dir);
+    }
+    // console.log(location)
 }
 
 function pickNextMove() {
-  let northKey = createKey(location.x - 1, location.y);
-  let southKey = createKey(location.x + 1, location.y);
-  let westKey = createKey(location.x, location.y - 1);
-  let eastKey = createKey(location.x, location.y + 1);
+    let northKey = createKey(location.x - 1, location.y);
+    let southKey = createKey(location.x + 1, location.y);
+    let westKey = createKey(location.x, location.y - 1);
+    let eastKey = createKey(location.x, location.y + 1);
 
-  let keys = [northKey, southKey, westKey, eastKey];
+    let keys = [northKey, southKey, westKey, eastKey];
 
-  for (let i = 0; i < keys.length; i++) {
-    let tile = grid.get(keys[i]);
-    // console.log('tile next move: ' + tile)
-    if (tile === WALL) {
-      continue;
+    for (let i = 0; i < keys.length; i++) {
+        let tile = grid.get(keys[i]);
+        // console.log('tile next move: ' + tile)
+        if (tile === WALL) {
+            continue;
+        }
+        if (locToSteps.get(keys[i]) <= stepsTaken.length + 1) {
+            continue;
+        }
+        return BigInt(i + 1);
     }
-    if (locToSteps.get(keys[i]) <= stepsTaken.length + 1) {
-      continue;
-    }
-    return BigInt(i + 1);
-  }
 
-  return NO_MOVES;
+    return NO_MOVES;
 }

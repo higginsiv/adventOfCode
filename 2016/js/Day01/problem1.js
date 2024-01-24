@@ -10,37 +10,37 @@ let y = 0;
 let direction = NORTH;
 
 const DATA = fr
-  .getInput(YEAR, DAY, ', ')
-  .map((x) => {
-    const direction = x[0];
-    const distance = parseInt(x.substring(1));
-    return { direction, distance };
-  })
-  .forEach((movement) => {
-    switch (movement.direction) {
-      case LEFT:
-        direction = DIRECTIONS[(direction + 3) % 4];
-        break;
-      case RIGHT:
-        direction = DIRECTIONS[(direction + 1) % 4];
-        break;
-    }
+    .getInput(YEAR, DAY, ', ')
+    .map((x) => {
+        const direction = x[0];
+        const distance = parseInt(x.substring(1));
+        return { direction, distance };
+    })
+    .forEach((movement) => {
+        switch (movement.direction) {
+            case LEFT:
+                direction = DIRECTIONS[(direction + 3) % 4];
+                break;
+            case RIGHT:
+                direction = DIRECTIONS[(direction + 1) % 4];
+                break;
+        }
 
-    switch (direction) {
-      case NORTH:
-        y += movement.distance;
-        break;
-      case EAST:
-        x += movement.distance;
-        break;
-      case SOUTH:
-        y -= movement.distance;
-        break;
-      case WEST:
-        x -= movement.distance;
-        break;
-    }
-  });
+        switch (direction) {
+            case NORTH:
+                y += movement.distance;
+                break;
+            case EAST:
+                x += movement.distance;
+                break;
+            case SOUTH:
+                y -= movement.distance;
+                break;
+            case WEST:
+                x -= movement.distance;
+                break;
+        }
+    });
 
 let answer = Math.abs(x) + Math.abs(y);
 OUTPUT.output(YEAR, DAY, PART, answer);

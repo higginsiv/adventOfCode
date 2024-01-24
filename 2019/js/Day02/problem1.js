@@ -7,9 +7,9 @@ data[1] = 12n;
 data[2] = 2n;
 
 ic.run(data, 0n).then(() => {
-  let answer = data[0];
+    let answer = data[0];
 
-  console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
-  console.log('Expected: 3850704');
-  console.timeEnd();
+    console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
+    console.log('Expected: 3850704');
+    console.timeEnd();
 });

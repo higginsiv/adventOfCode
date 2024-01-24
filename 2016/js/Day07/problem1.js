@@ -6,10 +6,10 @@ const regexInvalid = /\[[^\]]*?(\w)(?!\1)(\w)\2\1[^\]]*?\]/;
 const regexValid = /(\w)(?!\1)(\w)\2\1/;
 
 const answer = fr.getInput(YEAR, DAY).reduce((total, line) => {
-  if (!regexInvalid.test(line) && regexValid.test(line)) {
-    total++;
-  }
-  return total;
+    if (!regexInvalid.test(line) && regexValid.test(line)) {
+        total++;
+    }
+    return total;
 }, 0);
 
 OUTPUT.output(YEAR, DAY, PART, answer);

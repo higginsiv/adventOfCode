@@ -9,14 +9,14 @@ let bestId;
 let bestWaitTime = Infinity;
 let trains = data[1].split(',');
 trains.forEach((x) => {
-  if (x !== 'x') {
-    x = parseInt(x);
-    let timeToWait = x - (EARLIEST % x);
-    if (bestWaitTime > timeToWait) {
-      bestWaitTime = timeToWait;
-      bestId = x;
+    if (x !== 'x') {
+        x = parseInt(x);
+        let timeToWait = x - (EARLIEST % x);
+        if (bestWaitTime > timeToWait) {
+            bestWaitTime = timeToWait;
+            bestId = x;
+        }
     }
-  }
 });
 
 let answer = bestId * bestWaitTime;

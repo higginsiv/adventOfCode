@@ -8,16 +8,16 @@ const INITIAL_SUBJECT = 7;
 let loop = 0;
 let value = 1;
 while (value !== DOOR) {
-  loop++;
-  value *= INITIAL_SUBJECT;
-  value = value % DIVIDEND;
+    loop++;
+    value *= INITIAL_SUBJECT;
+    value = value % DIVIDEND;
 }
 
 let answer = 1;
 while (loop > 0) {
-  loop--;
-  answer *= CARD;
-  answer = answer % DIVIDEND;
+    loop--;
+    answer *= CARD;
+    answer = answer % DIVIDEND;
 }
 
 console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);

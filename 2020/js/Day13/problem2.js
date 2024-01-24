@@ -6,12 +6,12 @@ const [year, day, part] = ['2020', '13', '2'];
 const data = fr.getInput(year, day);
 
 class Train {
-  id;
-  offset;
-  constructor(id, offset) {
-    this.id = id;
-    this.offset = offset;
-  }
+    id;
+    offset;
+    constructor(id, offset) {
+        this.id = id;
+        this.offset = offset;
+    }
 }
 
 let bestId;
@@ -20,11 +20,11 @@ let gaps = 0;
 let trains = [];
 
 data[1].split(',').forEach((x) => {
-  if (x !== 'x') {
-    x = new Train(parseInt(x), gaps);
-    trains.push(x);
-  }
-  gaps++;
+    if (x !== 'x') {
+        x = new Train(parseInt(x), gaps);
+        trains.push(x);
+    }
+    gaps++;
 });
 
 trains.sort((a, b) => b.id - a.id);
@@ -34,17 +34,17 @@ let biggestTrain = trains[0];
 let time = biggestTrain.id;
 let allGood = false;
 while (!allGood) {
-  time += biggestTrain.id;
-  allGood = true;
-  for (let i = 1; i < trains.length; i++) {
-    let currTrain = trains[i];
-    let val = (time + (currTrain.offset - biggestTrain.offset)) % currTrain.id;
+    time += biggestTrain.id;
+    allGood = true;
+    for (let i = 1; i < trains.length; i++) {
+        let currTrain = trains[i];
+        let val = (time + (currTrain.offset - biggestTrain.offset)) % currTrain.id;
 
-    if (val !== 0) {
-      allGood = false;
-      break;
+        if (val !== 0) {
+            allGood = false;
+            break;
+        }
     }
-  }
 }
 let answer = time - biggestTrain.offset;
 // console.log(trains)

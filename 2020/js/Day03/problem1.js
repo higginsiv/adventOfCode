@@ -10,11 +10,11 @@ let row = 0;
 let col = 0;
 let collisions = 0;
 while (row < ROWS) {
-  if (data[row][col] === TREE) {
-    collisions++;
-  }
-  row = row + 1;
-  col = (col + 3) % COLS;
+    if (data[row][col] === TREE) {
+        collisions++;
+    }
+    row = row + 1;
+    col = (col + 3) % COLS;
 }
 let answer = collisions;
 
