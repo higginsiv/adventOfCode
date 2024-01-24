@@ -1,5 +1,5 @@
-const fr = require("../../../tools/fileReader");
-const [year, day, part] = ["2022", "16", "2"];
+const fr = require('../../../tools/fileReader');
+const [year, day, part] = ['2022', '16', '2'];
 
 class Valve {
   name;
@@ -18,12 +18,12 @@ let valves = new Map();
 const data = fr
   .getInput(year, day)
   .map((x) => {
-    x = x.replace("Valve ", "");
-    x = x.replace(" has flow rate=", " ");
-    x = x.replace("; tunnels lead to valves ", " ");
-    x = x.replace("; tunnel leads to valve ", " ");
-    x = x.replaceAll(", ", " ");
-    x = x.split(" ");
+    x = x.replace('Valve ', '');
+    x = x.replace(' has flow rate=', ' ');
+    x = x.replace('; tunnels lead to valves ', ' ');
+    x = x.replace('; tunnel leads to valve ', ' ');
+    x = x.replaceAll(', ', ' ');
+    x = x.split(' ');
     return x;
   })
   .forEach((x) => {
@@ -45,12 +45,12 @@ valves.forEach((x) => {
 
 const TIME_TO_OPEN = 1;
 const NUM_OF_PATHS = 15;
-const START = "AA";
+const START = 'AA';
 const ELEPHANT_TIME = 4;
 
 function getBenefit(flow, distance, time) {
-    return (time - distance) * flow;
-  }
+  return (time - distance) * flow;
+}
 
 function calculateDistance(v1, v2, visited = [], totalDistance = 0) {
   if (v1.name == v2.name) {
@@ -60,12 +60,7 @@ function calculateDistance(v1, v2, visited = [], totalDistance = 0) {
   let minDistance = Infinity;
   v1.children.forEach((x) => {
     if (!visited.includes(x)) {
-      let distance = calculateDistance(
-        valves.get(x),
-        v2,
-        visited.slice(),
-        totalDistance + 1
-      );
+      let distance = calculateDistance(valves.get(x), v2, visited.slice(), totalDistance + 1);
       if (distance < minDistance) {
         minDistance = distance;
       }
@@ -78,7 +73,7 @@ function calculateDistance(v1, v2, visited = [], totalDistance = 0) {
 let distances = new Map();
 valves.forEach((x) => {
   valves.forEach((y) => {
-    distances.set(x.name + "." + y.name, calculateDistance(x, y));
+    distances.set(x.name + '.' + y.name, calculateDistance(x, y));
   });
 });
 
@@ -91,7 +86,7 @@ let answer = navigate(
   valves.get(START),
   0,
   0,
-  usefulValves
+  usefulValves,
 );
 
 // todo the 0 sequence, need to have iterations where elephant chooses first
@@ -104,7 +99,7 @@ function navigate(
   ellyGoalValve,
   goalValveTime,
   ellyGoalValveTime,
-  unopenedValves
+  unopenedValves,
 ) {
   if (time < 0) {
     return totalFlow;
@@ -117,42 +112,41 @@ function navigate(
     ellyValve = ellyGoalValve;
 
     if (unopenedValves.length === 0) {
-        // if there is nowhere for person to go, just keep iterating until time expires
-        return navigate(
-            time - 1,
-            totalFlow,
-            startValve,
-            ellyValve,
-            goalValve,
-            ellyGoalValve,
-            goalValveTime - 1,
-            ellyGoalValveTime - 1,
-            unopenedValves
-          );
-      }
+      // if there is nowhere for person to go, just keep iterating until time expires
+      return navigate(
+        time - 1,
+        totalFlow,
+        startValve,
+        ellyValve,
+        goalValve,
+        ellyGoalValve,
+        goalValveTime - 1,
+        ellyGoalValveTime - 1,
+        unopenedValves,
+      );
+    }
     let bestTotal = totalFlow;
     unopenedValves.forEach((x) => {
       // find valve for person
 
       goalValve = valves.get(x);
-      goalValveTime =
-        distances.get(startValve.name + "." + goalValve.name) + TIME_TO_OPEN;
+      goalValveTime = distances.get(startValve.name + '.' + goalValve.name) + TIME_TO_OPEN;
       let localUnopened = unopenedValves.slice();
       localUnopened.splice(localUnopened.indexOf(goalValve.name), 1);
 
       if (localUnopened.length === 0) {
         // if there is nowhere for elly to go, just keep iterating until time expires
         return navigate(
-            time - 1,
-            totalFlow,
-            startValve,
-            ellyValve,
-            goalValve,
-            ellyGoalValve,
-            goalValveTime - 1,
-            ellyGoalValveTime - 1,
-            localUnopened
-          );
+          time - 1,
+          totalFlow,
+          startValve,
+          ellyValve,
+          goalValve,
+          ellyGoalValve,
+          goalValveTime - 1,
+          ellyGoalValveTime - 1,
+          localUnopened,
+        );
       }
       localUnopened.forEach((y) => {
         // find valve for elly
@@ -160,8 +154,7 @@ function navigate(
         if (y !== x) {
           ellyGoalValve = valves.get(y);
           ellyGoalValveTime =
-            distances.get(ellyValve.name + "." + ellyGoalValve.name) +
-            TIME_TO_OPEN;
+            distances.get(ellyValve.name + '.' + ellyGoalValve.name) + TIME_TO_OPEN;
           let ellyLocal = localUnopened.slice();
           ellyLocal.splice(localUnopened.indexOf(ellyGoalValve.name), 1);
 
@@ -174,7 +167,7 @@ function navigate(
             ellyGoalValve,
             goalValveTime - 1,
             ellyGoalValveTime - 1,
-            ellyLocal
+            ellyLocal,
           );
           if (total > bestTotal) {
             bestTotal = total;
@@ -189,24 +182,23 @@ function navigate(
     startValve = goalValve;
 
     if (unopenedValves.length === 0) {
-        // if there is nowhere for person to go, just keep iterating until time expires
-        return navigate(
-            time - 1,
-            totalFlow,
-            startValve,
-            ellyValve,
-            goalValve,
-            ellyGoalValve,
-            goalValveTime - 1,
-            ellyGoalValveTime - 1,
-            unopenedValves.slice()
-          );
-      }
+      // if there is nowhere for person to go, just keep iterating until time expires
+      return navigate(
+        time - 1,
+        totalFlow,
+        startValve,
+        ellyValve,
+        goalValve,
+        ellyGoalValve,
+        goalValveTime - 1,
+        ellyGoalValveTime - 1,
+        unopenedValves.slice(),
+      );
+    }
     let bestTotal = totalFlow;
     unopenedValves.forEach((x) => {
       goalValve = valves.get(x);
-      goalValveTime =
-        distances.get(startValve.name + "." + goalValve.name) + TIME_TO_OPEN;
+      goalValveTime = distances.get(startValve.name + '.' + goalValve.name) + TIME_TO_OPEN;
       let localUnopened = unopenedValves.slice();
       localUnopened.splice(localUnopened.indexOf(goalValve.name), 1);
 
@@ -219,7 +211,7 @@ function navigate(
         ellyGoalValve,
         goalValveTime - 1,
         ellyGoalValveTime - 1,
-        localUnopened
+        localUnopened,
       );
 
       if (total > bestTotal) {
@@ -233,24 +225,23 @@ function navigate(
     ellyValve = ellyGoalValve;
 
     if (unopenedValves.length === 0) {
-        // if there is nowhere for elly to go, just keep iterating until time expires
-        return navigate(
-            time - 1,
-            totalFlow,
-            startValve,
-            ellyValve,
-            goalValve,
-            ellyGoalValve,
-            goalValveTime - 1,
-            ellyGoalValveTime - 1,
-            unopenedValves.slice()
-          );
-      }
+      // if there is nowhere for elly to go, just keep iterating until time expires
+      return navigate(
+        time - 1,
+        totalFlow,
+        startValve,
+        ellyValve,
+        goalValve,
+        ellyGoalValve,
+        goalValveTime - 1,
+        ellyGoalValveTime - 1,
+        unopenedValves.slice(),
+      );
+    }
     let bestTotal = totalFlow;
     unopenedValves.forEach((x) => {
       ellyGoalValve = valves.get(x);
-      ellyGoalValveTime =
-        distances.get(ellyValve.name + "." + ellyGoalValve.name) + TIME_TO_OPEN;
+      ellyGoalValveTime = distances.get(ellyValve.name + '.' + ellyGoalValve.name) + TIME_TO_OPEN;
       let localUnopened = unopenedValves.slice();
       localUnopened.splice(localUnopened.indexOf(ellyGoalValve.name), 1);
 
@@ -263,7 +254,7 @@ function navigate(
         ellyGoalValve,
         goalValveTime - 1,
         ellyGoalValveTime - 1,
-        localUnopened
+        localUnopened,
       );
 
       if (total > bestTotal) {
@@ -282,8 +273,8 @@ function navigate(
     ellyGoalValve,
     goalValveTime - 1,
     ellyGoalValveTime - 1,
-    unopenedValves
+    unopenedValves,
   );
 }
 
-console.log("Year " + year + " Day " + day + " Puzzle " + part + ": " + answer);
+console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);

@@ -1,8 +1,8 @@
-const fr = require("../../../tools/fileReader");
-const [year, day, part] = ["2022", "17", "1"];
+const fr = require('../../../tools/fileReader');
+const [year, day, part] = ['2022', '17', '1'];
 
 const [LEFT, RIGHT] = [-1, 1];
-const data = fr.getInput(year, day, "").map((x) => (x === "<" ? LEFT : RIGHT));
+const data = fr.getInput(year, day, '').map((x) => (x === '<' ? LEFT : RIGHT));
 
 const [HOR, PLUS, EL, VERT, BOX] = [0, 1, 2, 3, 4];
 const SOLID = 1;
@@ -28,7 +28,7 @@ class Rock {
           new Point(leftEdge + 2, highEdge + 3),
           new Point(leftEdge + 3, highEdge + 3),
           new Point(leftEdge + 4, highEdge + 3),
-          new Point(leftEdge + 5, highEdge + 3)
+          new Point(leftEdge + 5, highEdge + 3),
         );
         break;
       case PLUS:
@@ -37,7 +37,7 @@ class Rock {
           new Point(leftEdge + 3, highEdge + 3),
           new Point(leftEdge + 3, highEdge + 4),
           new Point(leftEdge + 3, highEdge + 5),
-          new Point(leftEdge + 4, highEdge + 4)
+          new Point(leftEdge + 4, highEdge + 4),
         );
         break;
       case EL:
@@ -46,7 +46,7 @@ class Rock {
           new Point(leftEdge + 3, highEdge + 3),
           new Point(leftEdge + 4, highEdge + 3),
           new Point(leftEdge + 4, highEdge + 4),
-          new Point(leftEdge + 4, highEdge + 5)
+          new Point(leftEdge + 4, highEdge + 5),
         );
         break;
       case VERT:
@@ -54,7 +54,7 @@ class Rock {
           new Point(leftEdge + 2, highEdge + 3),
           new Point(leftEdge + 2, highEdge + 4),
           new Point(leftEdge + 2, highEdge + 5),
-          new Point(leftEdge + 2, highEdge + 6)
+          new Point(leftEdge + 2, highEdge + 6),
         );
         break;
       case BOX:
@@ -62,7 +62,7 @@ class Rock {
           new Point(leftEdge + 2, highEdge + 3),
           new Point(leftEdge + 3, highEdge + 3),
           new Point(leftEdge + 2, highEdge + 4),
-          new Point(leftEdge + 3, highEdge + 4)
+          new Point(leftEdge + 3, highEdge + 4),
         );
         break;
     }
@@ -158,4 +158,4 @@ for (let i = 0; i < maxRocks; i++) {
 }
 
 let answer = highY + rowsDeleted;
-console.log("Year " + year + " Day " + day + " Puzzle " + part + ": " + answer);
+console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);

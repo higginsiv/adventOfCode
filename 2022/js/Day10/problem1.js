@@ -1,10 +1,10 @@
-const fr = require("../../../tools/fileReader");
-const [year, day, part] = ["2022", "10", "1"];
+const fr = require('../../../tools/fileReader');
+const [year, day, part] = ['2022', '10', '1'];
 const data = fr.getInput(year, day).map((x) => {
-  return x.split(" ").map((y) => {
-    if (y === "noop") {
+  return x.split(' ').map((y) => {
+    if (y === 'noop') {
       return 1;
-    } else if (y === "addx") {
+    } else if (y === 'addx') {
       return 2;
     } else {
       return parseInt(y);
@@ -40,4 +40,4 @@ while (cycle <= maxCycle) {
   }
 }
 
-console.log("Year " + year + " Day " + day + " Puzzle " + part + ": " + sums);
+console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + sums);

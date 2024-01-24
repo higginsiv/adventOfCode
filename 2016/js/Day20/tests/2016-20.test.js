@@ -5,11 +5,11 @@ const { solve: part2 } = require(`../problem2.js`);
 const data = fr.getInputForFunction('2016', '20');
 
 describe(`2016 Day 20`, () => {
-    it('Part 1', () => {
-        expect(part1(data).value).toBe(14975795);
-    });
+  it('Part 1', () => {
+    expect(part1(data).value).toBe(14975795);
+  });
 
-    it('Part 2', () => {
-        expect(part2(data).value).toBe(101);
-    });
+  it('Part 2', () => {
+    expect(part2(data).value).toBe(101);
+  });
 });

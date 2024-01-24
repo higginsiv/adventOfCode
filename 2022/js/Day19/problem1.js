@@ -1,5 +1,5 @@
-const fr = require("../../../tools/fileReader");
-const [year, day, part] = ["2022", "19", "1"];
+const fr = require('../../../tools/fileReader');
+const [year, day, part] = ['2022', '19', '1'];
 
 class Blueprint {
   id;
@@ -16,7 +16,7 @@ class Blueprint {
     obsBotOreCost,
     obsBotClayCost,
     geoBotOreCost,
-    geoBotObsCost
+    geoBotObsCost,
   ) {
     this.id = id;
     this.oreBotCost = oreBotCost;
@@ -31,15 +31,15 @@ class Blueprint {
 const data = fr
   .getInput(year, day)
   .map((x) => {
-    x = x.replace("Blueprint ", "");
-    x = x.replace(": Each ore robot costs ", " ");
-    x = x.replace(" ore. Each clay robot costs ", " ");
-    x = x.replace(" ore. Each obsidian robot costs ", " ");
-    x = x.replace(" ore and ", " ");
-    x = x.replace(" clay. Each geode robot costs ", " ");
-    x = x.replace(" ore and ", " ");
-    x = x.replace(" obsidian.", "");
-    x = x.split(" ").map((y) => parseInt(y));
+    x = x.replace('Blueprint ', '');
+    x = x.replace(': Each ore robot costs ', ' ');
+    x = x.replace(' ore. Each clay robot costs ', ' ');
+    x = x.replace(' ore. Each obsidian robot costs ', ' ');
+    x = x.replace(' ore and ', ' ');
+    x = x.replace(' clay. Each geode robot costs ', ' ');
+    x = x.replace(' ore and ', ' ');
+    x = x.replace(' obsidian.', '');
+    x = x.split(' ').map((y) => parseInt(y));
     return x;
   })
   .map((x) => new Blueprint(...x));
@@ -53,25 +53,12 @@ const ORE_BOT_MAX = 4;
 const CLAY_BOT_MAX = 15;
 
 let sum = data.reduce((sum, curr) => {
-  let result = buildR2(
-    curr,
-    1,
-    1,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    ORE_BOT_MAX,
-    CLAY_BOT_MAX
-  );
+  let result = buildR2(curr, 1, 1, 0, 0, 0, 0, 0, 0, 0, ORE_BOT_MAX, CLAY_BOT_MAX);
 
   return sum + result * curr.id;
 }, 0);
 
-console.log("Year " + year + " Day " + day + " Puzzle " + part + ": " + sum);
+console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + sum);
 
 function buildR2(
   print,
@@ -85,7 +72,7 @@ function buildR2(
   obs,
   geos,
   oreBotMax,
-  clayBotMax
+  clayBotMax,
 ) {
   let options = [];
   if (minutes > MAX_MIN) {
@@ -93,14 +80,8 @@ function buildR2(
   }
 
   if (oreBots > 0) {
-    let oreReqOreBot = Math.max(
-      Math.ceil((print.oreBotCost - ore) / oreBots),
-      0
-    );
-    let oreReqClayBot = Math.max(
-      Math.ceil((print.clayBotCost - ore) / oreBots),
-      0
-    );
+    let oreReqOreBot = Math.max(Math.ceil((print.oreBotCost - ore) / oreBots), 0);
+    let oreReqClayBot = Math.max(Math.ceil((print.clayBotCost - ore) / oreBots), 0);
     if (minutes + oreReqOreBot < MAX_MIN && oreBots < oreBotMax) {
       options.push([oreReqOreBot, ORE_BOT]);
     }
@@ -110,14 +91,8 @@ function buildR2(
   }
 
   if (clayBots > 0 && obsBots < print.geoBotObsCost) {
-    let oreReqObsBot = Math.max(
-      Math.ceil((print.obsBotOreCost - ore) / oreBots),
-      0
-    );
-    let clayReqObsBot = Math.max(
-      Math.ceil((print.obsBotClayCost - clay) / clayBots),
-      0
-    );
+    let oreReqObsBot = Math.max(Math.ceil((print.obsBotOreCost - ore) / oreBots), 0);
+    let clayReqObsBot = Math.max(Math.ceil((print.obsBotClayCost - clay) / clayBots), 0);
     let timeCost = Math.max(oreReqObsBot, clayReqObsBot);
     if (minutes + timeCost < MAX_MIN) {
       options.push([timeCost, OBS_BOT]);
@@ -125,14 +100,8 @@ function buildR2(
   }
 
   if (obsBots > 0) {
-    let oreReqGeoBot = Math.max(
-      Math.ceil((print.geoBotOreCost - ore) / oreBots),
-      0
-    );
-    let obsReqGeoBot = Math.max(
-      Math.ceil((print.geoBotObsCost - obs) / obsBots),
-      0
-    );
+    let oreReqGeoBot = Math.max(Math.ceil((print.geoBotOreCost - ore) / oreBots), 0);
+    let obsReqGeoBot = Math.max(Math.ceil((print.geoBotObsCost - obs) / obsBots), 0);
     let timeCost = Math.max(oreReqGeoBot, obsReqGeoBot);
 
     if (minutes + timeCost < MAX_MIN) {
@@ -173,7 +142,7 @@ function buildR2(
       obs + (timeCost + 1) * obsBots - obsMod,
       geos + (timeCost + 1) * geoBots,
       oreBotMax,
-      clayBotMax
+      clayBotMax,
     );
     if (result > best) {
       best = result;

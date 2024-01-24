@@ -9,87 +9,81 @@ const ROUNDS = 6;
 
 let cube = new Map();
 const data = fr.getInput(year, day).forEach((x, row) => {
-    x = x.split('');
-    x.forEach((val, col) => {
-        cube.set(generateKey(col, row, Z_START), val);
-        getNeighborKeys(col, row, Z_START).forEach((key) => {
-            if (cube.get(key) == null) {
-                cube.set(key, INACTIVE);
-            }
-        });
+  x = x.split('');
+  x.forEach((val, col) => {
+    cube.set(generateKey(col, row, Z_START), val);
+    getNeighborKeys(col, row, Z_START).forEach((key) => {
+      if (cube.get(key) == null) {
+        cube.set(key, INACTIVE);
+      }
     });
+  });
 });
 
 for (let i = 0; i < ROUNDS; i++) {
-    let next = new Map();
-    cube.forEach((val, key) => {
-        let [x, y, z] = key.split(DELIM).map((n) => parseInt(n));
-        let neighbors = getNeighborKeys(x, y, z);
-        let activeNeighbors = neighbors.filter((k) => cube.get(k) === ACTIVE);
+  let next = new Map();
+  cube.forEach((val, key) => {
+    let [x, y, z] = key.split(DELIM).map((n) => parseInt(n));
+    let neighbors = getNeighborKeys(x, y, z);
+    let activeNeighbors = neighbors.filter((k) => cube.get(k) === ACTIVE);
 
-        if (
-            val === ACTIVE &&
-            activeNeighbors.length !== 2 &&
-            activeNeighbors.length !== 3
-        ) {
-            next.set(generateKey(x, y, z), INACTIVE);
-        } else if (val === INACTIVE && activeNeighbors.length === 3) {
-            next.set(generateKey(x, y, z), ACTIVE);
-        } else {
-            next.set(generateKey(x, y, z), val);
-        }
+    if (val === ACTIVE && activeNeighbors.length !== 2 && activeNeighbors.length !== 3) {
+      next.set(generateKey(x, y, z), INACTIVE);
+    } else if (val === INACTIVE && activeNeighbors.length === 3) {
+      next.set(generateKey(x, y, z), ACTIVE);
+    } else {
+      next.set(generateKey(x, y, z), val);
+    }
 
-        neighbors.forEach((key) => {
-            if (next.get(key) == null) {
-                next.set(key, INACTIVE);
-            }
-        });
+    neighbors.forEach((key) => {
+      if (next.get(key) == null) {
+        next.set(key, INACTIVE);
+      }
     });
-    cube = next;
+  });
+  cube = next;
 }
 
-let answer = Array.from(cube.keys()).filter(
-    (key) => cube.get(key) === ACTIVE
-).length;
+let answer = Array.from(cube.keys()).filter((key) => cube.get(key) === ACTIVE).length;
 
 function generateKey(x, y, z) {
-    return x + DELIM + y + DELIM + z;
+  return x + DELIM + y + DELIM + z;
 }
 
 function getNeighborKeys(x, y, z) {
-    let neighborKeys = [];
+  let neighborKeys = [];
 
-    // TODO change this to use generateKey
-    neighborKeys.push(x + 1 + DELIM + y + DELIM + z);
-    neighborKeys.push(x + 1 + DELIM + (y + 1) + DELIM + z);
-    neighborKeys.push(x + 1 + DELIM + (y + 1) + DELIM + (z + 1));
-    neighborKeys.push(x + 1 + DELIM + (y - 1) + DELIM + z);
-    neighborKeys.push(x + 1 + DELIM + (y - 1) + DELIM + (z - 1));
-    neighborKeys.push(x + 1 + DELIM + y + DELIM + (z + 1));
-    neighborKeys.push(x + 1 + DELIM + y + DELIM + (z - 1));
-    neighborKeys.push(x + 1 + DELIM + (y + 1) + DELIM + (z - 1));
-    neighborKeys.push(x + 1 + DELIM + (y - 1) + DELIM + (z + 1));
+  // TODO change this to use generateKey
+  neighborKeys.push(x + 1 + DELIM + y + DELIM + z);
+  neighborKeys.push(x + 1 + DELIM + (y + 1) + DELIM + z);
+  neighborKeys.push(x + 1 + DELIM + (y + 1) + DELIM + (z + 1));
+  neighborKeys.push(x + 1 + DELIM + (y - 1) + DELIM + z);
+  neighborKeys.push(x + 1 + DELIM + (y - 1) + DELIM + (z - 1));
+  neighborKeys.push(x + 1 + DELIM + y + DELIM + (z + 1));
+  neighborKeys.push(x + 1 + DELIM + y + DELIM + (z - 1));
+  neighborKeys.push(x + 1 + DELIM + (y + 1) + DELIM + (z - 1));
+  neighborKeys.push(x + 1 + DELIM + (y - 1) + DELIM + (z + 1));
 
-    neighborKeys.push(x - 1 + DELIM + y + DELIM + z);
-    neighborKeys.push(x - 1 + DELIM + (y + 1) + DELIM + z);
-    neighborKeys.push(x - 1 + DELIM + (y + 1) + DELIM + (z + 1));
-    neighborKeys.push(x - 1 + DELIM + (y - 1) + DELIM + z);
-    neighborKeys.push(x - 1 + DELIM + (y - 1) + DELIM + (z - 1));
-    neighborKeys.push(x - 1 + DELIM + y + DELIM + (z + 1));
-    neighborKeys.push(x - 1 + DELIM + y + DELIM + (z - 1));
-    neighborKeys.push(x - 1 + DELIM + (y + 1) + DELIM + (z - 1));
-    neighborKeys.push(x - 1 + DELIM + (y - 1) + DELIM + (z + 1));
+  neighborKeys.push(x - 1 + DELIM + y + DELIM + z);
+  neighborKeys.push(x - 1 + DELIM + (y + 1) + DELIM + z);
+  neighborKeys.push(x - 1 + DELIM + (y + 1) + DELIM + (z + 1));
+  neighborKeys.push(x - 1 + DELIM + (y - 1) + DELIM + z);
+  neighborKeys.push(x - 1 + DELIM + (y - 1) + DELIM + (z - 1));
+  neighborKeys.push(x - 1 + DELIM + y + DELIM + (z + 1));
+  neighborKeys.push(x - 1 + DELIM + y + DELIM + (z - 1));
+  neighborKeys.push(x - 1 + DELIM + (y + 1) + DELIM + (z - 1));
+  neighborKeys.push(x - 1 + DELIM + (y - 1) + DELIM + (z + 1));
 
-    neighborKeys.push(x + DELIM + (y + 1) + DELIM + z);
-    neighborKeys.push(x + DELIM + (y + 1) + DELIM + (z + 1));
-    neighborKeys.push(x + DELIM + (y - 1) + DELIM + z);
-    neighborKeys.push(x + DELIM + (y - 1) + DELIM + (z - 1));
-    neighborKeys.push(x + DELIM + y + DELIM + (z + 1));
-    neighborKeys.push(x + DELIM + y + DELIM + (z - 1));
-    neighborKeys.push(x + DELIM + (y + 1) + DELIM + (z - 1));
-    neighborKeys.push(x + DELIM + (y - 1) + DELIM + (z + 1));
+  neighborKeys.push(x + DELIM + (y + 1) + DELIM + z);
+  neighborKeys.push(x + DELIM + (y + 1) + DELIM + (z + 1));
+  neighborKeys.push(x + DELIM + (y - 1) + DELIM + z);
+  neighborKeys.push(x + DELIM + (y - 1) + DELIM + (z - 1));
+  neighborKeys.push(x + DELIM + y + DELIM + (z + 1));
+  neighborKeys.push(x + DELIM + y + DELIM + (z - 1));
+  neighborKeys.push(x + DELIM + (y + 1) + DELIM + (z - 1));
+  neighborKeys.push(x + DELIM + (y - 1) + DELIM + (z + 1));
 
-    return neighborKeys;
+  return neighborKeys;
 }
 
 console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);

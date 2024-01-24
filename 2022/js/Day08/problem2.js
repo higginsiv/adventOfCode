@@ -1,8 +1,6 @@
-const fr = require("../../../tools/fileReader");
-const [year, day, part] = ["2022", "08", "2"];
-const data = fr
-  .getInput(year, day)
-  .map((x) => x.split("").map((y) => parseInt(y)));
+const fr = require('../../../tools/fileReader');
+const [year, day, part] = ['2022', '08', '2'];
+const data = fr.getInput(year, day).map((x) => x.split('').map((y) => parseInt(y)));
 
 let maxScenicScore = -Infinity;
 
@@ -37,10 +35,8 @@ function check(x, y, xDelta, yDelta, originalHeight, newHeight, numTrees = 0) {
     yDelta,
     originalHeight,
     data[x + xDelta][y + yDelta],
-    numTrees
+    numTrees,
   );
 }
 
-console.log(
-  "Year " + year + " Day " + day + " Puzzle " + part + ": " + maxScenicScore
-);
+console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + maxScenicScore);

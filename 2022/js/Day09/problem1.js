@@ -1,8 +1,8 @@
-const fr = require("../../../tools/fileReader");
-const [year, day, part] = ["2022", "09", "1"];
+const fr = require('../../../tools/fileReader');
+const [year, day, part] = ['2022', '09', '1'];
 const data = fr
   .getInput(year, day)
-  .map((x) => x.split(" ").map((y, index) => (index === 0 ? y : parseInt(y))));
+  .map((x) => x.split(' ').map((y, index) => (index === 0 ? y : parseInt(y))));
 
 let head = {
   x: 0,
@@ -13,21 +13,21 @@ let tail = {
   y: 0,
 };
 
-let tailVisits = new Set(["0.0"]);
+let tailVisits = new Set(['0.0']);
 
 data.forEach(([dir, amount]) => {
   switch (dir) {
-    case "U":
-      move("y", amount);
+    case 'U':
+      move('y', amount);
       break;
-    case "D":
-      move("y", -amount);
+    case 'D':
+      move('y', -amount);
       break;
-    case "L":
-      move("x", -amount);
+    case 'L':
+      move('x', -amount);
       break;
-    case "R":
-      move("x", amount);
+    case 'R':
+      move('x', amount);
       break;
   }
 });
@@ -39,7 +39,7 @@ function move(axis, delta) {
     if (!isTouching()) {
       tail[axis] += increment;
       tail[oppositeAxis(axis)] = head[oppositeAxis(axis)];
-      tailVisits.add(tail["x"].toString() + "." + tail["y"].toString());
+      tailVisits.add(tail['x'].toString() + '.' + tail['y'].toString());
     }
   }
 }
@@ -49,9 +49,7 @@ function isTouching() {
 }
 
 function oppositeAxis(axis) {
-  return axis === "x" ? "y" : "x";
+  return axis === 'x' ? 'y' : 'x';
 }
 
-console.log(
-  "Year " + year + " Day " + day + " Puzzle " + part + ": " + tailVisits.size
-);
+console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + tailVisits.size);

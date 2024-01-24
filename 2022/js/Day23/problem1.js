@@ -1,6 +1,6 @@
-const fr = require("../../../tools/fileReader");
-const [year, day, part] = ["2022", "23", "1"];
-const ELF = "#";
+const fr = require('../../../tools/fileReader');
+const [year, day, part] = ['2022', '23', '1'];
+const ELF = '#';
 const [NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST, WEST, NORTHWEST] = [
   0, 1, 2, 3, 4, 5, 6, 7, 8,
 ];
@@ -46,7 +46,7 @@ function hasNeighbor(elf, dir, row, col) {
 
 let id = 0;
 const data = fr.getInput(year, day).forEach((x, index) => {
-  x = x.split("");
+  x = x.split('');
 
   x.forEach((y, ind) => {
     if (y === ELF) {
@@ -167,4 +167,4 @@ elves.forEach((elf) => {
 });
 
 let answer = (maxCol - minCol + 1) * (maxRow - minRow + 1) - elves.length;
-console.log("Year " + year + " Day " + day + " Puzzle " + part + ": " + answer);
+console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);

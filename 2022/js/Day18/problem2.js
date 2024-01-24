@@ -1,8 +1,6 @@
-const fr = require("../../../tools/fileReader");
-const [year, day, part] = ["2022", "18", "2"];
-const data = fr
-  .getInput(year, day)
-  .map((x) => x.split(",").map((y) => parseInt(y)));
+const fr = require('../../../tools/fileReader');
+const [year, day, part] = ['2022', '18', '2'];
+const data = fr.getInput(year, day).map((x) => x.split(',').map((y) => parseInt(y)));
 
 let jsonData = data.slice().map((x) => JSON.stringify(x));
 
@@ -115,4 +113,4 @@ let answer = lava.reduce((total, current) => {
   return total + waterAdjacent.length;
 }, 0);
 
-console.log("Year " + year + " Day " + day + " Puzzle " + part + ": " + answer);
+console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);

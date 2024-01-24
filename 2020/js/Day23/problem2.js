@@ -5,12 +5,12 @@ const MAX = 1000000;
 const MOVES = 10000000;
 
 class Cup {
-    label;
-    next;
-    constructor(label, next) {
-        this.label = label;
-        this.next = next;
-    }
+  label;
+  next;
+  constructor(label, next) {
+    this.label = label;
+    this.next = next;
+  }
 }
 
 // Get Cups into Linked List
@@ -22,15 +22,15 @@ labelToCup.set(data[0], startCup);
 
 let currCup = startCup;
 for (let i = MAX; i > data.length; i--) {
-    let cup = new Cup(i, currCup);
-    labelToCup.set(i, cup);
-    currCup = cup;
+  let cup = new Cup(i, currCup);
+  labelToCup.set(i, cup);
+  currCup = cup;
 }
 
 for (let i = data.length - 1; i > 0; i--) {
-    let cup = new Cup(data[i], currCup);
-    labelToCup.set(data[i], cup);
-    currCup = cup;
+  let cup = new Cup(data[i], currCup);
+  labelToCup.set(data[i], cup);
+  currCup = cup;
 }
 
 startCup.next = currCup;
@@ -38,46 +38,42 @@ startCup.next = currCup;
 // Play Game
 currCup = startCup;
 for (let i = 0; i < MOVES; i++) {
-    let destination;
-    let invalidLabels = [];
-    let startOfTrio = currCup.next;
+  let destination;
+  let invalidLabels = [];
+  let startOfTrio = currCup.next;
 
-    invalidLabels.push(
-        startOfTrio.label,
-        startOfTrio.next.label,
-        startOfTrio.next.next.label
-    );
-    destination = getDestinationCup(currCup.label, invalidLabels);
+  invalidLabels.push(startOfTrio.label, startOfTrio.next.label, startOfTrio.next.next.label);
+  destination = getDestinationCup(currCup.label, invalidLabels);
 
-    // If somehow the destination cup is where we currently are, no need to change anything
-    if (destination.next != startOfTrio) {
-        // set next of current
-        let cupAfterTrio = startOfTrio.next.next.next;
-        currCup.next = cupAfterTrio;
+  // If somehow the destination cup is where we currently are, no need to change anything
+  if (destination.next != startOfTrio) {
+    // set next of current
+    let cupAfterTrio = startOfTrio.next.next.next;
+    currCup.next = cupAfterTrio;
 
-        // make end of trio point to cup formerly after destination
-        startOfTrio.next.next.next = destination.next;
+    // make end of trio point to cup formerly after destination
+    startOfTrio.next.next.next = destination.next;
 
-        // make trio follow destination cup
-        destination.next = startOfTrio;
-    }
+    // make trio follow destination cup
+    destination.next = startOfTrio;
+  }
 
-    currCup = currCup.next;
+  currCup = currCup.next;
 }
 
 function getDestinationCup(label, invalidLabels) {
-    let destinationCup = null;
-    let cupToFind = label;
-    while (destinationCup == null) {
-        cupToFind--;
-        if (cupToFind === 0) {
-            cupToFind = MAX;
-        }
-        if (!invalidLabels.includes(cupToFind)) {
-            destinationCup = labelToCup.get(cupToFind);
-        }
+  let destinationCup = null;
+  let cupToFind = label;
+  while (destinationCup == null) {
+    cupToFind--;
+    if (cupToFind === 0) {
+      cupToFind = MAX;
     }
-    return destinationCup;
+    if (!invalidLabels.includes(cupToFind)) {
+      destinationCup = labelToCup.get(cupToFind);
+    }
+  }
+  return destinationCup;
 }
 
 let answer = labelToCup.get(1).next.label * labelToCup.get(1).next.next.label;

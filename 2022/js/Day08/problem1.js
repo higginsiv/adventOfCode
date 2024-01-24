@@ -3,11 +3,9 @@
 // use smart traversal to not check certain directions if you know element < maxElement in row
 // store max of each direction in a ds that you check against instead of iterating until you reach a higher value
 
-const fr = require("../../../tools/fileReader");
-const [year, day, part] = ["2022", "08", "1"];
-const data = fr
-  .getInput(year, day)
-  .map((x) => x.split("").map((y) => parseInt(y)));
+const fr = require('../../../tools/fileReader');
+const [year, day, part] = ['2022', '08', '1'];
+const data = fr.getInput(year, day).map((x) => x.split('').map((y) => parseInt(y)));
 
 let numVisible = 0;
 
@@ -39,10 +37,8 @@ function check(x, y, xDelta, yDelta, originalHeight, newHeight) {
     xDelta,
     yDelta,
     originalHeight,
-    data[x + xDelta][y + yDelta]
+    data[x + xDelta][y + yDelta],
   );
 }
 
-console.log(
-  "Year " + year + " Day " + day + " Puzzle " + part + ": " + numVisible
-);
+console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + numVisible);

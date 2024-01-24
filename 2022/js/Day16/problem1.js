@@ -1,5 +1,5 @@
-const fr = require("../../../tools/fileReader");
-const [year, day, part] = ["2022", "16", "1"];
+const fr = require('../../../tools/fileReader');
+const [year, day, part] = ['2022', '16', '1'];
 
 class Valve {
   name;
@@ -18,12 +18,12 @@ let valves = new Map();
 const data = fr
   .getInput(year, day)
   .map((x) => {
-    x = x.replace("Valve ", "");
-    x = x.replace(" has flow rate=", " ");
-    x = x.replace("; tunnels lead to valves ", " ");
-    x = x.replace("; tunnel leads to valve ", " ");
-    x = x.replaceAll(", ", " ");
-    x = x.split(" ");
+    x = x.replace('Valve ', '');
+    x = x.replace(' has flow rate=', ' ');
+    x = x.replace('; tunnels lead to valves ', ' ');
+    x = x.replace('; tunnel leads to valve ', ' ');
+    x = x.replaceAll(', ', ' ');
+    x = x.split(' ');
     return x;
   })
   .forEach((x) => {
@@ -46,7 +46,7 @@ valves.forEach((x) => {
 const TIME_TO_MOVE = 1;
 const TIME_TO_OPEN = 1;
 const NUM_OF_PATHS = 15;
-const START = "AA";
+const START = 'AA';
 
 function getBenefit(flow, distance, time) {
   return (time - TIME_TO_MOVE * distance - TIME_TO_OPEN) * flow;
@@ -60,12 +60,7 @@ function calculateDistance(v1, v2, visited = [], totalDistance = 0) {
   let minDistance = Infinity;
   v1.children.forEach((x) => {
     if (!visited.includes(x)) {
-      let distance = calculateDistance(
-        valves.get(x),
-        v2,
-        visited.slice(),
-        totalDistance + 1
-      );
+      let distance = calculateDistance(valves.get(x), v2, visited.slice(), totalDistance + 1);
       if (distance < minDistance) {
         minDistance = distance;
       }
@@ -78,10 +73,9 @@ function calculateDistance(v1, v2, visited = [], totalDistance = 0) {
 let distances = new Map();
 valves.forEach((x) => {
   valves.forEach((y) => {
-    distances.set(x.name + "." + y.name, calculateDistance(x, y));
+    distances.set(x.name + '.' + y.name, calculateDistance(x, y));
   });
 });
-
 
 let answer = navigate(30, 0, valves.get(START), usefulValves);
 
@@ -89,7 +83,7 @@ function navigate(time, totalFlow, currentValve, unopenedValves) {
   if (time < 0) {
     return totalFlow;
   }
-  
+
   if (unopenedValves.length === 0) {
     return totalFlow;
   }
@@ -103,23 +97,31 @@ function navigate(time, totalFlow, currentValve, unopenedValves) {
   });
 
   // The slicing is an optional performance concern where I prune out undesired paths. Unfortunately I required nothing be pruned to solve p1
-  let sortedFlows = Array.from(flowToValve.keys()).sort((a,b) => b-a).filter(x => {
-    let valve = flowToValve.get(x);
-    let distance = distances.get(currentValve.name + '.' + valve.name);
-    return time - distance - TIME_TO_OPEN > 0
-  }).slice(0, NUM_OF_PATHS);
+  let sortedFlows = Array.from(flowToValve.keys())
+    .sort((a, b) => b - a)
+    .filter((x) => {
+      let valve = flowToValve.get(x);
+      let distance = distances.get(currentValve.name + '.' + valve.name);
+      return time - distance - TIME_TO_OPEN > 0;
+    })
+    .slice(0, NUM_OF_PATHS);
 
   let bestTotal = totalFlow;
-  sortedFlows.forEach(x => {
+  sortedFlows.forEach((x) => {
     let valve = flowToValve.get(x);
     let localUnopened = unopenedValves.slice();
     localUnopened.splice(localUnopened.indexOf(valve.name), 1);
 
-    let total = navigate(time - distances.get(currentValve.name + '.' + valve.name) - TIME_TO_OPEN, totalFlow + x, valve, localUnopened);
+    let total = navigate(
+      time - distances.get(currentValve.name + '.' + valve.name) - TIME_TO_OPEN,
+      totalFlow + x,
+      valve,
+      localUnopened,
+    );
     if (total > bestTotal) {
-        bestTotal = total;
+      bestTotal = total;
     }
-  })
+  });
   return bestTotal;
 }
 

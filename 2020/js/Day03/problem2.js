@@ -9,26 +9,26 @@ const TREE = '#';
 let answer = 1;
 
 let slopes = [
-    [1, 1],
-    [3, 1],
-    [5, 1],
-    [7, 1],
-    [1, 2],
+  [1, 1],
+  [3, 1],
+  [5, 1],
+  [7, 1],
+  [1, 2],
 ];
 
 while (slopes.length > 0) {
-    const [COL_SLOPE, ROW_SLOPE] = slopes.shift();
-    let collisions = 0;
-    let row = 0;
-    let col = 0;
-    while (row < ROWS) {
-        if (data[row][col] === TREE) {
-            collisions++;
-        }
-        row = row + ROW_SLOPE;
-        col = (col + COL_SLOPE) % COLS;
+  const [COL_SLOPE, ROW_SLOPE] = slopes.shift();
+  let collisions = 0;
+  let row = 0;
+  let col = 0;
+  while (row < ROWS) {
+    if (data[row][col] === TREE) {
+      collisions++;
     }
-    answer = answer * collisions;
+    row = row + ROW_SLOPE;
+    col = (col + COL_SLOPE) % COLS;
+  }
+  answer = answer * collisions;
 }
 
 console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);

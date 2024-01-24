@@ -1,20 +1,20 @@
-const fr = require("../../../tools/fileReader");
-const [year, day, part] = ["2022", "05", "1"];
+const fr = require('../../../tools/fileReader');
+const [year, day, part] = ['2022', '05', '1'];
 const data = fr.getInput(year, day);
 
 let crateData = [];
 data
-  .slice(0, data.indexOf("") - 1)
+  .slice(0, data.indexOf('') - 1)
   .map((x) => {
     let ret = [];
-    x = x.replaceAll("[", "").replaceAll("]", "");
+    x = x.replaceAll('[', '').replaceAll(']', '');
 
     let spaces = 0;
     for (let i = 0; i < x.length; i++) {
-      if (x[i] != " ") {
+      if (x[i] != ' ') {
         if (spaces > 0) {
           for (let j = 0; j < (spaces - 1) / 4; j++) {
-            ret.push(" ");
+            ret.push(' ');
           }
         }
 
@@ -25,7 +25,7 @@ data
       }
     }
     if (spaces > 0) {
-      ret.push(" ");
+      ret.push(' ');
     }
     return ret;
   })
@@ -34,19 +34,19 @@ data
       if (crateData[index] == null) {
         crateData[index] = [];
       }
-      if (crate != " ") {
+      if (crate != ' ') {
         crateData[index].unshift(crate);
       }
     });
   });
 
-let movData = data.slice(data.indexOf("") + 1).map((x) =>
+let movData = data.slice(data.indexOf('') + 1).map((x) =>
   x
-    .replace("move ", "")
-    .replace(" from ", ",")
-    .replace(" to ", ",")
-    .split(",")
-    .map((x) => parseInt(x))
+    .replace('move ', '')
+    .replace(' from ', ',')
+    .replace(' to ', ',')
+    .split(',')
+    .map((x) => parseInt(x)),
 );
 
 movData.forEach((instruction) => {
@@ -58,6 +58,6 @@ movData.forEach((instruction) => {
 
 let answer = crateData.reduce((crateTops, currentCol) => {
   return (crateTops += currentCol.pop());
-}, "");
+}, '');
 
-console.log("Year " + year + " Day " + day + " Puzzle " + part + ":" + answer);
+console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ':' + answer);

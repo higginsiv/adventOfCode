@@ -1,5 +1,5 @@
-const fr = require("../../../tools/fileReader");
-const [year, day, part] = ["2022", "11", "2"];
+const fr = require('../../../tools/fileReader');
+const [year, day, part] = ['2022', '11', '2'];
 const data = fr.getInput(year, day);
 
 const rounds = 10000;
@@ -31,30 +31,24 @@ data.forEach((x, index) => {
       monkeys.push(new Monkey());
       break;
     case 1:
-      x = x.replace("  Starting items: ", "");
-      monkeys[monkeys.length - 1].items = x.split(",").map((y) => parseInt(y));
+      x = x.replace('  Starting items: ', '');
+      monkeys[monkeys.length - 1].items = x.split(',').map((y) => parseInt(y));
       break;
     case 2:
-      x = x.replace("  Operation: new = ", "");
-      monkeys[monkeys.length - 1].operation = new Function(
-        "old",
-        "return " + x
-      );
+      x = x.replace('  Operation: new = ', '');
+      monkeys[monkeys.length - 1].operation = new Function('old', 'return ' + x);
       break;
     case 3:
-      x = x.replace("  Test: divisible by ", "");
-      monkeys[monkeys.length - 1].test = new Function(
-        "old",
-        "return old % " + x + " === 0"
-      );
+      x = x.replace('  Test: divisible by ', '');
+      monkeys[monkeys.length - 1].test = new Function('old', 'return old % ' + x + ' === 0');
       divisors.push(parseInt(x));
       break;
     case 4:
-      x = x.replace("    If true: throw to monkey ", "");
+      x = x.replace('    If true: throw to monkey ', '');
       monkeys[monkeys.length - 1].passDest = parseInt(x);
       break;
     case 5:
-      x = x.replace("    If false: throw to monkey ", "");
+      x = x.replace('    If false: throw to monkey ', '');
       monkeys[monkeys.length - 1].failDest = parseInt(x);
       break;
   }
@@ -86,6 +80,4 @@ monkeys.sort((a, b) => {
 });
 
 const monkeyBusiness = monkeys[0].inspections * monkeys[1].inspections;
-console.log(
-  "Year " + year + " Day " + day + " Puzzle " + part + ": " + monkeyBusiness
-);
+console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + monkeyBusiness);

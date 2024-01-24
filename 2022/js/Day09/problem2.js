@@ -1,29 +1,29 @@
-const fr = require("../../../tools/fileReader");
-const [year, day, part] = ["2022", "09", "2"];
+const fr = require('../../../tools/fileReader');
+const [year, day, part] = ['2022', '09', '2'];
 const data = fr
   .getInput(year, day)
-  .map((x) => x.split(" ").map((y, index) => (index === 0 ? y : parseInt(y))));
+  .map((x) => x.split(' ').map((y, index) => (index === 0 ? y : parseInt(y))));
 
 let knots = Array.from(Array(10), () => {
   return { x: 0, y: 0 };
 });
 
 console.log(knots.length);
-let tailVisits = new Set(["0.0"]);
+let tailVisits = new Set(['0.0']);
 
 data.forEach(([dir, amount]) => {
   switch (dir) {
-    case "U":
-      move("y", amount);
+    case 'U':
+      move('y', amount);
       break;
-    case "D":
-      move("y", -amount);
+    case 'D':
+      move('y', -amount);
       break;
-    case "L":
-      move("x", -amount);
+    case 'L':
+      move('x', -amount);
       break;
-    case "R":
-      move("x", amount);
+    case 'R':
+      move('x', amount);
       break;
   }
 });
@@ -45,7 +45,7 @@ function move(axis, delta) {
         tail.y += yInc;
 
         if (j === 8) {
-          tailVisits.add(tail["x"].toString() + "." + tail["y"].toString());
+          tailVisits.add(tail['x'].toString() + '.' + tail['y'].toString());
         }
       }
     }
@@ -56,6 +56,4 @@ function isTouching(head, tail) {
   return Math.abs(head.x - tail.x) <= 1 && Math.abs(head.y - tail.y) <= 1;
 }
 
-console.log(
-  "Year " + year + " Day " + day + " Puzzle " + part + ": " + tailVisits.size
-);
+console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + tailVisits.size);

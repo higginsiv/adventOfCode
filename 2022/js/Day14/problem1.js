@@ -1,10 +1,10 @@
-const fr = require("../../../tools/fileReader");
-const [year, day, part] = ["2022", "14", "1"];
+const fr = require('../../../tools/fileReader');
+const [year, day, part] = ['2022', '14', '1'];
 const data = fr
   .getInput(year, day)
-  .map((x) => x.split(" -> ").map((x) => x.split(",").map((x) => parseInt(x))));
-const ROCK = "#";
-const SAND = "O";
+  .map((x) => x.split(' -> ').map((x) => x.split(',').map((x) => parseInt(x))));
+const ROCK = '#';
+const SAND = 'O';
 const MORE = 1;
 const VOID = 0;
 
@@ -80,10 +80,10 @@ function printCave() {
     if (cave[i] == null) {
       cave[i] = [];
     }
-    let tolog = "";
+    let tolog = '';
     for (let j = 425; j < 550; j++) {
       if (cave[i][j] == null) {
-        cave[i][j] = ".";
+        cave[i][j] = '.';
       }
       tolog += cave[i][j];
     }
@@ -92,4 +92,4 @@ function printCave() {
 }
 
 let answer = sandFallen;
-console.log("Year " + year + " Day " + day + " Puzzle " + part + ": " + answer);
+console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);

@@ -1,5 +1,5 @@
-const fr = require("../../../tools/fileReader");
-const [year, day, part] = ["2022", "20", "2"];
+const fr = require('../../../tools/fileReader');
+const [year, day, part] = ['2022', '20', '2'];
 const KEY = 811589153;
 
 class Point {
@@ -11,9 +11,7 @@ class Point {
   }
 }
 
-let data = fr
-  .getInput(year, day)
-  .map((x, index) => new Point(parseInt(x) * KEY, index));
+let data = fr.getInput(year, day).map((x, index) => new Point(parseInt(x) * KEY, index));
 
 for (let i = 0; i < 10; i++) {
   for (let j = 0; j < data.length; j++) {
@@ -42,4 +40,4 @@ const andre = data[((zeroIndex + 3000) % data.length) + 1].value;
 
 let answer = stack + dubs + andre;
 
-console.log("Year " + year + " Day " + day + " Puzzle " + part + ": " + answer);
+console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);

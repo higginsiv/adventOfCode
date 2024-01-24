@@ -1,10 +1,10 @@
-const fr = require("../../../tools/fileReader");
-const [year, day, part] = ["2022", "21", "2"];
-const HUMAN = "humn";
-const ROOT = "root";
-const NUMBER = "number";
-const BIGINT = "bigint";
-const [ADD, SUB, MULT, DIV] = ["+", "-", "*", "/"];
+const fr = require('../../../tools/fileReader');
+const [year, day, part] = ['2022', '21', '2'];
+const HUMAN = 'humn';
+const ROOT = 'root';
+const NUMBER = 'number';
+const BIGINT = 'bigint';
+const [ADD, SUB, MULT, DIV] = ['+', '-', '*', '/'];
 const [OP_BEFORE_VAL, OP_AFTER_VAL] = [0, 1];
 
 class Command {
@@ -23,13 +23,13 @@ class Command {
   }
 }
 const data = fr.getInput(year, day).map((y) => {
-  let parts = y.split(": ");
-  let cmd = parts[1].split(" ");
+  let parts = y.split(': ');
+  let cmd = parts[1].split(' ');
 
   if (cmd.length === 1) {
     y = new Command(parts[0], parseInt(parts[1]));
   } else {
-    let operator = parts[0] === ROOT ? "===" : cmd[1];
+    let operator = parts[0] === ROOT ? '===' : cmd[1];
     y = new Command(parts[0], cmd[0], cmd[2], operator);
   }
   return y;
@@ -67,12 +67,12 @@ global.calc = function calc(key) {
           BigInt(1),
           cmd.operator,
           BigInt(val2),
-          OP_BEFORE_VAL
+          OP_BEFORE_VAL,
         );
         return numer / denom;
       } else {
         // building out expression
-        return "(" + val1 + " " + cmd.operator + " " + val2 + ")";
+        return '(' + val1 + ' ' + cmd.operator + ' ' + val2 + ')';
       }
     } else {
       if (cmd.key === HUMAN) {
@@ -92,68 +92,36 @@ function operate(equation, goalNumber) {
 
     let num;
     let operator;
-    if (!equation.startsWith("(") && !equation.startsWith(HUMAN)) {
-      let locOfFirstSpace = equation.indexOf(" ");
-      let locOfSecondSpace = equation.indexOf(" ", locOfFirstSpace + 1);
+    if (!equation.startsWith('(') && !equation.startsWith(HUMAN)) {
+      let locOfFirstSpace = equation.indexOf(' ');
+      let locOfSecondSpace = equation.indexOf(' ', locOfFirstSpace + 1);
       num = parseInt(equation.substring(0, locOfFirstSpace));
-      operator = getOppositeOperator(
-        equation.substring(locOfFirstSpace + 1, locOfSecondSpace)
-      );
+      operator = getOppositeOperator(equation.substring(locOfFirstSpace + 1, locOfSecondSpace));
       equation = equation.substring(locOfSecondSpace + 1);
 
-      [numer, denom] = dealWithFloats(
-        numer,
-        denom,
-        operator,
-        num,
-        OP_AFTER_VAL
-      );
-    } else if (equation.startsWith("(") && !equation.endsWith(HUMAN)) {
-      let locOfFirstSpace = equation.lastIndexOf(" ");
-      let locOfSecondSpace = equation.lastIndexOf(" ", locOfFirstSpace - 1);
+      [numer, denom] = dealWithFloats(numer, denom, operator, num, OP_AFTER_VAL);
+    } else if (equation.startsWith('(') && !equation.endsWith(HUMAN)) {
+      let locOfFirstSpace = equation.lastIndexOf(' ');
+      let locOfSecondSpace = equation.lastIndexOf(' ', locOfFirstSpace - 1);
       num = parseInt(equation.substring(locOfFirstSpace));
-      operator = getOppositeOperator(
-        equation.substring(locOfSecondSpace + 1, locOfFirstSpace)
-      );
+      operator = getOppositeOperator(equation.substring(locOfSecondSpace + 1, locOfFirstSpace));
       equation = equation.substring(0, locOfSecondSpace);
 
-      [numer, denom] = dealWithFloats(
-        numer,
-        denom,
-        operator,
-        num,
-        OP_BEFORE_VAL
-      );
+      [numer, denom] = dealWithFloats(numer, denom, operator, num, OP_BEFORE_VAL);
     } else if (equation.startsWith(HUMAN)) {
-      let locOfFirstSpace = equation.indexOf(" ");
-      let locOfSecondSpace = equation.indexOf(" ", locOfFirstSpace + 1);
+      let locOfFirstSpace = equation.indexOf(' ');
+      let locOfSecondSpace = equation.indexOf(' ', locOfFirstSpace + 1);
       num = parseInt(equation.substring(locOfSecondSpace));
-      operator = getOppositeOperator(
-        equation.substring(locOfFirstSpace + 1, locOfSecondSpace)
-      );
+      operator = getOppositeOperator(equation.substring(locOfFirstSpace + 1, locOfSecondSpace));
 
-      [numer, denom] = dealWithFloats(
-        numer,
-        denom,
-        operator,
-        num,
-        OP_BEFORE_VAL
-      );
+      [numer, denom] = dealWithFloats(numer, denom, operator, num, OP_BEFORE_VAL);
       break;
     } else if (equation.endsWith(HUMAN)) {
-      let locOfFirstSpace = equation.indexOf(" ");
-      let locOfSecondSpace = equation.indexOf(" ", locOfFirstSpace + 1);
+      let locOfFirstSpace = equation.indexOf(' ');
+      let locOfSecondSpace = equation.indexOf(' ', locOfFirstSpace + 1);
       num = parseInt(equation.substring(0, locOfFirstSpace));
-      operator = getOppositeOperator(
-        equation.substring(locOfFirstSpace + 1, locOfSecondSpace)
-      );
-      [numer, denom] = dealWithFloats(
-        numer,
-        denom,
-        operator,
-        num,
-        OP_AFTER_VAL
-      );
+      operator = getOppositeOperator(equation.substring(locOfFirstSpace + 1, locOfSecondSpace));
+      [numer, denom] = dealWithFloats(numer, denom, operator, num, OP_AFTER_VAL);
       break;
     }
   }
@@ -221,4 +189,4 @@ function gcd(a, b) {
 
 let answer = calc(ROOT);
 
-console.log("Year " + year + " Day " + day + " Puzzle " + part + ": " + answer);
+console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
