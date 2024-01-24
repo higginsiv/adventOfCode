@@ -10,6 +10,6 @@ describe(`2017 Day 04`, () => {
     });
 
     it('Part 2', () => {
-        expect(part2(data).value).toBe(1);
+        expect(part2(data).value).toBe(186);
     });
 });
