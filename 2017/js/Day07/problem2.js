@@ -1,7 +1,6 @@
 module.exports = { solve: solve };
 
 function solve({ lines, rawData }) {
-    const {abs} = Math;
     let answer;
     function getWeight(key) {
         let node = nodes.get(key);
@@ -11,21 +10,29 @@ function solve({ lines, rawData }) {
 
         let childrenWeight = 0;
         let childrenWeights = [];
+
         for (let i = 0; i < node.children.length; i++) {
             const child = node.children[i];
             const childWeight = getWeight(child);
-            childrenWeights.add(childWeight);
-            childrenWeight += childWeight
+            childrenWeights.push(childWeight);
+            childrenWeight += childWeight;
         }
-    
-        if (childrenWeights.length > 0) {
-            let commonWeights = childrenWeights.filter((weight, index, self) => self.indexOf(weight) !== index);
-            let uniqueWeight = childrenWeights.filter((weight, index, self) => self.indexOf(weight) === index);
+
+        let deltaWeight;
+        if (childrenWeights.length > 0 && answer === undefined) {
+            let commonWeights = childrenWeights.filter(
+                (weight, index, self) => self.indexOf(weight) !== index,
+            );
+            let uniqueWeight = childrenWeights.filter((weight) => weight !== commonWeights[0]);
 
             if (uniqueWeight.length > 0) {
-                answer = uniqueWeight[0] + (commonWeights[0] - uniqueWeight[0]);
+                deltaWeight = commonWeights[0] - uniqueWeight[0];
+                answer =
+                    nodes.get(node.children[childrenWeights.indexOf(uniqueWeight[0])]).weight +
+                    deltaWeight;
             }
         }
+
         node.totalWeight = node.weight + childrenWeight;
         return node.totalWeight;
     }
@@ -69,4 +76,3 @@ function solve({ lines, rawData }) {
     getWeight(root.key);
     return { value: answer };
 }
-/// 55525 too high
