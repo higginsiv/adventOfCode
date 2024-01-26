@@ -46,7 +46,7 @@ OUTPUT.output(YEAR, DAY, PART, answer);`;
 
 function solve({lines, rawData}) {
 
-    const answer;
+    const answer = null;
     return {value: answer};
 }`;
     }
