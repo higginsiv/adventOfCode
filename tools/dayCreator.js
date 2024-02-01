@@ -9,6 +9,12 @@ if (!YEAR || !DAY) {
     process.exit(1);
 }
 
+const dayInt = parseInt(DAY);
+if (isNaN(dayInt) || dayInt < 1 || dayInt > 25) {
+    console.error('Day must be an integer between 1 and 25');
+    process.exit(1);
+}
+
 if (DAY.length === 1) {
     DAY = DAY.padStart(2, '0');
 }
