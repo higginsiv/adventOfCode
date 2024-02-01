@@ -3,17 +3,14 @@ module.exports = { solve: solve };
 function solve({ lines, rawData }) {
     const { sqrt } = Math;
     function splitPattern(pattern) {
-        if (pattern.length === 5) {
-            return [pattern];
-        }
-        if (pattern.length === 11) {
-            return [pattern];
-        }
-
         pattern = pattern.split('/').map((row) => row.split(''));
-        if (pattern.length % 2 === 0) {
+        let size = pattern.length;
+    
+        if (size === 2 || size === 3) {
+            return [pattern.map((row) => row.join('')).join('/')];
+        } else if (size % 2 === 0) {
             return splitPatternIntoSize(pattern, 2);
-        } else if (pattern.length % 3 === 0) {
+        } else if (size % 3 === 0) {
             return splitPatternIntoSize(pattern, 3);
         }
     }
@@ -37,7 +34,8 @@ function solve({ lines, rawData }) {
     }
 
     function joinPattern(patterns) {
-        let size = Math.sqrt(patterns.length);
+        let size = sqrt(patterns.length);
+        // console.log(patterns, size)
         let newPattern = [];
         for (let i = 0; i < patterns.length; i++) {
             let pattern = patterns[i].split('/');
@@ -49,6 +47,7 @@ function solve({ lines, rawData }) {
                 newPattern[row] += pattern[j];
             }
         }
+        console.log(newPattern);
         return newPattern.join('/');
     }
 
@@ -94,20 +93,26 @@ function solve({ lines, rawData }) {
         let fromPatterns = generateAllPatterns(from.split('/').map((row) => row.split('')));
         fromPatterns.forEach((p) => {
             p = p.map((row) => row.join('')).join('/');
+            if (enhancements.has(p) && enhancements.get(p) !== to){
+                console.log('Duplicate enhancement', p, to);
+            }
             enhancements.set(p, to);
         });
     });
 
-    const iterations = 18;
-    let pattern = '.#./..#/###';
+    // console.log('###/###/###/..#/..#'.split(''))
+    console.log(joinPattern(['#..#/#..#/#..#/#..#', '..../..../..../....', '..../..../..../....', '#..#/#..#/#..#/#..#']));
+    // const iterations = 6;
+    // let pattern = '.#./..#/###';
 
-    for (let i = 0; i < iterations; i++) {
-        let splitPatterns = splitPattern(pattern);
-        let mappedPatterns = splitPatterns.map((p) => enhancements.get(p));
-        pattern = joinPattern(mappedPatterns);
-    }
+    // for (let i = 0; i < iterations; i++) {
+    //     let splitPatterns = splitPattern(pattern);
+    //     let mappedPatterns = splitPatterns.map((p) => enhancements.get(p));
+    //     pattern = joinPattern(mappedPatterns);
+    // }
 
-    const answer = pattern.split('').filter((c) => c === '#').length;
+    // const answer = pattern.split('').filter((c) => c === '#').length;
+    let answer = null;
     return { value: answer };
 }
 // 2249956 too low

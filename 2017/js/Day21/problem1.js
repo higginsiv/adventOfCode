@@ -102,14 +102,8 @@ function solve({ lines, rawData }) {
     let pattern = '.#./..#/###';
 
     for (let i = 0; i < iterations; i++) {
-        console.log('pattern')
-        console.log(pattern)
         let splitPatterns = splitPattern(pattern);
-        console.log('splitPatterns')
-        console.log(splitPatterns)
         let mappedPatterns = splitPatterns.map((p) => enhancements.get(p));
-        console.log('mappedPatterns')
-        console.log(mappedPatterns)
         pattern = joinPattern(mappedPatterns);
     }
 
