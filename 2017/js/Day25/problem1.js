@@ -1,9 +1,6 @@
 module.exports = { solve: solve };
 
 function solve({ lines, rawData }) {
-    function getKey(position, tape, state) {
-        return `${position}-${tape}-${state}`;
-    }
     let state = lines[0].charAt(lines[0].length - 2);
     const steps = Number(lines[1].match(/\d+/)[0]);
 
