@@ -24,17 +24,18 @@ function solve({ lines, rawData }) {
         rules[state] = rule;
     }
 
-    let tape = { 0: 0 };
+    let tape = new Map();
+    tape.set(0, 0);
     let position = 0;
 
     for (let i = 0; i < steps; i++) {
-        let value = tape[position] || 0;
+        let value = tape.get(position) || 0;
         let rule = rules[state][value];
-        tape[position] = rule.value;
+        tape.set(position, rule.value);
         position += rule.move;
         state = rule.next;
     }
 
-    const answer = Object.values(tape).filter((v) => v === 1).length;
+    const answer = [...tape.values()].filter((v) => v === 1).length;
     return { value: answer };
 }
