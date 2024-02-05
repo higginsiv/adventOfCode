@@ -1,40 +1,44 @@
 module.exports = { solve: solve };
 
 function solve({ lines, rawData }) {
-    const difference = 'A'.charCodeAt(0) - 'a'.charCodeAt(0);
-    let destroyed = true;
-    let destroyedIndex = 0;
+    function polymerize(polymer) {
+        const difference = 'A'.charCodeAt(0) - 'a'.charCodeAt(0);
+        let destroyed = true;
+        let destroyedIndex = 0;
 
-    while (destroyed) {
-        let nonProcessed = rawData.substring(0, destroyedIndex);
-        let next = nonProcessed === '' ? [] : nonProcessed.split('');
+        while (destroyed) {
+            let nonProcessed = polymer.substring(0, destroyedIndex);
+            let next = nonProcessed === '' ? [] : nonProcessed.split('');
 
-        destroyed = false;
-        let i = destroyedIndex;
-        while (i < rawData.length) {
-            if (i === rawData.length - 1) {
-                next.push(rawData[i]);
-                break;
-            }
-            let currentCharCode = rawData.charCodeAt(i);
-            let nextCharCode = rawData.charCodeAt(i + 1);
-            if (
-                currentCharCode - nextCharCode === difference ||
-                nextCharCode - currentCharCode === difference
-            ) {
-                if (!destroyed) {
-                    destroyedIndex = i === 0 ? 0 : i - 1;
+            destroyed = false;
+            let i = destroyedIndex;
+            while (i < polymer.length) {
+                if (i === polymer.length - 1) {
+                    next.push(polymer[i]);
+                    break;
                 }
-                destroyed = true;
-                i += 2;
-            } else {
-                next.push(rawData[i]);
-                i++;
+                let currentCharCode = polymer.charCodeAt(i);
+                let nextCharCode = polymer.charCodeAt(i + 1);
+                if (
+                    currentCharCode - nextCharCode === difference ||
+                    nextCharCode - currentCharCode === difference
+                ) {
+                    if (!destroyed) {
+                        destroyedIndex = i === 0 ? 0 : i - 1;
+                    }
+                    destroyed = true;
+                    i += 2;
+                } else {
+                    next.push(polymer[i]);
+                    i++;
+                }
             }
+            polymer = next.join('');
         }
-        rawData = next.join('');
+        return polymer;
     }
 
-    const answer = rawData.length;
+    const answer = polymerize(rawData).length;
+
     return { value: answer };
 }

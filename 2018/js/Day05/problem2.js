@@ -1,24 +1,24 @@
 module.exports = { solve: solve };
 
 function solve({ lines, rawData }) {
-    function polymerize(rawData) {
+    function polymerize(polymer) {
         const difference = 'A'.charCodeAt(0) - 'a'.charCodeAt(0);
         let destroyed = true;
         let destroyedIndex = 0;
 
         while (destroyed) {
-            let nonProcessed = rawData.substring(0, destroyedIndex);
+            let nonProcessed = polymer.substring(0, destroyedIndex);
             let next = nonProcessed === '' ? [] : nonProcessed.split('');
 
             destroyed = false;
             let i = destroyedIndex;
-            while (i < rawData.length) {
-                if (i === rawData.length - 1) {
-                    next.push(rawData[i]);
+            while (i < polymer.length) {
+                if (i === polymer.length - 1) {
+                    next.push(polymer[i]);
                     break;
                 }
-                let currentCharCode = rawData.charCodeAt(i);
-                let nextCharCode = rawData.charCodeAt(i + 1);
+                let currentCharCode = polymer.charCodeAt(i);
+                let nextCharCode = polymer.charCodeAt(i + 1);
                 if (
                     currentCharCode - nextCharCode === difference ||
                     nextCharCode - currentCharCode === difference
@@ -29,13 +29,13 @@ function solve({ lines, rawData }) {
                     destroyed = true;
                     i += 2;
                 } else {
-                    next.push(rawData[i]);
+                    next.push(polymer[i]);
                     i++;
                 }
             }
-            rawData = next.join('');
+            polymer = next.join('');
         }
-        return rawData;
+        return polymer;
     }
 
     const basePolymer = polymerize(rawData);
