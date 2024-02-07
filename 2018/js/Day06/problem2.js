@@ -2,7 +2,7 @@ module.exports = { solve: solve };
 
 function solve({ lines, rawData }) {
     const { manhattanDistance } = require('../../../tools/math');
-
+    const MAX_DISTANCE = 10000;
     let lowX = Infinity;
     let highX = -Infinity;
     let lowY = Infinity;
@@ -25,14 +25,26 @@ function solve({ lines, rawData }) {
             highY = y;
         }
 
-        return { x, y};
+        return { x, y };
     });
 
-    const answer = lines.reduce((max, line) => {
-        if (line.uniquePointsCount === -Infinity) {
-            return max;
+    let averageDistance = MAX_DISTANCE / lines.length;
+    let answer = 0;
+
+    for (let i = lowX - averageDistance; i <= highX + averageDistance; i++) {
+        for (let j = lowY - averageDistance; j <= highY + averageDistance; j++) {
+            let totalDistance = 0;
+            for (let k = 0; k < lines.length; k++) {
+                totalDistance += manhattanDistance(lines[k], { x: i, y: j });
+                if (totalDistance >= MAX_DISTANCE) {
+                    break;
+                }
+            }
+            if (totalDistance < MAX_DISTANCE) {
+                answer++;
+            }
         }
-        return max > line.uniquePointsCount ? max : line.uniquePointsCount;
-    });
+    }
+
     return { value: answer };
 }
