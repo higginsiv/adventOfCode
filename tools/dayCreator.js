@@ -66,11 +66,11 @@ const { solve: part2 } = require(\`../problem2.js\`);
 const data = fr.getInputForFunction(\'${YEAR}\', \'${DAY}\');
 
 describe(\`${YEAR} Day ${DAY}\`, () => {
-    it('Part 1', () => {
+    test('Part 1', () => {
         expect(part1(data).value).toBe();
     });
 
-    it('Part 2', () => {
+    test('Part 2', () => {
         expect(part2(data).value).toBe();
     });
 });`;
