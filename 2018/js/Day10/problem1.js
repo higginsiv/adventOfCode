@@ -7,44 +7,28 @@ function solve({ lines, rawData }) {
         return { x: line[0], y: line[1], vx: line[2], vy: line[3] };
     });
 
-    let steps = 0;
+    let mins;
+    let maxes;
     while (true) {
-        steps++;
         lines.forEach((line) => {
             line.x += line.vx;
             line.y += line.vy;
         });
 
-        let foundLetters = false;
-        for (let i = 0; i < lines.length; i++) {
-            let { x, y } = lines[i];
+        mins = { x: Infinity, y: Infinity };
+        maxes = { x: -Infinity, y: -Infinity };
 
-            if (
-                lines.filter((line) => line.y === y + 1 && line.x === x).length &&
-                lines.filter((line) => line.y === y + 2 && line.x === x).length &&
-                lines.filter((line) => line.y === y + 3 && line.x === x).length &&
-                lines.filter((line) => line.y === y + 4 && line.x === x).length &&
-                lines.filter((line) => line.y === y + 5 && line.x === x).length &&
-                lines.filter((line) => line.y === y + 6 && line.x === x).length &&
-                lines.filter((line) => line.y === y + 7 && line.x === x).length
-            ) {
-                foundLetters = true;
-                break;
-            }
-        }
-        if (foundLetters) {
+        lines.forEach((line) => {
+            mins.x = min(mins.x, line.x);
+            mins.y = min(mins.y, line.y);
+            maxes.x = max(maxes.x, line.x);
+            maxes.y = max(maxes.y, line.y);
+        });
+
+        if (maxes.y - mins.y <= 10) {
             break;
         }
     }
-
-    let mins = { x: Infinity, y: Infinity };
-    let maxes = { x: -Infinity, y: -Infinity };
-    lines.forEach((line) => {
-        mins.x = min(mins.x, line.x);
-        mins.y = min(mins.y, line.y);
-        maxes.x = max(maxes.x, line.x);
-        maxes.y = max(maxes.y, line.y);
-    });
 
     let grid = [];
     for (let y = mins.y; y <= maxes.y; y++) {
