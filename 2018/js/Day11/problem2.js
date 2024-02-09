@@ -13,34 +13,42 @@ function solve({ lines, rawData }) {
     }
 
     const serialNumber = Number(rawData);
-    let grid = new Array(300).fill(0).map(() => new Array(300).fill(0));
+    let grid = new Array(300)
+        .fill(0)
+        .map(() => new Array(300).fill(0).map(() => new Array(300).fill(0)));
 
     for (let x = 1; x <= 300; x++) {
         for (let y = 1; y <= 300; y++) {
-            grid[x - 1][y - 1] = getPowerLevel(x, y, serialNumber);
+            grid[x - 1][y - 1][0] = getPowerLevel(x, y, serialNumber);
+            grid[x - 1][y - 1][1] = getPowerLevel(x, y, serialNumber);
         }
     }
 
     let maxPowerLevel = -Infinity;
-    let maxPowerLevelCoords = '';
+    let maxPowerLevelX;
+    let maxPowerLevelY;
+    let maxPowerLevelSize;
+
     for (let i = 1; i <= 300; i++) {
         for (let x = 0; x < 300 - i; x++) {
             for (let y = 0; y < 300 - i; y++) {
-                let gridPowerLevel = 0;
+                let previous = grid[x][y][i - 1];
+                let gridPowerLevel = previous;
                 for (let j = 0; j < i; j++) {
-                    if (x + j > 300) break;
-                    for (let k = 0; k < i; k++) {
-                        if (y + k > 300) break;
-                        gridPowerLevel += grid[x + j][y + k];
-                    }
+                    gridPowerLevel += grid[x + i - 1][y + j][1];
+                    gridPowerLevel += grid[x + j][y + i - 1][1];
                 }
+                grid[x][y][i] = gridPowerLevel;
+
                 if (gridPowerLevel > maxPowerLevel) {
                     maxPowerLevel = gridPowerLevel;
-                    maxPowerLevelCoords = `${x + 1},${y + 1},${i}`;
+                    maxPowerLevelX = x + 1;
+                    maxPowerLevelY = y + 1;
+                    maxPowerLevelSize = i;
                 }
             }
         }
     }
 
-    return { value: maxPowerLevelCoords };
+    return { value: `${maxPowerLevelX},${maxPowerLevelY},${maxPowerLevelSize}` };
 }
