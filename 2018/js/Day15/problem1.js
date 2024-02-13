@@ -1,31 +1,32 @@
 module.exports = { solve: solve };
 
 function solve({ lines, rawData }) {
+    const {manhattanDistance} = require('../../../tools/math');
     function getKey(x, y) {
         return x + ',' + y;
     }
     function getEnemiesInRange(entity) {
-        const north = grid[entity.x][entity.y - 1];
-        const west = grid[entity.x - 1][entity.y];
-        const east = grid[entity.x + 1][entity.y];
-        const south = grid[entity.x][entity.y + 1];
+        const north = grid[entity.x - 1][entity.y];
+        const west = grid[entity.x][entity.y - 1];
+        const east = grid[entity.x][entity.y + 1];
+        const south = grid[entity.x + 1][entity.y];
         const enemySymbol = entity.type === 'E' ? 'G' : 'E';
 
         let enemiesInRange = [];
         if (north === enemySymbol) {
-            enemiesInRange.push({ x: entity.x, y: entity.y - 1 });
-        }
-
-        if (west === enemySymbol) {
             enemiesInRange.push({ x: entity.x - 1, y: entity.y });
         }
 
+        if (west === enemySymbol) {
+            enemiesInRange.push({ x: entity.x, y: entity.y - 1 });
+        }
+
         if (east === enemySymbol) {
-            enemiesInRange.push({ x: entity.x + 1, y: entity.y });
+            enemiesInRange.push({ x: entity.x, y: entity.y + 1 });
         }
 
         if (south === enemySymbol) {
-            enemiesInRange.push({ x: entity.x, y: entity.y + 1 });
+            enemiesInRange.push({ x: entity.x + 1, y: entity.y });
         }
 
         return enemiesInRange;
@@ -49,12 +50,6 @@ function solve({ lines, rawData }) {
         return a.hp - b.hp;
     }
 
-    // function sortForFirstStep(a, b) {
-    //     if (a.distance === b.distance) {
-    //         return sortByReadingOrder(a, b);
-    //     }
-    //     return a.distance - b.distance;
-    // }
     function populateOpenAdjacent(entity) {
         entity.adjacent = new Set();
         let neighbors = [
@@ -103,13 +98,18 @@ function solve({ lines, rawData }) {
                     if (grid[newPosition[0]][newPosition[1]] !== '.') {
                         continue;
                     }
+
+                    if (manhattanDistance({ x: newPosition[0], y: newPosition[1] }, { x: finish[0], y: finish[1] }) > remainingDistance - 1) {
+                        continue;
+                    }
+
                     let newPositionKey = getKey(newPosition[0], newPosition[1]);
                     if (fastestToPoint.has(newPositionKey) && fastestToPoint.get(newPositionKey) > remainingDistance - 1) {
                         continue;
                     }
                     path.push(newPosition);
-                    dfs(newPosition, remainingDistance - 1);
                     fastestToPoint.set(newPositionKey, remainingDistance - 1);
+                    dfs(newPosition, remainingDistance - 1);
                     path.pop();
                 }
             }
@@ -189,16 +189,17 @@ function solve({ lines, rawData }) {
     }
 
     function handleTurn(entity, enemies) {
-        // TODO Check if any enemies are in range
         const enemyInRange = isEnemyInRange(entity);
 
         if (!enemyInRange) {
             // Find Open Adjacent to Enemies
             let openAdjacentToEnemies = new Set();
             enemies.forEach((enemy) => {
-                enemy.adjacent.forEach((space) => {
-                    openAdjacentToEnemies.add(space);
-                });
+                if (enemy.hp > 0) {
+                    enemy.adjacent.forEach((space) => {
+                        openAdjacentToEnemies.add(space);
+                    });
+                }
             });
 
             // Find first step towards closest enemy
@@ -215,14 +216,16 @@ function solve({ lines, rawData }) {
         }
 
         // Attack
+        // TODO this is duplicated with the beginning of the function
         let possibleCoordinates = getEnemiesInRange(entity);
         let possibleTargets = enemies
             .filter((enemy) => {
                 // TODO check on grid directly
-                return possibleCoordinates.some((coord) => coord.x === enemy.x && coord.y === enemy.y);
+                return possibleCoordinates.some((coord) => coord.x === enemy.x && coord.y === enemy.y && enemy.hp > 0);
             })
             .sort(sortForAttack);
 
+            //TODO recalc adjacent after a death
         if (possibleTargets.length > 0) {
             possibleTargets[0].hp -= 3;
             if (possibleTargets[0].hp <= 0) {
@@ -264,28 +267,42 @@ function solve({ lines, rawData }) {
     while (totalElves > 0 && totalGoblins > 0) {
         entities.sort(sortByReadingOrder);
         entities.forEach((entity, index) => {
-            console.log(rounds, index, entities.length, entity.x, entity.y)
+            // console.log(rounds, index, entities.length, entity.x, entity.y)
             if (entity.hp <= 0) {
                 return;
             }
             let enemies = entities.filter((other) => other.type !== entity.type);
             handleTurn(entity, enemies);
+            entities.forEach(e => {
+                if (e.hp <= 0) {
+                    return;
+                }
+                populateOpenAdjacent(e);
+            });
         });
 
         entities = entities.filter((entity) => entity.hp > 0);
         // console.log(entities)
         rounds++;
-        if (rounds % 500 === 0) {
-            console.log(rounds);
+        if (rounds % 10 === 0) {
+            printGrid(grid,rounds);
         }
-        // console.log(rounds)
-        // if (rounds > 50) {
-        //     break;
-        // }
+
+        if (rounds > 100) {
+            break;
+        }
     }
     console.log(entities);
     console.log(rounds);
     console.log(entities.reduce((acc, entity) => acc + entity.hp, 0));
-    const answer = (rounds) * entities.reduce((acc, entity) => acc + entity.hp, 0);
+    const answer = (rounds - 1) * entities.reduce((acc, entity) => acc + entity.hp, 0);
     return { value: answer };
+}
+
+function printGrid(grid, rounds) {
+    console.log(rounds);
+    grid.forEach((row) => {
+        console.log(row.join(''));
+    });
+    console.log();
 }
