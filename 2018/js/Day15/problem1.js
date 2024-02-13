@@ -1,6 +1,40 @@
 module.exports = { solve: solve };
 
 function solve({ lines, rawData }) {
+    function getKey(x, y) {
+        return x + ',' + y;
+    }
+    function getEnemiesInRange(entity) {
+        const north = grid[entity.x][entity.y - 1];
+        const west = grid[entity.x - 1][entity.y];
+        const east = grid[entity.x + 1][entity.y];
+        const south = grid[entity.x][entity.y + 1];
+        const enemySymbol = entity.type === 'E' ? 'G' : 'E';
+
+        let enemiesInRange = [];
+        if (north === enemySymbol) {
+            enemiesInRange.push({ x: entity.x, y: entity.y - 1 });
+        }
+
+        if (west === enemySymbol) {
+            enemiesInRange.push({ x: entity.x - 1, y: entity.y });
+        }
+
+        if (east === enemySymbol) {
+            enemiesInRange.push({ x: entity.x + 1, y: entity.y });
+        }
+
+        if (south === enemySymbol) {
+            enemiesInRange.push({ x: entity.x, y: entity.y + 1 });
+        }
+
+        return enemiesInRange;
+    }
+
+    function isEnemyInRange(entity) {
+        return getEnemiesInRange(entity).length > 0;
+    }
+
     function sortByReadingOrder(a, b) {
         if (a.x === b.x) {
             return a.y - b.y;
@@ -8,6 +42,19 @@ function solve({ lines, rawData }) {
         return a.x - b.x;
     }
 
+    function sortForAttack(a, b) {
+        if (a.hp === b.hp) {
+            return sortByReadingOrder(a, b);
+        }
+        return a.hp - b.hp;
+    }
+
+    // function sortForFirstStep(a, b) {
+    //     if (a.distance === b.distance) {
+    //         return sortByReadingOrder(a, b);
+    //     }
+    //     return a.distance - b.distance;
+    // }
     function populateOpenAdjacent(entity) {
         entity.adjacent = new Set();
         let neighbors = [
@@ -23,40 +70,72 @@ function solve({ lines, rawData }) {
         });
     }
 
-    function findSpacesAdjacentToEnemies() {
-        // let adjacentToGoblins = new Set();
-        // let adjacentToElves = new Set();
-        // for (let x = 0; x < grid.length; x++) {
-        //     for (let y = 0; y < grid[x].length; y++) {
-        //         if (grid[x][y] === 'G' || grid[x][y] === 'E') {
-        //             let neighbors = [
-        //                 { x: x, y: y - 1 },
-        //                 { x: x - 1, y: y },
-        //                 { x: x + 1, y: y },
-        //                 { x: x, y: y + 1 },
-        //             ];
-        //             neighbors.forEach((neighbor) => {
-        //                 if (grid[neighbor.x][neighbor.y] === '.') {
-        //                     spaces.add(neighbor.x + ',' + neighbor.y);
-        //                 }
-        //             });
-        //         }
-        //     }
-        // }
-        // return spaces;
+    function prioritizeChoices(choices, startX, startY) {
+        choices.sort(sortByReadingOrder);
+        const destination = choices[0];
+        const distance = destination.distance;
+        const paths = findPathsOfDistance([startX, startY], [destination.x, destination.y], distance).map((path) => {
+            let firstStep = path[1];
+            return { x: firstStep[0], y: firstStep[1] };
+        }).sort(sortByReadingOrder);
+        return paths[0];
     }
+
+    function findPathsOfDistance(start, finish, distance) {
+        let allPaths = [];
+        let path = [start];
+        let directions = [[0, -1], [-1, 0], [1, 0], [0, 1]];
+        let fastestToPoint = new Map();
+        fastestToPoint.set(getKey(start[0], start[1]), distance);
+
+        function dfs(position, remainingDistance) {
+            if (remainingDistance < 0) {
+                return;
+            }
+            if (remainingDistance === 0 && position[0] === finish[0] && position[1] === finish[1]) {
+                allPaths.push(path.slice());
+                return;
+            }
+    
+            for (let direction of directions) {
+                let newPosition = [position[0] + direction[0], position[1] + direction[1]];
+                if (newPosition[0] >= 0 && newPosition[0] < grid.length && newPosition[1] >= 0 && newPosition[1] < grid[0].length) {
+                    if (grid[newPosition[0]][newPosition[1]] !== '.') {
+                        continue;
+                    }
+                    let newPositionKey = getKey(newPosition[0], newPosition[1]);
+                    if (fastestToPoint.has(newPositionKey) && fastestToPoint.get(newPositionKey) > remainingDistance - 1) {
+                        continue;
+                    }
+                    path.push(newPosition);
+                    dfs(newPosition, remainingDistance - 1);
+                    fastestToPoint.set(newPositionKey, remainingDistance - 1);
+                    path.pop();
+                }
+            }
+        }
+    
+        dfs(start, distance);
+        return allPaths;
+    }
+
     function findNextStep(x, y, adjacentToEnemies) {
+        if (adjacentToEnemies.size === 0 || adjacentToEnemies.has(x + ',' + y)) {
+            return null;
+        }
+
         let queue = [{ x: x, y: y, distance: 0 }];
         let visited = new Set();
-        visited.add(x + ',' + y);
+        visited.add(getKey(x, y));
         let choices = [];
         let maxDistance = Infinity;
         while (queue.length > 0) {
+            // TODO possibly pop?
             let current = queue.shift();
             if (current.distance > maxDistance) {
                 continue;
             }
-            if (adjacentToEnemies.has(current.x + ',' + current.y)) {
+            if (adjacentToEnemies.has(getKey(current.x, current.y))) {
                 choices.push(current);
                 maxDistance = current.distance;
                 continue;
@@ -74,16 +153,30 @@ function solve({ lines, rawData }) {
             ];
 
             neighbors.forEach((neighbor) => {
-                const neighborKey = neighbor.x + ',' + neighbor.y;
+                if (
+                    neighbor.x < 0 ||
+                    neighbor.y < 0 ||
+                    neighbor.x >= grid.length ||
+                    neighbor.y >= grid[0].length
+                ) {
+                    return;
+                }
+                const neighborKey = getKey(neighbor.x, neighbor.y);
                 if (visited.has(neighborKey)) {
                     return;
                 }
-                if (grid[neighbor.x][neighbor.y] === '#') {
+                let neighborSymbol = grid[neighbor.x][neighbor.y];
+                if (neighborSymbol === '#' || neighborSymbol === 'G' || neighborSymbol === 'E') {
                     return;
                 }
                 if (grid[neighbor.x][neighbor.y] === '.') {
                     let firstStep = current.firstStep || neighbor;
-                    queue.push({ x: neighbor.x, y: neighbor.y, distance: current.distance + 1, firstStep: firstStep});
+                    queue.push({
+                        x: neighbor.x,
+                        y: neighbor.y,
+                        distance: current.distance + 1,
+                        firstStep: firstStep,
+                    });
                     visited.add(neighborKey);
                 }
             });
@@ -92,33 +185,55 @@ function solve({ lines, rawData }) {
             return null;
         }
 
-        choices.sort(sortByReadingOrder);
-        return choices[0].firstStep;
-        // todo make pathfinding avoid Gs and Es
+        return prioritizeChoices(choices, x, y);
     }
 
     function handleTurn(entity, enemies) {
-        // Find Adjacent to Enemies
-        let adjacentToEnemies = new Set();
-        enemies.forEach((enemy) => {
-            enemy.adjacent.forEach((space) => {
-                adjacentToEnemies.add(space);
-            });
-        });
+        // TODO Check if any enemies are in range
+        const enemyInRange = isEnemyInRange(entity);
 
-        // Find first step towards closest enemy
-        let nextStep = findNextStep(entity.x, entity.y, adjacentToEnemies);
-        if (nextStep) {
-            grid[entity.x][entity.y] = '.';
-            entity.x = nextStep.x;
-            entity.y = nextStep.y;
-            grid[entity.x][entity.y] = entity.type;
-            entity.adjacent = new Set();
-            populateOpenAdjacent(entity);
+        if (!enemyInRange) {
+            // Find Open Adjacent to Enemies
+            let openAdjacentToEnemies = new Set();
+            enemies.forEach((enemy) => {
+                enemy.adjacent.forEach((space) => {
+                    openAdjacentToEnemies.add(space);
+                });
+            });
+
+            // Find first step towards closest enemy
+            let nextStep = findNextStep(entity.x, entity.y, openAdjacentToEnemies);
+
+            if (nextStep) {
+                grid[entity.x][entity.y] = '.';
+                entity.x = nextStep.x;
+                entity.y = nextStep.y;
+                grid[entity.x][entity.y] = entity.type;
+                entity.adjacent = new Set();
+                populateOpenAdjacent(entity);
+            }
         }
 
         // Attack
-        // TODO Attack logic
+        let possibleCoordinates = getEnemiesInRange(entity);
+        let possibleTargets = enemies
+            .filter((enemy) => {
+                // TODO check on grid directly
+                return possibleCoordinates.some((coord) => coord.x === enemy.x && coord.y === enemy.y);
+            })
+            .sort(sortForAttack);
+
+        if (possibleTargets.length > 0) {
+            possibleTargets[0].hp -= 3;
+            if (possibleTargets[0].hp <= 0) {
+                grid[possibleTargets[0].x][possibleTargets[0].y] = '.';
+                possibleTargets[0].x = -1;
+                possibleTargets[0].y = -1;
+                possibleTargets[0].adjacent = new Set();
+                totalElves -= possibleTargets[0].type === 'E' ? 1 : 0;
+                totalGoblins -= possibleTargets[0].type === 'G' ? 1 : 0;
+            }
+        }
     }
 
     // Start logic
@@ -130,22 +245,26 @@ function solve({ lines, rawData }) {
     for (let x = 0; x < grid.length; x++) {
         for (let y = 0; y < grid[x].length; y++) {
             if (grid[x][y] === 'G') {
-                entities.push({ x: x, y: y, hp: 200, adjacent: null, type: 'G'});
+                entities.push({ x: x, y: y, hp: 200, adjacent: null, type: 'G' });
                 totalGoblins++;
             }
             if (grid[x][y] === 'E') {
-                entities.push({ x: x, y: y, hp: 200, adjacent: null, type: 'E'});
+                entities.push({ x: x, y: y, hp: 200, adjacent: null, type: 'E' });
                 totalElves++;
             }
         }
     }
+    console.log(totalElves);
+    console.log(totalGoblins);
     // Populate adjacent spaces for each entity
     entities.forEach(populateOpenAdjacent);
+    // console.log(entities)
 
     let rounds = 0;
-    while (totalElves > 0 || totalGoblins > 0) {
+    while (totalElves > 0 && totalGoblins > 0) {
         entities.sort(sortByReadingOrder);
-        entities.forEach((entity) => {
+        entities.forEach((entity, index) => {
+            console.log(rounds, index, entities.length, entity.x, entity.y)
             if (entity.hp <= 0) {
                 return;
             }
@@ -153,11 +272,20 @@ function solve({ lines, rawData }) {
             handleTurn(entity, enemies);
         });
 
-        // TODO remove dead entities
-        // TODO change for forEach OR update grid when enemies die
+        entities = entities.filter((entity) => entity.hp > 0);
+        // console.log(entities)
         rounds++;
-        break;
+        if (rounds % 500 === 0) {
+            console.log(rounds);
+        }
+        // console.log(rounds)
+        // if (rounds > 50) {
+        //     break;
+        // }
     }
-    const answer = rounds - 1 * entities.reduce((acc, entity) => acc + entity.hp, 0);
+    console.log(entities);
+    console.log(rounds);
+    console.log(entities.reduce((acc, entity) => acc + entity.hp, 0));
+    const answer = (rounds) * entities.reduce((acc, entity) => acc + entity.hp, 0);
     return { value: answer };
 }
