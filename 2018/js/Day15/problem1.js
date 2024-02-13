@@ -1,7 +1,9 @@
+const { all } = require('async');
+
 module.exports = { solve: solve };
 
 function solve({ lines, rawData }) {
-    const {manhattanDistance} = require('../../../tools/math');
+    const { manhattanDistance } = require('../../../tools/math');
     function getKey(x, y) {
         return x + ',' + y;
     }
@@ -30,10 +32,6 @@ function solve({ lines, rawData }) {
         }
 
         return enemiesInRange;
-    }
-
-    function isEnemyInRange(entity) {
-        return getEnemiesInRange(entity).length > 0;
     }
 
     function sortByReadingOrder(a, b) {
@@ -69,17 +67,28 @@ function solve({ lines, rawData }) {
         choices.sort(sortByReadingOrder);
         const destination = choices[0];
         const distance = destination.distance;
-        const paths = findPathsOfDistance([startX, startY], [destination.x, destination.y], distance).map((path) => {
-            let firstStep = path[1];
-            return { x: firstStep[0], y: firstStep[1] };
-        }).sort(sortByReadingOrder);
+        const paths = findPathsOfDistance(
+            [startX, startY],
+            [destination.x, destination.y],
+            distance,
+        )
+            .map((path) => {
+                let firstStep = path[1];
+                return { x: firstStep[0], y: firstStep[1] };
+            })
+            .sort(sortByReadingOrder);
         return paths[0];
     }
 
     function findPathsOfDistance(start, finish, distance) {
         let allPaths = [];
         let path = [start];
-        let directions = [[0, -1], [-1, 0], [1, 0], [0, 1]];
+        let directions = [
+            [0, -1],
+            [-1, 0],
+            [1, 0],
+            [0, 1],
+        ];
         let fastestToPoint = new Map();
         fastestToPoint.set(getKey(start[0], start[1]), distance);
 
@@ -91,20 +100,46 @@ function solve({ lines, rawData }) {
                 allPaths.push(path.slice());
                 return;
             }
-    
+
             for (let direction of directions) {
                 let newPosition = [position[0] + direction[0], position[1] + direction[1]];
-                if (newPosition[0] >= 0 && newPosition[0] < grid.length && newPosition[1] >= 0 && newPosition[1] < grid[0].length) {
+                if (
+                    newPosition[0] >= 0 &&
+                    newPosition[0] < grid.length &&
+                    newPosition[1] >= 0 &&
+                    newPosition[1] < grid[0].length
+                ) {
                     if (grid[newPosition[0]][newPosition[1]] !== '.') {
                         continue;
                     }
 
-                    if (manhattanDistance({ x: newPosition[0], y: newPosition[1] }, { x: finish[0], y: finish[1] }) > remainingDistance - 1) {
+                    if (
+                        manhattanDistance(
+                            { x: newPosition[0], y: newPosition[1] },
+                            { x: finish[0], y: finish[1] },
+                        ) >
+                        remainingDistance - 1
+                    ) {
                         continue;
                     }
 
                     let newPositionKey = getKey(newPosition[0], newPosition[1]);
-                    if (fastestToPoint.has(newPositionKey) && fastestToPoint.get(newPositionKey) > remainingDistance - 1) {
+                    if (
+                        fastestToPoint.has(newPositionKey) &&
+                        fastestToPoint.get(newPositionKey) > remainingDistance - 1
+                    ) {
+                        continue;
+                    }
+
+                    if (
+                        fastestToPoint.has(newPositionKey) &&
+                        fastestToPoint.get(newPositionKey) === remainingDistance - 1 &&
+                        allPaths.some(path => path.some(coord => coord[0] === newPosition[0] && coord[1] === newPosition[1]))
+                    ) {
+                        // TODO path push and pop here is a hail mary. Delete
+                        // path.push(newPosition);
+                        allPaths.push(path.slice());
+                        // path.pop();
                         continue;
                     }
                     path.push(newPosition);
@@ -114,7 +149,7 @@ function solve({ lines, rawData }) {
                 }
             }
         }
-    
+
         dfs(start, distance);
         return allPaths;
     }
@@ -189,9 +224,8 @@ function solve({ lines, rawData }) {
     }
 
     function handleTurn(entity, enemies) {
-        const enemyInRange = isEnemyInRange(entity);
-
-        if (!enemyInRange) {
+        let enemiesInRange = getEnemiesInRange(entity);
+        if (enemiesInRange.length === 0) {
             // Find Open Adjacent to Enemies
             let openAdjacentToEnemies = new Set();
             enemies.forEach((enemy) => {
@@ -212,20 +246,21 @@ function solve({ lines, rawData }) {
                 grid[entity.x][entity.y] = entity.type;
                 entity.adjacent = new Set();
                 populateOpenAdjacent(entity);
+                enemiesInRange = getEnemiesInRange(entity);
             }
         }
 
         // Attack
-        // TODO this is duplicated with the beginning of the function
-        let possibleCoordinates = getEnemiesInRange(entity);
+        let possibleCoordinates = enemiesInRange;
         let possibleTargets = enemies
             .filter((enemy) => {
                 // TODO check on grid directly
-                return possibleCoordinates.some((coord) => coord.x === enemy.x && coord.y === enemy.y && enemy.hp > 0);
+                return possibleCoordinates.some(
+                    (coord) => coord.x === enemy.x && coord.y === enemy.y && enemy.hp > 0,
+                );
             })
             .sort(sortForAttack);
 
-            //TODO recalc adjacent after a death
         if (possibleTargets.length > 0) {
             possibleTargets[0].hp -= 3;
             if (possibleTargets[0].hp <= 0) {
@@ -273,7 +308,7 @@ function solve({ lines, rawData }) {
             }
             let enemies = entities.filter((other) => other.type !== entity.type);
             handleTurn(entity, enemies);
-            entities.forEach(e => {
+            entities.forEach((e) => {
                 if (e.hp <= 0) {
                     return;
                 }
@@ -285,7 +320,7 @@ function solve({ lines, rawData }) {
         // console.log(entities)
         rounds++;
         if (rounds % 10 === 0) {
-            printGrid(grid,rounds);
+            printGrid(grid, rounds);
         }
 
         if (rounds > 100) {
