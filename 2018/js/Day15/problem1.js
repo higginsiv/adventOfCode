@@ -146,7 +146,7 @@ function solve({ lines, rawData }) {
                     let foundPath = dfs(newPosition, remainingDistance - 1);
                     path.pop();
 
-                    if (foundPath) {
+                    if (foundPath && remainingDistance !== distance) {
                         return true;
                     }
                 }
@@ -242,8 +242,7 @@ function solve({ lines, rawData }) {
 
             // Find first step towards closest enemy
             let nextStep = findNextStep(entity.x, entity.y, openAdjacentToEnemies);
-            console.log(nextStep)
-            process.exit(0);
+
             if (nextStep) {
                 grid[entity.x][entity.y] = '.';
                 entity.x = nextStep.x;
