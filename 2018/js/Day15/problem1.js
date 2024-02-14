@@ -1,8 +1,11 @@
-const { all } = require('async');
-
-module.exports = { solve: solve };
+module.exports = { solve: solve, run: run };
 
 function solve({ lines, rawData }) {
+    const answer = run(lines);
+    return { value: answer };
+}
+
+function run(lines, elfAttackPower = 3) {
     const directions = [
         [-1, 0],
         [0, -1],
@@ -197,6 +200,7 @@ function solve({ lines, rawData }) {
     }
 
     function handleTurn(entity, enemies) {
+        const damage = entity.attack;
         let enemiesInRange = getEnemiesInRange(entity);
         if (enemiesInRange.length === 0) {
             // Find Open Adjacent to Enemies
@@ -234,7 +238,7 @@ function solve({ lines, rawData }) {
             .sort(sortForAttack);
 
         if (possibleTargets.length > 0) {
-            possibleTargets[0].hp -= 3;
+            possibleTargets[0].hp -= damage;
             if (possibleTargets[0].hp <= 0) {
                 grid[possibleTargets[0].x][possibleTargets[0].y] = '.';
                 possibleTargets[0].x = -1;
@@ -255,11 +259,18 @@ function solve({ lines, rawData }) {
     for (let x = 0; x < grid.length; x++) {
         for (let y = 0; y < grid[x].length; y++) {
             if (grid[x][y] === 'G') {
-                entities.push({ x: x, y: y, hp: 200, adjacent: null, type: 'G' });
+                entities.push({ x: x, y: y, hp: 200, adjacent: null, type: 'G', attack: 3 });
                 totalGoblins++;
             }
             if (grid[x][y] === 'E') {
-                entities.push({ x: x, y: y, hp: 200, adjacent: null, type: 'E' });
+                entities.push({
+                    x: x,
+                    y: y,
+                    hp: 200,
+                    adjacent: null,
+                    type: 'E',
+                    attack: elfAttackPower,
+                });
                 totalElves++;
             }
         }
@@ -289,14 +300,5 @@ function solve({ lines, rawData }) {
         rounds++;
     }
 
-    const answer = (rounds - 1) * entities.reduce((acc, entity) => acc + entity.hp, 0);
-    return { value: answer };
-}
-
-function printGrid(grid, rounds) {
-    console.log(rounds);
-    grid.forEach((row) => {
-        console.log(row.join(''));
-    });
-    console.log();
+    return (rounds - 1) * entities.reduce((acc, entity) => acc + entity.hp, 0);
 }
