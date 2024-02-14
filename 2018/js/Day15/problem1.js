@@ -3,13 +3,12 @@ const { all } = require('async');
 module.exports = { solve: solve };
 
 function solve({ lines, rawData }) {
-    const { manhattanDistance } = require('../../../tools/math');
-    const dir = [
+    const directions = [
         [-1, 0],
         [0, -1],
         [0, 1],
         [1, 0],
-    ]
+    ];
     function getKey(x, y) {
         return x + ',' + y;
     }
@@ -75,7 +74,7 @@ function solve({ lines, rawData }) {
         const distance = destination.distance;
 
         let path;
-        for (let direction of dir) {
+        for (let direction of directions) {
             let x = startX + direction[0];
             let y = startY + direction[1];
             if (grid[x][y] !== '.') {
@@ -91,61 +90,23 @@ function solve({ lines, rawData }) {
                 return { x: x, y: y };
             }
         }
-
-        // let paths;
-        // for (direction of dir) {
-        //     let x = startX + direction[0];
-        //     let y = startY + direction[1];
-        //     paths = findPathsOfDistance([x, y], [destination.x, destination.y], distance - 1);
-        //     if (paths.length > 0) {
-        //         break;
-        //     }
-        // }
-        // console.log(paths)
-        // const paths = findPathsOfDistance(
-        //     [startX, startY],
-        //     [destination.x, destination.y],
-        //     distance,
-        // ).map((path) => {
-        //         let firstStep = path[1];
-        //         return { x: firstStep[0], y: firstStep[1] };
-        //     })
-        //     .sort(sortByReadingOrder);
-        //     // console.log(paths[0])
-        // return paths[0];
-        // let northNeighbor = { x: startX - 1, y: startY };
-        // let w
-        // let step = findShortestPath([startX, startY], [destination.x, destination.y], distance)[0];
-        // return { x: step[0], y: step[1] };
-        // // return findShortestPath([startX, startY], [destination.x, destination.y], distance)[1];
     }
 
     function findShortestPath(start, finish, maxDistance, visited = new Set()) {
         let queue = [{ x: start[0], y: start[1], distance: 1, path: [start] }];
-        // let visited = new Set();
         visited.add(getKey(start[0], start[1]));
-        let directions = [
-            [-1, 0],
-            [0, -1],
-            [0, 1],
-            [1, 0],
-        ];
-        
+
         while (queue.length > 0) {
             let current = queue.shift();
 
             if (current.x === finish[0] && current.y === finish[1]) {
-                if (current.distance != maxDistance) {
-                    console.log('wtf', current.distance, maxDistance, current.path, start, finish)
-                    printGrid(grid, rounds);
-                }
                 return current.path;
             }
 
             if (current.distance >= maxDistance) {
                 continue;
             }
-    
+
             directions.forEach((direction) => {
                 let x = current.x + direction[0];
                 let y = current.y + direction[1];
@@ -167,163 +128,6 @@ function solve({ lines, rawData }) {
         return null;
     }
 
-    // iterative
-    function findPathsOfDistance(start, finish, distance) {
-        // console.time('findPathsOfDistance' + rounds)
-        let allPaths = [];
-        // let directions = [
-        //     [-1, 0],
-        //     [0, -1],
-        //     [0, 1],
-        //     [1, 0],
-        // ].reverse();
-
-        let directions = [
-            [1, 0],
-            [0, 1],
-            [0, -1],
-            [-1, 0],
-        ]
-        let fastestToPoint = new Map();
-        fastestToPoint.set(getKey(start[0], start[1]), distance);
-    
-        let stack = [[start, distance, [start]]];
-    
-        while (stack.length > 0) {
-            let [position, remainingDistance, path] = stack.pop();
-    
-            if (remainingDistance < 0) {
-                continue;
-            }
-            if (remainingDistance === 0 && position[0] === finish[0] && position[1] === finish[1]) {
-                allPaths.push(path.slice());
-                return allPaths;
-            }
-    
-            for (let direction of directions) {
-                let newPosition = [position[0] + direction[0], position[1] + direction[1]];
-                if (
-                    newPosition[0] >= 0 &&
-                    newPosition[0] < grid.length &&
-                    newPosition[1] >= 0 &&
-                    newPosition[1] < grid[0].length
-                ) {
-                    if (grid[newPosition[0]][newPosition[1]] !== '.') {
-                        continue;
-                    }
-    
-                    if (
-                        manhattanDistance(
-                            { x: newPosition[0], y: newPosition[1] },
-                            { x: finish[0], y: finish[1] },
-                        ) >
-                        remainingDistance - 1
-                    ) {
-                        continue;
-                    }
-    
-                    let newPositionKey = getKey(newPosition[0], newPosition[1]);
-                    if (
-                        fastestToPoint.has(newPositionKey) &&
-                        fastestToPoint.get(newPositionKey) > remainingDistance - 1
-                    ) {
-                        continue;
-                    }
-    
-                    let newPath = path.slice();
-                    newPath.push(newPosition);
-                    fastestToPoint.set(newPositionKey, remainingDistance - 1);
-                    stack.push([newPosition, remainingDistance - 1, newPath]);
-                }
-            }
-        }
-    
-        // console.timeEnd('findPathsOfDistance' + rounds)
-        return allPaths;
-    }
-
-    // end iterative
-    function findPathsOfDistanceR(start, finish, distance) {
-        console.time('findPathsOfDistance')
-        let allPaths = [];
-        let path = [start];
-        let directions = [
-            [-1, 0],
-            [0, -1],
-            [0, 1],
-            [1, 0],
-        ];
-        let fastestToPoint = new Map();
-        fastestToPoint.set(getKey(start[0], start[1]), distance);
-
-        function dfs(position, remainingDistance) {
-            if (remainingDistance < 0) {
-                return false;
-            }
-            if (remainingDistance === 0 && position[0] === finish[0] && position[1] === finish[1]) {
-                allPaths.push(path.slice());
-                return true;
-            }
-
-            for (let direction of directions) {
-                let newPosition = [position[0] + direction[0], position[1] + direction[1]];
-                if (
-                    newPosition[0] >= 0 &&
-                    newPosition[0] < grid.length &&
-                    newPosition[1] >= 0 &&
-                    newPosition[1] < grid[0].length
-                ) {
-                    if (grid[newPosition[0]][newPosition[1]] !== '.') {
-                        continue;
-                    }
-
-                    if (
-                        manhattanDistance(
-                            { x: newPosition[0], y: newPosition[1] },
-                            { x: finish[0], y: finish[1] },
-                        ) >
-                        remainingDistance - 1
-                    ) {
-                        continue;
-                    }
-
-                    let newPositionKey = getKey(newPosition[0], newPosition[1]);
-                    if (
-                        fastestToPoint.has(newPositionKey) &&
-                        fastestToPoint.get(newPositionKey) > remainingDistance - 1
-                    ) {
-                        continue;
-                    }
-
-                    // if (
-                    //     fastestToPoint.has(newPositionKey) &&
-                    //     fastestToPoint.get(newPositionKey) === remainingDistance - 1 &&
-                    //     allPaths.some(path => path.some(coord => coord[0] === newPosition[0] && coord[1] === newPosition[1]))
-                    // ) {
-                    //     allPaths.push(path.slice());
-                    //     // continue;
-                    //     return true;
-                    // }
-
-                    path.push(newPosition);
-                    fastestToPoint.set(newPositionKey, remainingDistance - 1);
-                    let foundPath = dfs(newPosition, remainingDistance - 1);
-                    path.pop();
-
-                    // TODO why doesn't this work on first step?
-                    if (foundPath && remainingDistance !== distance) {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        dfs(start, distance);
-        console.timeEnd('findPathsOfDistance')
-        
-        return allPaths;
-    }
-
     function findNextStep(x, y, adjacentToEnemies) {
         if (adjacentToEnemies.size === 0 || adjacentToEnemies.has(x + ',' + y)) {
             return null;
@@ -335,7 +139,6 @@ function solve({ lines, rawData }) {
         let choices = [];
         let maxDistance = Infinity;
         while (queue.length > 0) {
-            // TODO possibly pop?
             let current = queue.shift();
             if (current.distance > maxDistance) {
                 continue;
@@ -424,7 +227,6 @@ function solve({ lines, rawData }) {
         let possibleCoordinates = enemiesInRange;
         let possibleTargets = enemies
             .filter((enemy) => {
-                // TODO check on grid directly
                 return possibleCoordinates.some(
                     (coord) => coord.x === enemy.x && coord.y === enemy.y && enemy.hp > 0,
                 );
@@ -468,7 +270,6 @@ function solve({ lines, rawData }) {
 
     let rounds = 0;
     while (totalElves > 0 && totalGoblins > 0) {
-        // console.time('round ' + rounds);
         entities.sort(sortByReadingOrder);
         entities.forEach((entity, index) => {
             if (entity.hp <= 0) {
@@ -485,7 +286,6 @@ function solve({ lines, rawData }) {
         });
 
         entities = entities.filter((entity) => entity.hp > 0);
-        // console.timeEnd('round ' + rounds);
         rounds++;
     }
 
