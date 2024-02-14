@@ -84,21 +84,21 @@ function solve({ lines, rawData }) {
         let allPaths = [];
         let path = [start];
         let directions = [
-            [0, -1],
             [-1, 0],
-            [1, 0],
             [0, 1],
+            [1, 0],
+            [0, -1],
         ];
         let fastestToPoint = new Map();
         fastestToPoint.set(getKey(start[0], start[1]), distance);
 
         function dfs(position, remainingDistance) {
             if (remainingDistance < 0) {
-                return;
+                return false;
             }
             if (remainingDistance === 0 && position[0] === finish[0] && position[1] === finish[1]) {
                 allPaths.push(path.slice());
-                return;
+                return true;
             }
 
             for (let direction of directions) {
@@ -136,21 +136,25 @@ function solve({ lines, rawData }) {
                         fastestToPoint.get(newPositionKey) === remainingDistance - 1 &&
                         allPaths.some(path => path.some(coord => coord[0] === newPosition[0] && coord[1] === newPosition[1]))
                     ) {
-                        // TODO path push and pop here is a hail mary. Delete
-                        // path.push(newPosition);
                         allPaths.push(path.slice());
-                        // path.pop();
-                        continue;
+                        // continue;
+                        return true;
                     }
+
                     path.push(newPosition);
                     fastestToPoint.set(newPositionKey, remainingDistance - 1);
-                    dfs(newPosition, remainingDistance - 1);
+                    let foundPath = dfs(newPosition, remainingDistance - 1);
                     path.pop();
+
+                    if (foundPath) {
+                        return true;
+                    }
                 }
             }
         }
 
         dfs(start, distance);
+        
         return allPaths;
     }
 
@@ -238,7 +242,8 @@ function solve({ lines, rawData }) {
 
             // Find first step towards closest enemy
             let nextStep = findNextStep(entity.x, entity.y, openAdjacentToEnemies);
-
+            console.log(nextStep)
+            process.exit(0);
             if (nextStep) {
                 grid[entity.x][entity.y] = '.';
                 entity.x = nextStep.x;
@@ -292,17 +297,15 @@ function solve({ lines, rawData }) {
             }
         }
     }
-    console.log(totalElves);
-    console.log(totalGoblins);
+
     // Populate adjacent spaces for each entity
     entities.forEach(populateOpenAdjacent);
-    // console.log(entities)
 
     let rounds = 0;
     while (totalElves > 0 && totalGoblins > 0) {
+        // console.time('round ' + rounds);
         entities.sort(sortByReadingOrder);
         entities.forEach((entity, index) => {
-            // console.log(rounds, index, entities.length, entity.x, entity.y)
             if (entity.hp <= 0) {
                 return;
             }
@@ -317,19 +320,10 @@ function solve({ lines, rawData }) {
         });
 
         entities = entities.filter((entity) => entity.hp > 0);
-        // console.log(entities)
+        // console.timeEnd('round ' + rounds);
         rounds++;
-        if (rounds % 10 === 0) {
-            printGrid(grid, rounds);
-        }
-
-        if (rounds > 100) {
-            break;
-        }
     }
-    console.log(entities);
-    console.log(rounds);
-    console.log(entities.reduce((acc, entity) => acc + entity.hp, 0));
+
     const answer = (rounds - 1) * entities.reduce((acc, entity) => acc + entity.hp, 0);
     return { value: answer };
 }
