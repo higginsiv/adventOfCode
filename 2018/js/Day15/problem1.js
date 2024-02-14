@@ -5,7 +5,7 @@ function solve({ lines, rawData }) {
     return { value: answer };
 }
 
-function run(lines, elfAttackPower = 3) {
+function run(lines, elfAttackPower = 3, bailOnElfDeath = false) {
     const directions = [
         [-1, 0],
         [0, -1],
@@ -240,6 +240,9 @@ function run(lines, elfAttackPower = 3) {
         if (possibleTargets.length > 0) {
             possibleTargets[0].hp -= damage;
             if (possibleTargets[0].hp <= 0) {
+                if (bailOnElfDeath && possibleTargets[0].type === 'E') {
+                    throw new Error('Elf Died');
+                }
                 grid[possibleTargets[0].x][possibleTargets[0].y] = '.';
                 possibleTargets[0].x = -1;
                 possibleTargets[0].y = -1;

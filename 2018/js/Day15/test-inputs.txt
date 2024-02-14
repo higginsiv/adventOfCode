@@ -1,3 +1,5 @@
+Test inputs for part 1
+
 #######
 #G..#E#
 #E#E.E#
