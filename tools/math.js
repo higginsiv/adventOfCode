@@ -14,6 +14,7 @@ module.exports = {
     countPointsWithinDistance: countPointsWithinDistance,
     countPointsAtDistance: countPointsAtDistance,
     condenseRanges: condenseRanges,
+    getFactors: getFactors
 };
 
 function getGCD(a, b) {
@@ -131,4 +132,17 @@ function condenseRanges(ranges) {
     }
 
     return result;
+}
+
+function getFactors(n) {
+    let factors = [];
+    for (let i = 1; i <= Math.sqrt(n); i++) {
+        if (n % i === 0) {
+            factors.push(i);
+            if (n / i !== i) {
+                factors.push(n / i);
+            }
+        }
+    }
+    return factors;
 }
