@@ -31,44 +31,54 @@ function solve({lines, rawData}) {
     while (index < directions.length) {
         let direction = directions[index];
         if (direction === '(') {
-            stack.push({x: current.x, y: current.y, doors: current.doors});
+            let newEndPoints = [];
+            for (let i = 0; i < endPoints.length; i++) {
+                newEndPoints.push({x: endPoints[i].x, y: endPoints[i].y, doors: endPoints[i].doors});
+            }
+            stack.push(newEndPoints);
         } else if (direction === ')') {
             // TODO not sure if this pop makes sense
-            current = stack.pop();
+            endPoints = stack.pop();
         } else if (direction === '|') {
             // todo record new endpoint
-            current = stack[stack.length - 1];
+            endPoints = stack[stack.length - 1];
         } else {
-            // TODO set up doors
+            let newEndPoints = [];
             let oppositeDirection = getOpposite(direction);
-            console.log(`current: ${current.x},${current.y} direction: ${direction} doors: ${current.doors}`);
-            current.doors.add(direction);
-            let x = current.x;
-            let y = current.y;
-            if (direction === 'N') {
-                y--;
-            } else if (direction === 'E') {
-                x++;
-            } else if (direction === 'S') {
-                y++;
-            } else if (direction === 'W') {
-                x--;
+
+            for (let i = 0; i < endPoints.length; i++) {
+                let current = endPoints[i];
+                console.log(`current: ${current.x},${current.y} direction: ${direction} doors: ${current.doors}`);
+                current.doors.add(direction);
+                let x = current.x;
+                let y = current.y;
+                if (direction === 'N') {
+                    y--;
+                } else if (direction === 'E') {
+                    x++;
+                } else if (direction === 'S') {
+                    y++;
+                } else if (direction === 'W') {
+                    x--;
+                }
+                let locationkey = getKey(x, y);
+    
+                if (!locations.has(locationkey)) {
+                    locations.set(locationkey, {
+                        key: locationkey,
+                        x: x,
+                        y: y,
+                        doors: new Set()
+                    });
+                }
+    
+                let location = locations.get(locationkey);
+                location.doors.add(oppositeDirection);
+    
+                current = {x: x, y: y, doors: location.doors};
+                newEndPoints.push(current);
             }
-            let locationkey = getKey(x, y);
-
-            if (!locations.has(locationkey)) {
-                locations.set(locationkey, {
-                    key: locationkey,
-                    x: x,
-                    y: y,
-                    doors: new Set()
-                });
-            }
-
-            let location = locations.get(locationkey);
-            location.doors.add(oppositeDirection);
-
-            current = {x: x, y: y, doors: location.doors};
+            endPoints = newEndPoints;
         }
         index++;
     }
