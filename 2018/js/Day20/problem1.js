@@ -1,6 +1,42 @@
-module.exports = {solve: solve};
+module.exports = { solve: solve };
 
-function solve({lines, rawData}) {
+function solve({ lines, rawData }) {
+    const { max } = Math;
+
+    function convertMapToGrid(map) {
+        let lowestX = Infinity;
+        let lowestY = Infinity;
+        let highestX = -Infinity;
+        let highestY = -Infinity;
+
+        for (let value of map.values()) {
+            const x = value.x;
+            const y = value.y;
+            if (x < lowestX) {
+                lowestX = x;
+            }
+            if (x > highestX) {
+                highestX = x;
+            }
+            if (y < lowestY) {
+                lowestY = y;
+            }
+            if (y > highestY) {
+                highestY = y;
+            }
+        }
+
+        let grid = Array(highestY - lowestY + 1)
+            .fill(null)
+            .map(() => Array(highestX - lowestX + 1).fill('#'));
+        for (let location of map.values()) {
+            const { x, y } = location;
+            grid[y - lowestY][x - lowestX] = location;
+        }
+        const start = [0 - lowestY, 0 - lowestX];
+        return [grid, start];
+    }
+
     function getOpposite(direction) {
         if (direction === 'N') {
             return 'S';
@@ -19,10 +55,10 @@ function solve({lines, rawData}) {
 
     let directions = rawData.substring(1, rawData.length - 1).split('');
 
-    let current = {x: 0, y: 0, doors: new Set()};
+    let current = { x: 0, y: 0, doors: new Set(), key: getKey(0, 0) };
 
     let endPoints = [current];
-    let locations = new Map()
+    let locations = new Map();
     locations.set(getKey(0, 0), current);
     let stack = [];
     let index = 0;
@@ -31,14 +67,16 @@ function solve({lines, rawData}) {
         if (direction === '(') {
             let newEndPoints = [];
             for (let i = 0; i < endPoints.length; i++) {
-                newEndPoints.push({x: endPoints[i].x, y: endPoints[i].y, doors: endPoints[i].doors});
+                newEndPoints.push({
+                    x: endPoints[i].x,
+                    y: endPoints[i].y,
+                    doors: endPoints[i].doors,
+                });
             }
             stack.push(newEndPoints);
         } else if (direction === ')') {
-            // TODO not sure if this pop makes sense
             endPoints = stack.pop();
         } else if (direction === '|') {
-            // todo record new endpoint
             endPoints = stack[stack.length - 1];
         } else {
             let newEndPoints = [];
@@ -46,7 +84,7 @@ function solve({lines, rawData}) {
 
             for (let i = 0; i < endPoints.length; i++) {
                 let current = endPoints[i];
-                console.log(`current: ${current.x},${current.y} direction: ${direction} doors: ${current.doors}`);
+
                 current.doors.add(direction);
                 let x = current.x;
                 let y = current.y;
@@ -60,70 +98,56 @@ function solve({lines, rawData}) {
                     x--;
                 }
                 let locationkey = getKey(x, y);
-    
+
                 if (!locations.has(locationkey)) {
                     locations.set(locationkey, {
                         key: locationkey,
                         x: x,
                         y: y,
-                        doors: new Set()
+                        doors: new Set(),
                     });
                 }
-    
+
                 let location = locations.get(locationkey);
                 location.doors.add(oppositeDirection);
-    
-                current = {x: x, y: y, doors: location.doors};
+
+                current = { x: x, y: y, doors: location.doors };
                 newEndPoints.push(current);
             }
             endPoints = newEndPoints;
         }
         index++;
     }
-    console.log(locations);
-    console.log(locations.size)
-    let grid = convertMapToGrid(locations);
-    printGrid(grid);
-    const answer = null;
-    return {value: answer};
-}
 
-function convertMapToGrid(map) {
-    let lowestX = Infinity;
-    let lowestY = Infinity;
-    let highestX = -Infinity;
-    let highestY = -Infinity;
+    let [grid, start] = convertMapToGrid(locations);
 
-    for (let key of map.keys()) {
-        let [x, y] = key.split(',').map(Number);
-        console.log(`x: ${x} y: ${y}`);
-        if (x < lowestX) {
-            lowestX = x;
+    let queue = [{ y: start[0], x: start[1], doors: 0 }];
+    let visitedToDoorsRequired = new Map();
+    while (queue.length > 0) {
+        let { y, x, doors } = queue.shift();
+        let location = grid[y][x];
+        if (location === '#') {
+            continue;
         }
-        if (x > highestX) {
-            highestX = x;
+        if (visitedToDoorsRequired.has(location.key)) {
+            continue;
+        } else {
+            visitedToDoorsRequired.set(location.key, doors);
         }
-        if (y < lowestY) {
-            lowestY = y;
-        }
-        if (y > highestY) {
-            highestY = y;
+
+        for (let door of location.doors) {
+            if (door === 'N') {
+                queue.push({ y: y - 1, x: x, doors: doors + 1 });
+            } else if (door === 'E') {
+                queue.push({ y: y, x: x + 1, doors: doors + 1 });
+            } else if (door === 'S') {
+                queue.push({ y: y + 1, x: x, doors: doors + 1 });
+            } else if (door === 'W') {
+                queue.push({ y: y, x: x - 1, doors: doors + 1 });
+            }
         }
     }
-    console.log(`lowestX: ${lowestX} highestX: ${highestX} lowestY: ${lowestY} highestY: ${highestY}`);
-    let grid = Array(highestY - lowestY + 1).fill(null).map(() => Array(highestX - lowestX + 1).fill('#'));
-    for (let key of map.keys()) {
-        let [x, y] = key.split(',').map(Number);
-        grid[y - lowestY][x - lowestX] = "_";
-    }
-    return grid;
-}
-function printGrid(grid) {
-    for (let y = 0; y < grid.length; y++) {
-        let line = '';
-        for (let x = 0; x < grid[y].length; x++) {
-            line += grid[y][x];
-        }
-        console.log(line);
-    }
+
+    const answer = max(...Array.from(visitedToDoorsRequired.values()));
+    return { value: answer };
 }
