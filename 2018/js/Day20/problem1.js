@@ -19,8 +19,6 @@ function solve({lines, rawData}) {
 
     let directions = rawData.substring(1, rawData.length - 1).split('');
 
-    // TODO have array of locations
-    // TODO have stack of possible moves
     let current = {x: 0, y: 0, doors: new Set()};
 
     let endPoints = [current];
@@ -83,6 +81,49 @@ function solve({lines, rawData}) {
         index++;
     }
     console.log(locations);
+    console.log(locations.size)
+    let grid = convertMapToGrid(locations);
+    printGrid(grid);
     const answer = null;
     return {value: answer};
+}
+
+function convertMapToGrid(map) {
+    let lowestX = Infinity;
+    let lowestY = Infinity;
+    let highestX = -Infinity;
+    let highestY = -Infinity;
+
+    for (let key of map.keys()) {
+        let [x, y] = key.split(',').map(Number);
+        console.log(`x: ${x} y: ${y}`);
+        if (x < lowestX) {
+            lowestX = x;
+        }
+        if (x > highestX) {
+            highestX = x;
+        }
+        if (y < lowestY) {
+            lowestY = y;
+        }
+        if (y > highestY) {
+            highestY = y;
+        }
+    }
+    console.log(`lowestX: ${lowestX} highestX: ${highestX} lowestY: ${lowestY} highestY: ${highestY}`);
+    let grid = Array(highestY - lowestY + 1).fill(null).map(() => Array(highestX - lowestX + 1).fill('#'));
+    for (let key of map.keys()) {
+        let [x, y] = key.split(',').map(Number);
+        grid[y - lowestY][x - lowestX] = "_";
+    }
+    return grid;
+}
+function printGrid(grid) {
+    for (let y = 0; y < grid.length; y++) {
+        let line = '';
+        for (let x = 0; x < grid[y].length; x++) {
+            line += grid[y][x];
+        }
+        console.log(line);
+    }
 }
