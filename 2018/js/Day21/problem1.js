@@ -37,20 +37,27 @@ function solve({ lines, rawData }) {
         seti,
         setr,
     };
-
-    const registers = [0, 0, 0, 0, 0, 0];
     const instructionPointer = Number(lines[0].split(' ')[1]);
     const instructions = lines.slice(1).map((line) => {
         const [op, a, b, c] = line.split(' ');
         return { op, a: Number(a), b: Number(b), c: Number(c) };
     });
 
+    let minRegZero = Infinity;
+
+    const registers = [0, 0, 0, 0, 0, 0];
+
     while (registers[instructionPointer] < instructions.length) {
+        // TODO this is cheesed from my input
+        if (registers[instructionPointer] === 28) {
+            minRegZero = registers[4];
+            break;
+        }
         const { op, a, b, c } = instructions[registers[instructionPointer]];
         operations[op](registers, a, b, c);
         registers[instructionPointer]++;
     }
 
-    const answer = registers[0];
+    const answer = minRegZero;
     return { value: answer };
 }
