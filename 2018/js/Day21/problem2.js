@@ -37,27 +37,32 @@ function solve({ lines, rawData }) {
         seti,
         setr,
     };
-    const instructionPointer = Number(lines[0].split(' ')[1]);
-    const instructions = lines.slice(1).map((line) => {
-        const [op, a, b, c] = line.split(' ');
-        return { op, a: Number(a), b: Number(b), c: Number(c) };
-    });
+
+    function getNextHalt(input) {
+        let y = input | 65536;
+        let x = 1855046;
+
+        while (y > 0) {
+            x = (((x + (y & 255)) & 16777215) * 65899) & 16777215;
+            y >>= 8;
+        }
+
+        return x;
+    }
 
     let haltNums = [];
 
     const registers = [0, 0, 0, 0, 0, 0];
 
-    while (registers[instructionPointer] < instructions.length) {
-        // TODO this is cheesed from my input
-        if (registers[instructionPointer] === 28) {
-            if (haltNums.includes(registers[4])) {
-                break;
-            }
-            haltNums.push(registers[4]);
+    let start = 9079325; // answer from p1 was minimum
+
+    while (true) {
+        let next = getNextHalt(start);
+        if (haltNums.includes(next)) {
+            break;
         }
-        const { op, a, b, c } = instructions[registers[instructionPointer]];
-        operations[op](registers, a, b, c);
-        registers[instructionPointer]++;
+        haltNums.push(next);
+        start = next;
     }
 
     const answer = haltNums[haltNums.length - 1];
