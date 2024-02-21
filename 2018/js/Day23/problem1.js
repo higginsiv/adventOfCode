@@ -1,26 +1,23 @@
-console.time();
-const fr = require('../../../tools/fileReader');
-const [year, day, part] = ['2018', '23', '1'];
-const data = fr.getInput(year, day).map((x) => {
-    x = x.replace('pos=<', '');
-    x = x.replace('>, r=', ',');
-    x = x.split(',').map((y) => parseInt(y));
-    return x;
-});
+module.exports = { solve: solve };
 
-data.sort((a, b) => b[3] - a[3]);
-
-const [x, y, z, range] = data.shift();
-let inRange = 1;
-data.forEach(([locX, locY, locZ, locR]) => {
-    if (getDistance(x, locX) + getDistance(y, locY) + getDistance(z, locZ) <= range) {
-        inRange++;
+function solve({ lines, rawData }) {
+    const { abs } = Math;
+    function getDistance(p1, p2) {
+        return abs(p1 - p2);
     }
-});
 
-function getDistance(p1, p2) {
-    return Math.abs(p1 - p2);
+    const nanobots = lines
+        .map((line) => {
+            let [x, y, z, range] = line.match(/-?\d+/g).map(Number);
+            return { x, y, z, range };
+        })
+        .sort((a, b) => a.range - b.range);
+
+    let { x, y, z, range } = nanobots.pop();
+    const answer = nanobots.reduce((acc, bot) => {
+        const distance = getDistance(x, bot.x) + getDistance(y, bot.y) + getDistance(z, bot.z);
+        return acc + (distance <= range ? 1 : 0);
+    }, 1);
+
+    return { value: answer };
 }
-
-console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + inRange);
-console.timeEnd();
