@@ -1,3 +1,4 @@
+// TODO Deprecate this and move usages to queue.js
 /**
  * Inserts a given state object into the correct place in an array of states sorted by weight ascending.
  * @param {*} queue
