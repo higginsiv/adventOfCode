@@ -108,10 +108,12 @@ function solve({ lines, rawData }) {
         return g(x, y, tool) + h(x, y, tool);
     }
 
+    // g(x) is the cost of the shortest path from the start to x
     function g(x, y, tool) {
         return getLocation(x, y).bestTime[tool];
     }
 
+    // h(x) is the heuristic function. It estimates the cost of the cheapest path from x to the goal.
     function h(x, y, tool) {
         return abs(x - targetX) + abs(y - targetY) + (tool === TORCH ? 0 : 7);
     }
