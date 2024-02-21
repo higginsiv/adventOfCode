@@ -14,7 +14,7 @@ module.exports = {
     countPointsWithinDistance: countPointsWithinDistance,
     countPointsAtDistance: countPointsAtDistance,
     condenseRanges: condenseRanges,
-    getFactors: getFactors
+    getFactors: getFactors,
 };
 
 function getGCD(a, b) {

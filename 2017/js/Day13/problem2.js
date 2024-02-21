@@ -1,7 +1,7 @@
 module.exports = { solve: solve };
 
 function solve({ lines, rawData }) {
-    lines = lines.map((lines) => lines.match(/\d+/g).map(Number))
+    lines = lines.map((lines) => lines.match(/\d+/g).map(Number));
     let answer = 1;
     while (true) {
         let caught = false;
@@ -17,6 +17,6 @@ function solve({ lines, rawData }) {
             break;
         }
     }
-    
+
     return { value: answer };
 }

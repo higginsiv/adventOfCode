@@ -148,6 +148,6 @@ function solve({ lines, rawData }) {
         }
     }
 
-    const answer = [...visitedToDoorsRequired.values()].filter(x => x >= 1000).length;
+    const answer = [...visitedToDoorsRequired.values()].filter((x) => x >= 1000).length;
     return { value: answer };
 }

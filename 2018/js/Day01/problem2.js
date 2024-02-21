@@ -1,6 +1,6 @@
-module.exports = {solve: solve};
+module.exports = { solve: solve };
 
-function solve({lines, rawData}) {
+function solve({ lines, rawData }) {
     let frequencies = new Set();
     lines = lines.map(Number);
 
@@ -15,5 +15,5 @@ function solve({lines, rawData}) {
         i = (i + 1) % lines.length;
     }
 
-    return {value: answer};
+    return { value: answer };
 }

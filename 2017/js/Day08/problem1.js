@@ -14,7 +14,7 @@ function solve({ lines, rawData }) {
         if (!registers[reg2]) {
             registers[reg2] = 0;
         }
-        
+
         let evaluation = false;
         switch (op2) {
             case '>':

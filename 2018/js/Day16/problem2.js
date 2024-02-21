@@ -84,7 +84,6 @@ function solve({ lines, rawData }) {
                     opcodeValueToIndex.set(test.instruction[0], opcode);
                 }
             });
-
     }
 
     let registers = [0, 0, 0, 0];

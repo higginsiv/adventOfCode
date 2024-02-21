@@ -8,17 +8,17 @@ function solve() {
     let g;
     let h = 0;
 
-    while (g !== 0) {   
+    while (g !== 0) {
         for (let d = 2; d * d <= b; d++) {
-          if (b % d == 0) {
-            h++;
-            break;
-          }
+            if (b % d == 0) {
+                h++;
+                break;
+            }
         }
-    
+
         g = b - c;
         b += 17;
-      }
+    }
 
     return { value: h };
 }
