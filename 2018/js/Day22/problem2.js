@@ -8,6 +8,7 @@ function solve({ lines, rawData }) {
     const depth = lines[0].match(/\d+/).map(Number)[0];
     const [targetX, targetY] = lines[1].match(/\d+/g).map(Number);
 
+    // These multiples are from manual testing with my input. The solution will work for all inputs but may be slower for some.
     let cache = Array.from({ length: 2 * targetY }, () =>
         Array(10 * targetX)
             .fill(null)
