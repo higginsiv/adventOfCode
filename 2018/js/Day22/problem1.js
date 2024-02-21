@@ -4,15 +4,14 @@ function solve({ lines, rawData }) {
     const depth = lines[0].match(/\d+/).map(Number)[0];
     const [targetX, targetY] = lines[1].match(/\d+/g).map(Number);
 
-    let base = { erosionLevel: null, geologicIndex: null, regionType: null };
     let cache = Array.from({ length: targetY + 1 }, () =>
         Array(targetX + 1)
             .fill(null)
-            .map(() => ({ ...base })),
+            .map(() => ({})),
     );
 
     function getErosionLevel(x, y) {
-        if (cache[y][x].erosionLevel !== null) {
+        if (cache[y][x].erosionLevel != null) {
             return cache[y][x].erosionLevel;
         }
         const erosionLevel = (getGeologicIndex(x, y) + depth) % 20183;
@@ -21,7 +20,7 @@ function solve({ lines, rawData }) {
     }
 
     function getGeologicIndex(x, y) {
-        if (cache[y][x].geologicIndex !== null) {
+        if (cache[y][x].geologicIndex != null) {
             return cache[y][x].geologicIndex;
         }
         let geologicIndex;
@@ -41,7 +40,7 @@ function solve({ lines, rawData }) {
     }
 
     function getRegionType(x, y) {
-        if (cache[y][x].regionType !== null) {
+        if (cache[y][x].regionType != null) {
             return cache[y][x].regionType;
         }
         const regionType = getErosionLevel(x, y) % 3;
