@@ -36,6 +36,24 @@ function solve({ lines, rawData }) {
     console.log({ x: maxX - minX, y: maxY - minY, z: maxZ - minZ });
     let root = new OctreeNode(minX, minY, minZ, maxX, maxY, maxZ);
     root.split();
+    let queue = [...root.children];
+
+    while (queue.length > 0) {
+        let node = queue.shift();
+        // if node contains less bots than max, skip
+        // if node contains only one coordinate, save max bots and skip
+        let midX = (node.boundingBox.minX + node.boundingBox.maxX) / 2;
+        let midY = (node.boundingBox.minY + node.boundingBox.maxY) / 2;
+        let midZ = (node.boundingBox.minZ + node.boundingBox.maxZ) / 2;
+        node.split();
+        for (let bot of nanobots) {
+            // check if bot overlaps with node
+            // increment count if it does
+        }
+
+        // take node with highest number of bots and split
+        // add new children to queue and sort by number of bots
+    }
     
     const answer = 0;
     return { value: answer };
