@@ -5,15 +5,14 @@ function solve({ lines, rawData }) {
     const PriorityQueue = require('../../../tools/queue.js');
     const OctreeNode = require('../../../tools/octree.js');
 
-    function getKey(x, y, z) {
-        return `${x},${y},${z}`;
-    }
-
     function getDistance(p1, p2) {
         return abs(p1 - p2);
     }
 
     function compare(a, b) {
+        if (a.count === b.count) {
+            return b.level - a.level;
+        }
         return b.count - a.count;
     }
 
@@ -43,31 +42,44 @@ function solve({ lines, rawData }) {
     console.log({ x: maxX - minX, y: maxY - minY, z: maxZ - minZ });
     let root = new OctreeNode(minX, minY, minZ, maxX, maxY, maxZ);
     root.count = 0;
+    root.level = 0;
 
     let queue = new PriorityQueue([root], compare);
     let maxBots = 0;
     let shortestManhattan = Infinity;
     let bestCoord;
 
-    let i = 0;
     while (queue.isNotEmpty()) {
-        // i++;
-        // if (i > 50000) {
-        //     break;
-        // }
         let node = queue.next();
-        // console.log(node, maxBots)
 
-        if (node.boundingBox.minX === node.boundingBox.maxX && node.boundingBox.minY === node.boundingBox.maxY && node.boundingBox.minZ === node.boundingBox.maxZ) {
+        if (
+            node.boundingBox.minX === node.boundingBox.maxX &&
+            node.boundingBox.minY === node.boundingBox.maxY &&
+            node.boundingBox.minZ === node.boundingBox.maxZ
+        ) {
             maxBots = max(maxBots, node.count);
             if (node.count === maxBots) {
-                shortestManhattan = min(shortestManhattan, getDistance(node.boundingBox.minX, 0) + getDistance(node.boundingBox.minY, 0) + getDistance(node.boundingBox.minZ, 0));
-                bestCoord = { x: node.boundingBox.minX, y: node.boundingBox.minY, z: node.boundingBox.minZ };
+                shortestManhattan = min(
+                    shortestManhattan,
+                    getDistance(node.boundingBox.minX, 0) +
+                        getDistance(node.boundingBox.minY, 0) +
+                        getDistance(node.boundingBox.minZ, 0),
+                );
+                bestCoord = {
+                    x: node.boundingBox.minX,
+                    y: node.boundingBox.minY,
+                    z: node.boundingBox.minZ,
+                };
             }
             continue;
         }
 
-        if (node.boundingBox.maxX - node.boundingBox.minX <= minRange && node.boundingBox.maxY - node.boundingBox.minY <= minRange && node.boundingBox.maxZ - node.boundingBox.minZ <= minRange && node.count < maxBots) {
+        if (
+            node.boundingBox.maxX - node.boundingBox.minX <= minRange &&
+            node.boundingBox.maxY - node.boundingBox.minY <= minRange &&
+            node.boundingBox.maxZ - node.boundingBox.minZ <= minRange &&
+            node.count < maxBots
+        ) {
             continue;
         }
 
@@ -77,19 +89,33 @@ function solve({ lines, rawData }) {
             let midY = floor((child.boundingBox.minY + child.boundingBox.maxY) / 2);
             let midZ = floor((child.boundingBox.minZ + child.boundingBox.maxZ) / 2);
             child.count = 0;
+            child.level = node.level + 1;
             for (let bot of nanobots) {
-                if (getDistance(bot.x, midX) + getDistance(bot.y, midY) + getDistance(bot.z, midZ) <= bot.range) {
+                if (
+                    getDistance(bot.x, midX) +
+                        getDistance(bot.y, midY) +
+                        getDistance(bot.z, midZ) <=
+                    bot.range
+                ) {
                     child.count++;
                 }
             }
 
-            if ((child.boundingBox.maxX - child.boundingBox.minX > minRange || child.boundingBox.maxY - child.boundingBox.minY > minRange || child.boundingBox.maxZ - child.boundingBox.minZ > minRange) || child.count >= maxBots) {
+            // TODO not sure if this works on real input
+            if (maxBots === 0 || child.count >= maxBots) {
                 queue.insert(child);
             }
-            
+            // if (
+            //     child.boundingBox.maxX - child.boundingBox.minX > minRange ||
+            //     child.boundingBox.maxY - child.boundingBox.minY > minRange ||
+            //     child.boundingBox.maxZ - child.boundingBox.minZ > minRange ||
+            //     child.count >= maxBots
+            // ) {
+            //     queue.insert(child);
+            // }
         }
     }
-    console.log(i, maxBots, shortestManhattan, bestCoord)
+    console.log(maxBots, shortestManhattan, bestCoord);
     const answer = shortestManhattan;
     return { value: answer };
 }
