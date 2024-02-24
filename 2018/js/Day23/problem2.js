@@ -17,9 +17,9 @@ function solve({ lines, rawData }) {
     }
 
     function getShortestDistance(bot, boxMinCorner, boxMaxCorner) {
-        let dx = Math.max(boxMinCorner.x - bot.x, 0, bot.x - boxMaxCorner.x);
-        let dy = Math.max(boxMinCorner.y - bot.y, 0, bot.y - boxMaxCorner.y);
-        let dz = Math.max(boxMinCorner.z - bot.z, 0, bot.z - boxMaxCorner.z);
+        let dx = max(boxMinCorner.x - bot.x, 0, bot.x - boxMaxCorner.x);
+        let dy = max(boxMinCorner.y - bot.y, 0, bot.y - boxMaxCorner.y);
+        let dz = max(boxMinCorner.z - bot.z, 0, bot.z - boxMaxCorner.z);
         return dx + dy + dz;
     }
 
