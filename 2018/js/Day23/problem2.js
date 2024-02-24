@@ -16,6 +16,13 @@ function solve({ lines, rawData }) {
         return b.count - a.count;
     }
 
+    function getShortestDistance(bot, boxMinCorner, boxMaxCorner) {
+        let dx = Math.max(boxMinCorner.x - bot.x, 0, bot.x - boxMaxCorner.x);
+        let dy = Math.max(boxMinCorner.y - bot.y, 0, bot.y - boxMaxCorner.y);
+        let dz = Math.max(boxMinCorner.z - bot.z, 0, bot.z - boxMaxCorner.z);
+        return dx + dy + dz;
+    }
+
     let minRange = Infinity;
     const nanobots = lines.map((line) => {
         let [x, y, z, range] = line.match(/-?\d+/g).map(Number);
@@ -38,8 +45,6 @@ function solve({ lines, rawData }) {
         maxZ = max(maxZ, bot.z + bot.range);
     });
 
-    console.log({ minX, minY, minZ, maxX, maxY, maxZ });
-    console.log({ x: maxX - minX, y: maxY - minY, z: maxZ - minZ });
     let root = new OctreeNode(minX, minY, minZ, maxX, maxY, maxZ);
     root.count = 0;
     root.level = 0;
@@ -47,7 +52,6 @@ function solve({ lines, rawData }) {
     let queue = new PriorityQueue([root], compare);
     let maxBots = 0;
     let shortestManhattan = Infinity;
-    let bestCoord;
 
     while (queue.isNotEmpty()) {
         let node = queue.next();
@@ -65,11 +69,6 @@ function solve({ lines, rawData }) {
                         getDistance(node.boundingBox.minY, 0) +
                         getDistance(node.boundingBox.minZ, 0),
                 );
-                bestCoord = {
-                    x: node.boundingBox.minX,
-                    y: node.boundingBox.minY,
-                    z: node.boundingBox.minZ,
-                };
             }
             continue;
         }
@@ -85,37 +84,30 @@ function solve({ lines, rawData }) {
 
         node.split();
         for (let child of node.children) {
-            let midX = floor((child.boundingBox.minX + child.boundingBox.maxX) / 2);
-            let midY = floor((child.boundingBox.minY + child.boundingBox.maxY) / 2);
-            let midZ = floor((child.boundingBox.minZ + child.boundingBox.maxZ) / 2);
             child.count = 0;
             child.level = node.level + 1;
+            let boxMinCorner = {
+                x: child.boundingBox.minX,
+                y: child.boundingBox.minY,
+                z: child.boundingBox.minZ,
+            };
+            let boxMaxCorner = {
+                x: child.boundingBox.maxX,
+                y: child.boundingBox.maxY,
+                z: child.boundingBox.maxZ,
+            };
+
             for (let bot of nanobots) {
-                if (
-                    getDistance(bot.x, midX) +
-                        getDistance(bot.y, midY) +
-                        getDistance(bot.z, midZ) <=
-                    bot.range
-                ) {
+                if (getShortestDistance(bot, boxMinCorner, boxMaxCorner) <= bot.range) {
                     child.count++;
                 }
             }
 
-            // TODO not sure if this works on real input
             if (maxBots === 0 || child.count >= maxBots) {
                 queue.insert(child);
             }
-            // if (
-            //     child.boundingBox.maxX - child.boundingBox.minX > minRange ||
-            //     child.boundingBox.maxY - child.boundingBox.minY > minRange ||
-            //     child.boundingBox.maxZ - child.boundingBox.minZ > minRange ||
-            //     child.count >= maxBots
-            // ) {
-            //     queue.insert(child);
-            // }
         }
     }
-    console.log(maxBots, shortestManhattan, bestCoord);
     const answer = shortestManhattan;
     return { value: answer };
 }
