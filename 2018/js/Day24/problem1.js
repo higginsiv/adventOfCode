@@ -30,12 +30,21 @@ function runSimulation(groups, boost = 0) {
         populateEffectivePower(groups);
         groups.sort(sortByPowerThenInitiative);
         populateTargetSelection(groups);
+
+        // Handle stalemates (for part 2)
+        if (
+            groups.every((group) => {
+                return !group.target || group.target.hp > group.effectivePower;
+            })
+        ) {
+            break;
+        }
+
         groupDied = attack(groups);
         if (groupDied) {
             groups = groups.filter((group) => group.units > 0);
         }
     }
-
     return groups;
 }
 
