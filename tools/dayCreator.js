@@ -25,13 +25,16 @@ if (!fs.existsSync(`${YEAR}/js/Day${DAY}`)) {
     fs.mkdirSync(`${YEAR}/js/Day${DAY}`, { recursive: true });
 
     fs.writeFileSync(`${YEAR}/js/Day${DAY}/problem1.js`, getTemplate(1, LEGACY));
-    fs.writeFileSync(`${YEAR}/js/Day${DAY}/problem2.js`, getTemplate(2, LEGACY));
+    if (DAY !== '25') {
+        fs.writeFileSync(`${YEAR}/js/Day${DAY}/problem2.js`, getTemplate(2, LEGACY));
+    }
+
     fs.writeFileSync(`${YEAR}/js/Day${DAY}/input.txt`, '');
     fs.writeFileSync(`${YEAR}/js/Day${DAY}/README.md`, '');
 
     if (!fs.existsSync(`${YEAR}/js/Day${DAY}/tests`)) {
         fs.mkdirSync(`${YEAR}/js/Day${DAY}/tests`, { recursive: true });
-        fs.writeFileSync(`${YEAR}/js/Day${DAY}/tests/${YEAR}-${DAY}.test.js`, getTestTemplate());
+        fs.writeFileSync(`${YEAR}/js/Day${DAY}/tests/${YEAR}-${DAY}.test.js`, getTestTemplate(DAY));
     }
 } else {
     console.error(`Directory ${YEAR}/js/Day${DAY} already exists`);
@@ -58,7 +61,20 @@ function solve({lines, rawData}) {
     }
 }
 
-function getTestTemplate() {
+function getTestTemplate(day) {
+    if (day === '25') {
+        return `const fr = require('../../../../tools/fileReader');
+const { solve: part1 } = require(\`../problem1.js\`);
+        
+const data = fr.getInputForFunction(\'${YEAR}\', \'${DAY}\');
+        
+describe(\`${YEAR} Day ${DAY}\`, () => {
+    test('Part 1', () => {
+        expect(part1(data).value).toBe();
+    });
+});`;
+    }
+
     return `const fr = require('../../../../tools/fileReader');
 const { solve: part1 } = require(\`../problem1.js\`);
 const { solve: part2 } = require(\`../problem2.js\`);
