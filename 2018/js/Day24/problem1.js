@@ -1,16 +1,34 @@
-module.exports = { solve: solve, getGroups: getGroups };
+const { run } = require('jest');
+
+module.exports = { solve: solve, getGroups: getGroups, runSimulation: runSimulation };
 const EOL = require('os').EOL;
-const {floor} = Math;
+const { floor } = Math;
 const [IMMUNE, INFECTION] = [0, 1];
 const TYPES = ['cold', 'fire', 'slashing', 'radiation', 'bludgeoning'];
 
 function solve({ lines, rawData }) {
-    let groups = getGroups(rawData);
+    let groups = runSimulation(getGroups(rawData));
+    const answer = groups.reduce((acc, group) => acc + group.units, 0);
+    return { value: answer };
+}
+
+function runSimulation(groups, boost = 0) {
+    if (boost > 0) {
+        groups = groups.map((group) => {
+            if (group.affiliation === IMMUNE) {
+                group.damage += boost;
+            }
+            return group;
+        });
+    }
 
     let groupDied = false;
-    while (groups.some((group) => group.affiliation === IMMUNE) && groups.some((group) => group.affiliation === INFECTION)) {
+    while (
+        groups.some((group) => group.affiliation === IMMUNE) &&
+        groups.some((group) => group.affiliation === INFECTION)
+    ) {
         populateEffectivePower(groups);
-        groups.sort(compareForPriority);
+        groups.sort(sortByPowerThenInitiative);
         populateTargetSelection(groups);
         groupDied = attack(groups);
         if (groupDied) {
@@ -18,8 +36,7 @@ function solve({ lines, rawData }) {
         }
     }
 
-    const answer = groups.reduce((acc, group) => acc + group.units, 0);
-    return { value: answer };
+    return groups;
 }
 
 function populateEffectivePower(groups) {
@@ -40,9 +57,15 @@ function getGroups(rawData) {
             let immune;
             multipliers.forEach((multiplier) => {
                 if (multiplier.startsWith('weak')) {
-                    weak = multiplier.substring(multiplier.indexOf('to ') + 3).split(', ').map((type) => TYPES.indexOf(type));
+                    weak = multiplier
+                        .substring(multiplier.indexOf('to ') + 3)
+                        .split(', ')
+                        .map((type) => TYPES.indexOf(type));
                 } else if (multiplier.startsWith('immune')) {
-                    immune = multiplier.substring(multiplier.indexOf('to ') + 3).split(', ').map((type) => TYPES.indexOf(type));
+                    immune = multiplier
+                        .substring(multiplier.indexOf('to ') + 3)
+                        .split(', ')
+                        .map((type) => TYPES.indexOf(type));
                 }
             });
             let group = {
@@ -52,7 +75,9 @@ function getGroups(rawData) {
                 damage: numbers[2],
                 effectivePower: numbers[0] * numbers[2],
                 initiative: numbers[3],
-                damageType: TYPES.indexOf(line.match(/(cold|fire|slashing|radiation|bludgeoning) damage/)[1]),
+                damageType: TYPES.indexOf(
+                    line.match(/(cold|fire|slashing|radiation|bludgeoning) damage/)[1],
+                ),
                 weak: weak || [],
                 immune: immune || [],
             };
@@ -74,24 +99,20 @@ function calculateDamage(attacker, defender) {
     return attacker.effectivePower;
 }
 
-function compareForPriority(a, b) {
+function sortByPowerThenInitiative(a, b) {
     if (a.effectivePower !== b.effectivePower) {
         return b.effectivePower - a.effectivePower;
     }
-    return b.initiative - a.initiative;
+    return sortByInitiative(a, b);
 }
 
-function compareForTargetSelection(a, b) {
-    if (a.effectivePower !== b.effectivePower) {
-        return b.effectivePower - a.effectivePower;
-    }
+function sortByInitiative(a, b) {
     return b.initiative - a.initiative;
 }
 
 function populateTargetSelection(groups) {
     groups.forEach((group) => {
         group.targetedBy = null;
-        // group.damage = 0;
         group.target = null;
     });
     groups.forEach((group) => {
@@ -110,21 +131,21 @@ function populateTargetSelection(groups) {
             }
         });
         if (possibleDamage > 0) {
-            let target = possibleTargets.sort(compareForTargetSelection)[0];
+            let target = possibleTargets.sort(sortByPowerThenInitiative)[0];
             target.targetedBy = group;
             group.target = target;
-            // group.damage = possibleDamage;
         }
     });
 }
 
 function attack(groups) {
     let groupDied = false;
-    groups.sort((a, b) => b.initiative - a.initiative);
+    groups.sort(sortByInitiative);
     groups.forEach((group) => {
         if (group.target) {
             group.target.units -= floor(calculateDamage(group, group.target) / group.target.hp);
             if (group.target.units <= 0) {
+                group.target.units = 0;
                 groupDied = true;
                 group.target.targetedBy = null;
             }
@@ -132,5 +153,3 @@ function attack(groups) {
     });
     return groupDied;
 }
-//17536 too low
-// 17545 too high
