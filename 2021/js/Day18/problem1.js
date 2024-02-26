@@ -1,64 +1,75 @@
-const fr = require('../../../tools/fileReader');
-const [year, day, part] = ['2021', '18', '1'];
-
-const LEFT = '[';
-const RIGHT = ']';
-const DELIM = ',';
+module.exports = {solve: solve};
 
 class Pair {
     left;
     right;
-    constructor(left, right) {
+    parent;
+    constructor(left, right, parent) {
         this.left = left;
         this.right = right;
+        this.parent = parent;
     }
 }
 
-const data = fr.getInput(year, day).map((x) => buildPair(x));
-
-console.log(data);
-
-function buildPair(raw, parent) {
-    raw = raw.substring(1, raw.length - 1);
-    let left;
-    let right;
-
-    if (raw.charAt(0) !== LEFT) {
-        const parseIndex = raw.indexOf(DELIM) > 0 ? raw.indexOf(DELIM) : raw.length;
-        console.log(raw.substring(0, parseIndex));
-        left = parseInt(raw.substring(0, raw.indexOf(DELIM)));
-    }
-
-    if (raw.charAt(raw.length - 1) !== RIGHT) {
-        const parseIndex = raw.lastIndexOf(DELIM) >= 0 ? raw.lastIndexOf(DELIM) + 1 : 1;
-        right = parseInt(raw.substring(parseIndex));
-    }
-
-    if (left != null && right != null) {
-        return new Pair(left, right);
-    } else if (left == null && right == null) {
-        return buildPair(raw);
-    } else if (left != null) {
-        return new Pair(left, buildPair(raw.substring(raw.indexOf(DELIM) + 1)));
-    } else if (right != null) {
-        // todo separate left from right
-        return new Pair(buildPair(raw.substring(0, raw.lastIndexOf(DELIM))), right);
-    }
+function solve({lines, rawData}) {
+    lines = lines.map(line => JSON.parse(line));
+    console.log(lines[0])
+    const answer = null;
+    return {value: answer};
 }
 
-let sum = data.reduce((total, curr, index) => {
-    if (index === 0) {
-        return curr;
+function add(a, b) {
+    let pair = formPair(a, b);
+}
+
+function formPair(a, b) {
+    return [a, b]
+}
+
+function reduce(snailNumber) {
+    while (true) {
+        explode(snailNumber, 0);
+        split(snailNumber);
+        // TODO replace this with actual exit condition
+        if (true) {
+            break;
+        }
+    }
+
+}
+
+function explode(snailNumber, depth = 0) {
+    if (depth === 4) {
+        return snailNumber;
+    }
+    let left = snailNumber[0];
+    let right = snailNumber[1];
+    const leftIsNumber = !isNaN(left);
+    const rightIsNumber = !isNaN(right);
+    // TODO work out these conditions
+    let exploded;
+    if (leftIsNumber && rightIsNumber) {
+        // Not too deep and no reason to explode
+        return;
+    } else if (leftIsNumber) {
+        // Right is not a number
+        exploded = explode(right, depth + 1);
+    } else if (rightIsNumber) {
+        // Left is not a number
+        exploded = explode(left, depth + 1);
     } else {
-        let p = new Pair(total, curr);
+        // Both are not numbers
+        exploded = explode(left, depth + 1);
+        // Only explode right if left didn't explode
+        if (!exploded) {
+            exploded = explode(right, depth + 1);
+        }
     }
-}, 0);
-
-function reduce(snailNum) {
-    let curr = snailNum;
-    let jumps = 0;
-    while (true) {}
+    if (exploded) {
+        // TODO explode
+    }
 }
 
-let answer;
-console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
+function split() {
+
+}
