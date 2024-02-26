@@ -1,5 +1,5 @@
 module.exports = {solve: solve};
-
+const EXPLODED = 0;
 class Pair {
     left;
     right;
@@ -28,7 +28,7 @@ function formPair(a, b) {
 
 function reduce(snailNumber) {
     while (true) {
-        explode(snailNumber, 0);
+        searchAndExplode(snailNumber, 0);
         split(snailNumber);
         // TODO replace this with actual exit condition
         if (true) {
@@ -38,7 +38,7 @@ function reduce(snailNumber) {
 
 }
 
-function explode(snailNumber, depth = 0) {
+function searchAndExplode(snailNumber, depth = 0) {
     if (depth === 4) {
         return snailNumber;
     }
@@ -53,20 +53,24 @@ function explode(snailNumber, depth = 0) {
         return;
     } else if (leftIsNumber) {
         // Right is not a number
-        exploded = explode(right, depth + 1);
+        exploded = searchAndExplode(right, depth + 1);
     } else if (rightIsNumber) {
         // Left is not a number
-        exploded = explode(left, depth + 1);
+        exploded = searchAndExplode(left, depth + 1);
     } else {
         // Both are not numbers
-        exploded = explode(left, depth + 1);
+        exploded = searchAndExplode(left, depth + 1);
         // Only explode right if left didn't explode
         if (!exploded) {
-            exploded = explode(right, depth + 1);
+            exploded = searchAndExplode(right, depth + 1);
         }
     }
-    if (exploded) {
+    if (exploded === EXPLODED) {
+        return EXPLODED;
+    } else if (exploded != null) {
         // TODO explode
+        // TODO set exploded number to 0
+        let temp = snailNumber;
     }
 }
 
