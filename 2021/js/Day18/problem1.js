@@ -1,6 +1,4 @@
-const { find } = require('async');
-
-module.exports = { solve: solve };
+module.exports = { solve: solve, add: add, buildTree: buildTree, findMagnitude: findMagnitude };
 const EXPLOSION_RESIDUE = 0;
 const SPLIT_THRESHOLD = 10;
 const { floor, ceil } = Math;
