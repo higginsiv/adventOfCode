@@ -48,38 +48,6 @@ function buildTree(snailNumber, parent = null) {
     return node;
 }
 
-function printTree(node) {
-    function buildTreeString(node) {
-        let treeString = '';
-        if (node == null) {
-            return;
-        }
-
-        if (node.value != null) {
-            treeString += node.value;
-            return treeString;
-        }
-        if (node.value != null) {
-            treeString += node.value;
-        } else {
-            treeString += '(';
-            treeString += buildTreeString(node.left);
-            treeString += ')';
-        }
-
-        if (node.value != null) {
-            treeString += ',' + node.value;
-        } else {
-            treeString += '(';
-            treeString += buildTreeString(node.right);
-            treeString += ')';
-        }
-        return treeString;
-    }
-
-    console.log(buildTreeString(node));
-}
-
 function add(a, b) {
     let snailNumber = formPair(a, b);
     reduce(snailNumber);
