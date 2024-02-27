@@ -1,48 +1,48 @@
-module.exports = {solve: solve};
+const { find } = require('async');
+
+module.exports = { solve: solve };
 const EXPLOSION_RESIDUE = 0;
+const SPLIT_THRESHOLD = 10;
+const { floor, ceil } = Math;
+
 class Node {
     left;
     right;
     parent;
     value;
-    constructor(left, right) {
+    constructor(left, right, parent, value) {
         this.left = left;
         this.right = right;
+        this.parent = parent;
+        this.value = value;
     }
 }
 
-function solve({lines, rawData}) {
-    lines = lines.map(line => buildTree(JSON.parse(line)));
-    lines.forEach(line => {
-        printTree(line);
-        explode(findFirstNodeAtDepth(line,4));
-        printTree(line);
-        console.log('-------------------');
-    });
+function solve({ lines, rawData }) {
+    lines = lines.map((line) => buildTree(JSON.parse(line)));
+    let snailNumber = lines.shift();
+    while (lines.length > 0) {
+        snailNumber = add(snailNumber, lines.shift());
+    }
 
-    const answer = null;
-    return {value: answer};
+    const answer = findMagnitude(snailNumber);
+    return { value: answer };
 }
 
-// TODO clean up
 function buildTree(snailNumber, parent = null) {
     let left = snailNumber[0];
     let right = snailNumber[1];
-    let node = new Node(left, right);
-    node.parent = parent;
+    let node = new Node(left, right, parent, null);
     if (isNaN(left)) {
         node.left = buildTree(left, node);
     } else {
-        node.left = new Node();
-        node.left.parent = node;
-        node.left.value = left;
+        node.left = new Node(null, null, node, left);
     }
+
     if (isNaN(right)) {
         node.right = buildTree(right, node);
     } else {
-        node.right = new Node();
-        node.right.parent = node;
-        node.right.value = right;
+        node.right = new Node(null, null, node, right);
     }
 
     return node;
@@ -50,7 +50,7 @@ function buildTree(snailNumber, parent = null) {
 
 function printTree(node) {
     function buildTreeString(node) {
-        let treeString = "";
+        let treeString = '';
         if (node == null) {
             return;
         }
@@ -62,17 +62,17 @@ function printTree(node) {
         if (node.value != null) {
             treeString += node.value;
         } else {
-            treeString += "(";
+            treeString += '(';
             treeString += buildTreeString(node.left);
-            treeString += ")";
+            treeString += ')';
         }
-    
+
         if (node.value != null) {
-            treeString += (',' + node.value);
+            treeString += ',' + node.value;
         } else {
-            treeString += "(";
+            treeString += '(';
             treeString += buildTreeString(node.right);
-            treeString += ")";
+            treeString += ')';
         }
         return treeString;
     }
@@ -80,28 +80,30 @@ function printTree(node) {
     console.log(buildTreeString(node));
 }
 
-
 function add(a, b) {
+    let snailNumber = formPair(a, b);
+    reduce(snailNumber);
+    return snailNumber;
+}
+
+function formPair(a, b) {
     const newRoot = new Node(a, b);
     newRoot.left.parent = newRoot;
     newRoot.right.parent = newRoot;
     return newRoot;
 }
 
-function formPair(a, b) {
-    return [a, b]
-}
-
 function reduce(snailNumber) {
     while (true) {
-        searchAndExplode(snailNumber, 0);
-        split(snailNumber);
-        // TODO replace this with actual exit condition
-        if (true) {
+        const explosion = searchAndExplode(snailNumber);
+        if (explosion) {
+            continue;
+        }
+        const split = searchAndSplit(snailNumber);
+        if (!explosion && !split) {
             break;
         }
     }
-
 }
 
 function findFirstNodeAtDepth(root, depth) {
@@ -119,12 +121,42 @@ function findFirstNodeAtDepth(root, depth) {
     return node;
 }
 
-function searchAndExplode(root, depth = 0) {
+function findFirstNodeToSplit(root) {
+    if (root == null) {
+        return null;
+    }
+    if (root.value != null && root.value >= SPLIT_THRESHOLD) {
+        return root;
+    }
+    let node = findFirstNodeToSplit(root.left);
+    if (node != null && node.value >= SPLIT_THRESHOLD) {
+        return node;
+    }
+    node = findFirstNodeToSplit(root.right);
+    if (node != null && node.value >= SPLIT_THRESHOLD) {
+        return node;
+    }
+    return null;
+}
+
+function searchAndExplode(root) {
     let nodeToExplode = findFirstNodeAtDepth(root, 4);
     if (nodeToExplode == null) {
-        return;
+        return false;
+    } else {
+        explode(nodeToExplode);
+        return true;
     }
+}
 
+function searchAndSplit(root) {
+    let nodeToSplit = findFirstNodeToSplit(root);
+    if (nodeToSplit == null) {
+        return false;
+    } else {
+        split(nodeToSplit);
+        return true;
+    }
 }
 
 function explode(node) {
@@ -141,15 +173,12 @@ function explode(node) {
     if (nextRight != null) {
         nextRight.value += numberToAddRight;
     }
-    // TODO make this part of the constructor or something
+
+    let explodedNode = new Node(null, null, parent, EXPLOSION_RESIDUE);
     if (parent.left == node) {
-        parent.left = new Node();
-        parent.left.parent = parent;
-        parent.left.value = EXPLOSION_RESIDUE;
+        parent.left = explodedNode;
     } else {
-        parent.right = new Node();
-        parent.right.parent = parent;
-        parent.right.value = EXPLOSION_RESIDUE;
+        parent.right = explodedNode;
     }
 }
 
@@ -187,7 +216,7 @@ function findNextRight(node) {
             break;
         }
     }
-    
+
     if (searchingNode.parent == null && searchingNode.right == lastNode) {
         return null;
     } else {
@@ -202,6 +231,20 @@ function findNextRight(node) {
     }
 }
 
-function split() {
+function split(node) {
+    const leftValue = floor(node.value / 2);
+    const rightValue = ceil(node.value / 2);
+    const leftNode = new Node(null, null, node, leftValue);
+    const rightNode = new Node(null, null, node, rightValue);
+    node.left = leftNode;
+    node.right = rightNode;
+    node.value = null;
+}
 
+function findMagnitude(snailNumber) {
+    if (snailNumber.value != null) {
+        return snailNumber.value;
+    } else {
+        return 3 * findMagnitude(snailNumber.left) + 2 * findMagnitude(snailNumber.right);
+    }
 }
