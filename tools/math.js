@@ -17,6 +17,8 @@ module.exports = {
     getFactors: getFactors,
 };
 
+const {abs} = Math;
+
 function getGCD(a, b) {
     return b == 0 ? a : getGCD(b, a % b);
 }
@@ -72,11 +74,11 @@ function getCombinationsQueue(symbols, length) {
 }
 
 function manhattanDistance(start, end) {
-    return Math.abs(start.x - end.x) + Math.abs(start.y - end.y);
+    return abs(start.x - end.x) + abs(start.y - end.y);
 }
 
 function manhattanDistance3d(start, end) {
-    return Math.abs(start.x - end.x) + Math.abs(start.y - end.y) + Math.abs(start.z - end.z);
+    return abs(start.x - end.x) + abs(start.y - end.y) + abs(start.z - end.z);
 }
 
 function solveQuadratic(a, b, c) {
@@ -97,7 +99,7 @@ function shoelace(vertices) {
         area += vertices[i][0] * vertices[j][1];
         area -= vertices[j][0] * vertices[i][1];
     }
-    return Math.abs(area / 2);
+    return abs(area / 2);
 }
 
 // Calculates area of polygon while counting it's vertices as part of the polygon

@@ -1,4 +1,6 @@
 module.exports = {solve: solve};
+const {manhattanDistance3d} = require('../../../tools/math');
+
 const EOL = require('os').EOL;
 function solve({lines, rawData}) {
     let scanners = new Map();
@@ -19,3 +21,5 @@ function solve({lines, rawData}) {
     const answer = null;
     return {value: answer};
 }
+
+ 
