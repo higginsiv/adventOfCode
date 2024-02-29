@@ -5,6 +5,8 @@ const SCANNER = 's';
 const BEACON = 'b';
 
 let grid = new Map();
+let used = new Set();
+let total3 = 0;
 const EOL = require('os').EOL;
 function solve({ lines, rawData }) {
     let scanners = [];
@@ -31,22 +33,31 @@ function solve({ lines, rawData }) {
     console.log('totalBeaconSightings', totalBeaconSightings);
     getAllDistances(scanners);
 
-
     for (let i = 0; i < scanners.length; i++) {
         for (let j = i + 1; j < scanners.length; j++) {
             let sharedBeaconCount = findSharedBeaconCount(scanners[i], scanners[j]);
             if (sharedBeaconCount >= MIN_MATCHES) {
-                console.log('scanner ', i, 'and scanner', j, 'share', sharedBeaconCount, 'beacons');
-                console.log('---', scanners[i].shared.get(scanners[j].key));
+                // console.log('scanner ', i, 'and scanner', j, 'share', sharedBeaconCount, 'beacons');
+                // console.log('---', scanners[i].shared.get(scanners[j].key));
             }
         }
     }
 
+    // TODO handle overlap that isn't 12 deep
+    for (let i = 0; i < scanners.length; i++) {
+        for (let j = 0; j < scanners[i].beacons.length; j++) {
+            let beacon = scanners[i].beacons[j];
+            let key = getUniqueBeaconKey(scanners[i], beacon);
+            if (!used.has(key)) {
+                total3++;
+            }
+            used.add(key);
+        }
+    }
 
-
-    console.log(total2);
+    console.log(total3);
     // printScanners(scanners);
-    const answer = totalBeacons;
+    const answer = 0 //totalBeacons;
     return { value: answer };
 }
 
@@ -76,29 +87,36 @@ function findSharedBeaconCount(scanner1, scanner2) {
                 }
             }
             if (overlappingDistances >= MIN_MATCHES - 1) {
+                // if (!used.has(getUniqueBeaconKey(scanner1, beacon1)) && !used.has(getUniqueBeaconKey(scanner2, beacon2))) {
                 sharedBeaconCount++;
-                sharedBeacons1.push(beacon1.key);
-                sharedBeacons2.push(beacon2.key);
+                // }
+                sharedBeacons1.push(beacon1);
+                sharedBeacons2.push(beacon2);
             }
         });
     });
     if (sharedBeaconCount >= MIN_MATCHES) {
-        scanner1.shared.set(scanner2.key, sharedBeacons1);
-        scanner2.shared.set(scanner1.key, sharedBeacons2);
+        sharedBeacons1.forEach((beacon) => {
+            let key = getUniqueBeaconKey(scanner1, beacon);
+            if (!used.has(key)) {
+                total3++;
+            }
+            used.add(key);
+        });
+        sharedBeacons2.forEach((beacon) => {
+            used.add(getUniqueBeaconKey(scanner2, beacon));
+        });
+        // scanner2.shared.set(scanner1.key, sharedBeacons2);
     }
     return sharedBeaconCount;
 }
 
-function mapToGrid(scanners, grid) {
-    let queue = [];
-    while (queue.length > 0) {
-        let point = queue.shift();
-
-    }
-}
-
 function getKey(point) {
     return `${point.x},${point.y},${point.z}`;
+}
+
+function getUniqueBeaconKey(scanner, beacon) {
+    return `${scanner.key},${beacon.key}`;
 }
 
 function alignScanners(scanner1, scanner2, grid) {}
