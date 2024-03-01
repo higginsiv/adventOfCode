@@ -35,29 +35,43 @@ function solve({ lines, rawData }) {
 
     for (let i = 0; i < scanners.length; i++) {
         for (let j = i + 1; j < scanners.length; j++) {
-            let sharedBeaconCount = findSharedBeaconCount(scanners[i], scanners[j]);
-            if (sharedBeaconCount >= MIN_MATCHES) {
-                // console.log('scanner ', i, 'and scanner', j, 'share', sharedBeaconCount, 'beacons');
-                // console.log('---', scanners[i].shared.get(scanners[j].key));
+            let sharedBeaconCount = findSharedBeacons(scanners[i], scanners[j]);
+            // if (sharedBeaconCount >= MIN_MATCHES) {
+            //     // console.log('scanner ', i, 'and scanner', j, 'share', sharedBeaconCount, 'beacons');
+            //     // console.log('---', scanners[i].shared.get(scanners[j].key));
+            // }
+        }
+    }
+
+    scanners[0].actualLocation = { x: 0, y: 0, z: 0 };
+    scanners[0].beacons.forEach((beacon) => {
+        grid.set(getKey(beacon.init), BEACON);
+    });
+
+    for (let i = 0; i < scanners.length; i++) {
+        for (let key of scanners[i].shared.keys()) {
+            if (scanners[i].actualLocation != null && scanners[key].actualLocation != null) {
+                continue;
             }
+            alignScanners(scanners[i], scanners[key], grid);
         }
     }
 
     // TODO handle overlap that isn't 12 deep
-    for (let i = 0; i < scanners.length; i++) {
-        for (let j = 0; j < scanners[i].beacons.length; j++) {
-            let beacon = scanners[i].beacons[j];
-            let key = getUniqueBeaconKey(scanners[i], beacon);
-            if (!used.has(key)) {
-                total3++;
-            }
-            used.add(key);
-        }
-    }
+    // for (let i = 0; i < scanners.length; i++) {
+    //     for (let j = 0; j < scanners[i].beacons.length; j++) {
+    //         let beacon = scanners[i].beacons[j];
+    //         let key = getUniqueBeaconKey(scanners[i], beacon);
+    //         if (!used.has(key)) {
+    //             total3++;
+    //         }
+    //         used.add(key);
+    //     }
+    // }
 
-    console.log(total3);
+    // console.log(total3);
     // printScanners(scanners);
-    const answer = 0; //totalBeacons;
+    const answer = grid.size; //totalBeacons;
     return { value: answer };
 }
 
@@ -74,7 +88,7 @@ function getAllDistances(scanners) {
     });
 }
 
-function findSharedBeaconCount(scanner1, scanner2) {
+function findSharedBeacons(scanner1, scanner2) {
     let sharedBeaconCount = 0;
     let sharedBeacons1 = [];
     let sharedBeacons2 = [];
@@ -110,7 +124,7 @@ function findSharedBeaconCount(scanner1, scanner2) {
         scanner1.shared.set(scanner2.key, sharedBeacons1);
         scanner2.shared.set(scanner1.key, sharedBeacons2);
     }
-    return sharedBeaconCount;
+    // return sharedBeaconCount;
 }
 
 function getKey(point) {
@@ -122,28 +136,43 @@ function getUniqueBeaconKey(scanner, beacon) {
 }
 
 function alignScanners(alignedScanner, crazyScanner, grid) {
+    // TODO this needs to rotate beacons
     let rotations = getRotations(crazyScanner.init);
     for (let i = 0; i < rotations.length; i++) {
         crazyScanner.rotation = rotations[i];
-        let translation = getScannerTranslation(alignedScanner, crazyScanner);
-        if (translation !== null) {
+        let translation = isValidRotation(alignedScanner, crazyScanner);
+        if (translation) {
             // TODO put all points in grid including non matched beacons and scanner
             // using translation and rotation
             crazyScanner.init = crazyScanner.rotation;
-            crazyScanner.translation = translation;
-            // TODO not sure that this is how translation should be applied
+
             crazyScanner.scannerLocation = {
-                x: alignedScanner.shared.get(crazyScanner.key)[0].x + translation.x,
-                y: alignedScanner.shared.get(crazyScanner.key)[0].y + translation.y,
-                z: alignedScanner.shared.get(crazyScanner.key)[0].z + translation.z,
-            }
+                x: alignedScanner.shared.get(crazyScanner.key)[0].x - crazyScanner.shared.get(alignedScanner.key)[0].x,
+                y: alignedScanner.shared.get(crazyScanner.key)[0].y - crazyScanner.shared.get(alignedScanner.key)[0].y,
+                z: alignedScanner.shared.get(crazyScanner.key)[0].z - crazyScanner.shared.get(alignedScanner.key)[0].z,
+            };
+            addBeaconsToGrid(crazyScanner, grid);
+            // TODO what to return? if anything
             return rotatedScanner;
         }
     }
     return null;
 }
 
-function getScannerTranslation(alignedScanner, rotatedScanner) {
+function addBeaconsToGrid(scanner, grid) {
+    scanner.beacons.forEach((beacon) => {
+        let actualLocation = {
+            x: beacon.init.x + scanner.scannerLocation.x,
+            y: beacon.init.y + scanner.scannerLocation.y,
+            z: beacon.init.z + scanner.scannerLocation.z,
+        }
+        grid.set(getKey(actualLocation), BEACON);
+    });
+
+}
+
+// TODO should this take in beacons instead of scanners
+function isValidRotation(alignedScanner, rotatedScanner) {
     let beaconsAlignedShares = alignedScanner.shared.get(rotatedScanner.key);
     let beaconsRotatedShares = rotatedScanner.shared.get(alignedScanner.key);
     let goalTranslation;
@@ -169,12 +198,12 @@ function getScannerTranslation(alignedScanner, rotatedScanner) {
                 goalTranslation.y !== translation.y ||
                 goalTranslation.z !== translation.z
             ) {
-                return null;
+                return false;
             }
         }
     }
     // TODO return relative translation so that crazy scanner can become aligned
-    return goalTranslation;
+    return true //goalTranslation;
 }
 
 function printScanners(scanners) {
@@ -188,7 +217,7 @@ function printScanners(scanners) {
 }
 
 function getRotations({ x, y, z }) {
-    const rotations = [
+    return [
         { x, y, z },
         { x, y: z, z: -y },
         { x, y: -y, z: -z },
@@ -214,6 +243,5 @@ function getRotations({ x, y, z }) {
         { x: -z, y: x, z: -y },
         { x: -z, y: -y, z: -x },
     ];
-    return rotations;
 }
 // 456 too low
