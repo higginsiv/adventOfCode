@@ -140,16 +140,22 @@ function alignScanners(alignedScanner, crazyScanner, grid) {
     let rotations = getRotations(crazyScanner.init);
     for (let i = 0; i < rotations.length; i++) {
         crazyScanner.rotation = rotations[i];
-        let translation = isValidRotation(alignedScanner, crazyScanner);
-        if (translation) {
+        let validRotation = isValidRotation(alignedScanner, crazyScanner);
+        if (validRotation) {
             // TODO put all points in grid including non matched beacons and scanner
             // using translation and rotation
             crazyScanner.init = crazyScanner.rotation;
 
             crazyScanner.scannerLocation = {
-                x: alignedScanner.shared.get(crazyScanner.key)[0].x - crazyScanner.shared.get(alignedScanner.key)[0].x,
-                y: alignedScanner.shared.get(crazyScanner.key)[0].y - crazyScanner.shared.get(alignedScanner.key)[0].y,
-                z: alignedScanner.shared.get(crazyScanner.key)[0].z - crazyScanner.shared.get(alignedScanner.key)[0].z,
+                x:
+                    alignedScanner.shared.get(crazyScanner.key)[0].x -
+                    crazyScanner.shared.get(alignedScanner.key)[0].x,
+                y:
+                    alignedScanner.shared.get(crazyScanner.key)[0].y -
+                    crazyScanner.shared.get(alignedScanner.key)[0].y,
+                z:
+                    alignedScanner.shared.get(crazyScanner.key)[0].z -
+                    crazyScanner.shared.get(alignedScanner.key)[0].z,
             };
             addBeaconsToGrid(crazyScanner, grid);
             // TODO what to return? if anything
@@ -165,45 +171,50 @@ function addBeaconsToGrid(scanner, grid) {
             x: beacon.init.x + scanner.scannerLocation.x,
             y: beacon.init.y + scanner.scannerLocation.y,
             z: beacon.init.z + scanner.scannerLocation.z,
-        }
+        };
         grid.set(getKey(actualLocation), BEACON);
     });
-
 }
 
 // TODO should this take in beacons instead of scanners
+// TODO save rotated beacons to scanner
 function isValidRotation(alignedScanner, rotatedScanner) {
     let beaconsAlignedShares = alignedScanner.shared.get(rotatedScanner.key);
     let beaconsRotatedShares = rotatedScanner.shared.get(alignedScanner.key);
     let goalTranslation;
 
-    for (let i = 0; i < beaconsAlignedShares.length; i++) {
-        let translation = {
-            x:
-                alignedScanner.beacons[beaconsAlignedShares[i]].x -
-                rotatedScanner.beacons[beaconsRotatedShares[i]].x,
-            y:
-                alignedScanner.beacons[beaconsAlignedShares[i]].y -
-                rotatedScanner.beacons[beaconsRotatedShares[i]].y,
-            z:
-                alignedScanner.beacons[beaconsAlignedShares[i]].z -
-                rotatedScanner.beacons[beaconsRotatedShares[i]].z,
-        };
+    for (let r = 0; r < 24; r++) {
+        for (let i = 0; i < beaconsAlignedShares.length; i++) {
+            let rotatedBeacon = rotatedScanner.beacons[beaconsRotatedShares[i]];
+            let translation = {
+                x:
+                    alignedScanner.beacons[beaconsAlignedShares[i]].x -
+                    rotatedBeacon.x,
+                y:
+                    alignedScanner.beacons[beaconsAlignedShares[i]].y -
+                    rotatedBeacon.y,
+                z:
+                    alignedScanner.beacons[beaconsAlignedShares[i]].z -
+                    rotatedBeacon.z,
+            };
 
-        if (!goalTranslation) {
-            goalTranslation = translation;
-        } else {
-            if (
-                goalTranslation.x !== translation.x ||
-                goalTranslation.y !== translation.y ||
-                goalTranslation.z !== translation.z
-            ) {
-                return false;
+            if (!goalTranslation) {
+                goalTranslation = translation;
+            } else {
+                if (
+                    goalTranslation.x !== translation.x ||
+                    goalTranslation.y !== translation.y ||
+                    goalTranslation.z !== translation.z
+                ) {
+                    continue
+                }
             }
         }
+        return true;
     }
+
     // TODO return relative translation so that crazy scanner can become aligned
-    return true //goalTranslation;
+    return false; //goalTranslation;
 }
 
 function printScanners(scanners) {
