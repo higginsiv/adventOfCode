@@ -1,10 +1,8 @@
 module.exports = { solve: solve };
-const { get } = require('http');
 const { manhattanDistance3d } = require('../../../tools/math');
 const EOL = require('os').EOL;
 
 const MIN_MATCHES = 12;
-const BEACON = 'b';
 
 let grid = new Set();
 
@@ -26,9 +24,7 @@ function solve({ lines, rawData }) {
         grid.add(getKey(beacon.init));
     });
 
-    console.time('getAllDistances')
     getAllDistances(scanners);
-    console.timeEnd('getAllDistances')
 
     for (let i = 0; i < scanners.length; i++) {
         for (let j = i + 1; j < scanners.length; j++) {
@@ -103,7 +99,7 @@ function findSharedBeacons(scanner1, scanner2) {
             }
         }
     }
-    
+
     if (sharedBeaconCount >= MIN_MATCHES) {
         scanner1.shared.set(scanner2.key, sharedBeacons1);
         scanner2.shared.set(scanner1.key, sharedBeacons2);

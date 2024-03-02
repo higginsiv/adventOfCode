@@ -10,6 +10,6 @@ describe(`2021 Day 19`, () => {
     });
 
     test('Part 2', () => {
-        expect(part2(data).value).toBe();
+        expect(part2(data).value).toBe(12149);
     });
 });
