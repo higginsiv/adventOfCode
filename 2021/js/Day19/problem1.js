@@ -25,22 +25,19 @@ function solve({ lines, rawData }) {
         scanners.push({ beacons, shared: new Map(), key: index });
     });
 
-    grid.set('0,0,0', SCANNER);
+    // grid.set('0,0,0', SCANNER);
     scanners[0].beacons.forEach((beacon, index) => {
+        beacon.actualLocation = { x: beacon.init.x, y: beacon.init.y, z: beacon.init.z };
         grid.set(getKey(beacon.init), BEACON);
     });
 
     const totalBeaconSightings = scanners.reduce((acc, scanner) => acc + scanner.beacons.length, 0);
-    console.log('totalBeaconSightings', totalBeaconSightings);
+    // console.log('totalBeaconSightings', totalBeaconSightings);
     getAllDistances(scanners);
 
     for (let i = 0; i < scanners.length; i++) {
         for (let j = i + 1; j < scanners.length; j++) {
-            let sharedBeaconCount = findSharedBeacons(scanners[i], scanners[j]);
-            // if (sharedBeaconCount >= MIN_MATCHES) {
-            //     // console.log('scanner ', i, 'and scanner', j, 'share', sharedBeaconCount, 'beacons');
-            //     // console.log('---', scanners[i].shared.get(scanners[j].key));
-            // }
+            findSharedBeacons(scanners[i], scanners[j]);
         }
     }
 
@@ -51,16 +48,9 @@ function solve({ lines, rawData }) {
 
     // TODO make this efficient
     let unaligned = scanners.filter((scanner) => scanner.actualLocation == null);
-    let i = 0;
     while (unaligned.length > 0) {
-        i++;
-        if (i > 1000) {
-            console.log(unaligned, unaligned.length);
-            break;
-        }
         for (let i = 0; i < scanners.length; i++) {
             for (let key of scanners[i].shared.keys()) {
-                // TODO make sure the aligned one is first
                 if (scanners[i].actualLocation != null && scanners[key].actualLocation != null) {
                     continue;
                 }
@@ -76,20 +66,7 @@ function solve({ lines, rawData }) {
         }
         unaligned = scanners.filter((scanner) => scanner.actualLocation == null);
     }
-    // TODO handle overlap that isn't 12 deep
-    // for (let i = 0; i < scanners.length; i++) {
-    //     for (let j = 0; j < scanners[i].beacons.length; j++) {
-    //         let beacon = scanners[i].beacons[j];
-    //         let key = getUniqueBeaconKey(scanners[i], beacon);
-    //         if (!used.has(key)) {
-    //             total3++;
-    //         }
-    //         used.add(key);
-    //     }
-    // }
 
-    // console.log(total3);
-    // printScanners(scanners);
     const answer = grid.size; //totalBeacons;
     return { value: answer };
 }
@@ -115,7 +92,7 @@ function findSharedBeacons(scanner1, scanner2) {
         scanner2.beacons.forEach((beacon2, index) => {
             let overlappingDistances = 0;
             for (let i = 0; i < beacon1.distances.length; i++) {
-                if (beacon1.distances.includes(beacon2.distances[i])) {
+                if (beacon2.distances.includes(beacon1.distances[i])) {
                     overlappingDistances++;
                 }
             }
@@ -155,56 +132,70 @@ function getUniqueBeaconKey(scanner, beacon) {
 }
 
 function alignScanners(alignedScanner, unalignedScanner, grid) {
-    let hasValidRotation = findValidRotation(alignedScanner, unalignedScanner);
+    const hasValidRotation = findValidRotation(alignedScanner, unalignedScanner);
     if (hasValidRotation) {
         let newlyAlignedBeacon =
-            unalignedScanner.beacons[unalignedScanner.shared.get(alignedScanner.key)[0].key].init;
+            unalignedScanner.beacons[unalignedScanner.shared.get(alignedScanner.key)[0].key]
+                .rotation;
         let alignedBeacon =
-            alignedScanner.beacons[alignedScanner.shared.get(unalignedScanner.key)[0].key].init;
+            alignedScanner.beacons[alignedScanner.shared.get(unalignedScanner.key)[0].key]
+                .actualLocation;
 
+        // console.log(alignedScanner.key, unalignedScanner.key)
+        // console.log('newlyAlignedBeacon', newlyAlignedBeacon)
+        // console.log('alignedBeacon', alignedBeacon)
         unalignedScanner.actualLocation = {
             x: alignedBeacon.x - newlyAlignedBeacon.x,
             y: alignedBeacon.y - newlyAlignedBeacon.y,
             z: alignedBeacon.z - newlyAlignedBeacon.z,
         };
         addBeaconsToGrid(unalignedScanner, grid);
-        // TODO what to return? if anything
-        // return rotatedScanner;
     }
-    return null;
 }
 
 function addBeaconsToGrid(scanner, grid) {
+    // console.log(scanner.key, scanner.actualLocation);
     scanner.beacons.forEach((beacon) => {
         let actualLocation = {
-            x: beacon.init.x + scanner.actualLocation.x,
-            y: beacon.init.y + scanner.actualLocation.y,
-            z: beacon.init.z + scanner.actualLocation.z,
+            x: beacon.rotation.x + scanner.actualLocation.x,
+            y: beacon.rotation.y + scanner.actualLocation.y,
+            z: beacon.rotation.z + scanner.actualLocation.z,
         };
-        grid.set(getKey(actualLocation), BEACON);
+        beacon.actualLocation = actualLocation;
+        const key = getKey(actualLocation);
+        // console.log(key)
+        grid.set(key, BEACON);
     });
 }
 
-// TODO should this take in beacons instead of scanners
-// TODO save rotated beacons to scanner
 function findValidRotation(alignedScanner, rotatingScanner) {
     let beaconsAlignedShares = alignedScanner.shared.get(rotatingScanner.key);
     let beaconsRotatingShares = rotatingScanner.shared.get(alignedScanner.key);
-    let goalTranslation;
 
+    let found;
     for (let r = 0; r < 24; r++) {
+        found = false;
+        let goalTranslation = null;
+
         for (let i = 0; i < beaconsAlignedShares.length; i++) {
             // TODO a lot of this is convoluted because I thought I was saving a key not an actual beacon
-            // console.log(beaconsRotatingShares, i)
             let beacon = rotatingScanner.beacons[beaconsRotatingShares[i].key];
             let rotatedBeacon = getRotations(beacon.init)[r];
+            // TODO comparing these translations doesn't help and alawys returns true for the first (no) rotation
+            // console.log(alignedScanner.beacons[beaconsAlignedShares[i].key])
             let translation = {
-                x: alignedScanner.beacons[beaconsAlignedShares[i].key].x - rotatedBeacon.x,
-                y: alignedScanner.beacons[beaconsAlignedShares[i].key].y - rotatedBeacon.y,
-                z: alignedScanner.beacons[beaconsAlignedShares[i].key].z - rotatedBeacon.z,
+                x:
+                    alignedScanner.beacons[beaconsAlignedShares[i].key].actualLocation.x -
+                    rotatedBeacon.x,
+                y:
+                    alignedScanner.beacons[beaconsAlignedShares[i].key].actualLocation.y -
+                    rotatedBeacon.y,
+                z:
+                    alignedScanner.beacons[beaconsAlignedShares[i].key].actualLocation.z -
+                    rotatedBeacon.z,
             };
 
-            if (!goalTranslation) {
+            if (goalTranslation == null) {
                 goalTranslation = translation;
             } else {
                 if (
@@ -212,37 +203,23 @@ function findValidRotation(alignedScanner, rotatingScanner) {
                     goalTranslation.y !== translation.y ||
                     goalTranslation.z !== translation.z
                 ) {
-                    continue;
+                    break;
                 }
-                beacon.rotation = rotatedBeacon;
+                // console.log('rotation', r)
+                found = true;
             }
         }
 
-        // for (let i = 0; i < beaconsAlignedShares.length; i++) {
-        //     let beacon = rotatingScanner.beacons[beaconsRotatingShares[i]];
-        //     beacon.init = beacon.rotation;
-        // }
-
-        for (let i = 0; i < rotatingScanner.beacons.length; i++) {
-            let beacon = rotatingScanner.beacons[i];
-            beacon.init = getRotations(beacon.init)[r];
+        if (found) {
+            for (let i = 0; i < rotatingScanner.beacons.length; i++) {
+                let beacon = rotatingScanner.beacons[i];
+                beacon.rotation = getRotations(beacon.init)[r];
+            }
+            break;
         }
-
-        return true;
     }
 
-    console.log('this should never happen');
-    return false;
-}
-
-function printScanners(scanners) {
-    scanners.forEach((scanner, index) => {
-        console.log('scanner', index);
-        scanner.beacons.forEach((beacon, index) => {
-            console.log('beacon.distances', beacon.distances);
-        });
-        console.log();
-    });
+    return found;
 }
 
 function getRotations({ x, y, z }) {
@@ -274,3 +251,5 @@ function getRotations({ x, y, z }) {
     ];
 }
 // 456 too low
+
+// -x, y, -z
