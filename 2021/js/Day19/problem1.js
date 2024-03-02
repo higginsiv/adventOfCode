@@ -1,39 +1,34 @@
 module.exports = { solve: solve };
 const { get } = require('http');
 const { manhattanDistance3d } = require('../../../tools/math');
+const EOL = require('os').EOL;
+
 const MIN_MATCHES = 12;
-const SCANNER = 's';
 const BEACON = 'b';
 
-let grid = new Map();
-let used = new Set();
-let total3 = 0;
-const EOL = require('os').EOL;
+let grid = new Set();
+
 function solve({ lines, rawData }) {
     let scanners = [];
-    let scannerToRanges = new Map();
 
     rawData.split(EOL + EOL).forEach((scanner, index) => {
         let lines = scanner.split(EOL);
         lines.shift();
         let beacons = lines.map((beacon, index) => {
             beacon = beacon.match(/-?\d+/g).map(Number);
-            // return { x: beacon[0], y: 0, z: 0 };
-            // TODO undo this comment when adding more dimensions
             return { key: index, init: { x: beacon[0], y: beacon[1], z: beacon[2] } };
         });
         scanners.push({ beacons, shared: new Map(), key: index });
     });
 
-    // grid.set('0,0,0', SCANNER);
     scanners[0].beacons.forEach((beacon, index) => {
         beacon.actualLocation = { x: beacon.init.x, y: beacon.init.y, z: beacon.init.z };
-        grid.set(getKey(beacon.init), BEACON);
+        grid.add(getKey(beacon.init));
     });
 
-    const totalBeaconSightings = scanners.reduce((acc, scanner) => acc + scanner.beacons.length, 0);
-    // console.log('totalBeaconSightings', totalBeaconSightings);
+    console.time('getAllDistances')
     getAllDistances(scanners);
+    console.timeEnd('getAllDistances')
 
     for (let i = 0; i < scanners.length; i++) {
         for (let j = i + 1; j < scanners.length; j++) {
@@ -43,12 +38,11 @@ function solve({ lines, rawData }) {
 
     scanners[0].actualLocation = { x: 0, y: 0, z: 0 };
     scanners[0].beacons.forEach((beacon) => {
-        grid.set(getKey(beacon.init), BEACON);
+        grid.add(getKey(beacon.init));
     });
 
-    // TODO make this efficient
-    let unaligned = scanners.filter((scanner) => scanner.actualLocation == null);
-    while (unaligned.length > 0) {
+    let unaligned = scanners.length - 1;
+    while (unaligned > 0) {
         for (let i = 0; i < scanners.length; i++) {
             for (let key of scanners[i].shared.keys()) {
                 if (scanners[i].actualLocation != null && scanners[key].actualLocation != null) {
@@ -59,15 +53,16 @@ function solve({ lines, rawData }) {
                 }
                 if (scanners[i].actualLocation != null) {
                     alignScanners(scanners[i], scanners[key], grid);
+                    unaligned--;
                 } else if (scanners[key].actualLocation != null) {
                     alignScanners(scanners[key], scanners[i], grid);
+                    unaligned--;
                 }
             }
         }
-        unaligned = scanners.filter((scanner) => scanner.actualLocation == null);
     }
 
-    const answer = grid.size; //totalBeacons;
+    const answer = grid.size;
     return { value: answer };
 }
 
@@ -88,47 +83,35 @@ function findSharedBeacons(scanner1, scanner2) {
     let sharedBeaconCount = 0;
     let sharedBeacons1 = [];
     let sharedBeacons2 = [];
-    scanner1.beacons.forEach((beacon1, index) => {
-        scanner2.beacons.forEach((beacon2, index) => {
+    for (let i = 0; i < scanner1.beacons.length; i++) {
+        let beacon1 = scanner1.beacons[i];
+        for (let j = 0; j < scanner2.beacons.length; j++) {
+            let beacon2 = scanner2.beacons[j];
             let overlappingDistances = 0;
-            for (let i = 0; i < beacon1.distances.length; i++) {
-                if (beacon2.distances.includes(beacon1.distances[i])) {
+            for (let k = 0; k < beacon1.distances.length; k++) {
+                if (overlappingDistances + beacon1.distances.length - k < MIN_MATCHES - 1) {
+                    break;
+                }
+                if (beacon2.distances.includes(beacon1.distances[k])) {
                     overlappingDistances++;
                 }
             }
             if (overlappingDistances >= MIN_MATCHES - 1) {
-                // if (!used.has(getUniqueBeaconKey(scanner1, beacon1)) && !used.has(getUniqueBeaconKey(scanner2, beacon2))) {
                 sharedBeaconCount++;
-                // }
                 sharedBeacons1.push(beacon1);
                 sharedBeacons2.push(beacon2);
             }
-        });
-    });
+        }
+    }
+    
     if (sharedBeaconCount >= MIN_MATCHES) {
-        sharedBeacons1.forEach((beacon) => {
-            let key = getUniqueBeaconKey(scanner1, beacon);
-            if (!used.has(key)) {
-                total3++;
-            }
-            used.add(key);
-        });
-        sharedBeacons2.forEach((beacon) => {
-            used.add(getUniqueBeaconKey(scanner2, beacon));
-        });
-
         scanner1.shared.set(scanner2.key, sharedBeacons1);
         scanner2.shared.set(scanner1.key, sharedBeacons2);
     }
-    // return sharedBeaconCount;
 }
 
 function getKey(point) {
     return `${point.x},${point.y},${point.z}`;
-}
-
-function getUniqueBeaconKey(scanner, beacon) {
-    return `${scanner.key},${beacon.key}`;
 }
 
 function alignScanners(alignedScanner, unalignedScanner, grid) {
@@ -141,9 +124,6 @@ function alignScanners(alignedScanner, unalignedScanner, grid) {
             alignedScanner.beacons[alignedScanner.shared.get(unalignedScanner.key)[0].key]
                 .actualLocation;
 
-        // console.log(alignedScanner.key, unalignedScanner.key)
-        // console.log('newlyAlignedBeacon', newlyAlignedBeacon)
-        // console.log('alignedBeacon', alignedBeacon)
         unalignedScanner.actualLocation = {
             x: alignedBeacon.x - newlyAlignedBeacon.x,
             y: alignedBeacon.y - newlyAlignedBeacon.y,
@@ -154,7 +134,6 @@ function alignScanners(alignedScanner, unalignedScanner, grid) {
 }
 
 function addBeaconsToGrid(scanner, grid) {
-    // console.log(scanner.key, scanner.actualLocation);
     scanner.beacons.forEach((beacon) => {
         let actualLocation = {
             x: beacon.rotation.x + scanner.actualLocation.x,
@@ -162,9 +141,7 @@ function addBeaconsToGrid(scanner, grid) {
             z: beacon.rotation.z + scanner.actualLocation.z,
         };
         beacon.actualLocation = actualLocation;
-        const key = getKey(actualLocation);
-        // console.log(key)
-        grid.set(key, BEACON);
+        grid.add(getKey(actualLocation));
     });
 }
 
@@ -175,37 +152,28 @@ function findValidRotation(alignedScanner, rotatingScanner) {
     let found;
     for (let r = 0; r < 24; r++) {
         found = false;
-        let goalTranslation = null;
+        let goalPotentialLocation = null;
 
         for (let i = 0; i < beaconsAlignedShares.length; i++) {
-            // TODO a lot of this is convoluted because I thought I was saving a key not an actual beacon
             let beacon = rotatingScanner.beacons[beaconsRotatingShares[i].key];
             let rotatedBeacon = getRotations(beacon.init)[r];
-            // TODO comparing these translations doesn't help and alawys returns true for the first (no) rotation
-            // console.log(alignedScanner.beacons[beaconsAlignedShares[i].key])
-            let translation = {
-                x:
-                    alignedScanner.beacons[beaconsAlignedShares[i].key].actualLocation.x -
-                    rotatedBeacon.x,
-                y:
-                    alignedScanner.beacons[beaconsAlignedShares[i].key].actualLocation.y -
-                    rotatedBeacon.y,
-                z:
-                    alignedScanner.beacons[beaconsAlignedShares[i].key].actualLocation.z -
-                    rotatedBeacon.z,
+            let potentialScannerLocation = {
+                x: beaconsAlignedShares[i].actualLocation.x - rotatedBeacon.x,
+                y: beaconsAlignedShares[i].actualLocation.y - rotatedBeacon.y,
+                z: beaconsAlignedShares[i].actualLocation.z - rotatedBeacon.z,
             };
 
-            if (goalTranslation == null) {
-                goalTranslation = translation;
+            if (goalPotentialLocation == null) {
+                goalPotentialLocation = potentialScannerLocation;
             } else {
                 if (
-                    goalTranslation.x !== translation.x ||
-                    goalTranslation.y !== translation.y ||
-                    goalTranslation.z !== translation.z
+                    goalPotentialLocation.x !== potentialScannerLocation.x ||
+                    goalPotentialLocation.y !== potentialScannerLocation.y ||
+                    goalPotentialLocation.z !== potentialScannerLocation.z
                 ) {
+                    found = false;
                     break;
                 }
-                // console.log('rotation', r)
                 found = true;
             }
         }
@@ -250,6 +218,3 @@ function getRotations({ x, y, z }) {
         { x: -z, y: -y, z: -x },
     ];
 }
-// 456 too low
-
-// -x, y, -z
