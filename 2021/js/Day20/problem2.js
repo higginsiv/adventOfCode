@@ -45,24 +45,23 @@ function solve({ lines, rawData }) {
 }
 
 function getKey(x, y) {
-    return `${x},${y}`;
+    return x * 1000 + y;
 }
 
 function getOutputValue(grid, algorithm, x, y, outsidePixels) {
-    const binaryValue = getBinaryInputValue(grid, x, y, outsidePixels);
-    return algorithm[binaryValue];
+    const algorithmPointer = getAlgorithmPointer(grid, x, y, outsidePixels);
+    return algorithm[algorithmPointer];
 }
 
-function getBinaryInputValue(grid, x, y, outsidePixels) {
-    let binaryArray = [];
-    let val = 0;
+function getAlgorithmPointer(grid, x, y, outsidePixels) {
+    let algorithmPointer = 0;
     let power = 8;
     for (let i = y - 1; i <= y + 1; i++) {
         for (let j = x - 1; j <= x + 1; j++) {
-            const value = grid.get(getKey(j, i));
-            binaryArray.push(value === undefined ? outsidePixels : value);
-            val += (value )
+            const key = getKey(j, i);
+            const cellValue = grid.get(key) === undefined ? outsidePixels : grid.get(key);
+            algorithmPointer += cellValue * POWERS[power--];
         }
     }
-    return parseInt(binaryArray.join(''), 2);
+    return algorithmPointer;
 }

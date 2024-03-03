@@ -44,7 +44,7 @@ function solve({ lines, rawData }) {
 }
 
 function getKey(x, y) {
-    return `${x},${y}`;
+    return x * 1000 + y;
 }
 
 function getOutputValue(grid, algorithm, x, y, outsidePixels) {
