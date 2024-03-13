@@ -71,6 +71,11 @@ function addPossibleMoves(state, queue, energies) {
         } else {
             let newGrid = new Map(grid);
             // TODO not just +1, need all possible moves
+            // move left
+
+            // move right
+
+            // move into room
             newGrid.set(key, value + 1);
             queue.add({grid: newGrid, energy: energy + energies.get(key)});
         }
@@ -99,4 +104,9 @@ function isInCorrectRoom(key, value) {
 
 function isInAnyRoom(value) {
     return value >= 11 && value <= 18;
+}
+
+// TODO this key is wrong
+function getKey(grid, energy) {
+    return Array.from(grid.keys()).join('-') + '-' + energy;
 }
