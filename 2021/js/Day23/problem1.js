@@ -24,7 +24,7 @@ function solve({ lines, rawData }) {
 
     let grid = new Map();
     let hallwaySpots = lines[1].split('').filter((x) => x === '.').length;
-    console.log(hallwaySpots);
+    // console.log(hallwaySpots);
     lines[2].match(/[A-Z]/g).forEach((letter, index) => {
         let key = letter;
         if (grid.has(letter)) {
@@ -41,7 +41,7 @@ function solve({ lines, rawData }) {
         grid.set(key, hallwaySpots + 1 + 2 * index);
     });
 
-    console.log(grid);
+    // console.log(grid);
 
     let queue = new PriorityQueue([{grid, energy: 0}], compare);
 

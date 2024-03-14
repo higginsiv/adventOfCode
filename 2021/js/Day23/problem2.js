@@ -1,7 +1,13 @@
 module.exports = { solve: solve };
+const PriorityQueue = require('../../../tools/queue.js');
+const [WALL, EMPTY, VOID] = ['#', '.', ''];
 
 function solve({ lines, rawData }) {
-    const [WALL, EMPTY, VOID] = ['#', '.', ''];
+    const answer = runSimulation(lines);
+    return { value: answer };
+}
+
+function runSimulation(lines) {
     const goalRooms = new Map([
         ['A', 3],
         ['B', 5],
@@ -20,9 +26,15 @@ function solve({ lines, rawData }) {
 
     let queue = new PriorityQueue([{ grid, energy: 0 }], compare);
 
+    let i = 0;
     while (queue.isNotEmpty()) {
+        // console.log(i++)
         let current = queue.next();
         let { grid, energy } = current;
+        if (isGridSolved(grid)) {
+            console.log('we did it')
+            return energy;
+        }
         grid.forEach((row, rowIndex) => {
             if (rowIndex === 0 || rowIndex === grid.length - 1) {
                 return;
@@ -69,8 +81,8 @@ function solve({ lines, rawData }) {
                         }
                     }
 
-                    let colLeft = cellIndex;
-                    let colRight = cellIndex;
+                    let colLeft = cellIndex - 1;
+                    let colRight = cellIndex + 1;
 
                     // Go left and right until we can't anymore
                     while (grid[newRow][colLeft] === EMPTY) {
@@ -79,7 +91,7 @@ function solve({ lines, rawData }) {
                         let newGrid = grid.map((row) => row.slice());
                         newGrid[newRow][colLeft] = cell;
                         newGrid[rowIndex][cellIndex] = EMPTY;
-                        queue.add({ grid: newGrid, energy: newEnergyLeft });
+                        queue.insert({ grid: newGrid, energy: newEnergyLeft });
                     }
 
                     while (grid[newRow][colRight] === EMPTY) {
@@ -88,20 +100,52 @@ function solve({ lines, rawData }) {
                         let newGrid = grid.map((row) => row.slice());
                         newGrid[newRow][colRight] = cell;
                         newGrid[rowIndex][cellIndex] = EMPTY;
-                        queue.add({ grid: newGrid, energy: newEnergyRight });
+                        queue.insert({ grid: newGrid, energy: newEnergyRight });
                     }
                 }
 
                 if (rowIndex === 1) {
-                    // move into room
+                    moveToRoom(grid, goalRooms.get(cell), cellIndex, cell, energy, queue);
                 }
             });
         });
     }
-    const answer = null;
-    return { value: answer };
 }
 
 function compare(a, b) {
     return a.energy - b.energy;
+}
+
+function moveToRoom(grid, roomIndex, cellIndex, letter, energy, queue) {
+    if (
+        (grid[3][roomIndex] !== EMPTY && grid[3][roomIndex] !== letter) ||
+        grid[2][roomIndex] !== EMPTY
+    ) {
+        return false;
+    }
+
+    let newCellIndex = cellIndex;
+    const direction = roomIndex > cellIndex ? 1 : -1;
+    while (newCellIndex !== roomIndex) {
+        newCellIndex += direction;
+        if (grid[2][cellIndex] !== EMPTY) {
+            return false;
+        }
+    }
+    let stepsTaken = Math.abs(roomIndex - cellIndex);
+    let newRow = 2;
+    stepsTaken += 1;
+    if (grid[3][roomIndex] === EMPTY) {
+        stepsTaken += 2;
+        newRow = 3;
+    }
+
+    let newGrid = grid.map((row) => row.slice());
+    newGrid[newRow][roomIndex] = cell;
+    newGrid[1][cellIndex] = EMPTY;
+    queue.insert({ grid: newGrid, energy: energy + (stepsTaken * energies.get(letter)) });
+}
+
+function isGridSolved(grid) {
+    return grid[2][3] === 'A' && grid[2][5] === 'B' && grid[2][7] === 'C' && grid[2][9] === 'D' && grid[3][3] === 'A' && grid[3][5] === 'B' && grid[3][7] === 'C' && grid[3][9] === 'D';
 }
