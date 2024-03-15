@@ -1,5 +1,6 @@
 module.exports = { solve: solve };
 const PriorityQueue = require('../../../tools/queue.js');
+const {abs} = Math;
 const [WALL, EMPTY, VOID] = ['#', '.', ''];
 const goalRooms = new Map([
     ['A', 3],
@@ -27,14 +28,13 @@ function runSimulation(lines) {
 
     let queue = new PriorityQueue([{ grid, energy: 0 }], compare);
 
-    let i = 0;
     while (queue.isNotEmpty()) {
-        let {grid, energy} = queue.next();
-    
+        let { grid, energy } = queue.next();
+
         if (isGridSolved(grid)) {
             return energy;
         }
-        
+
         for (let rowIndex = 1; rowIndex < 4; rowIndex++) {
             let row = grid[rowIndex];
             if (rowIndex === 0 || rowIndex === grid.length - 1) {
@@ -86,7 +86,7 @@ function runSimulation(lines) {
                     moveToRoom(grid, goalRooms.get(cell), cellIndex, cell, energy, queue);
                 }
             });
-        };
+        }
     }
 }
 
@@ -110,7 +110,7 @@ function moveToRoom(grid, roomIndex, cellIndex, letter, energy, queue) {
             return false;
         }
     }
-    let stepsTaken = Math.abs(roomIndex - cellIndex);
+    let stepsTaken = abs(roomIndex - cellIndex);
     let newRow = 2;
     stepsTaken += 1;
     if (grid[3][roomIndex] === EMPTY) {
@@ -121,12 +121,21 @@ function moveToRoom(grid, roomIndex, cellIndex, letter, energy, queue) {
     let newGrid = grid.map((row) => row.slice());
     newGrid[newRow][roomIndex] = letter;
     newGrid[1][cellIndex] = EMPTY;
-    let newEnergy = energy + (stepsTaken * energies.get(letter));
+    let newEnergy = energy + stepsTaken * energies.get(letter);
     insertIntoQueue(newGrid, newEnergy, queue);
 }
 
 function isGridSolved(grid) {
-    return grid[2][3] === 'A' && grid[2][5] === 'B' && grid[2][7] === 'C' && grid[2][9] === 'D' && grid[3][3] === 'A' && grid[3][5] === 'B' && grid[3][7] === 'C' && grid[3][9] === 'D';
+    return (
+        grid[2][3] === 'A' &&
+        grid[2][5] === 'B' &&
+        grid[2][7] === 'C' &&
+        grid[2][9] === 'D' &&
+        grid[3][3] === 'A' &&
+        grid[3][5] === 'B' &&
+        grid[3][7] === 'C' &&
+        grid[3][9] === 'D'
+    );
 }
 
 function printGrid(grid) {
@@ -141,7 +150,7 @@ function shouldNotStop(index) {
 
 function addToCache(grid, energy) {
     const key = grid.join('');
-    if (cache.has(key) && cache.get(key) <= energy){
+    if (cache.has(key) && cache.get(key) <= energy) {
         return false;
     }
     cache.set(key, energy);
