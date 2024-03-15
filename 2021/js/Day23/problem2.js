@@ -15,6 +15,8 @@ const energies = new Map([
     ['D', 1000],
 ]);
 
+const cache = new Map();
+
 function solve({ lines, rawData }) {
     const answer = runSimulation(lines);
     return { value: answer };
@@ -33,15 +35,16 @@ function runSimulation(lines) {
 
         let current = queue.next();
         let { grid, energy } = current;
-        if (i === 20000) {
-            printGrid(grid);
-            break;
-        }
+        // printGrid(grid);
+        // console.log('energy', energy);
+        // if (i === 20) {
+        //     break;
+        // }
     
         if (isGridSolved(grid)) {
-            console.log('we did it')
             return energy;
         }
+        
         grid.forEach((row, rowIndex) => {
             if (rowIndex === 0 || rowIndex === grid.length - 1) {
                 return;
@@ -72,6 +75,7 @@ function runSimulation(lines) {
                     }
 
                     // check if we CAN move out of room
+                    // TODO newRow can always be set to 1?
                     let newRow;
                     let newEnergyLeft = energy + energies.get(cell);
                     let newEnergyRight = energy + energies.get(cell);
@@ -80,7 +84,8 @@ function runSimulation(lines) {
                         newRow = rowIndex - 1;
                     } else if (rowIndex === 3) {
                         if (grid[rowIndex - 1][cellIndex] === EMPTY) {
-                            newRow = rowIndex - 1;
+                        // console.log('valid move from bottom')
+                            newRow = rowIndex - 2;
                             newEnergyLeft += energies.get(cell);
                             newEnergyRight += energies.get(cell);
                         } else {
@@ -89,26 +94,38 @@ function runSimulation(lines) {
                     }
 
                     let colLeft = cellIndex - 1;
+                    newEnergyLeft += energies.get(cell);
                     let colRight = cellIndex + 1;
+                    newEnergyRight += energies.get(cell);
 
                     // Go left and right until we can't anymore
-                    // TODO make it so it can't stop in front of rooms
                     while (grid[newRow][colLeft - 1] === EMPTY) {
                         colLeft--;
                         newEnergyLeft += energies.get(cell);
+
+                        if (shouldNotStop(colLeft)) {
+                            continue;
+                        }
+
                         let newGrid = grid.map((row) => row.slice());
                         newGrid[newRow][colLeft] = cell;
                         newGrid[rowIndex][cellIndex] = EMPTY;
-                        queue.insert({ grid: newGrid, energy: newEnergyLeft });
+                        // queue.insert({ grid: newGrid, energy: newEnergyLeft });
+                        insertIntoQueue(newGrid, newEnergyLeft, queue);
                     }
 
                     while (grid[newRow][colRight + 1] === EMPTY) {
                         colRight++;
                         newEnergyRight += energies.get(cell);
+                        if (shouldNotStop(colRight)) {
+                            continue;
+                        }
+
                         let newGrid = grid.map((row) => row.slice());
                         newGrid[newRow][colRight] = cell;
                         newGrid[rowIndex][cellIndex] = EMPTY;
-                        queue.insert({ grid: newGrid, energy: newEnergyRight });
+                        // queue.insert({ grid: newGrid, energy: newEnergyRight });
+                        insertIntoQueue(newGrid, newEnergyRight, queue);
                     }
                 }
 
@@ -136,7 +153,7 @@ function moveToRoom(grid, roomIndex, cellIndex, letter, energy, queue) {
     const direction = roomIndex > cellIndex ? 1 : -1;
     while (newCellIndex !== roomIndex) {
         newCellIndex += direction;
-        if (grid[2][cellIndex] !== EMPTY) {
+        if (grid[1][newCellIndex] !== EMPTY) {
             return false;
         }
     }
@@ -144,14 +161,15 @@ function moveToRoom(grid, roomIndex, cellIndex, letter, energy, queue) {
     let newRow = 2;
     stepsTaken += 1;
     if (grid[3][roomIndex] === EMPTY) {
-        stepsTaken += 2;
+        stepsTaken += 1;
         newRow = 3;
     }
 
     let newGrid = grid.map((row) => row.slice());
     newGrid[newRow][roomIndex] = letter;
     newGrid[1][cellIndex] = EMPTY;
-    queue.insert({ grid: newGrid, energy: energy + (stepsTaken * energies.get(letter)) });
+    let newEnergy = energy + (stepsTaken * energies.get(letter));
+    insertIntoQueue(newGrid, newEnergy, queue);
 }
 
 function isGridSolved(grid) {
@@ -162,4 +180,23 @@ function printGrid(grid) {
     grid.forEach((row) => {
         console.log(row.join(''));
     });
+}
+
+function shouldNotStop(index) {
+    return index === 3 || index === 5 || index === 7 || index === 9;
+}
+
+function addToCache(grid, energy) {
+    const key = grid.join('');
+    if (cache.has(key) && cache.get(key) <= energy){
+        return false;
+    }
+    cache.set(key, energy);
+    return true;
+}
+
+function insertIntoQueue(grid, energy, queue) {
+    if (addToCache(grid, energy)) {
+        queue.insert({ grid, energy });
+    }
 }
