@@ -35,9 +35,10 @@ function runSimulation(lines) {
             return energy;
         }
         
-        grid.forEach((row, rowIndex) => {
+        for (let rowIndex = 1; rowIndex < 4; rowIndex++) {
+            let row = grid[rowIndex];
             if (rowIndex === 0 || rowIndex === grid.length - 1) {
-                return;
+                continue;
             }
             row.forEach((cell, cellIndex) => {
                 if (cell === WALL || cell === EMPTY || cell === VOID) {
@@ -65,61 +66,27 @@ function runSimulation(lines) {
                     }
 
                     // check if we CAN move out of room
-                    // TODO newRow can always be set to 1?
-                    let newRow;
-                    let newEnergyLeft = energy + energies.get(cell);
-                    let newEnergyRight = energy + energies.get(cell);
-                    if (rowIndex === 2) {
-                        // Nobody can stop right outside of a room so we can go ahead and move up
-                        newRow = rowIndex - 1;
-                    } else if (rowIndex === 3) {
+                    // always takes at least 1 energy unit to move up
+                    let newEnergy = energy + energies.get(cell);
+                    // if on the bottom it takes another energy unit
+                    if (rowIndex === 3) {
                         if (grid[rowIndex - 1][cellIndex] === EMPTY) {
-                            newRow = rowIndex - 2;
-                            newEnergyLeft += energies.get(cell);
-                            newEnergyRight += energies.get(cell);
+                            newEnergy += energies.get(cell);
                         } else {
                             return;
                         }
                     }
 
-                    let colLeft = cellIndex;
-                    let colRight = cellIndex;
-
-                    // Go left and right until we can't anymore
-                    while (grid[newRow][colLeft - 1] === EMPTY) {
-                        colLeft--;
-                        newEnergyLeft += energies.get(cell);
-
-                        if (shouldNotStop(colLeft)) {
-                            continue;
-                        }
-
-                        let newGrid = grid.map((row) => row.slice());
-                        newGrid[newRow][colLeft] = cell;
-                        newGrid[rowIndex][cellIndex] = EMPTY;
-                        insertIntoQueue(newGrid, newEnergyLeft, queue);
-                    }
-
-                    while (grid[newRow][colRight + 1] === EMPTY) {
-                        colRight++;
-                        newEnergyRight += energies.get(cell);
-
-                        if (shouldNotStop(colRight)) {
-                            continue;
-                        }
-
-                        let newGrid = grid.map((row) => row.slice());
-                        newGrid[newRow][colRight] = cell;
-                        newGrid[rowIndex][cellIndex] = EMPTY;
-                        insertIntoQueue(newGrid, newEnergyRight, queue);
-                    }
+                    // move left and right until we cannot
+                    moveLaterally(grid, rowIndex, cellIndex, newEnergy, -1, queue);
+                    moveLaterally(grid, rowIndex, cellIndex, newEnergy, 1, queue);
                 }
 
                 if (rowIndex === 1) {
                     moveToRoom(grid, goalRooms.get(cell), cellIndex, cell, energy, queue);
                 }
             });
-        });
+        };
     }
 }
 
@@ -184,5 +151,24 @@ function addToCache(grid, energy) {
 function insertIntoQueue(grid, energy, queue) {
     if (addToCache(grid, energy)) {
         queue.insert({ grid, energy });
+    }
+}
+
+function moveLaterally(grid, rowIndex, cellIndex, energy, direction, queue) {
+    let newCol = cellIndex;
+    let newEnergy = energy;
+    const cell = grid[rowIndex][cellIndex];
+    while (grid[1][newCol + direction] === EMPTY) {
+        newCol += direction;
+        newEnergy += energies.get(cell);
+
+        if (shouldNotStop(newCol)) {
+            continue;
+        }
+
+        let newGrid = grid.map((row) => row.slice());
+        newGrid[1][newCol] = cell;
+        newGrid[rowIndex][cellIndex] = EMPTY;
+        insertIntoQueue(newGrid, newEnergy, queue);
     }
 }
