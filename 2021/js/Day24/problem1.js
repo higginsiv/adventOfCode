@@ -4,21 +4,26 @@ const {floor} = Math;
 
 function solve({ lines, rawData }) {
     let params = getParams(lines);
-    console.log(params)
+    // console.log(params)
     let registers = [0, 0, 0, 0];
     let cache = new Map();
 
     let blockNum = 0;
     let modelNumber = new Array(14).fill(9);
 
-    // findModelNumber(blockNum, params, registers, cache, modelNumber);
+    findModelNumber(blockNum, params, registers, cache, modelNumber);
 
     const answer = modelNumber.join('');
     return { value: answer };
 }
 
 function findModelNumber(modelNumberIndex, params, registers, cache, modelNumber) {
+    // if (modelNumberIndex === 2) {
+    //     console.log(registers);
+    //     return false;
+    // }
     if (modelNumberIndex === 14) {
+        // console.log(registers);
         return registers[3] === 0;
     }
 
@@ -26,6 +31,9 @@ function findModelNumber(modelNumberIndex, params, registers, cache, modelNumber
         let inputRegisters = [...registers];
         inputRegisters[0] = i;
         let newRegisters = process(modelNumberIndex, params, inputRegisters, cache);
+        if (!newRegisters) {
+            continue;
+        }
         if (findModelNumber(modelNumberIndex + 1, params, newRegisters, cache)) {
             modelNumber[modelNumberIndex] = i;
             return true;
@@ -35,20 +43,21 @@ function findModelNumber(modelNumberIndex, params, registers, cache, modelNumber
 }
 
 function process(blockNum, params, registers, cache) {
-    // const key = getKey(blockNum, registers);
-    // if (cache.has(key)) {
-    //     return cache.get(key);
-    // }
+    const key = getKey(blockNum, registers);
+    if (cache.has(key)) {
+        // console.log('match')
+        return false;
+    }
 
     let paramsBlock = params[blockNum];
     let newRegisters = processBlock(paramsBlock, registers);
-    // cache.set(key, newRegisters);
+    cache.set(key, newRegisters);
     return newRegisters;
 }
 
 function processBlock(params, registers) {
     let [w, x, y, z] = registers;
-    x = x % 26;
+    x = z % 26;
     z = floor(z / params.param1);
     x += params.param2;
     x = x !== w ? 1 : 0;
