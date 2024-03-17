@@ -4,23 +4,45 @@ const {floor} = Math;
 
 function solve({ lines, rawData }) {
     let params = getParams(lines);
-    console.log(params);
-    // NOTES:
-    // - 14 blocks that are mostly the same except for 2-3 integers
-    // can I memoize the results of x number at y depth to save time?
-    const answer = null;
+    console.log(params)
+    let registers = [0, 0, 0, 0];
+    let cache = new Map();
+
+    let blockNum = 0;
+    let modelNumber = new Array(14).fill(9);
+
+    // findModelNumber(blockNum, params, registers, cache, modelNumber);
+
+    const answer = modelNumber.join('');
     return { value: answer };
 }
 
-function process(blockNum, params, registers, cache) {
-    const key = getKey(blockNum, registers);
-    if (cache.has(key)) {
-        return cache.get(key);
+function findModelNumber(modelNumberIndex, params, registers, cache, modelNumber) {
+    if (modelNumberIndex === 14) {
+        return registers[3] === 0;
     }
+
+    for (let i = 9; i > 0; i--) {
+        let inputRegisters = [...registers];
+        inputRegisters[0] = i;
+        let newRegisters = process(modelNumberIndex, params, inputRegisters, cache);
+        if (findModelNumber(modelNumberIndex + 1, params, newRegisters, cache)) {
+            modelNumber[modelNumberIndex] = i;
+            return true;
+        }
+    }
+    return false;
+}
+
+function process(blockNum, params, registers, cache) {
+    // const key = getKey(blockNum, registers);
+    // if (cache.has(key)) {
+    //     return cache.get(key);
+    // }
 
     let paramsBlock = params[blockNum];
     let newRegisters = processBlock(paramsBlock, registers);
-    cache.set(key, newRegisters);
+    // cache.set(key, newRegisters);
     return newRegisters;
 }
 
