@@ -275,8 +275,6 @@ Find somewhere safe to land your submarine. What is the first step on which no s
 
 Your puzzle answer was 498.
 
-The first half of this puzzle is complete! It provides one gold star: *
-
 --- Part Two ---
 Suddenly, the experimental antenna control console lights up:
 
@@ -296,8 +294,12 @@ Recalibrating experimental antenna...done.
 Boost strength due to matching signal phase: 1 star
 Only 49 stars to go.
 
-You don't have enough stars to boost the signal, though. You need 15 more.
+If you like, you can .
 
-Although it hasn't changed, you can still get your puzzle input.
+Both parts of this puzzle are complete! They provide two gold stars: **
 
-You can [Share] this puzzle.
+At this point, all that is left is for you to admire your Advent calendar.
+
+If you still want to see it, you can get your puzzle input.
+
+You can also [Share] this puzzle.
