@@ -18,7 +18,7 @@ function solve({ lines, rawData }) {
             }
         });
 
-        if (modelNumber.some((digit) => digit < 0 || digit > 9)) {
+        if (modelNumber.some((digit) => digit <= 0 || digit > 9)) {
             let index = modelNumber.length - 1;
             while (index >= 0) {
                 if (params[index].param1 === 26) {
