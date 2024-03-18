@@ -65,5 +65,3 @@ function getParams(lines) {
 
     return params;
 }
-
-// 11801315600816 too low
