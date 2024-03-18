@@ -1,70 +1,49 @@
 module.exports = { solve: solve };
 const EOL = require('os').EOL;
-const {floor} = Math;
+const { floor } = Math;
 
 function solve({ lines, rawData }) {
     let params = getParams(lines);
-    // console.log(params)
-    let registers = [0, 0, 0, 0];
-    let cache = new Map();
-
-    let blockNum = 0;
     let modelNumber = new Array(14).fill(9);
 
-    findModelNumber(blockNum, params, registers, cache, modelNumber);
+    while (true) {
+        let z = 0;
+
+        params.forEach((param, index) => {
+            if (param.param1 === 1) {
+                z = 26 * z + modelNumber[index] + param.param3;
+            } else if (param.param1 === 26) {
+                modelNumber[index] = (z % 26) + param.param2;
+                z = floor(z / 26);
+            }
+        });
+
+        if (modelNumber.some((digit) => digit < 0 || digit > 9)) {
+            let index = modelNumber.length - 1;
+            while (index >= 0) {
+                if (params[index].param1 === 26) {
+                    index--;
+                    continue;
+                } else {
+                    modelNumber[index]--;
+                    if (modelNumber[index] === 0) {
+                        modelNumber[index] = 9;
+                        index--;
+                    } else {
+                        break;
+                    }
+                }
+            }
+            continue;
+        }
+
+        if (z === 0) {
+            break;
+        }
+    }
 
     const answer = modelNumber.join('');
     return { value: answer };
-}
-
-function findModelNumber(modelNumberIndex, params, registers, cache, modelNumber) {
-    // if (modelNumberIndex === 2) {
-    //     console.log(registers);
-    //     return false;
-    // }
-    if (modelNumberIndex === 14) {
-        // console.log(registers);
-        return registers[3] === 0;
-    }
-
-    for (let i = 9; i > 0; i--) {
-        let inputRegisters = [...registers];
-        inputRegisters[0] = i;
-        let newRegisters = process(modelNumberIndex, params, inputRegisters, cache);
-        if (!newRegisters) {
-            continue;
-        }
-        if (findModelNumber(modelNumberIndex + 1, params, newRegisters, cache)) {
-            modelNumber[modelNumberIndex] = i;
-            return true;
-        }
-    }
-    return false;
-}
-
-function process(blockNum, params, registers, cache) {
-    const key = getKey(blockNum, registers);
-    if (cache.has(key)) {
-        // console.log('match')
-        return false;
-    }
-
-    let paramsBlock = params[blockNum];
-    let newRegisters = processBlock(paramsBlock, registers);
-    cache.set(key, newRegisters);
-    return newRegisters;
-}
-
-function processBlock(params, registers) {
-    let [w, x, y, z] = registers;
-    x = z % 26;
-    z = floor(z / params.param1);
-    x += params.param2;
-    x = x !== w ? 1 : 0;
-    z *= (25 * x + 1);
-    y = (w + params.param3) * x;
-    z += y;
-    return [w, x, y, z];
 }
 
 function getParams(lines) {
@@ -85,8 +64,4 @@ function getParams(lines) {
     }
 
     return params;
-}
-
-function getKey(blockNum, registers) {
-    return `${blockNum}-${registers.join('-')}`;
 }
