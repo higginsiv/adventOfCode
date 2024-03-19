@@ -10,6 +10,15 @@
   "scripts": {
     "test": "jest --config ./jest-all.config.json",
     "test:fast": "jest --config ./jest-fast.config.json",
+    "test:2015": "jest --testPathPattern=2015",
+    "test:2016": "jest --testPathPattern=2016",
+    "test:2017": "jest --testPathPattern=2017",
+    "test:2018": "jest --testPathPattern=2018",
+    "test:2019": "jest --testPathPattern=2019",
+    "test:2020": "jest --testPathPattern=2020",
+    "test:2021": "jest --testPathPattern=2021",
+    "test:2022": "jest --testPathPattern=2022",
+    "test:2023": "jest --testPathPattern=2023",
     "create": "node ./tools/dayCreator.js",
     "solve": "node ./tools/solve.js",
     "format": "prettier --write \"./**/*.js\""
