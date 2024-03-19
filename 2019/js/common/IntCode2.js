@@ -9,6 +9,8 @@ const OP_8 = 8;
 const OP_9 = 9;
 const OP_99 = 99;
 
+const [DEFAULT_MODE, POSITION, IMMEDIATE, RELATIVE] = [0, 0, 1, 2];
+
 const DEFAULT_MEMORY_VALUE = 0;
 
 class IntCode {
@@ -25,17 +27,21 @@ class IntCode {
     run() {
         let pointer = this.pointer;
         let memory = this.memory;
-        let opCode = memory[pointer];
+        let [opCode, parameterModes] = this.getOpCodeAndParameterModes(pointer, memory);
         let increment = 0;
         while (opCode !== OP_99) {
             switch (opCode) {
                 case OP_1:
-                    this.add(pointer, memory);
+                    this.add(pointer, memory, parameterModes);
                     increment = 4;
                     break;
                 case OP_2:
-                    this.mult(pointer, memory);
+                    this.mult(pointer, memory, parameterModes);
                     increment = 4;
+                    break;
+                case OP_3:
+                    break;
+                case OP_4:
                     break;
                 case OP_99:
                     break;
@@ -50,8 +56,26 @@ class IntCode {
         return memory;
     }
 
-    getParameterValue(pointer, memory) {
-        return memory[pointer];
+    getOpCodeAndParameterModes(pointer, memory) {
+        let values = String(memory[pointer]).split('').map((x) => Number(x));
+        const opCode = values.pop();
+        return [opCode, values];
+    }
+
+    getParameterValue(pointer, memory, modes) {
+        let mode;
+        if (modes && modes.length > 0) {
+            mode = modes.shift();
+        } else {
+            mode = DEFAULT_MODE;
+        }
+
+        switch (mode) {
+            case POSITION:
+                return memory[pointer];
+            case IMMEDIATE:
+                return pointer;
+        }
     }
 
     getValueAtLocation(pos, memory) {
@@ -59,14 +83,14 @@ class IntCode {
         return value ?? DEFAULT_MEMORY_VALUE;
     }
 
-    add(pointer, memory) {
-        let pos1 = this.getParameterValue(pointer + 1, memory);
-        let pos2 = this.getParameterValue(pointer + 2, memory);
-        let dest = this.getParameterValue(pointer + 3, memory);
+    add(pointer, memory, modes) {
+        let pos1 = this.getParameterValue(pointer + 1, memory, modes);
+        let pos2 = this.getParameterValue(pointer + 2, memory, modes);
+        let dest = this.getParameterValue(pointer + 3, memory, modes);
         memory[dest] = this.getValueAtLocation(pos1, memory) + this.getValueAtLocation(pos2, memory);
     }
 
-    mult(pointer, memory) {
+    mult(pointer, memory, modes) {
         let pos1 = this.getParameterValue(pointer + 1, memory);
         let pos2 = this.getParameterValue(pointer + 2, memory);
         let dest = this.getParameterValue(pointer + 3, memory);
