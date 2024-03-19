@@ -16,12 +16,16 @@ const DEFAULT_MEMORY_VALUE = 0;
 class IntCode {
     memory;
     pointer;
-    constructor(rawData, modifications, pointer) {
+    input;
+    output;
+    constructor(rawData, modifications, pointer, input = [], output = []) {
         this.memory = rawData.split(',').map((x) => Number(x));
         for (let [key, value] of modifications.entries()) {
             this.memory[key] = value;
         }
         this.pointer = pointer;
+        this.input = input;
+        this.output = output;
     }
 
     run() {
@@ -40,8 +44,12 @@ class IntCode {
                     increment = 4;
                     break;
                 case OP_3:
+                    this.saveInput(pointer, memory, parameterModes, this.input);
+                    increment = 2;
                     break;
                 case OP_4:
+                    this.postOutput(pointer, memory, parameterModes, this.output);
+                    increment = 2;
                     break;
                 case OP_99:
                     break;
@@ -49,24 +57,37 @@ class IntCode {
 
             if (opCode !== OP_99) {
                 pointer += increment;
-                opCode = memory[pointer];
+                [opCode, parameterModes] = this.getOpCodeAndParameterModes(pointer, memory);
             }
         }
 
-        return memory;
+        return {
+            memory: memory,
+            input: this.input,
+            output: this.output,
+        };
     }
 
-    getOpCodeAndParameterModes(pointer, memory) {
+    getOpCodeAndParameterModes(pointer, memory) {        
         let values = String(memory[pointer]).split('').map((x) => Number(x));
-        const opCode = values.pop();
+        let opCode;
+        if (values.length === 1) {
+            opCode = values.pop();
+        } else {
+            opCode = values.pop() + 10 * values.pop();
+        }
         return [opCode, values];
     }
 
-    getParameterValue(pointer, memory, modes) {
+    getParameterValue(pointer, memory, modes, invalidModes = []) {
         let mode;
         if (modes && modes.length > 0) {
-            mode = modes.shift();
+            mode = modes.pop();
         } else {
+            mode = DEFAULT_MODE;
+        }
+
+        if (invalidModes.includes(mode)) {
             mode = DEFAULT_MODE;
         }
 
@@ -86,15 +107,25 @@ class IntCode {
     add(pointer, memory, modes) {
         let pos1 = this.getParameterValue(pointer + 1, memory, modes);
         let pos2 = this.getParameterValue(pointer + 2, memory, modes);
-        let dest = this.getParameterValue(pointer + 3, memory, modes);
+        let dest = this.getParameterValue(pointer + 3, memory, modes, [IMMEDIATE]);
         memory[dest] = this.getValueAtLocation(pos1, memory) + this.getValueAtLocation(pos2, memory);
     }
 
     mult(pointer, memory, modes) {
-        let pos1 = this.getParameterValue(pointer + 1, memory);
-        let pos2 = this.getParameterValue(pointer + 2, memory);
-        let dest = this.getParameterValue(pointer + 3, memory);
+        let pos1 = this.getParameterValue(pointer + 1, memory, modes);
+        let pos2 = this.getParameterValue(pointer + 2, memory, modes);
+        let dest = this.getParameterValue(pointer + 3, memory, modes, [IMMEDIATE]);
         memory[dest] = this.getValueAtLocation(pos1, memory) * this.getValueAtLocation(pos2, memory);
+    }
+
+    saveInput(pointer, memory, modes, input) {
+        let pos = this.getParameterValue(pointer + 1, memory, modes, [IMMEDIATE]);
+        memory[pos] = input.shift();
+    } 
+
+    postOutput(pointer, memory, modes, output) {
+        let pos = this.getParameterValue(pointer + 1, memory, modes);
+        output.push(this.getValueAtLocation(pos, memory));
     }
 }
 

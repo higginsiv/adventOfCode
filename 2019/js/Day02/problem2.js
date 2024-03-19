@@ -11,7 +11,7 @@ function solve({ lines, rawData }) {
                 [1, i],
                 [2, j],
             ]);
-            answer = new IntCode(rawData, replacements, 0).run()[0];
+            answer = new IntCode(rawData, replacements, 0).run().memory[0];
             if (answer === goal) {
                 answer = 100 * i + j;
                 break outer;

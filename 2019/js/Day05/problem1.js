@@ -1,9 +1,7 @@
 module.exports = {solve: solve};
+const {IntCode} = require('../common/IntCode2.js');
 
 function solve({lines, rawData}) {
-    const ic = require('../common/IntCode.js');
-    let data = rawData.split(',').map((x) => BigInt(x));
-    ic.run(data, 0n, [1n])
-    const answer = null;
-    return {value: answer};
+    let output = new IntCode(rawData, new Map(), 0, [1], []).run().output;
+    return {value: output[output.length - 1]};
 }

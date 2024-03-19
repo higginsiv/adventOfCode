@@ -6,7 +6,7 @@ const data = fr.getInputForFunction('2019', '05');
 
 describe(`2019 Day 05`, () => {
     test('Part 1', () => {
-        expect(part1(data).value).toBe();
+        expect(part1(data).value).toBe(13818007);
     });
 
     test('Part 2', () => {
