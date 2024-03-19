@@ -51,6 +51,20 @@ class IntCode {
                     this.postOutput(pointer, memory, parameterModes, this.output);
                     increment = 2;
                     break;
+                case OP_5:
+                    increment = this.jumpIfTrue(pointer, memory, parameterModes);
+                    break;
+                case OP_6:
+                    increment = this.jumpIfFalse(pointer, memory, parameterModes);
+                    break;
+                case OP_7:
+                    this.lessThan(pointer, memory, parameterModes);
+                    increment = 4;
+                    break;
+                case OP_8:
+                    this.equalTo(pointer, memory, parameterModes);
+                    increment = 4;
+                    break;
                 case OP_99:
                     break;
             }
@@ -126,6 +140,46 @@ class IntCode {
     postOutput(pointer, memory, modes, output) {
         let pos = this.getParameterValue(pointer + 1, memory, modes);
         output.push(this.getValueAtLocation(pos, memory));
+    }
+
+    jumpIfTrue(pointer, memory, modes) {
+        let pos1 = this.getParameterValue(pointer + 1, memory, modes);
+        let pos2 = this.getParameterValue(pointer + 2, memory, modes);
+        if (this.getValueAtLocation(pos1, memory) !== 0) {
+            return this.getValueAtLocation(pos2, memory) - pointer;
+        }
+        return 3;
+    }
+
+    jumpIfFalse(pointer, memory, modes) {
+        let pos1 = this.getParameterValue(pointer + 1, memory, modes);
+        let pos2 = this.getParameterValue(pointer + 2, memory, modes);
+        if (this.getValueAtLocation(pos1, memory) === 0) {
+            return this.getValueAtLocation(pos2, memory) - pointer;
+        }
+        return 3;
+    }
+
+    lessThan(pointer, memory, modes) {
+        let pos1 = this.getParameterValue(pointer + 1, memory, modes);
+        let pos2 = this.getParameterValue(pointer + 2, memory, modes);
+        let dest = this.getParameterValue(pointer + 3, memory, modes, [IMMEDIATE]);
+        if (this.getValueAtLocation(pos1, memory) < this.getValueAtLocation(pos2, memory)) {
+            memory[dest] = 1;
+        } else {
+            memory[dest] = 0;
+        }
+    }
+
+    equalTo(pointer, memory, modes) {
+        let pos1 = this.getParameterValue(pointer + 1, memory, modes);
+        let pos2 = this.getParameterValue(pointer + 2, memory, modes);
+        let dest = this.getParameterValue(pointer + 3, memory, modes, [IMMEDIATE]);
+        if (this.getValueAtLocation(pos1, memory) === this.getValueAtLocation(pos2, memory)) {
+            memory[dest] = 1;
+        } else {
+            memory[dest] = 0;
+        }
     }
 }
 
