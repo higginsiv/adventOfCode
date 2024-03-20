@@ -13,6 +13,8 @@ const [DEFAULT_MODE, POSITION, IMMEDIATE, RELATIVE] = [0, 0, 1, 2];
 
 const DEFAULT_MEMORY_VALUE = 0;
 
+const WAITING = -1;
+
 class IntCode {
     memory;
     pointer;
@@ -44,7 +46,16 @@ class IntCode {
                     increment = 4;
                     break;
                 case OP_3:
-                    this.saveInput(pointer, memory, parameterModes, this.input);
+                    let waiting = this.saveInput(pointer, memory, parameterModes, this.input);
+                    if (waiting === WAITING) {
+                        return {
+                            memory: memory,
+                            input: this.input,
+                            output: this.output,
+                            pointer: pointer,
+                            complete: false,
+                        };
+                    } 
                     increment = 2;
                     break;
                 case OP_4:
@@ -67,6 +78,8 @@ class IntCode {
                     break;
                 case OP_99:
                     break;
+                default:
+                    throw new Error('Invalid opCode: ' + opCode);
             }
 
             if (opCode !== OP_99) {
@@ -79,11 +92,14 @@ class IntCode {
             memory: memory,
             input: this.input,
             output: this.output,
+            complete: true,
         };
     }
 
-    getOpCodeAndParameterModes(pointer, memory) {        
-        let values = String(memory[pointer]).split('').map((x) => Number(x));
+    getOpCodeAndParameterModes(pointer, memory) {
+        let values = String(memory[pointer])
+            .split('')
+            .map((x) => Number(x));
         let opCode;
         if (values.length === 1) {
             opCode = values.pop();
@@ -122,20 +138,25 @@ class IntCode {
         let pos1 = this.getParameterValue(pointer + 1, memory, modes);
         let pos2 = this.getParameterValue(pointer + 2, memory, modes);
         let dest = this.getParameterValue(pointer + 3, memory, modes, [IMMEDIATE]);
-        memory[dest] = this.getValueAtLocation(pos1, memory) + this.getValueAtLocation(pos2, memory);
+        memory[dest] =
+            this.getValueAtLocation(pos1, memory) + this.getValueAtLocation(pos2, memory);
     }
 
     mult(pointer, memory, modes) {
         let pos1 = this.getParameterValue(pointer + 1, memory, modes);
         let pos2 = this.getParameterValue(pointer + 2, memory, modes);
         let dest = this.getParameterValue(pointer + 3, memory, modes, [IMMEDIATE]);
-        memory[dest] = this.getValueAtLocation(pos1, memory) * this.getValueAtLocation(pos2, memory);
+        memory[dest] =
+            this.getValueAtLocation(pos1, memory) * this.getValueAtLocation(pos2, memory);
     }
 
     saveInput(pointer, memory, modes, input) {
+        if (input.length === 0) {
+            return WAITING;
+        }
         let pos = this.getParameterValue(pointer + 1, memory, modes, [IMMEDIATE]);
         memory[pos] = input.shift();
-    } 
+    }
 
     postOutput(pointer, memory, modes, output) {
         let pos = this.getParameterValue(pointer + 1, memory, modes);
