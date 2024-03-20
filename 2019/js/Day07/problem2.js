@@ -43,8 +43,7 @@ function solve({ lines, rawData }) {
             allCompleted = true;
             amps.forEach((amp, index) => {
                 if (amp.ic !== undefined) {
-                    amp.ic.pointer = amp.pointer;
-                    amp.ic.memory = amp.memory;
+                    amp.ic.setState({ memory: amp.memory, pointer: amp.pointer });
                 } else {
                     amp.ic = new IntCode(amp.memory, new Map(), 0, amp.input, amp.output);
                 }

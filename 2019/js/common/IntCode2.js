@@ -30,6 +30,11 @@ class IntCode {
         this.output = output;
     }
 
+    setState(state) {
+        this.memory = state.memory;
+        this.pointer = state.pointer;
+    }
+
     run() {
         let pointer = this.pointer;
         let memory = this.memory;
