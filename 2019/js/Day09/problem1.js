@@ -1,13 +1,7 @@
-console.time();
-const fr = require('../../../tools/fileReader');
-const ic = require('../common/IntCode.js');
-const [year, day, part] = ['2019', '09', '1'];
-const data = fr.getInput(year, day, ',').map((x) => BigInt(x));
+module.exports = {solve: solve};
+const { IntCode } = require('../common/IntCode2.js');
 
-ic.run(data, 0n, [1n]).then((answer) => {
-    console.log(
-        'Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer[answer.length - 1],
-    );
-    console.log('Expected: 2436480432');
-    console.timeEnd();
-});
+function solve({lines, rawData}) {
+    const answer = new IntCode(rawData, new Map(), 0, [1], []).run().output.pop();
+    return {value: answer};
+}

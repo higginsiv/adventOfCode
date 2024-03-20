@@ -136,7 +136,7 @@ class IntCode {
 
         switch (mode) {
             case POSITION:
-                return memory[pointer];
+                return this.getValueAtLocation(pointer, memory);
             case IMMEDIATE:
                 return pointer;
             case RELATIVE:
@@ -219,7 +219,7 @@ class IntCode {
     }
 
     getRelativeModifier(pointer, memory, modes, relative) {
-        let pos = this.getParameterValue(pointer + 1, memory, modes, relative);
+        let pos = this.getParameterValue(pointer + 1, memory, modes, [], relative);
         return this.getValueAtLocation(pos, memory);
     }
 }
