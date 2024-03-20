@@ -34,6 +34,7 @@ class IntCode {
     setState(state) {
         this.memory = state.memory;
         this.pointer = state.pointer;
+        this.relative = state.relative ?? 0;
     }
 
     run() {
@@ -53,7 +54,13 @@ class IntCode {
                     increment = 4;
                     break;
                 case OP_3:
-                    let waiting = this.saveInput(pointer, memory, parameterModes, this.input, relative);
+                    let waiting = this.saveInput(
+                        pointer,
+                        memory,
+                        parameterModes,
+                        this.input,
+                        relative,
+                    );
                     if (waiting === WAITING) {
                         return {
                             memory: memory,
@@ -63,7 +70,7 @@ class IntCode {
                             complete: false,
                             relative: relative,
                         };
-                    } 
+                    }
                     increment = 2;
                     break;
                 case OP_4:
