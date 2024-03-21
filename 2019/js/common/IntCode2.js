@@ -23,9 +23,12 @@ class IntCode {
     relative = 0;
     constructor(rawData, modifications, pointer, input = [], output = []) {
         this.memory = rawData.split(',').map((x) => Number(x));
-        for (let [key, value] of modifications.entries()) {
-            this.memory[key] = value;
+        if (modifications) {
+            for (let [key, value] of modifications.entries()) {
+                this.memory[key] = value;
+            }
         }
+
         this.pointer = pointer;
         this.input = input;
         this.output = output;
