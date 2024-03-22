@@ -1,159 +1,71 @@
-console.time();
-const fr = require('../../../tools/fileReader');
-const events = require('events');
-let eventEmitter = new events.EventEmitter();
-const ic = require('../common/IntCode.js');
-const [year, day, part] = ['2019', '15', '1'];
-const [NORTH, SOUTH, WEST, EAST] = [1n, 2n, 3n, 4n];
-const DIRECTIONS = [NORTH, SOUTH, WEST, EAST];
-const NO_MOVES = 'nahbro';
-const [WALL, EMPTY, GOAL] = [0n, 1n, 2n];
-const DELIM = '|';
-const EVENT_OUTPUT = 'output';
+module.exports = {solve: solve};
+const { IntCode } = require('../common/IntCode2.js');
+const [NORTH, SOUTH, WEST, EAST] = [1, 2, 3, 4];
 
-eventEmitter.on(EVENT_OUTPUT, receiveInput);
+function solve({lines, rawData}) {
+    let ic = new IntCode(rawData, null, 0, [], []);
+    let grid = new Map();
+    grid.set(getKey(0, 0), {
+        steps: 0,
+        x: 0,
+        y: 0,
+        type: 0
+    })
 
-let memory = fr.getInput(year, day, ',').map((x) => BigInt(x));
+    let queue = [{x: 0, y: 0, steps: 0, direction: NORTH, state: null}];
 
-// TODO
-// DFS
-// move until you can't while keeping track of all moves
-// move backwards until you can move again
-// move until you can't (ad infinum)
-// if you reach goal, record number of steps taken
-// when no more options are available, quit and return lowest steps to goal
-
-let grid = new Map();
-let locToSteps = new Map();
-locToSteps.set(createKey(0, 0), 0);
-let stepsToGoal = Infinity;
-
-let location = {
-    x: 0,
-    y: 0,
-};
-
-let stepsTaken = [1n];
-let input = [1n];
-let output = [];
-ic.runAsync(memory, 0n, input, output, 0n, eventEmitter).then((answer) => {
-    console.log('dead');
-});
-
-function receiveInput() {
-    let status = output.shift();
-    console.log('status: ' + status);
-    let nextMove;
-    let lastDirectionTraveled;
-    switch (status) {
-        case WALL:
-            lastDirectionTraveled = stepsTaken[stepsTaken.length - 1];
-            updatePosition(lastDirectionTraveled);
-            grid.set(createKey(location.x, location.y), WALL);
-            updatePosition(getOpposite(lastDirectionTraveled));
-            stepsTaken.pop();
+    let answer;
+    while (queue.length > 0) {
+        let current = queue.shift();
+        // todo check for win
+        if (current.type === 2) {
+            answer = current.steps;
             break;
-        case EMPTY:
-            lastDirectionTraveled = stepsTaken[stepsTaken.length - 1];
-            updatePosition(lastDirectionTraveled);
-            locToSteps.set(createKey(location.x, location.y), stepsTaken.length);
-
-            grid.set(createKey(location.x, location.y), EMPTY);
-            // console.log(location)
-
-            break;
-        case GOAL:
-            lastDirectionTraveled = stepsTaken[stepsTaken.length - 1];
-            updatePosition(lastDirectionTraveled);
-            stepsToGoal = stepsToGoal > stepsTaken.length ? stepsTaken.length : stepsToGoal;
-            locToSteps.set(createKey(location.x, location.y), stepsTaken.length);
-            grid.set(createKey(location.x, location.y), GOAL);
-
-            updatePosition(getOpposite(lastDirectionTraveled));
-            stepsTaken.pop();
-            console.log('g: ' + stepsToGoal);
-            break;
-        default:
-            console.log('Invalid Status');
-    }
-
-    nextMove = pickNextMove();
-    // console.log('next: ' + nextMove)
-    // todo bail out if total steps > goal steps
-    if (nextMove === NO_MOVES) {
-        console.log(stepsTaken.length);
-        if (stepsTaken.length === 0) {
-            console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + blocks);
-            console.log('Expected: ');
-            console.timeEnd();
-            process.exit();
-        } else {
-            input.push(getOpposite(stepsTaken.pop()));
         }
-    } else {
-        stepsTaken.push(nextMove);
-        input.push(nextMove);
-    }
-}
 
-function createKey(row, col) {
-    return row + DELIM + col;
-}
-
-function getOpposite(key) {
-    switch (key) {
-        case NORTH:
-            return SOUTH;
-        case SOUTH:
-            return NORTH;
-        case EAST:
-            return WEST;
-        case WEST:
-            return EAST;
-        default:
-            console.log('Invalid Opposite: ' + key);
-    }
-}
-
-function updatePosition(dir) {
-    switch (dir) {
-        case NORTH:
-            location.x--;
-            break;
-        case SOUTH:
-            location.x++;
-            break;
-        case EAST:
-            location.y++;
-            break;
-        case WEST:
-            location.y--;
-            break;
-        default:
-            console.log('Invalid update: ' + dir);
-    }
-    // console.log(location)
-}
-
-function pickNextMove() {
-    let northKey = createKey(location.x - 1, location.y);
-    let southKey = createKey(location.x + 1, location.y);
-    let westKey = createKey(location.x, location.y - 1);
-    let eastKey = createKey(location.x, location.y + 1);
-
-    let keys = [northKey, southKey, westKey, eastKey];
-
-    for (let i = 0; i < keys.length; i++) {
-        let tile = grid.get(keys[i]);
-        // console.log('tile next move: ' + tile)
-        if (tile === WALL) {
-            continue;
+        if (current.state !== null) {
+            ic.setState(current.state);
         }
-        if (locToSteps.get(keys[i]) <= stepsTaken.length + 1) {
-            continue;
-        }
-        return BigInt(i + 1);
+        const {output, pointer, memory, relative } = ic.run();
+
+        let neighbors = [
+            {x: current.x, y: current.y - 1, direction: NORTH},
+            {x: current.x, y: current.y + 1, direction: SOUTH},
+            {x: current.x - 1, y: current.y, direction: WEST},
+            {x: current.x + 1, y: current.y, direction: EAST}
+        ];
+        
+        neighbors.forEach(neighbor => {
+            let key = getKey(neighbor.x, neighbor.y);
+            let bestState = grid.get(key);
+            if (bestState === undefined) {
+                // todo add to queue
+            } else if (bestState.type === 0) {
+                return;
+            } else if (bestState.steps <= current.steps + 1) {
+                return;
+            } else {
+                // todo update input with direction
+                queue.push({
+                    x: neighbor.x,
+                    y: neighbor.y,
+                    steps: current.steps + 1,
+                    direction: neighbor.direction,
+                    state: {
+                        output: output,
+                        pointer: pointer,
+                        memory: memory.slice(),
+                        relative: relative
+                    
+                    }
+                });
+            }
+        })
     }
 
-    return NO_MOVES;
+    return {value: answer};
+}
+
+function getKey(x, y) {
+    return `${x},${y}`;
 }
