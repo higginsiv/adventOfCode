@@ -10,6 +10,6 @@ describe(`2019 Day 17`, () => {
     });
 
     test('Part 2', () => {
-        expect(part2(data).value).toBe();
+        expect(part2(data).value).toBe(933214);
     });
 });
