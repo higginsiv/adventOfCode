@@ -1,7 +1,7 @@
 module.exports = { solve: solve };
 const { all } = require('async');
 const MATH = require('../../../tools/math.js');
-const { IntCode } = require('../common/IntCode2.js');
+const { IntCode } = require('../common/IntCode.js');
 
 function solve({ lines, rawData }) {
     const PHASES = [5, 6, 7, 8, 9];

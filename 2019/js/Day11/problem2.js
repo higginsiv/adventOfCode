@@ -1,5 +1,5 @@
 module.exports = { solve: solve };
-const { IntCode } = require('../common/IntCode2.js');
+const { IntCode } = require('../common/IntCode.js');
 const [BLACK, WHITE] = [0, 1];
 const [LEFT, RIGHT] = [0, 1];
 const [NORTH, EAST, SOUTH, WEST] = [0, 1, 2, 3];

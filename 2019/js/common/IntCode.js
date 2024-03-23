@@ -1,8 +1,3 @@
-module.exports = {
-    run: run,
-    runAsync: runAsync,
-};
-
 const OP_1 = 1;
 const OP_2 = 2;
 const OP_3 = 3;
@@ -12,235 +7,233 @@ const OP_6 = 6;
 const OP_7 = 7;
 const OP_8 = 8;
 const OP_9 = 9;
-
 const OP_99 = 99;
 
-const [POSITION, IMMEDIATE, RELATIVE] = [0, 1, 2];
-const MODES = [POSITION, IMMEDIATE, RELATIVE];
-const DEFAULT_MODE = POSITION;
+const [DEFAULT_MODE, POSITION, IMMEDIATE, RELATIVE] = [0, 0, 1, 2];
 
-const DEFAULT_MEMORY_VALUE = 0n;
+const DEFAULT_MEMORY_VALUE = 0;
 
-const EVENT_OUTPUT = 'output';
+const WAITING = -1;
 
-async function runAsync(memory, pointer, input, out, relative = 0n, eventEmitter) {
-    return new Promise((resolve, reject) => {
-        let result = run(memory, pointer, input, out, relative, eventEmitter);
-        resolve(result);
-    });
-}
+class IntCode {
+    memory;
+    pointer;
+    input;
+    output;
+    relative = 0;
+    constructor(rawData, modifications, pointer, input = [], output = []) {
+        this.memory = rawData.split(',').map((x) => Number(x));
+        if (modifications) {
+            for (let [key, value] of modifications.entries()) {
+                this.memory[key] = value;
+            }
+        }
 
-async function run(memory, pointer = 0n, input, out = [], relative = 0n, eventEmitter) {
-    let opCode;
-    while (opCode !== 99) {
-        let opCodeWhole = String(getValueAtLocation(pointer, memory));
-        opCode = parseInt(opCodeWhole.substring(opCodeWhole.length - 2));
+        this.pointer = pointer;
+        this.input = input;
+        this.output = output;
+    }
 
-        let parameterModes = opCodeWhole
-            .substring(0, opCodeWhole.length - 2)
+    setState(state) {
+        this.memory = state.memory;
+        this.pointer = state.pointer;
+        this.relative = state.relative ?? 0;
+    }
+
+    run() {
+        let pointer = this.pointer;
+        let memory = this.memory;
+        let [opCode, parameterModes] = this.getOpCodeAndParameterModes(pointer, memory);
+        let increment = 0;
+        let relative = this.relative;
+        while (opCode !== OP_99) {
+            switch (opCode) {
+                case OP_1:
+                    this.add(pointer, memory, parameterModes, relative);
+                    increment = 4;
+                    break;
+                case OP_2:
+                    this.mult(pointer, memory, parameterModes, relative);
+                    increment = 4;
+                    break;
+                case OP_3:
+                    let waiting = this.saveInput(
+                        pointer,
+                        memory,
+                        parameterModes,
+                        this.input,
+                        relative,
+                    );
+                    if (waiting === WAITING) {
+                        return {
+                            memory: memory,
+                            input: this.input,
+                            output: this.output,
+                            pointer: pointer,
+                            complete: false,
+                            relative: relative,
+                        };
+                    }
+                    increment = 2;
+                    break;
+                case OP_4:
+                    this.postOutput(pointer, memory, parameterModes, this.output, relative);
+                    increment = 2;
+                    break;
+                case OP_5:
+                    increment = this.jumpIfTrue(pointer, memory, parameterModes, relative);
+                    break;
+                case OP_6:
+                    increment = this.jumpIfFalse(pointer, memory, parameterModes, relative);
+                    break;
+                case OP_7:
+                    this.lessThan(pointer, memory, parameterModes, relative);
+                    increment = 4;
+                    break;
+                case OP_8:
+                    this.equalTo(pointer, memory, parameterModes, relative);
+                    increment = 4;
+                    break;
+                case OP_9:
+                    relative += this.getRelativeModifier(pointer, memory, parameterModes, relative);
+                    increment = 2;
+                    break;
+                case OP_99:
+                    break;
+                default:
+                    throw new Error('Invalid opCode: ' + opCode);
+            }
+
+            if (opCode !== OP_99) {
+                pointer += increment;
+                [opCode, parameterModes] = this.getOpCodeAndParameterModes(pointer, memory);
+            }
+        }
+
+        return {
+            memory: memory,
+            input: this.input,
+            output: this.output,
+            relative: relative,
+            complete: true,
+        };
+    }
+
+    getOpCodeAndParameterModes(pointer, memory) {
+        let values = String(memory[pointer])
             .split('')
-            .reverse()
-            .map((x) => {
-                if (x === '') {
-                    return DEFAULT_MODE;
-                }
-                return parseInt(x);
-            });
+            .map((x) => Number(x));
+        let opCode;
+        if (values.length === 1) {
+            opCode = values.pop();
+        } else {
+            opCode = values.pop() + 10 * values.pop();
+        }
+        return [opCode, values];
+    }
 
-        // console.log(parameterModes)
-        let pointerMod;
-        switch (opCode) {
-            case OP_1:
-                add(pointer + 1n, pointer + 2n, pointer + 3n, memory, parameterModes, relative);
-                pointerMod = 4n;
-                break;
-            case OP_2:
-                mult(pointer + 1n, pointer + 2n, pointer + 3n, memory, parameterModes, relative);
-                pointerMod = 4n;
-                break;
-            case OP_3:
-                await saveInput(pointer + 1n, memory, input, null, parameterModes, relative);
-                pointerMod = 2n;
-                break;
-            case OP_4:
-                output(pointer + 1n, memory, out, parameterModes, relative, eventEmitter);
-                pointerMod = 2n;
-                break;
-            case OP_5:
-                pointerMod = BigInt(
-                    jumpIfTrue(
-                        pointer + 1n,
-                        pointer + 2n,
-                        memory,
-                        pointer,
-                        parameterModes,
-                        relative,
-                    ),
-                );
-                break;
-            case OP_6:
-                pointerMod = BigInt(
-                    jumpIfFalse(
-                        pointer + 1n,
-                        pointer + 2n,
-                        memory,
-                        pointer,
-                        parameterModes,
-                        relative,
-                    ),
-                );
-                break;
-            case OP_7:
-                lessThan(
-                    pointer + 1n,
-                    pointer + 2n,
-                    pointer + 3n,
-                    memory,
-                    parameterModes,
-                    relative,
-                );
-                pointerMod = 4n;
-                break;
-            case OP_8:
-                equals(pointer + 1n, pointer + 2n, pointer + 3n, memory, parameterModes, relative);
-                pointerMod = 4n;
-                break;
-            case OP_9:
-                // console.log(opCodeWhole)
-                // console.log('pre-r: ' + relative)
-                relative += getRelativeModifier(pointer + 1n, memory, parameterModes, relative);
-                // console.log('r: ' + relative)
-                pointerMod = 2n;
-                break;
-            case OP_99:
-                break;
-            default:
-                console.log('panic ' + pointer);
-                console.log(out);
-                process.exit();
-                break;
+    getParameterValue(pointer, memory, modes, invalidModes = [], relative) {
+        let mode;
+        if (modes && modes.length > 0) {
+            mode = modes.pop();
+        } else {
+            mode = DEFAULT_MODE;
         }
 
-        if (opCode !== OP_99) {
-            pointer += pointerMod;
+        if (invalidModes.includes(mode)) {
+            mode = DEFAULT_MODE;
+        }
+
+        switch (mode) {
+            case POSITION:
+                return this.getValueAtLocation(pointer, memory);
+            case IMMEDIATE:
+                return pointer;
+            case RELATIVE:
+                return this.getValueAtLocation(pointer, memory) + relative;
         }
     }
 
-    return out;
-}
-
-function getParameterValue(position, modes, memory, relative, illegalModes = []) {
-    let mode;
-    if (modes.length === 0) {
-        mode = DEFAULT_MODE;
-    } else {
-        mode = modes.shift();
+    getValueAtLocation(pos, memory) {
+        const value = memory[pos];
+        return value ?? DEFAULT_MEMORY_VALUE;
     }
 
-    if (illegalModes.includes(mode)) {
-        mode = DEFAULT_MODE;
+    add(pointer, memory, modes, relative) {
+        let pos1 = this.getParameterValue(pointer + 1, memory, modes, [], relative);
+        let pos2 = this.getParameterValue(pointer + 2, memory, modes, [], relative);
+        let dest = this.getParameterValue(pointer + 3, memory, modes, [IMMEDIATE], relative);
+        memory[dest] =
+            this.getValueAtLocation(pos1, memory) + this.getValueAtLocation(pos2, memory);
     }
 
-    switch (mode) {
-        case POSITION:
-            return getValueAtLocation(position, memory);
-        case IMMEDIATE:
-            return position;
-        case RELATIVE:
-            return getValueAtLocation(position, memory) + relative;
-        default:
-            console.log('Invalid Mode');
+    mult(pointer, memory, modes, relative) {
+        let pos1 = this.getParameterValue(pointer + 1, memory, modes, [], relative);
+        let pos2 = this.getParameterValue(pointer + 2, memory, modes, [], relative);
+        let dest = this.getParameterValue(pointer + 3, memory, modes, [IMMEDIATE], relative);
+        memory[dest] =
+            this.getValueAtLocation(pos1, memory) * this.getValueAtLocation(pos2, memory);
     }
-}
 
-function add(pos1, pos2, dest, memory, modes, relative) {
-    pos1 = getParameterValue(pos1, modes, memory, relative);
-    pos2 = getParameterValue(pos2, modes, memory, relative);
-    dest = getParameterValue(dest, modes, memory, relative, [IMMEDIATE]); //getValueAtLocation(dest, memory);
-
-    memory[dest] = getValueAtLocation(pos1, memory) + getValueAtLocation(pos2, memory);
-}
-
-function mult(pos1, pos2, dest, memory, modes, relative) {
-    // console.log(modes)
-    pos1 = getParameterValue(pos1, modes, memory, relative);
-    pos2 = getParameterValue(pos2, modes, memory, relative);
-    dest = getParameterValue(dest, modes, memory, relative, [IMMEDIATE]); //
-
-    memory[dest] = getValueAtLocation(pos1, memory) * getValueAtLocation(pos2, memory);
-}
-
-async function saveInput(pos, memory, input, parentResolve, modes, relative) {
-    if (input.length === 0) {
-        await new Promise((resolve, reject) => {
-            setTimeout(saveInput, 1, pos, memory, input, resolve, modes, relative);
-        });
-    } else {
-        pos = getParameterValue(pos, modes, memory, relative, [IMMEDIATE]);
+    saveInput(pointer, memory, modes, input, relative) {
+        if (input.length === 0) {
+            return WAITING;
+        }
+        let pos = this.getParameterValue(pointer + 1, memory, modes, [IMMEDIATE], relative);
         memory[pos] = input.shift();
-        if (parentResolve != null) {
-            parentResolve();
+    }
+
+    postOutput(pointer, memory, modes, output, relative) {
+        let pos = this.getParameterValue(pointer + 1, memory, modes, [], relative);
+        output.push(this.getValueAtLocation(pos, memory));
+    }
+
+    jumpIfTrue(pointer, memory, modes, relative) {
+        let pos1 = this.getParameterValue(pointer + 1, memory, modes, [], relative);
+        let pos2 = this.getParameterValue(pointer + 2, memory, modes, [], relative);
+        if (this.getValueAtLocation(pos1, memory) !== 0) {
+            return this.getValueAtLocation(pos2, memory) - pointer;
+        }
+        return 3;
+    }
+
+    jumpIfFalse(pointer, memory, modes, relative) {
+        let pos1 = this.getParameterValue(pointer + 1, memory, modes, [], relative);
+        let pos2 = this.getParameterValue(pointer + 2, memory, modes, [], relative);
+        if (this.getValueAtLocation(pos1, memory) === 0) {
+            return this.getValueAtLocation(pos2, memory) - pointer;
+        }
+        return 3;
+    }
+
+    lessThan(pointer, memory, modes, relative) {
+        let pos1 = this.getParameterValue(pointer + 1, memory, modes, [], relative);
+        let pos2 = this.getParameterValue(pointer + 2, memory, modes, [], relative);
+        let dest = this.getParameterValue(pointer + 3, memory, modes, [IMMEDIATE], relative);
+        if (this.getValueAtLocation(pos1, memory) < this.getValueAtLocation(pos2, memory)) {
+            memory[dest] = 1;
+        } else {
+            memory[dest] = 0;
         }
     }
-}
 
-function output(pos, memory, out, modes, relative, eventEmitter) {
-    // console.log('prepos: ' + pos)
-    pos = getParameterValue(pos, modes, memory, relative);
-    // console.log('pos: ' + pos)
-    // console.log(getValueAtLocation(pos, memory))
-    out.push(getValueAtLocation(pos, memory));
-    if (eventEmitter) {
-        eventEmitter.emit(EVENT_OUTPUT);
+    equalTo(pointer, memory, modes, relative) {
+        let pos1 = this.getParameterValue(pointer + 1, memory, modes, [], relative);
+        let pos2 = this.getParameterValue(pointer + 2, memory, modes, [], relative);
+        let dest = this.getParameterValue(pointer + 3, memory, modes, [IMMEDIATE], relative);
+        if (this.getValueAtLocation(pos1, memory) === this.getValueAtLocation(pos2, memory)) {
+            memory[dest] = 1;
+        } else {
+            memory[dest] = 0;
+        }
+    }
+
+    getRelativeModifier(pointer, memory, modes, relative) {
+        let pos = this.getParameterValue(pointer + 1, memory, modes, [], relative);
+        return this.getValueAtLocation(pos, memory);
     }
 }
 
-function jumpIfTrue(pos1, pos2, memory, pointer, modes, relative) {
-    pos1 = getParameterValue(pos1, modes, memory, relative);
-    pos2 = getParameterValue(pos2, modes, memory, relative);
-    if (getValueAtLocation(pos1, memory) !== 0n) {
-        return getValueAtLocation(pos2, memory) - pointer;
-    } else {
-        return 3n;
-    }
-}
-
-function jumpIfFalse(pos1, pos2, memory, pointer, modes, relative) {
-    pos1 = getParameterValue(pos1, modes, memory, relative);
-    pos2 = getParameterValue(pos2, modes, memory, relative);
-    if (getValueAtLocation(pos1, memory) === 0n) {
-        return getValueAtLocation(pos2, memory) - BigInt(pointer);
-    } else {
-        return 3n;
-    }
-}
-
-function lessThan(pos1, pos2, pos3, memory, modes, relative) {
-    pos1 = getParameterValue(pos1, modes, memory, relative);
-    pos2 = getParameterValue(pos2, modes, memory, relative);
-    pos3 = getParameterValue(pos3, modes, memory, relative, [IMMEDIATE]); //
-
-    let writeVal = getValueAtLocation(pos1, memory) < getValueAtLocation(pos2, memory) ? 1n : 0n;
-    memory[pos3] = writeVal;
-}
-
-function equals(pos1, pos2, pos3, memory, modes, relative) {
-    pos1 = getParameterValue(pos1, modes, memory, relative);
-    pos2 = getParameterValue(pos2, modes, memory, relative);
-    pos3 = getParameterValue(pos3, modes, memory, relative, [IMMEDIATE]); //
-
-    let writeVal = getValueAtLocation(pos1, memory) === getValueAtLocation(pos2, memory) ? 1n : 0n;
-    memory[pos3] = writeVal;
-}
-
-function getRelativeModifier(pos1, memory, modes, relative) {
-    // console.log('pre-pos-gr: ' + pos1 + ' relative: ' + relative)
-    pos1 = getParameterValue(pos1, modes, memory, relative);
-    // console.log('pos-gr: ' + pos1 + ' val: ' + getValueAtLocation(pos1, memory))
-    return getValueAtLocation(pos1, memory);
-}
-
-function getValueAtLocation(pos, memory) {
-    let value = memory[pos];
-    return value ?? DEFAULT_MEMORY_VALUE;
-}
+module.exports = {
+    IntCode: IntCode,
+};

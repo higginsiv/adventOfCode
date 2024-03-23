@@ -1,7 +1,7 @@
-module.exports = {solve: solve};
-const { IntCode } = require('../common/IntCode2.js');
+module.exports = { solve: solve };
+const { IntCode } = require('../common/IntCode.js');
 
-function solve({lines, rawData}) {
+function solve({ lines, rawData }) {
     const answer = new IntCode(rawData, new Map(), 0, [2], []).run().output.pop();
-    return {value: answer};
+    return { value: answer };
 }

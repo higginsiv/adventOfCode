@@ -1,5 +1,5 @@
 module.exports = { solve: solve };
-const { IntCode } = require('../common/IntCode2.js');
+const { IntCode } = require('../common/IntCode.js');
 const [EMPTY, WALL, BLOCK, HOR_PADDLE, BALL] = [0, 1, 2, 3, 4];
 const [LEFT, NEUTRAL, RIGHT] = [-1, 0, 1];
 
