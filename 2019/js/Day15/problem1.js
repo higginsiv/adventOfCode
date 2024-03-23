@@ -31,11 +31,13 @@ function solve({ lines, rawData }) {
         const { output, pointer, memory, relative } = ic.run();
 
         const out = output.pop();
+        grid.get(getKey(current.x, current.y)).type = out;
+
         if (out === 2) {
             answer = current.steps;
             break;
         }
-        
+
         if (out === 0) {
             continue;
         }
@@ -59,7 +61,6 @@ function solve({ lines, rawData }) {
                     steps: current.steps + 1,
                     x: neighbor.x,
                     y: neighbor.y,
-                    type: output,
                 });
                 queue.push({
                     x: neighbor.x,
