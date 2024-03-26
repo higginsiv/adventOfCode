@@ -10,7 +10,7 @@ function solve({ lines, rawData }) {
             input.push(i);
             input.push(j);
             let { output } = new IntCode(rawData, null, 0, input, []).run();
-            answer += output.pop();
+            answer += output[0];
         }
     }
 
