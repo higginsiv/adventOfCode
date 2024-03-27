@@ -11,12 +11,23 @@ function solve({ lines, rawData }) {
         [0, 99],
     ];
 
+    let baseMemory = rawData.split(',').map(Number);
+
     let hasHitBeamOnRow = false;
     let furthestLeftX = 0;
+    let input = [];
+    let output = [];
+    let ic = new IntCode(rawData, null, 0, input, output);
     while (true) {
         let hasBeam = false;
-
-        let { output } = new IntCode(rawData, null, 0, [x, y], []).run();
+        input.push(x);
+        input.push(y);
+        ic.setState({
+            memory: baseMemory.slice(),
+            relative: 0,
+            pointer: 0,
+        });
+        let { output } = ic.run();
         let result = output.pop();
         if (result === 1) {
             hasBeam = true;
@@ -30,14 +41,15 @@ function solve({ lines, rawData }) {
             let allCorners = true;
             for (let i = 0; i < corners.length; i++) {
                 let corner = corners[i];
-                let { output } = new IntCode(
-                    rawData,
-                    null,
-                    0,
-                    [x + corner[0], y + corner[1]],
-                    [],
-                ).run();
-                let result = output[0];
+                input.push(x + corner[0]);
+                input.push(y + corner[1]);
+                ic.setState({
+                    memory: baseMemory.slice(),
+                    relative: 0,
+                    pointer: 0,
+                });
+                let { output } = ic.run();
+                let result = output.pop();
                 if (result !== 1) {
                     allCorners = false;
                     break;
