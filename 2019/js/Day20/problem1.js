@@ -33,16 +33,16 @@ function solve({ lines, rawData }) {
                             let portal;
                             if (n === 0) {
                                 portal = char + neighbor;
-                                grid[i][j].char = portal;
-                                grid[ni][nj].char = ' ';
+                                grid[i][j].char = ' ';
+                                grid[ni][nj].char = portal;
                             } else if (n === 1) {
                                 portal = neighbor + char;
-                                grid[i][j].char = portal;
-                                grid[ni][nj].char = ' ';
+                                grid[i][j].char = '';
+                                grid[ni][nj].char = portal;
                             } else if (n === 2) {
                                 portal = char + neighbor;
-                                grid[i][j].char = portal;
-                                grid[ni][nj].char = ' ';
+                                grid[i][j].char = ' ';
+                                grid[ni][nj].char = portal;
                             } else if (n === 3) {
                                 portal = neighbor + char;
                                 grid[i][j].char = portal;
@@ -72,8 +72,8 @@ function solve({ lines, rawData }) {
         let current = queue.shift();
         let [i, j] = current.position;
         let steps = current.steps;
-        let best = grid[i][j].best;
         if (i === target[0] && j === target[1]) {
+            console.log('reached')
             answer = steps;
             break;
         }
@@ -101,17 +101,20 @@ function solve({ lines, rawData }) {
                 let portal = portals.get(neighborChar);
                 // console.log(portal)
                 if (portal) {
-                    if (portal.length !== 2) {
-                        queue.push({ position: portal[0], steps: steps });
+                    if (neighborChar === 'ZZ') {
+                        console.log('DONE',portal[0])
+                        queue.push({ position: portal[0], steps: steps + 1 });
                         return;
                     }
                     let [pi, pj] = portal[0];
                     if (pi === ni && pj === nj) {
                         [pi, pj] = portal[1];
                     }
-                    if (steps + 1 < best) {
+                    if (steps < grid[pi][pj].best) {
+                        console.log('portal time', pi, pj, steps);
                         grid[pi][pj].best = steps;
                         queue.push({ position: [pi, pj], steps: steps });
+                        console.log(queue)
                     }
                 }
             }
