@@ -29,6 +29,7 @@ function solve({ lines, rawData }) {
                     const nj = j + dj;
                     if (ni >= 0 && ni < grid.length && nj >= 0 && nj < grid[ni].length) {
                         const neighbor = grid[ni][nj].char;
+                        // TODO double check these are right. weird that only 1 is setting the primary indices to portal 
                         if (neighbor.match(/[A-Z]/)) {
                             let portal;
                             if (n === 0) {
@@ -37,7 +38,7 @@ function solve({ lines, rawData }) {
                                 grid[ni][nj].char = portal;
                             } else if (n === 1) {
                                 portal = neighbor + char;
-                                grid[i][j].char = '';
+                                grid[i][j].char = ' ';
                                 grid[ni][nj].char = portal;
                             } else if (n === 2) {
                                 portal = char + neighbor;
@@ -49,6 +50,18 @@ function solve({ lines, rawData }) {
                                 grid[ni][nj].char = ' ';
                             }
 
+                            // TODO finalize this logic to correctly set the portal values
+                            for (let ne = 0; ne < neighbors.length; ne++) {
+                                let [dne, dnj] = neighbors[ne];
+                                const nni = ni + dne;
+                                const nnj = nj + dnj;
+                                if (nni >= 0 && nni < grid.length && nnj >= 0 && nnj < grid[nni].length) {
+                                    const nneighbor = grid[nni][nnj].char;
+                                    if (nneighbor === '.') {
+                                        grid[nni][nnj].char = portal;
+                                    }
+                                }
+                            }
                             if (portals.has(portal)) {
                                 portals.get(portal).push([i, j]);
                             } else {
@@ -62,16 +75,19 @@ function solve({ lines, rawData }) {
     }
 
     console.log(portals);
+    console.log(grid[129][45]);
+    console.log(grid[130][45]);
     let position = portals.get('AA')[0];
     let target = portals.get('ZZ')[0];
     grid[position[0]][position[1]].best = 0;
-    let queue = [{ position, steps: -2 }];
+    let queue = [{ position, steps: 0 }];
     let answer = null;
     while (queue.length > 0) {
         // console.log(queue.length)
         let current = queue.shift();
         let [i, j] = current.position;
         let steps = current.steps;
+        // console.log(steps)
         if (i === target[0] && j === target[1]) {
             console.log('reached')
             answer = steps;
@@ -83,24 +99,29 @@ function solve({ lines, rawData }) {
             if (ni < 0 || ni >= grid.length || nj < 0 || nj >= grid[ni].length) {
                 return;
             }
+
             let neighbor = grid[ni][nj];
-            if (neighbor.char !== '#' && neighbor.char !== '.' ) console.log(neighbor.char)
-            if (i === 128 && j === 51) {
-                console.log(ni, nj, neighbor.char);
+            if (neighbor.best == null) {
+                console.log('error')
             }
+            if (steps + 1 >= neighbor.best) {
+                return;
+            }
+
             let neighborChar = neighbor.char;
             if (neighborChar === '.') {
                 if (steps + 1 < neighbor.best) {
                     neighbor.best = steps + 1;
                     queue.push({ position: [ni, nj], steps: steps + 1 });
                 }
-            } else if (neighborChar === '#') {
+            } else if (neighborChar === '#' || neighborChar === ' ') {
                 return;
             } else {
                 // console.log(neighborChar);
                 let portal = portals.get(neighborChar);
                 // console.log(portal)
                 if (portal) {
+                    console.log('portal' + neighborChar, ni, nj, steps + 1, grid[ni][nj].best)
                     if (neighborChar === 'ZZ') {
                         console.log('DONE',portal[0])
                         queue.push({ position: portal[0], steps: steps + 1 });
@@ -110,11 +131,9 @@ function solve({ lines, rawData }) {
                     if (pi === ni && pj === nj) {
                         [pi, pj] = portal[1];
                     }
-                    if (steps < grid[pi][pj].best) {
-                        console.log('portal time', pi, pj, steps);
-                        grid[pi][pj].best = steps;
-                        queue.push({ position: [pi, pj], steps: steps });
-                        console.log(queue)
+                    if (steps + 1 < grid[pi][pj].best) {
+                        grid[pi][pj].best = steps + 1;
+                        queue.push({ position: [pi, pj], steps: steps + 1 });
                     }
                 }
             }
