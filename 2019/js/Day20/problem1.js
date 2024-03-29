@@ -76,7 +76,6 @@ function solve({ lines, rawData }) {
         let [i, j] = current.position;
         let steps = current.steps;
         if (i === target[0] && j === target[1]) {
-            console.log('reached');
             answer = steps;
             break;
         }
@@ -123,4 +122,3 @@ function solve({ lines, rawData }) {
 
     return { value: answer };
 }
-// 634 too high
