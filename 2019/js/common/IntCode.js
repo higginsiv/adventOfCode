@@ -34,6 +34,14 @@ class IntCode {
         this.output = output;
     }
 
+    // Add lines of ASCII input to IC input
+    addAsciiInput(inputLines) {
+        inputLines.forEach(line => {
+            this.input.push(...line.split('').map((char) => char.charCodeAt(0)));
+            this.input.push(10);
+        })
+    }
+
     setState(state) {
         this.memory = state.memory;
         this.pointer = state.pointer;
