@@ -70,7 +70,7 @@ function solve({ lines, rawData }) {
     let target = portals.get('ZZ')[0];
     grid[position[0]][position[1]].best.set(0, 0);
     // Start at -2 because of "steps" jumping off of portal AA and on portal ZZ
-    let queue = new PriorityQueue({position, steps: -2, level: 0, portalsTrav: []}, (a, b) => {
+    let queue = new PriorityQueue({ position, steps: -2, level: 0, portalsTrav: [] }, (a, b) => {
         let levelDiff = b.level - a.level;
         if (levelDiff !== 0) {
             return levelDiff;
@@ -78,22 +78,13 @@ function solve({ lines, rawData }) {
         return a.steps - b.steps;
     });
 
-    console.log(grid.length, grid[0].length)
     let answer = null;
     while (queue.isNotEmpty()) {
-        // console.log(queue.items)
-        if (queue.items.length > 10) {
-            break;
-        }
         let current = queue.next();
         let [i, j] = current.position;
         let steps = current.steps;
         let level = current.level;
-        let portalsTrav = current.portalsTrav;
-        // console.log(level)
         if (i === target[0] && j === target[1]) {
-            console.log('found', grid[i][j], level)
-            console.log(current.portalsTrav)
             answer = steps;
             break;
         }
@@ -114,37 +105,38 @@ function solve({ lines, rawData }) {
             if (neighborChar === '.') {
                 if (steps + 1 < (neighbor.best.get(level) ?? Infinity)) {
                     neighbor.best.set(level, steps + 1);
-                    queue.insert({ position: [ni, nj], steps: steps + 1, level: level, portalsTrav: portalsTrav.slice() });
+                    queue.insert({ position: [ni, nj], steps: steps + 1, level: level });
                 }
-            } else if (neighborChar === '#' || neighborChar === ' ' || (neighborChar === 'ZZ' && level !== 0) || (neighborChar === 'AA' && level !== 0)) {
+            } else if (
+                neighborChar === '#' ||
+                neighborChar === ' ' ||
+                (neighborChar === 'ZZ' && level !== 0) ||
+                (neighborChar === 'AA' && level !== 0)
+            ) {
                 return;
             } else {
                 let portal = portals.get(neighborChar);
                 if (portal) {
                     if (neighborChar === 'ZZ') {
-                        queue.insert({ position: portal[0], steps: steps + 1, level: level, portalsTrav: portalsTrav.slice() });
+                        queue.insert({ position: portal[0], steps: steps + 1, level: level });
                         return;
                     }
                     const increment = getIncrement(ni, nj, grid);
                     if (increment === 1 && neighborChar !== 'AA' && level === 0) {
+                        // treat as a wall
                         return;
                     }
-                    console.log(increment, neighborChar, level, steps, ni, nj)
-
 
                     let [pi, pj] = portal[0];
                     if (pi === ni && pj === nj) {
                         [pi, pj] = portal[1];
                     }
-                    grid[ni][nj].best.set(level, steps);
+
+                    grid[ni][nj].best.set(level, steps + 1);
                     let newLevel = level + increment;
-                    if (steps < (grid[pi][pj].best.get(newLevel) ?? Infinity)){
-                        console.log(neighborChar)
+                    if (steps < (grid[pi][pj].best.get(newLevel) ?? Infinity)) {
                         grid[pi][pj].best.set(newLevel, steps);
-                        let newPortalsTrav = portalsTrav.slice();
-                        newPortalsTrav.push(neighborChar);
-                        newPortalsTrav.push(newLevel)
-                        queue.insert({ position: [pi, pj], steps: steps, level: newLevel, portalsTrav: newPortalsTrav});
+                        queue.insert({ position: [pi, pj], steps: steps, level: newLevel });
                     }
                 }
             }
@@ -160,4 +152,3 @@ function getIncrement(row, col, grid) {
     }
     return -1;
 }
-// 624 too low
