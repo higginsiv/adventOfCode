@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "async": "^3.2.4",
+    "bigint-crypto-utils": "^3.3.0",
     "z3-solver": "^4.12.4"
   },
   "devDependencies": {
