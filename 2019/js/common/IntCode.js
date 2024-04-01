@@ -21,7 +21,9 @@ class IntCode {
     input;
     output;
     relative = 0;
-    constructor(rawData, modifications, pointer, input = [], output = []) {
+    singleTick = false;
+    waitForInput = true;
+    constructor(rawData, modifications, pointer, input = [], output = [], singleTick = false, waitForInput = true) {
         this.memory = rawData.split(',').map((x) => Number(x));
         if (modifications) {
             for (let [key, value] of modifications.entries()) {
@@ -69,13 +71,15 @@ class IntCode {
                         parameterModes,
                         this.input
                     );
+
                     if (waiting === WAITING) {
                         return {
                             memory: memory,
                             input: this.input,
                             output: this.output,
                             pointer: pointer,
-                            complete: false
+                            complete: false,
+                            waiting: true
                         };
                     }
                     increment = 2;
@@ -111,6 +115,17 @@ class IntCode {
             if (opCode !== OP_99) {
                 pointer += increment;
                 [opCode, parameterModes] = this.getOpCodeAndParameterModes(pointer, memory);
+            }
+
+            if (this.singleTick) {
+                return {
+                    memory: memory,
+                    input: this.input,
+                    output: this.output,
+                    pointer: pointer,
+                    complete: false,
+                    waiting: false
+                };
             }
         }
 
@@ -179,11 +194,20 @@ class IntCode {
     }
 
     saveInput(pointer, memory, modes, input) {
-        if (input.length === 0) {
+        if (input.length === 0 && this.waitForInput) {
             return WAITING;
         }
+
         let pos = this.getParameterValue(pointer + 1, memory, modes, [IMMEDIATE]);
-        memory[pos] = input.shift();
+
+        let nextInput;
+        if (input.length === 0) {
+            nextInput = -1;
+        } else {
+            nextInput = input.shift();
+        }
+
+        memory[pos] = nextInput;
     }
 
     postOutput(pointer, memory, modes, output) {
