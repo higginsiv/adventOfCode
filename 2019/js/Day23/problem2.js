@@ -13,8 +13,8 @@ function solve({ lines, rawData }) {
         computers.push(new IntCode(rawData, null, 0, inputs[i], [], true, false));
     }
 
-    let lastNatY = null;
-    let lastNatYDelivered = null;
+    let lastNat = { x: null, y: null};
+    let lastNatDelivered = { x: null, y: null};
 
     let answer = null;
     outer: while (true) {
@@ -43,15 +43,15 @@ function solve({ lines, rawData }) {
             }
         }
 
-        if (idle.every((x) => x === true)) {
-            if (lastNatYDelivered === lastNatY) {
-                console.log('Delivered', lastNatY)
-                answer = lastNatY;
+        if (idle.every((x) => x === true) && lastNat.x !== null && lastNat.y !== null) {
+            if (lastNatDelivered.y === lastNat.y) {
+                console.log('Delivered', lastNat)
+                answer = lastNat.y;
                 break outer;
             }
-            inputs[0].push(x);
-            inputs[0].push(y);
-            lastNatYDelivered = lastNatY;
+            inputs[0].push(lastNat.x);
+            inputs[0].push(lastNat.y);
+            lastNatDelivered = lastNat;
         }
     }
 
