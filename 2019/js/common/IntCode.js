@@ -23,6 +23,10 @@ class IntCode {
     relative = 0;
     singleTick = false;
     waitForInput = true;
+    complete = false;
+    // TODO this can be cleaner
+    failedInput = false;
+    // TODO make this constructor an object with named parameters
     constructor(rawData, modifications, pointer, input = [], output = [], singleTick = false, waitForInput = true) {
         this.memory = rawData.split(',').map((x) => Number(x));
         if (modifications) {
@@ -34,6 +38,8 @@ class IntCode {
         this.pointer = pointer;
         this.input = input;
         this.output = output;
+        this.singleTick = singleTick;
+        this.waitForInput = waitForInput;
     }
 
     // Add lines of ASCII input to IC input
@@ -49,7 +55,12 @@ class IntCode {
         this.pointer = state.pointer;
     }
 
+    isComplete() {
+        return this.complete;
+    }
+
     run() {
+        // TODO do I need the second pointer variable?
         let pointer = this.pointer;
         let memory = this.memory;
         let [opCode, parameterModes] = this.getOpCodeAndParameterModes(pointer, memory);
@@ -78,7 +89,7 @@ class IntCode {
                             input: this.input,
                             output: this.output,
                             pointer: pointer,
-                            complete: false,
+                            complete: this.complete,
                             waiting: true
                         };
                     }
@@ -118,22 +129,24 @@ class IntCode {
             }
 
             if (this.singleTick) {
+                this.pointer = pointer;
                 return {
                     memory: memory,
                     input: this.input,
                     output: this.output,
                     pointer: pointer,
-                    complete: false,
+                    complete: this.complete,
                     waiting: false
                 };
             }
         }
 
+        this.complete = true;
         return {
             memory: memory,
             input: this.input,
             output: this.output,
-            complete: true,
+            complete: this.complete,
         };
     }
 
@@ -203,8 +216,10 @@ class IntCode {
         let nextInput;
         if (input.length === 0) {
             nextInput = -1;
+            this.failedInput = true;
         } else {
             nextInput = input.shift();
+            this.failedInput = false;
         }
 
         memory[pos] = nextInput;
