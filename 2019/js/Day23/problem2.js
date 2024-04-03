@@ -10,12 +10,12 @@ function solve({ lines, rawData }) {
     let computers = [];
     for (let i = 0; i < NUM_COMPUTERS; i++) {
         inputs[i].push(i);
+        // TODO instead of single tick can we go until an input/output is needed?
         computers.push(new IntCode(rawData, null, 0, inputs[i], [], true, false));
     }
 
     let lastNat = { x: null, y: null};
     let lastNatDelivered = { x: -1, y: null};
-    let count = 0;
 
     let answer = null;
     outer: while (true) {
@@ -40,24 +40,12 @@ function solve({ lines, rawData }) {
                     idle[address] = false;
                 }
             } else {
-                // TODO single tick mode means we can't just check the output. Every tick won't have output.
-                idle[i] = output.length === 0 && computer.input.length === 0;
-            }
-        }
-        if (lastNat.y == 13758) {
-            let index = idle.indexOf(false);
-            if (index === -1) {
-                console.log('All idle', count, lastNat, lastNatDelivered)
-            } else {
-                console.log('Last NAT:', lastNat, lastNatDelivered, count, inputs[index], computers[index].failedInput, computers[index].output);
-
+                idle[i] = output.length === 0 && computer.input.length === 0 && computer.failedInput === true;
             }
         }
 
         if (idle.indexOf(false) == -1 && lastNat.x !== null && lastNat.y !== null) {
-            count++;
             if (lastNatDelivered.y === lastNat.y && lastNat.y != null) {
-                console.log('Delivered', lastNat, lastNatDelivered, count, inputs[0])
                 answer = lastNat.y;
                 break outer;
             }
@@ -66,17 +54,11 @@ function solve({ lines, rawData }) {
             let setNull = lastNatDelivered.x === null;
             lastNatDelivered.x = lastNat.x;
             lastNatDelivered.y = lastNat.y;
-            if (lastNatDelivered.y == null) {
-                console.log('setting to null')
-            }
-            // console.log('SET', lastNatDelivered)
-
+        
             if (setNull) {
                 lastNat = { x: null, y: null};
             }
-        } else {
-            count = 0;
-        }
+        } 
     }
 
     return { value: answer };
