@@ -2,7 +2,7 @@ module.exports = { solve: solve };
 
 function solve({ lines, rawData }) {
     const [BUG, EMPTY] = [1, 0];
-    const MINUTES = 10;
+    const MINUTES = 200;
     let grids = new Map();
     let grid = lines.map((line) => line.split('').map((char) => (char === '#' ? 1 : 0)));
     grids.set(0, grid);
@@ -38,28 +38,26 @@ function solve({ lines, rawData }) {
             let newGrid = newGrids.get(level).map((row) => row.slice());
             for (let y = 0; y < grid.length; y++) {
                 for (let x = 0; x < grid[y].length; x++) {
+                    if (x === 2 && y === 2) {
+                        continue;
+                    }
                     let bugNeighbors = 0;
                     let neighbors = getNeighbors(level, x, y);
-                    neighbors.forEach(([level, x, y]) => {
-                        if (!newGrids.has(level)) {
-                            newGrids.set(
-                                level,
-                                Array.from({ length: 5 }, () => Array.from({ length: 5 }, () => 0)),
-                            );
-                        } else if (level < lowestLevel || level > highestLevel) {
+                    neighbors.forEach(([neighborLevel, x, y]) => {
+                        if (neighborLevel < lowestLevel || neighborLevel > highestLevel) {
                             return;
                         } else {
-                            const grid = grids.get(level);
-                            // console.log(level, x, y)
-                            // console.log(grid)
+                            const grid = grids.get(neighborLevel);
                             const value = grid != null ? grid[y][x] : 0;
                             bugNeighbors += value;
                         }
                     });
-                    
-                    if (grid[y][x] === BUG && bugNeighbors !== 1) {
+
+                    const grid = grids.get(level);
+                    const cell = grid != null ? grid[y][x] : EMPTY;
+                    if (cell === BUG && bugNeighbors !== 1) {
                         newGrid[y][x] = EMPTY;
-                    } else if (grid[y][x] === EMPTY && (bugNeighbors === 1 || bugNeighbors === 2)) {
+                    } else if (cell === EMPTY && (bugNeighbors === 1 || bugNeighbors === 2)) {
                         newGrid[y][x] = BUG;
                     }
                 }
@@ -115,5 +113,3 @@ function solve({ lines, rawData }) {
     }, 0);
     return { value: answer };
 }
-
-// 1109 too low
