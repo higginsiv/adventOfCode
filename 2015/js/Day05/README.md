@@ -1,5 +1,3 @@
-Advent of Code[About][Events][Shop][Settings][Log Out]William Higgins 12*
-          2015[Calendar][AoC++][Sponsors][Leaderboard][Stats]
 --- Day 5: Doesn't He Have Intern-Elves For This? ---
 Santa needs help figuring out which strings in his text file are naughty or nice.
 
