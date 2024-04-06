@@ -1,25 +1,23 @@
-console.time();
-const fr = require('../../../tools/fileReader');
+module.exports = { solve: solve };
 const crypto = require('crypto');
 
-const [year, day, part] = ['2015', '04', '1'];
-const START_GOAL = '00000';
+function solve({ lines, rawData }) {
+    const START_GOAL = '00000';
+    const input = rawData;
+    let num = 0;
 
-const input = fr.getInput(year, day)[0];
+    while (true) {
+        let hashed = crypto
+            .createHash('md5')
+            .update(input + num)
+            .digest('hex');
 
-let num = 0;
-
-while (true) {
-    let hashed = crypto
-        .createHash('md5')
-        .update(input + num)
-        .digest('hex');
-
-    if (hashed.startsWith(START_GOAL)) {
-        break;
+        if (hashed.startsWith(START_GOAL)) {
+            break;
+        }
+        num++;
     }
-    num++;
-}
 
-console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + num);
-console.timeEnd();
+    const answer = num;
+    return { value: answer };
+}
