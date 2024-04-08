@@ -1,55 +1,54 @@
-console.time();
-const fr = require('../../../tools/fileReader');
+module.exports = { solve: solve };
 
-const [year, day, part] = ['2015', '07', '1'];
+function solve({ lines, rawData }) {
+    let gates = new Map();
 
-let gates = new Map();
+    lines
+        .map((x) => x.split(' -> '))
+        .forEach((x) => {
+            gates.set(x[1], x[0]);
+        });
 
-fr.getInput(year, day)
-    .map((x) => x.split(' -> '))
-    .forEach((x) => {
-        gates.set(x[1], x[0]);
-    });
+    function traverse(key) {
+        let input = gates.get(key);
 
-function traverse(key) {
-    let input = gates.get(key);
+        // Key is a number
+        if (input == null) {
+            return key;
+        }
 
-    // Key is a number
-    if (input == null) {
-        return key;
+        // Signal input to key was a number
+        if (!isNaN(input)) {
+            return input;
+        }
+
+        input = input.split(' ');
+
+        let retValue;
+        if (input.length == 1) {
+            retValue = traverse(input[0]);
+        } else if (input.length == 2) {
+            retValue = ~traverse(input[1]);
+        } else if (input[1] == 'AND') {
+            retValue = traverse(input[0]) & traverse(input[2]);
+        } else if (input[1] == 'OR') {
+            retValue = traverse(input[0]) | traverse(input[2]);
+        } else if (input[1] == 'LSHIFT') {
+            retValue = traverse(input[0]) << traverse(input[2]);
+        } else if (input[1] == 'RSHIFT') {
+            retValue = traverse(input[0]) >> traverse(input[2]);
+        } else {
+            console.log('error parsing instruction: ' + input);
+        }
+
+        gates.set(key, retValue);
+        return retValue;
     }
 
-    // Signal input to key was a number
-    if (!isNaN(input)) {
-        return input;
+    let answer = traverse('a');
+    if (answer < 0) {
+        answer += 65536;
     }
 
-    input = input.split(' ');
-
-    let retValue;
-    if (input.length == 1) {
-        retValue = traverse(input[0]);
-    } else if (input.length == 2) {
-        retValue = ~traverse(input[1]);
-    } else if (input[1] == 'AND') {
-        retValue = traverse(input[0]) & traverse(input[2]);
-    } else if (input[1] == 'OR') {
-        retValue = traverse(input[0]) | traverse(input[2]);
-    } else if (input[1] == 'LSHIFT') {
-        retValue = traverse(input[0]) << traverse(input[2]);
-    } else if (input[1] == 'RSHIFT') {
-        retValue = traverse(input[0]) >> traverse(input[2]);
-    } else {
-        console.log('error parsing instruction: ' + input);
-    }
-
-    gates.set(key, retValue);
-    return retValue;
+    return { value: answer };
 }
-
-let answer = traverse('a');
-if (answer < 0) {
-    answer += 65536;
-}
-console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
-console.timeEnd();
