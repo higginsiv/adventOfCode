@@ -1,22 +1,22 @@
 // This problem uses bitmasks even though it is more complicated than necessary just for practice with them.
 // TODO go back thru these for speed improvements
-module.exports = {solve: solve};
+module.exports = { solve: solve };
 
-function solve({lines, rawData}) {
+function solve({ lines, rawData }) {
     let bitmasks = new Map();
     const DATA = lines.map(Number).reverse();
-    
+
     DATA.forEach((curr, i) => {
         bitmasks.set(curr, 1 << i);
     });
     const goalWeight = DATA.reduce((total, curr) => total + curr, 0) / 4;
-    
+
     let combinations = [];
     let bestToGoalWeight = Infinity;
     let bestQE = Infinity;
-    
+
     getCombinations(DATA.slice(), 0, [0, 0, 0, 0], 0, goalWeight, 0, 0);
-    
+
     function getNumberOfPresents(bucket) {
         let total = 0;
         let presents = bucket.toString(2).match(/1/g);
@@ -25,7 +25,7 @@ function solve({lines, rawData}) {
         }
         return total;
     }
-    
+
     function getCombinations(
         arr,
         currentWeight,
@@ -36,11 +36,11 @@ function solve({lines, rawData}) {
         furthestInBucket,
     ) {
         if (bestToGoalWeight < getNumberOfPresents(buckets[0])) return;
-    
+
         for (let i = furthestInBucket; i < arr.length; i++) {
             const curr = arr[i];
             if (visited & bitmasks.get(curr)) continue;
-    
+
             const potentialWeight = currentWeight + curr;
             let newBuckets = buckets.slice();
             if (potentialWeight < goalWeight) {
@@ -98,7 +98,7 @@ function solve({lines, rawData}) {
             }
         }
     }
-    
+
     function getQE(bucket) {
         let qe = 1;
         bitmasks.forEach((value, key) => {
@@ -108,15 +108,15 @@ function solve({lines, rawData}) {
         });
         return qe;
     }
-    
+
     combinations.sort((a, b) => {
         let aLength = a[0].toString(2).match(/1/g).length;
         let bLength = b[0].toString(2).match(/1/g).length;
-    
+
         if (aLength === bLength) {
             let aQE = 1;
             let bQE = 1;
-    
+
             bitmasks.forEach((value, key) => {
                 if (a[0] & value) {
                     aQE *= key;
@@ -131,7 +131,7 @@ function solve({lines, rawData}) {
         }
         return aLength - bLength;
     });
-    
+
     const answer = combinations[0][4];
-    return {value: answer};
+    return { value: answer };
 }
