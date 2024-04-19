@@ -1,54 +1,54 @@
-const fr = require('../../../tools/fileReader');
-const OUTPUT = require('../../../tools/output');
-const [YEAR, DAY, PART] = ['2016', '04', '2'];
-const Z = 'z'.charCodeAt(0);
-const ALPHA_LENGTH = 26;
+module.exports = { solve: solve };
 
-const DATA = fr.getInput(YEAR, DAY).map((x) => {
-    const [letters, sector, checksum] = x.match(/([a-z-]+)-(\d+)\[([a-z]+)\]/).slice(1);
-    return { letters, sector: parseInt(sector), checksum };
-});
+function solve({ lines, rawData }) {
+    const Z = 'z'.charCodeAt(0);
+    const ALPHA_LENGTH = 26;
 
-let answer;
-for (room of DATA) {
-    const letters = room.letters.replace(/-/g, '').split('');
-    const counts = letters.reduce((total, current) => {
-        if (total[current] == null) {
-            total[current] = 0;
-        }
-
-        total[current]++;
-        return total;
-    }, {});
-
-    const sorted = Object.keys(counts).sort((a, b) => {
-        if (counts[a] === counts[b]) {
-            return a.localeCompare(b);
-        }
-        return counts[b] - counts[a];
+    const DATA = lines.map((x) => {
+        const [letters, sector, checksum] = x.match(/([a-z-]+)-(\d+)\[([a-z]+)\]/).slice(1);
+        return { letters, sector: parseInt(sector), checksum };
     });
 
-    const checksum = sorted.slice(0, 5).join('');
-    if (checksum === room.checksum) {
-        const shift = room.sector % ALPHA_LENGTH;
-        const letters = room.letters.split('');
-        const decrypted = letters.map((x) => {
-            if (x === '-') {
-                return ' ';
+    let answer;
+    for (room of DATA) {
+        const letters = room.letters.replace(/-/g, '').split('');
+        const counts = letters.reduce((total, current) => {
+            if (total[current] == null) {
+                total[current] = 0;
             }
 
-            const code = x.charCodeAt(0) + shift;
-            if (code > Z) {
-                return String.fromCharCode(code - ALPHA_LENGTH);
+            total[current]++;
+            return total;
+        }, {});
+
+        const sorted = Object.keys(counts).sort((a, b) => {
+            if (counts[a] === counts[b]) {
+                return a.localeCompare(b);
             }
-            return String.fromCharCode(code);
+            return counts[b] - counts[a];
         });
 
-        if (decrypted.join('').includes('north')) {
-            answer = room.sector;
-            break;
+        const checksum = sorted.slice(0, 5).join('');
+        if (checksum === room.checksum) {
+            const shift = room.sector % ALPHA_LENGTH;
+            const letters = room.letters.split('');
+            const decrypted = letters.map((x) => {
+                if (x === '-') {
+                    return ' ';
+                }
+
+                const code = x.charCodeAt(0) + shift;
+                if (code > Z) {
+                    return String.fromCharCode(code - ALPHA_LENGTH);
+                }
+                return String.fromCharCode(code);
+            });
+
+            if (decrypted.join('').includes('north')) {
+                answer = room.sector;
+                break;
+            }
         }
     }
+    return { value: answer };
 }
-
-OUTPUT.output(YEAR, DAY, PART, answer);
