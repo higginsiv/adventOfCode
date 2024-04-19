@@ -1,32 +1,32 @@
-const fr = require('../../../tools/fileReader');
-const OUTPUT = require('../../../tools/output');
-const [YEAR, DAY, PART] = ['2016', '09', '1'];
+module.exports = { solve: solve };
 
-let decompressed = '';
-const DATA = fr.getInput(YEAR, DAY)[0].trim();
+function solve({ lines, rawData }) {
+    let decompressed = '';
+    const DATA = rawData.trim();
 
-let i = 0;
-while (i < DATA.length) {
-    if (DATA[i] === '(') {
-        let marker = '';
-        i++;
-        while (DATA[i] !== ')') {
-            marker += DATA[i];
+    let i = 0;
+    while (i < DATA.length) {
+        if (DATA[i] === '(') {
+            let marker = '';
+            i++;
+            while (DATA[i] !== ')') {
+                marker += DATA[i];
+                i++;
+            }
+            let [numChars, numRepeat] = marker.split('x').map(Number);
+            i++;
+
+            let toRepeat = DATA.substr(i, numChars);
+            for (let j = 0; j < numRepeat; j++) {
+                decompressed += toRepeat;
+            }
+            i += numChars;
+        } else {
+            decompressed += DATA[i];
             i++;
         }
-        let [numChars, numRepeat] = marker.split('x').map(Number);
-        i++;
-
-        let toRepeat = DATA.substr(i, numChars);
-        for (let j = 0; j < numRepeat; j++) {
-            decompressed += toRepeat;
-        }
-        i += numChars;
-    } else {
-        decompressed += DATA[i];
-        i++;
     }
-}
 
-let answer = decompressed.length;
-OUTPUT.output(YEAR, DAY, PART, answer);
+    const answer = decompressed.length;
+    return { value: answer };
+}
