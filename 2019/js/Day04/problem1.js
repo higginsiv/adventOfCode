@@ -1,30 +1,29 @@
-console.time();
-const fr = require('../../../tools/fileReader');
-const [year, day, part] = ['2019', '04', '1'];
-const [low, high] = fr.getInput(year, day, '-').map((x) => parseInt(x));
+module.exports = { solve: solve };
 
-let answer = 0;
-for (let i = low; i <= high; i++) {
-    let pass = i.toString().split('');
-    let ascDigs = true;
-    let twoAdj = false;
+function solve({ lines, rawData }) {
+    const [low, high] = rawData.split('-').map((x) => parseInt(x));
 
-    let lastDig;
-    while (pass.length > 0) {
-        let dig = parseInt(pass.shift());
-        if (lastDig && dig < lastDig) {
-            ascDigs = false;
-            break;
+    let answer = 0;
+    for (let i = low; i <= high; i++) {
+        let pass = i.toString().split('');
+        let ascDigs = true;
+        let twoAdj = false;
+
+        let lastDig;
+        while (pass.length > 0) {
+            let dig = parseInt(pass.shift());
+            if (lastDig && dig < lastDig) {
+                ascDigs = false;
+                break;
+            }
+            if (lastDig === dig) {
+                twoAdj = true;
+            }
+            lastDig = dig;
         }
-        if (lastDig === dig) {
-            twoAdj = true;
+        if (ascDigs && twoAdj) {
+            answer++;
         }
-        lastDig = dig;
     }
-    if (ascDigs && twoAdj) {
-        answer++;
-    }
+    return { value: answer };
 }
-
-console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
-console.timeEnd();
