@@ -1,20 +1,16 @@
-console.time();
-const fr = require('../../../tools/fileReader');
-const [year, day, part] = ['2019', '01', '2'];
-let answer = fr
-    .getInput(year, day)
-    .map((x) => parseInt(x))
-    .reduce((total, curr) => {
-        return total + calcFule(curr);
+module.exports = { solve: solve };
+
+function solve({ lines, rawData }) {
+    const answer = lines.map(Number).reduce((total, curr) => {
+        return total + calcFuel(curr);
     }, 0);
 
-function calcFule(mass) {
-    let fuel = Math.floor(mass / 3) - 2;
-    if (fuel <= 0) {
-        return 0;
+    function calcFuel(mass) {
+        let fuel = Math.floor(mass / 3) - 2;
+        if (fuel <= 0) {
+            return 0;
+        }
+        return fuel + calcFuel(fuel);
     }
-    return fuel + calcFule(fuel);
+    return { value: answer };
 }
-
-console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
-console.timeEnd();

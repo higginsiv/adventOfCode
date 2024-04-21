@@ -1,12 +1,8 @@
-console.time();
-const fr = require('../../../tools/fileReader');
-const [year, day, part] = ['2019', '01', '1'];
-let answer = fr
-    .getInput(year, day)
-    .map((x) => parseInt(x))
-    .reduce((total, curr) => {
-        return total + Math.floor(curr / 3) - 2;
+module.exports = { solve: solve };
+const { floor } = Math;
+function solve({ lines, rawData }) {
+    const answer = lines.map(Number).reduce((total, curr) => {
+        return total + floor(curr / 3) - 2;
     }, 0);
-
-console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
-console.timeEnd();
+    return { value: answer };
+}
