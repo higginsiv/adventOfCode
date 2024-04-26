@@ -51,12 +51,12 @@ const DATA = fr.getInput(YEAR,DAY);
 let answer;
 OUTPUT.output(YEAR, DAY, PART, answer);`;
     } else {
-        return `module.exports = {solve: solve};
+        return `module.exports = { solve: solve };
 
-function solve({lines, rawData}) {
+function solve({ lines, rawData }) {
 
     const answer = null;
-    return {value: answer};
+    return { value: answer };
 }`;
     }
 }
