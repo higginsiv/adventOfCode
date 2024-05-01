@@ -1,4 +1,4 @@
---- Day 11: Radioisotope Thermoelectric Generators ---
+#  Day 11: Radioisotope Thermoelectric Generators 
 You come upon a column of four floors that have been entirely sealed off from the rest of the building except for a small dedicated lobby. There are some radiation warnings and a big sign which reads "Radioisotope Testing Facility".
 
 According to the project status board, this facility is currently being used to experiment with Radioisotope Thermoelectric Generators (RTGs, or simply "generators") that are designed to be paired with specially-constructed microchips. Basically, an RTG is a highly radioactive rock that generates electricity through heat.
@@ -99,9 +99,9 @@ In this arrangement, it takes 11 steps to collect all of the objects at the four
 
 In your situation, what is the minimum number of steps required to bring all of the objects to the fourth floor?
 
-Your puzzle answer was 47.
+### Your puzzle answer was 47.
 
---- Part Two ---
+#  Part Two 
 You step into the cleanroom separating the lobby from the isolated area and put on the hazmat suit.
 
 Upon entering the isolated containment area, however, you notice some extra parts on the first floor that weren't listed on the record outside:
@@ -114,7 +114,7 @@ These work just like the other generators and microchips. You'll have to get the
 
 What is the minimum number of steps required to bring all of the objects, including these four new ones, to the fourth floor?
 
-Your puzzle answer was 71.
+### Your puzzle answer was 71.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

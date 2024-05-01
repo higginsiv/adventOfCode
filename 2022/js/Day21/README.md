@@ -1,4 +1,4 @@
---- Day 21: Monkey Math ---
+#  Day 21: Monkey Math 
 The monkeys are back! You're worried they're going to try to steal your stuff again, but it seems like they're just holding their ground and making various monkey noises at you.
 
 Eventually, one of the elephants realizes you don't speak monkey and comes over to interpret. As it turns out, they overheard you talking about trying to find the grove; they can show you a shortcut if you answer their riddle.
@@ -39,9 +39,9 @@ This process continues until root yells a number: 152.
 
 However, your actual situation involves considerably more monkeys. What number will the monkey named root yell?
 
-Your puzzle answer was 157714751182692.
+### Your puzzle answer was 157714751182692.
 
---- Part Two ---
+#  Part Two 
 Due to some kind of monkey-elephant-human mistranslation, you seem to have misunderstood a few key details about the riddle.
 
 First, you got the wrong job for the monkey named root; specifically, you got the wrong math operation. The correct operation for monkey root should be =, which means that it still listens for two numbers (from the same two monkeys as before), but now checks that the two numbers match.
@@ -52,7 +52,7 @@ In the above example, the number you need to yell to pass root's equality test i
 
 What number do you yell to pass root's equality test?
 
-Your puzzle answer was 3373767893067.
+### Your puzzle answer was 3373767893067.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

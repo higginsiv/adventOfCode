@@ -1,4 +1,4 @@
---- Day 21: Step Counter ---
+#  Day 21: Step Counter 
 You manage to catch the airship right as it's dropping someone else off on their all-expenses-paid trip to Desert Island! It even helpfully drops you off near the gardener and his massive farm.
 
 "You got the sand flowing again! Great work! Now we just need to wait until we have enough sand to filter the water for Snow Island and we'll have snow again in no time."
@@ -78,9 +78,9 @@ However, the Elf actually needs to get 64 steps today, and the map he's handed y
 
 Starting from the garden plot marked S on your map, how many garden plots could the Elf reach in exactly 64 steps?
 
-Your puzzle answer was 3762.
+### Your puzzle answer was 3762.
 
---- Part Two ---
+#  Part Two 
 The Elf seems confused by your answer until he realizes his mistake: he was reading from a list of his favorite numbers that are both perfect squares and perfect cubes, not his step counter.
 
 The actual number of steps he needs to get today is exactly 26501365.
@@ -135,7 +135,7 @@ In exactly 1000 steps, he can reach 668697 garden plots.
 In exactly 5000 steps, he can reach 16733044 garden plots.
 However, the step count the Elf needs is much larger! Starting from the garden plot marked S on your infinite map, how many garden plots could the Elf reach in exactly 26501365 steps?
 
-Your puzzle answer was 621944727930768.
+### Your puzzle answer was 621944727930768.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

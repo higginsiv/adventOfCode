@@ -1,4 +1,4 @@
---- Day 10: Cathode-Ray Tube ---
+#  Day 10: Cathode-Ray Tube 
 You avoid the ropes, plunge into the river, and swim to shore.
 
 The Elves yell something about meeting back up with them upriver, but the river is too loud to tell exactly what they're saying. They finish crossing the bridge and disappear from view.
@@ -187,9 +187,9 @@ The sum of these signal strengths is 13140.
 
 Find the signal strength during the 20th, 60th, 100th, 140th, 180th, and 220th cycles. What is the sum of these six signal strengths?
 
-Your puzzle answer was 14920.
+### Your puzzle answer was 14920.
 
---- Part Two ---
+#  Part Two 
 It seems like the X register controls the horizontal position of a sprite. Specifically, the sprite is 3 pixels wide, and the X register sets the horizontal position of the middle of that sprite. (In this system, there is no such thing as "vertical position": if the sprite's horizontal position puts its pixels where the CRT is currently drawing, then those pixels will be drawn.)
 
 You count the pixels on the CRT: 40 wide and 6 high. This CRT screen draws the top row of pixels left-to-right, then the row below that, and so on. The left-most pixel in each row is in position 0, and the right-most pixel in each row is in position 39.
@@ -312,7 +312,7 @@ Allowing the program to run to completion causes the CRT to produce the followin
 #######.......#######.......#######.....
 Render the image given by your program. What eight capital letters appear on your CRT?
 
-Your puzzle answer was BUCACBUZ.
+### Your puzzle answer was BUCACBUZ.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

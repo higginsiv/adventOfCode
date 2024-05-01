@@ -1,4 +1,4 @@
---- Day 17: Spinlock ---
+#  Day 17: Spinlock 
 Suddenly, whirling in the distance, you notice what looks like a massive, pixelated hurricane: a deadly spinlock. This spinlock isn't just consuming computing power, but memory, too; vast, digital mountains are being ripped from the ground and consumed by the vortex.
 
 If you don't move quickly, fixing that printer will be the least of your problems.
@@ -28,9 +28,9 @@ Perhaps, if you can identify the value that will ultimately be after the last va
 
 What is the value after 2017 in your completed circular buffer?
 
-Your puzzle answer was 1561.
+### Your puzzle answer was 1561.
 
---- Part Two ---
+#  Part Two 
 The spinlock does not short-circuit. Instead, it gets more angry. At least, you assume that's what happened; it's spinning significantly faster than it was a moment ago.
 
 You have good news and bad news.
@@ -41,7 +41,7 @@ The bad news is that while you were determining this, the spinlock has just fini
 
 What is the value after 0 the moment 50000000 is inserted?
 
-Your puzzle answer was 33454823.
+### Your puzzle answer was 33454823.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

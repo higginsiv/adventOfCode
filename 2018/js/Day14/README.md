@@ -1,4 +1,4 @@
---- Day 14: Chocolate Charts ---
+#  Day 14: Chocolate Charts 
 You finally have a chance to look at all of the produce moving around. Chocolate, cinnamon, mint, chili peppers, nutmeg, vanilla... the Elves must be growing these plants to make hot chocolate! As you realize this, you hear a conversation in the distance. When you go to investigate, you discover two Elves in what appears to be a makeshift underground kitchen/laboratory.
 
 The Elves are trying to come up with the ultimate hot chocolate recipe; they're even maintaining a scoreboard which tracks the quality score (0-9) of each recipe.
@@ -37,9 +37,9 @@ After 18 recipes, the scores of the next ten would be 9251071085.
 After 2018 recipes, the scores of the next ten would be 5941429882.
 What are the scores of the ten recipes immediately after the number of recipes in your puzzle input?
 
-Your puzzle answer was 7121102535.
+### Your puzzle answer was 7121102535.
 
---- Part Two ---
+#  Part Two 
 As it turns out, you got the Elves' plan backwards. They actually want to know how many recipes appear on the scoreboard to the left of the first recipes whose scores are the digits from your puzzle input.
 
 51589 first appears after 9 recipes.
@@ -48,7 +48,7 @@ As it turns out, you got the Elves' plan backwards. They actually want to know h
 59414 first appears after 2018 recipes.
 How many recipes appear on the scoreboard to the left of the score sequence in your puzzle input?
 
-Your puzzle answer was 20236441.
+### Your puzzle answer was 20236441.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

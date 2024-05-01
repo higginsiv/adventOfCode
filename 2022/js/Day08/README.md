@@ -1,4 +1,4 @@
---- Day 8: Treetop Tree House ---
+#  Day 8: Treetop Tree House 
 The expedition comes across a peculiar patch of tall trees all planted carefully in a grid. The Elves explain that a previous expedition planted these trees as a reforestation effort. Now, they're curious if this would be a good location for a tree house.
 
 First, determine whether there is enough tree cover here to keep a tree house hidden. To do this, you need to count the number of trees that are visible from outside the grid when looking directly along a row or column.
@@ -27,9 +27,9 @@ With 16 trees visible on the edge and another 5 visible in the interior, a total
 
 Consider your map; how many trees are visible from outside the grid?
 
-Your puzzle answer was 1807.
+### Your puzzle answer was 1807.
 
---- Part Two ---
+#  Part Two 
 Content with the amount of tree cover available, the Elves just need to know the best spot to build their tree house: they would like to be able to see a lot of trees.
 
 To measure the viewing distance from a given tree, look up, down, left, and right from that tree; stop if you reach an edge or at the first tree that is the same height or taller than the tree under consideration. (If a tree is right on the edge, at least one of its viewing distances will be zero.)
@@ -64,7 +64,7 @@ This tree's scenic score is 8 (2 * 2 * 1 * 2); this is the ideal spot for the tr
 
 Consider each tree on your map. What is the highest scenic score possible for any tree?
 
-Your puzzle answer was 480000.
+### Your puzzle answer was 480000.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

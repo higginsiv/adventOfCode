@@ -1,4 +1,4 @@
---- Day 11: Monkey in the Middle ---
+#  Day 11: Monkey in the Middle 
 As you finally start making your way upriver, you realize your pack is much lighter than you remember. Just then, one of the items from your pack goes flying overhead. Monkeys are playing Keep Away with your missing things!
 
 To get your stuff back, you need to be able to predict where the monkeys will throw your items. After some careful observation, you realize the monkeys operate based on how worried you are about each item.
@@ -210,9 +210,9 @@ In this example, the two most active monkeys inspected items 101 and 105 times. 
 
 Figure out which monkeys to chase by counting how many items they inspect over 20 rounds. What is the level of monkey business after 20 rounds of stuff-slinging simian shenanigans?
 
-Your puzzle answer was 61005.
+### Your puzzle answer was 61005.
 
---- Part Two ---
+#  Part Two 
 You're worried you might not ever get your items back. So worried, in fact, that your relief that a monkey's inspection didn't damage an item no longer causes your worry level to be divided by three.
 
 Unfortunately, that relief was all that was keeping your worry levels from reaching ridiculous levels. You'll need to find another way to keep your worry levels manageable.
@@ -296,7 +296,7 @@ After 10000 rounds, the two most active monkeys inspected items 52166 and 52013 
 
 Worry levels are no longer divided by three after each item is inspected; you'll need to find another way to keep your worry levels manageable. Starting again from the initial state in your puzzle input, what is the level of monkey business after 10000 rounds?
 
-Your puzzle answer was 20567144694.
+### Your puzzle answer was 20567144694.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

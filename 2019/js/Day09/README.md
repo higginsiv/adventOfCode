@@ -1,4 +1,4 @@
---- Day 9: Sensor Boost ---
+#  Day 9: Sensor Boost 
 You've just said goodbye to the rebooted rover and left Mars when you receive a faint distress signal coming from the asteroid belt. It must be the Ceres monitoring station!
 
 In order to lock on to the signal, you'll need to boost your sensors. The Elves send up the latest BOOST program - Basic Operation Of System Test.
@@ -33,9 +33,9 @@ The BOOST program will ask for a single input; run it in test mode by providing 
 
 Once your Intcode computer is fully functional, the BOOST program should report no malfunctioning opcodes when run in test mode; it should only output a single value, the BOOST keycode. What BOOST keycode does it produce?
 
-Your puzzle answer was 2436480432.
+### Your puzzle answer was 2436480432.
 
---- Part Two ---
+#  Part Two 
 You now have a complete Intcode computer.
 
 Finally, you can lock on to the Ceres distress signal! You just need to boost your sensors using the BOOST program.
@@ -44,7 +44,7 @@ The program runs in sensor boost mode by providing the input instruction the val
 
 Run the BOOST program in sensor boost mode. What are the coordinates of the distress signal?
 
-Your puzzle answer was 45710.
+### Your puzzle answer was 45710.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

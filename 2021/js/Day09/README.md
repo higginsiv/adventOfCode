@@ -1,4 +1,4 @@
---- Day 9: Smoke Basin ---
+#  Day 9: Smoke Basin 
 These caves seem to be lava tubes. Parts are even still volcanically active; small hydrothermal vents release smoke into the caves that slowly settles like rain.
 
 If you can model how the smoke flows through the caves, you might be able to avoid it and be that much safer. The submarine generates a heightmap of the floor of the nearby caves for you (your puzzle input).
@@ -20,9 +20,9 @@ The risk level of a low point is 1 plus its height. In the above example, the ri
 
 Find all of the low points on your heightmap. What is the sum of the risk levels of all low points on your heightmap?
 
-Your puzzle answer was 512.
+### Your puzzle answer was 512.
 
---- Part Two ---
+#  Part Two 
 Next, you need to find the largest basins so you know what areas are most important to avoid.
 
 A basin is all locations that eventually flow downward to a single low point. Therefore, every low point has a basin, although some basins are very small. Locations of height 9 do not count as being in any basin, and all other locations will always be part of exactly one basin.
@@ -61,4 +61,4 @@ Find the three largest basins and multiply their sizes together. In the above ex
 
 What do you get if you multiply together the sizes of the three largest basins?
 
-Your puzzle answer was 1600104.
+### Your puzzle answer was 1600104.

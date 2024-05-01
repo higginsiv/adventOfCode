@@ -1,4 +1,4 @@
---- Day 21: Allergen Assessment ---
+#  Day 21: Allergen Assessment 
 You reach the train's last stop and the closest you can get to your vacation island without getting wet. There aren't even any boats here, but nothing can stop you now: you build a raft. You just need a few days' worth of food for your journey.
 
 You don't speak the local language, so you can't read any ingredients lists. However, sometimes, allergens are listed in a language you do understand. You should be able to use this information to determine which ingredient contains which allergen and work out which foods are safe to take with you on your trip.
@@ -19,9 +19,9 @@ The first step is to determine which ingredients can't possibly contain any of t
 
 Determine which ingredients cannot possibly contain any of the allergens in your list. How many times do any of those ingredients appear?
 
-Your puzzle answer was 2826.
+### Your puzzle answer was 2826.
 
---- Part Two ---
+#  Part Two 
 Now that you've isolated the inert ingredients, you should have enough information to figure out which ingredient contains which allergen.
 
 In the above example:
@@ -33,7 +33,7 @@ Arrange the ingredients alphabetically by their allergen and separate them by co
 
 Time to stock your raft with supplies. What is your canonical dangerous ingredient list?
 
-Your puzzle answer was pbhthx,sqdsxhb,dgvqv,csnfnl,dnlsjr,xzb,lkdg,rsvlb.
+### Your puzzle answer was pbhthx,sqdsxhb,dgvqv,csnfnl,dnlsjr,xzb,lkdg,rsvlb.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

@@ -1,4 +1,4 @@
---- Day 18: Operation Order ---
+#  Day 18: Operation Order 
 As you look out the window and notice a heavily-forested continent slowly appear over the horizon, you are interrupted by the child sitting next to you. They're curious if you could help them with their math homework.
 
 Unfortunately, it seems like this "math" follows different rules than you remember.
@@ -31,9 +31,9 @@ Here are a few more examples:
 ((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2 becomes 13632.
 Before you can help with the homework, you need to understand it yourself. Evaluate the expression on each line of the homework; what is the sum of the resulting values?
 
-Your puzzle answer was 15285807527593.
+### Your puzzle answer was 15285807527593.
 
---- Part Two ---
+#  Part Two 
 You manage to answer the child's questions and they finish part 1 of their homework, but get stuck when they reach the next section: advanced math.
 
 Now, addition and multiplication have different precedence levels, but they're not the ones you're familiar with. Instead, addition is evaluated before multiplication.
@@ -55,7 +55,7 @@ Here are the other examples from above:
 ((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2 becomes 23340.
 What do you get if you add up the results of evaluating the homework problems using these new rules?
 
-Your puzzle answer was 461295257566346.
+### Your puzzle answer was 461295257566346.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

@@ -1,4 +1,4 @@
---- Day 22: Sporifica Virus ---
+#  Day 22: Sporifica Virus 
 Diagnostics indicate that the local grid computing cluster has been contaminated with the Sporifica Virus. The grid computing cluster is a seemingly-infinite two-dimensional grid of compute nodes. Each node is either clean or infected by the virus.
 
 To prevent overloading the nodes (which would render them useless to the virus) or detection by system administrators, exactly one virus carrier moves through the network, infecting or cleaning nodes as it moves. The virus carrier is always located on a single node in the network (the current node) and keeps track of the direction it is facing.
@@ -85,9 +85,9 @@ After a total of 10000 bursts of activity, 5587 bursts will have caused an infec
 
 Given your actual map, after 10000 bursts of activity, how many bursts cause a node to become infected? (Do not count nodes that begin infected.)
 
-Your puzzle answer was 5259.
+### Your puzzle answer was 5259.
 
---- Part Two ---
+#  Part Two 
 As you go to remove the virus from the infected nodes, it evolves to resist your attempt.
 
 Now, before it infects a clean node, it will weaken it to disable your defenses. If it encounters an infected node, it will instead flag the node to be cleaned in the future. So:
@@ -173,7 +173,7 @@ Of the first 100 bursts, 26 will result in infection. Unfortunately, another fea
 
 Given your actual map, after 10000000 bursts of activity, how many bursts cause a node to become infected? (Do not count nodes that begin infected.)
 
-Your puzzle answer was 2511722.
+### Your puzzle answer was 2511722.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

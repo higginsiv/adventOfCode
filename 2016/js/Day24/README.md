@@ -1,4 +1,4 @@
---- Day 24: Air Duct Spelunking ---
+#  Day 24: Air Duct Spelunking 
 You've finally met your match; the doors that provide access to the roof are locked tight, and all of the controls and related electronics are inaccessible. You simply can't reach them.
 
 The robot that cleans the air ducts, however, can.
@@ -24,14 +24,14 @@ Since the robot isn't very fast, you need to find it the shortest route. This pa
 
 Given your actual map, and starting from location 0, what is the fewest number of steps required to visit every non-0 number marked on the map at least once?
 
-Your puzzle answer was 460.
+### Your puzzle answer was 460.
 
---- Part Two ---
+#  Part Two 
 Of course, if you leave the cleaning robot somewhere weird, someone is bound to notice.
 
 What is the fewest number of steps required to start at 0, visit every non-0 number marked on the map at least once, and then return to 0?
 
-Your puzzle answer was 668.
+### Your puzzle answer was 668.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

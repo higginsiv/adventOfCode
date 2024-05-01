@@ -1,4 +1,4 @@
---- Day 15: Lens Library ---
+#  Day 15: Lens Library 
 The newly-focused parabolic reflector dish is sending all of the collected light to a point on the side of yet another mountain - the largest mountain on Lava Island. As you approach the mountain, you find that the light is being collected by the wall of a large facility embedded in the mountainside.
 
 You find a door under a large sign that says "Lava Production Facility" and next to a smaller sign that says "Danger - Personal Protective Equipment required beyond this point".
@@ -62,16 +62,16 @@ In this example, the sum of these results is 1320. Unfortunately, the reindeer h
 
 Run the HASH algorithm on each step in the initialization sequence. What is the sum of the results? (The initialization sequence is one long line; be careful when copy-pasting it.)
 
-Your puzzle answer was 505427.
+### Your puzzle answer was 505427.
 
---- Part Two ---
+#  Part Two 
 You convince the reindeer to bring you the page; the page confirms that your HASH algorithm is working.
 
 The book goes on to describe a series of 256 boxes numbered 0 through 255. The boxes are arranged in a line starting from the point where light enters the facility. The boxes have holes that allow light to pass from one box to the next all the way down the line.
 
       +-----+  +-----+         +-----+
 Light | Box |  | Box |   ...   | Box |
------------------------------------------>
+# ------------------------------------
       |  0  |  |  1  |   ...   | 255 |
       +-----+  +-----+         +-----+
 Inside each box, there are several lens slots that will keep a lens correctly positioned to focus light passing through the box. The side of each box has a panel that opens to allow you to insert or remove lenses as necessary.
@@ -150,7 +150,7 @@ So, the above example ends up with a total focusing power of 145.
 
 With the help of an over-enthusiastic reindeer in a hard hat, follow the initialization sequence. What is the focusing power of the resulting lens configuration?
 
-Your puzzle answer was 243747.
+### Your puzzle answer was 243747.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

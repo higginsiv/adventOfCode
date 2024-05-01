@@ -1,4 +1,4 @@
---- Day 18: Boiling Boulders ---
+#  Day 18: Boiling Boulders 
 You and the elephants finally reach fresh air. You've emerged near the base of a large volcano that seems to be actively erupting! Fortunately, the lava seems to be flowing away from you and toward the ocean.
 
 Bits of lava are still being ejected toward you, so you're sheltering in the cavern exit a little longer. Outside the cave, you can see the lava landing in a pond and hear it loudly hissing as it solidifies.
@@ -28,9 +28,9 @@ In the above example, after counting up all the sides that aren't connected to a
 
 What is the surface area of your scanned lava droplet?
 
-Your puzzle answer was 4504.
+### Your puzzle answer was 4504.
 
---- Part Two ---
+#  Part Two 
 Something seems off about your calculation. The cooling rate depends on exterior surface area, but your calculation also included the surface area of air pockets trapped in the lava droplet.
 
 Instead, consider only cube sides that could be reached by the water and steam as the lava droplet tumbles into the pond. The steam will expand to reach as much as possible, completely displacing any air on the outside of the lava droplet but never expanding diagonally.
@@ -39,7 +39,7 @@ In the larger example above, exactly one cube of air is trapped within the lava 
 
 What is the exterior surface area of your scanned lava droplet?
 
-Your puzzle answer was 2556.
+### Your puzzle answer was 2556.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

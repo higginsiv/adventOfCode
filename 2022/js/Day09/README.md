@@ -1,4 +1,4 @@
---- Day 9: Rope Bridge ---
+#  Day 9: Rope Bridge 
 This rope bridge creaks as you walk along it. You aren't sure how old it is, or whether it can even support your weight.
 
 It seems to support the Elves just fine, though. The bridge spans a gorge which was carved out by the massive river far below you.
@@ -239,9 +239,9 @@ So, there are 13 positions the tail visited at least once.
 
 Simulate your complete hypothetical series of motions. How many positions does the tail of the rope visit at least once?
 
-Your puzzle answer was 6023.
+### Your puzzle answer was 6023.
 
---- Part Two ---
+#  Part Two 
 A rope snaps! Suddenly, the river is getting a lot closer than you remember. The bridge is still there, but some of the ropes that broke are now whipping toward you as you fall through the air!
 
 The ropes are moving too quickly to grab; you only have a few seconds to choose how to arch your body to avoid being hit. Fortunately, your simulation can be extended to support longer ropes.
@@ -672,7 +672,7 @@ Now, the tail (9) visits 36 positions (including s) at least once:
 .........########.........
 Simulate your complete series of motions on a larger rope with ten knots. How many positions does the tail of the rope visit at least once?
 
-Your puzzle answer was 2533.
+### Your puzzle answer was 2533.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

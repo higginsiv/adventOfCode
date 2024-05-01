@@ -1,4 +1,4 @@
---- Day 7: Camel Cards ---
+#  Day 7: Camel Cards 
 Your all-expenses-paid trip turns out to be a one-way, five-minute ride in an airship. (At least it's a cool airship!) It drops you off at the edge of a vast desert and descends back to Island Island.
 
 "Did you bring the parts?"
@@ -50,9 +50,9 @@ Now, you can determine the total winnings of this set of hands by adding up the 
 
 Find the rank of every hand in your set. What are the total winnings?
 
-Your puzzle answer was 251545216.
+### Your puzzle answer was 251545216.
 
---- Part Two ---
+#  Part Two 
 To make things a little more interesting, the Elf introduces one additional rule. Now, J cards are jokers - wildcards that can act like whatever card would make the hand the strongest type possible.
 
 To balance this, J cards are now the weakest individual cards, weaker even than 2. The other cards stay in the same order: A, K, Q, T, 9, 8, 7, 6, 5, 4, 3, 2, J.
@@ -73,7 +73,7 @@ With the new joker rule, the total winnings in this example are 5905.
 
 Using the new joker rule, find the rank of every hand in your set. What are the new total winnings?
 
-Your puzzle answer was 250384185.
+### Your puzzle answer was 250384185.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

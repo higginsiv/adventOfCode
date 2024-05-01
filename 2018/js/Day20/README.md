@@ -1,4 +1,4 @@
---- Day 20: A Regular Map ---
+#  Day 20: A Regular Map 
 While you were learning about instruction pointers, the Elves made considerable progress. When you look up, you discover that the North Pole base construction project has completely surrounded you.
 
 The area you are in is made up entirely of rooms and doors. The rooms are arranged in a grid, and rooms only connect to adjacent rooms when a door is present between them.
@@ -126,14 +126,14 @@ Furthest room requires passing 31 doors
 ###############
 What is the largest number of doors you would be required to pass through to reach a room? That is, find the room for which the shortest path from your starting location to that room would require passing through the most doors; what is the fewest doors you can pass through to reach it?
 
-Your puzzle answer was 3512.
+### Your puzzle answer was 3512.
 
---- Part Two ---
+#  Part Two 
 Okay, so the facility is big.
 
 How many rooms have a shortest path from your current location that pass through at least 1000 doors?
 
-Your puzzle answer was 8660.
+### Your puzzle answer was 8660.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

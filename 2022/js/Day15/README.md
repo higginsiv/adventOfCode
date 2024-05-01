@@ -1,4 +1,4 @@
---- Day 15: Beacon Exclusion Zone ---
+#  Day 15: Beacon Exclusion Zone 
 You feel the ground rumble again as the distress signal leads you to a large network of subterranean tunnels. You don't have time to search them all, but you don't need to: your pack contains a set of deployable sensors that you imagine were originally built to locate lost Elves.
 
 The sensors aren't very powerful, but that's okay; your handheld device indicates that you're close enough to the source of the distress signal to use them. You pull the emergency sensor system out of your pack, hit the big button on top, and the sensors zoom off down the tunnels.
@@ -94,9 +94,9 @@ In this example, in the row where y=10, there are 26 positions where a beacon ca
 
 Consult the report from the sensors you just deployed. In the row where y=2000000, how many positions cannot contain a beacon?
 
-Your puzzle answer was 5525990.
+### Your puzzle answer was 5525990.
 
---- Part Two ---
+#  Part Two 
 Your handheld device indicates that the distress signal is coming from a beacon nearby. The distress beacon is not detected by any sensor, but the distress beacon must have x and y coordinates each no lower than 0 and no larger than 4000000.
 
 To isolate the distress beacon's signal, you need to determine its tuning frequency, which can be found by multiplying its x coordinate by 4000000 and then adding its y coordinate.
@@ -105,7 +105,7 @@ In the example above, the search space is smaller: instead, the x and y coordina
 
 Find the only possible position for the distress beacon. What is its tuning frequency?
 
-Your puzzle answer was 11756174628223.
+### Your puzzle answer was 11756174628223.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

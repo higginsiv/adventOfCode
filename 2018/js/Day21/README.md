@@ -1,4 +1,4 @@
---- Day 21: Chronal Conversion ---
+#  Day 21: Chronal Conversion 
 You should have been watching where you were going, because as you wander the new North Pole base, you trip and fall into a very deep hole!
 
 Just kidding. You're falling through time again.
@@ -21,14 +21,14 @@ Because time travel is a dangerous activity, the activation system begins with a
 
 What is the lowest non-negative integer value for register 0 that causes the program to halt after executing the fewest instructions? (Executing the same instruction multiple times counts as multiple instructions executed.)
 
-Your puzzle answer was 9079325.
+### Your puzzle answer was 9079325.
 
---- Part Two ---
+#  Part Two 
 In order to determine the timing window for your underflow exploit, you also need an upper bound:
 
 What is the lowest non-negative integer value for register 0 that causes the program to halt after executing the most instructions? (The program must actually halt; running forever does not count as halting.)
 
-Your puzzle answer was 3715167.
+### Your puzzle answer was 3715167.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

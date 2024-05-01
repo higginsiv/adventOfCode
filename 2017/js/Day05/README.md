@@ -1,4 +1,4 @@
---- Day 5: A Maze of Twisty Trampolines, All Alike ---
+#  Day 5: A Maze of Twisty Trampolines, All Alike 
 An urgent interrupt arrives from the CPU: it's trapped in a maze of jump instructions, and it would like assistance from any programs with spare cycles to help find the exit.
 
 The message includes a list of the offsets for each jump. Jumps are relative: -1 moves to the previous instruction, and 2 skips the next one. Start at the first instruction in the list. The goal is to follow the jumps until one leads outside the list.
@@ -24,16 +24,16 @@ In this example, the exit is reached in 5 steps.
 
 How many steps does it take to reach the exit?
 
-Your puzzle answer was 325922.
+### Your puzzle answer was 325922.
 
---- Part Two ---
+#  Part Two 
 Now, the jumps are even stranger: after each jump, if the offset was three or more, instead decrease it by 1. Otherwise, increase it by 1 as before.
 
 Using this rule with the above example, the process now takes 10 steps, and the offset values after finding the exit are left as 2 3 2 3 -1.
 
 How many steps does it now take to reach the exit?
 
-Your puzzle answer was 24490906.
+### Your puzzle answer was 24490906.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

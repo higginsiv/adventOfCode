@@ -1,4 +1,4 @@
---- Day 5: Sunny with a Chance of Asteroids ---
+#  Day 5: Sunny with a Chance of Asteroids 
 You're starting to sweat as the ship makes its way toward Mercury. The Elves suggest that you get the air conditioner working by upgrading your ship computer to support the Thermal Environment Supervision Terminal.
 
 The Thermal Environment Supervision Terminal (TEST) starts by running a diagnostic program (your puzzle input). The TEST diagnostic program will run on your existing Intcode computer after a few modifications:
@@ -45,9 +45,9 @@ Finally, the program will output a diagnostic code and immediately halt. This fi
 
 After providing 1 to the only input instruction and passing all the tests, what diagnostic code does the program produce?
 
-Your puzzle answer was 13818007.
+### Your puzzle answer was 13818007.
 
---- Part Two ---
+#  Part Two 
 The air conditioner comes online! Its cold air feels good for a while, but then the TEST alarms start to go off. Since the air conditioner can't vent its heat anywhere but back into the spacecraft, it's actually making the air inside the ship warmer.
 
 Instead, you'll need to use the TEST to extend the thermal radiators. Fortunately, the diagnostic program (your puzzle input) is already equipped for this. Unfortunately, your Intcode computer is not.
@@ -83,7 +83,7 @@ This time, when the TEST diagnostic program runs its input instruction to get th
 
 What is the diagnostic code for system ID 5?
 
-Your puzzle answer was 3176266.
+### Your puzzle answer was 3176266.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

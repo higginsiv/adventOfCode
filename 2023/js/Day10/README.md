@@ -1,4 +1,4 @@
---- Day 10: Pipe Maze ---
+#  Day 10: Pipe Maze 
 You use the hang glider to ride the hot air from Desert Island all the way up to the floating metal island. This island is surprisingly cold and there definitely aren't any thermals to glide on, so you leave your hang glider behind.
 
 You wander around for a while, but you don't find any people or animals. However, you do occasionally find signposts labeled "Hot Springs" pointing in a seemingly consistent direction; maybe you can find someone at the hot springs and ask them where the desert-machine parts are made.
@@ -92,9 +92,9 @@ Here are the distances for each tile on that loop:
 23...
 Find the single giant loop starting at S. How many steps along the loop does it take to get from the starting position to the point farthest from the starting position?
 
-Your puzzle answer was 6773.
+### Your puzzle answer was 6773.
 
---- Part Two ---
+#  Part Two 
 You quickly reach the farthest point of the loop, but the animal never emerges. Maybe its nest is within the area enclosed by the loop?
 
 To determine whether it's even worth taking the time to search for such a nest, you should calculate how many tiles are contained within the loop. For example:
@@ -186,7 +186,7 @@ In this last example, 10 tiles are enclosed by the loop.
 
 Figure out whether you have time to search for the nest by calculating the area within the loop. How many tiles are enclosed by the loop?
 
-Your puzzle answer was 493.
+### Your puzzle answer was 493.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

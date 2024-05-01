@@ -1,4 +1,4 @@
---- Day 4: Security Through Obscurity ---
+#  Day 4: Security Through Obscurity 
 Finally, you come across an information kiosk with a list of rooms. Of course, the list is encrypted and full of decoy data, but the instructions to decode the list are barely hidden nearby. Better remove the decoy data first.
 
 Each room consists of an encrypted name (lowercase letters separated by dashes) followed by a dash, a sector ID, and a checksum in square brackets.
@@ -13,9 +13,9 @@ Of the real rooms from the list above, the sum of their sector IDs is 1514.
 
 What is the sum of the sector IDs of the real rooms?
 
-Your puzzle answer was 245102.
+### Your puzzle answer was 245102.
 
---- Part Two ---
+#  Part Two 
 With all the decoy data out of the way, it's time to decrypt this list and get moving.
 
 The room names are encrypted by a state-of-the-art shift cipher, which is nearly unbreakable without the right software. However, the information kiosk designers at Easter Bunny HQ were not expecting to deal with a master cryptographer like yourself.
@@ -26,7 +26,7 @@ For example, the real name for qzmt-zixmtkozy-ivhz-343 is very encrypted name.
 
 What is the sector ID of the room where North Pole objects are stored?
 
-Your puzzle answer was 324.
+### Your puzzle answer was 324.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

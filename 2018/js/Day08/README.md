@@ -1,4 +1,4 @@
---- Day 8: Memory Maneuver ---
+#  Day 8: Memory Maneuver 
 The sleigh is much easier to pull than you'd expect for something its weight. Unfortunately, neither you nor the Elves know which way the North Pole is from here.
 
 You check your wrist device for anything that might help. It seems to have some kind of navigation system! Activating the navigation system produces more bad news: "Failed to start navigation system. Could not read software license file."
@@ -30,9 +30,9 @@ The first check done on the license file is to simply add up all of the metadata
 
 What is the sum of all metadata entries?
 
-Your puzzle answer was 41454.
+### Your puzzle answer was 41454.
 
---- Part Two ---
+#  Part Two 
 The second check is slightly more complicated: you need to find the value of the root node (A in the example above).
 
 The value of a node depends on whether it has child nodes.
@@ -49,7 +49,7 @@ So, in this example, the value of the root node is 66.
 
 What is the value of the root node?
 
-Your puzzle answer was 25752.
+### Your puzzle answer was 25752.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

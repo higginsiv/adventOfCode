@@ -1,4 +1,4 @@
---- Day 21: Scrambled Letters and Hash ---
+#  Day 21: Scrambled Letters and Hash 
 The computer system you're breaking into uses a weird scrambling function to store its passwords. It shouldn't be much trouble to create your own scrambled password so you can add it to the system; you just have to implement the scrambler.
 
 The scrambling function is a series of operations (the exact list is provided in your puzzle input). Starting with the password to be scrambled, apply each operation in succession to the string. The individual operations behave as follows:
@@ -23,14 +23,14 @@ After these steps, the resulting scrambled password is decab.
 
 Now, you just need to generate a new scrambled password and you can access the system. Given the list of scrambling operations in your puzzle input, what is the result of scrambling abcdefgh?
 
-Your puzzle answer was dbfgaehc.
+### Your puzzle answer was dbfgaehc.
 
---- Part Two ---
+#  Part Two 
 You scrambled the password correctly, but you discover that you can't actually modify the password file on the system. You'll need to un-scramble one of the existing passwords by reversing the scrambling process.
 
 What is the un-scrambled version of the scrambled password fbgdceah?
 
-Your puzzle answer was aghfcdeb.
+### Your puzzle answer was aghfcdeb.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

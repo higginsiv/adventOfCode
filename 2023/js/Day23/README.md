@@ -1,4 +1,4 @@
---- Day 23: A Long Walk ---
+#  Day 23: A Long Walk 
 The Elves resume water filtering operations! Clean water starts flowing over the edge of Island Island.
 
 They offer to help you go over the edge of Island Island, too! Just hold on tight to one end of this impossibly long rope and they'll lower you down a safe distance from the massive waterfall you just created.
@@ -63,9 +63,9 @@ This hike contains 94 steps. (The other possible hikes you could have taken were
 
 Find the longest hike you can take through the hiking trails listed on your map. How many steps long is the longest hike?
 
-Your puzzle answer was 2298.
+### Your puzzle answer was 2298.
 
---- Part Two ---
+#  Part Two 
 As you reach the trailhead, you realize that the ground isn't as slippery as you expected; you'll have no problem climbing up the steep slopes.
 
 Now, treat all slopes as if they were normal paths (.). You still want to make sure you have the most scenic hike possible, so continue to ensure that you never step onto the same tile twice. What is the longest hike you can take?
@@ -97,7 +97,7 @@ In the example above, this increases the longest hike to 154 steps:
 #####################O#
 Find the longest hike you can take through the surprisingly dry hiking trails listed on your map. How many steps long is the longest hike?
 
-Your puzzle answer was 6602.
+### Your puzzle answer was 6602.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

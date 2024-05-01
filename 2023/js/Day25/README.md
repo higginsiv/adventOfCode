@@ -1,4 +1,4 @@
---- Day 25: Snowverload ---
+#  Day 25: Snowverload 
 Still somehow without snow, you go to the last place you haven't checked: the center of Snow Island, directly below the waterfall.
 
 Here, someone has clearly been trying to fix the problem. Scattered everywhere are hundreds of weather machines, almanacs, communication modules, hoof prints, machine parts, mirrors, lenses, and so on.
@@ -44,9 +44,9 @@ Multiplying the sizes of these groups together produces 54.
 
 Find the three wires you need to disconnect in order to divide the components into two separate groups. What do you get if you multiply the sizes of these two groups together?
 
-Your puzzle answer was 596376.
+### Your puzzle answer was 596376.
 
---- Part Two ---
+#  Part Two 
 You climb over weather machines, under giant springs, and narrowly avoid a pile of pipes as you find and disconnect the three wires.
 
 A moment after you disconnect the last wire, the big red reset button module makes a small ding noise:

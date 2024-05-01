@@ -1,4 +1,4 @@
---- Day 20: Pulse Propagation ---
+#  Day 20: Pulse Propagation 
 With your help, the Elves manage to find the right parts and fix all of the machines. Now, they just need to send the command to boot up the machines and get the sand flowing again.
 
 The machines are far apart and wired together with long cables. The cables don't connect to the machines directly, but rather to communication modules attached to the machines that perform various initialization tasks and also act as communication relays.
@@ -103,14 +103,14 @@ In the second example, after pushing the button 1000 times, 4250 low pulses and 
 
 Consult your module configuration; determine the number of low pulses and high pulses that would be sent after pushing the button 1000 times, waiting for all pulses to be fully handled after each push of the button. What do you get if you multiply the total number of low pulses sent by the total number of high pulses sent?
 
-Your puzzle answer was 866435264.
+### Your puzzle answer was 866435264.
 
---- Part Two ---
+#  Part Two 
 The final machine responsible for moving the sand down to Island Island has a module attached named rx. The machine turns on when a single low pulse is sent to rx.
 
 Reset all modules to their default states. Waiting for all pulses to be fully handled after each button press, what is the fewest number of button presses required to deliver a single low pulse to the module named rx?
 
-Your puzzle answer was 229215609826339.
+### Your puzzle answer was 229215609826339.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

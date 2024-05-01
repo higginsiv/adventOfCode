@@ -22,7 +22,7 @@
     "create": "node ./tools/dayCreator.js",
     "solve": "node ./tools/solve.js",
     "format": "prettier --write \"./**/*.js\"",
-    "format:readmes": "node ./tools/readme-formatter.js"
+    "format:readme": "node ./tools/readme-formatter.js"
   },
   "dependencies": {
     "async": "^3.2.4",

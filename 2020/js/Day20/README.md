@@ -1,4 +1,4 @@
---- Day 20: Jurassic Jigsaw ---
+#  Day 20: Jurassic Jigsaw 
 The high-speed train leaves the forest and quickly carries you south. You can even see a desert in the distance! Since you have some spare time, you might as well see if there was anything interesting in the image the Mythical Information Bureau satellite captured.
 
 After decoding the satellite messages, you discover that the data actually contains many small images created by the satellite's camera array. The camera array consists of many cameras; rather than produce a single square image, they produce many smaller square image tiles that need to be reassembled back into a single image.
@@ -161,9 +161,9 @@ To check that you've assembled the image correctly, multiply the IDs of the four
 
 Assemble the tiles into an image. What do you get if you multiply together the IDs of the four corner tiles?
 
-Your puzzle answer was 15405893262491.
+### Your puzzle answer was 15405893262491.
 
---- Part Two ---
+#  Part Two 
 Now, you're ready to check the image for sea monsters.
 
 The borders of each tile are not part of the actual image; start by removing them.
@@ -257,7 +257,7 @@ Determine how rough the waters are in the sea monsters' habitat by counting the 
 
 How many # are not part of a sea monster?
 
-Your puzzle answer was 2133.
+### Your puzzle answer was 2133.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

@@ -1,4 +1,4 @@
---- Day 25: Sea Cucumber ---
+#  Day 25: Sea Cucumber 
 This is it: the bottom of the ocean trench, the last place the sleigh keys could be. Your submarine's experimental antenna still isn't boosted enough to detect the keys, but they must be here. All you need to do is reach the seafloor and find them.
 
 At least, you'd touch down on the seafloor if you could; unfortunately, it's completely covered by two large herds of sea cucumbers, and there isn't an open space large enough for your submarine.
@@ -273,9 +273,9 @@ In this example, the sea cucumbers stop moving after 58 steps.
 
 Find somewhere safe to land your submarine. What is the first step on which no sea cucumbers move?
 
-Your puzzle answer was 498.
+### Your puzzle answer was 498.
 
---- Part Two ---
+#  Part Two 
 Suddenly, the experimental antenna control console lights up:
 
 Sleigh keys detected!

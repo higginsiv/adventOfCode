@@ -1,4 +1,4 @@
---- Day 17: Two Steps Forward ---
+#  Day 17: Two Steps Forward 
 You're trying to access a secure vault protected by a 4x4 grid of small rooms connected by doors. You start in the top-left room (marked S), and you can access the vault (marked V) once you reach the bottom-right room:
 
 #########
@@ -31,9 +31,9 @@ With kglvqrro, the shortest path would be DDUDRLRRUDRD.
 With ulqzkmiv, the shortest would be DRURDRUDDLLDLUURRDULRLDUUDDDRR.
 Given your vault's passcode, what is the shortest path (the actual path, not just the length) to reach the vault?
 
-Your puzzle answer was RDRDUDLRDR.
+### Your puzzle answer was RDRDUDLRDR.
 
---- Part Two ---
+#  Part Two 
 You're curious how robust this security solution really is, and so you decide to find longer and longer paths which still provide access to the vault. You remember that paths always end the first time they reach the bottom-right room (that is, they can never pass through it, only end in it).
 
 For example:
@@ -43,7 +43,7 @@ With kglvqrro, the longest path would be 492 steps long.
 With ulqzkmiv, the longest path would be 830 steps long.
 What is the length of the longest path that reaches the vault?
 
-Your puzzle answer was 386.
+### Your puzzle answer was 386.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

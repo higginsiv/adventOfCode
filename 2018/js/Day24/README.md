@@ -1,4 +1,4 @@
---- Day 24: Immune System Simulator 20XX ---
+#  Day 24: Immune System Simulator 20XX 
 After a weird buzzing noise, you appear back at the man's cottage. He seems relieved to see his friend, but quickly notices that the little reindeer caught some kind of cold while out exploring.
 
 The portly man explains that this reindeer's immune system isn't similar to regular reindeer immune systems:
@@ -153,9 +153,9 @@ In the example above, the winning army ends up with 782 + 4434 = 5216 units.
 
 You scan the reindeer's condition (your puzzle input); the white-bearded man looks nervous. As it stands now, how many units would the winning army have?
 
-Your puzzle answer was 17542.
+### Your puzzle answer was 17542.
 
---- Part Two ---
+#  Part Two 
 Things aren't looking good for the reindeer. The man asks whether more milk and cookies would help you think.
 
 If only you could give the reindeer's immune system a boost, you might be able to change the outcome of the combat.
@@ -289,7 +289,7 @@ You don't even know how you could boost the reindeer's immune system or what eff
 
 How many units does the immune system have left after getting the smallest boost it needs to win?
 
-Your puzzle answer was 868.
+### Your puzzle answer was 868.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

@@ -1,4 +1,4 @@
---- Day 18: Settlers of The North Pole ---
+#  Day 18: Settlers of The North Pole 
 On the outskirts of the North Pole base construction project, many Elves are collecting lumber.
 
 The lumber collection area is 50 acres by 50 acres; each acre can be either open ground (.), trees (|), or a lumberyard (#). You take a scan of the area (your puzzle input).
@@ -151,14 +151,14 @@ After 10 minutes, there are 37 wooded acres and 31 lumberyards. Multiplying the 
 
 What will the total resource value of the lumber collection area be after 10 minutes?
 
-Your puzzle answer was 505895.
+### Your puzzle answer was 505895.
 
---- Part Two ---
+#  Part Two 
 This important natural resource will need to last for at least thousands of years. Are the Elves collecting this lumber sustainably?
 
 What will the total resource value of the lumber collection area be after 1000000000 minutes?
 
-Your puzzle answer was 139590.
+### Your puzzle answer was 139590.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

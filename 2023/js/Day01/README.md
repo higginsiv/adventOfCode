@@ -1,4 +1,4 @@
---- Day 1: Trebuchet?! ---
+#  Day 1: Trebuchet?! 
 Something is wrong with global snow production, and you've been selected to take a look. The Elves have even given you a map; on it, they've used stars to mark the top fifty locations that are likely to be having problems.
 
 You've been doing this long enough to know that to restore snow operations, you need to check all fifty stars by December 25th.
@@ -21,9 +21,9 @@ In this example, the calibration values of these four lines are 12, 38, 15, and 
 
 Consider your entire calibration document. What is the sum of all of the calibration values?
 
-Your puzzle answer was 54450.
+### Your puzzle answer was 54450.
 
---- Part Two ---
+#  Part Two 
 Your calculation isn't quite right. It looks like some of the digits are actually spelled out with letters: one, two, three, four, five, six, seven, eight, and nine also count as valid "digits".
 
 Equipped with this new information, you now need to find the real first and last digit on each line. For example:
@@ -39,7 +39,7 @@ In this example, the calibration values are 29, 83, 13, 24, 42, 14, and 76. Addi
 
 What is the sum of all of the calibration values?
 
-Your puzzle answer was 54265.
+### Your puzzle answer was 54265.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

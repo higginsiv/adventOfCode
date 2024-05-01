@@ -1,4 +1,4 @@
---- Day 8: Handheld Halting ---
+#  Day 8: Handheld Halting 
 Your flight to the major airline hub reaches cruising altitude without incident. While you consider checking the in-flight menu for one of those drinks that come with a little umbrella, you are interrupted by the kid sitting next to you.
 
 Their handheld game console won't turn on! They ask if you can take a look.
@@ -40,9 +40,9 @@ Immediately before the program would run an instruction a second time, the value
 
 Run your copy of the boot code. Immediately before any instruction is executed a second time, what value is in the accumulator?
 
-Your puzzle answer was 1709.
+### Your puzzle answer was 1709.
 
---- Part Two ---
+#  Part Two 
 After some careful analysis, you believe that exactly one instruction is corrupted.
 
 Somewhere in the program, either a jmp is supposed to be a nop, or a nop is supposed to be a jmp. (No acc instructions were harmed in the corruption of this boot code.)
@@ -77,7 +77,7 @@ After the last instruction (acc +6), the program terminates by attempting to run
 
 Fix the program so that it terminates normally by changing exactly one jmp (to nop) or nop (to jmp). What is the value of the accumulator after the program terminates?
 
-Your puzzle answer was 1976.
+### Your puzzle answer was 1976.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

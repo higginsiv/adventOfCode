@@ -1,4 +1,4 @@
---- Day 18: Snailfish ---
+#  Day 18: Snailfish 
 You descend into the ocean trench and encounter some snailfish. They say they saw the sleigh keys! They'll even tell you which direction the keys went if you help one of the smaller snailfish with his math homework.
 
 Snailfish numbers aren't like regular numbers. Instead, every snailfish number is a pair - an ordered list of two elements. Each element of the pair can be either a regular number or another pair.
@@ -148,9 +148,9 @@ The magnitude of this final sum is 4140.
 
 Add up all of the snailfish numbers from the homework assignment in the order they appear. What is the magnitude of the final sum?
 
-Your puzzle answer was 4469.
+### Your puzzle answer was 4469.
 
---- Part Two ---
+#  Part Two 
 You notice a second question on the back of the homework assignment:
 
 What is the largest magnitude you can get from adding only two of the snailfish numbers?
@@ -173,7 +173,7 @@ The largest magnitude of the sum of any two snailfish numbers in this list is 39
 
 What is the largest magnitude of any sum of two different snailfish numbers from the homework assignment?
 
-Your puzzle answer was 4770.
+### Your puzzle answer was 4770.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

@@ -1,4 +1,4 @@
---- Day 19: Medicine for Rudolph ---
+#  Day 19: Medicine for Rudolph 
 Rudolph the Red-Nosed Reindeer is sick! His nose isn't shining very brightly, and he needs medicine.
 
 Red-Nosed Reindeer biology isn't similar to regular reindeer biology; Rudolph is going to need custom-made medicine. Unfortunately, Red-Nosed Reindeer chemistry isn't similar to regular reindeer chemistry, either.
@@ -25,9 +25,9 @@ The machine replaces without regard for the surrounding characters. For example,
 
 Your puzzle input describes all of the possible replacements and, at the bottom, the medicine molecule for which you need to calibrate the machine. How many distinct molecules can be created after all the different ways you can do one replacement on the medicine molecule?
 
-Your puzzle answer was 535.
+### Your puzzle answer was 535.
 
---- Part Two ---
+#  Part Two 
 Now that the machine is calibrated, you're ready to begin molecule fabrication.
 
 Molecule fabrication always begins with just a single electron, e, and applying replacements one at a time, just like the ones during calibration.
@@ -48,7 +48,7 @@ So, you could make HOH after 3 steps. Santa's favorite molecule, HOHOHO, can be 
 
 How long will it take to make the medicine? Given the available replacements and the medicine molecule in your puzzle input, what is the fewest number of steps to go from e to the medicine molecule?
 
-Your puzzle answer was 212.
+### Your puzzle answer was 212.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

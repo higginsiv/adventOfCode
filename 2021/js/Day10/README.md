@@ -1,4 +1,4 @@
---- Day 10: Syntax Scoring ---
+#  Day 10: Syntax Scoring 
 You ask the submarine to determine the best route out of the deep-sea cave, but it only replies:
 
 Syntax error in navigation subsystem on line: all of them
@@ -49,9 +49,9 @@ In the above example, an illegal ) was found twice (2*3 = 6 points), an illegal 
 
 Find the first illegal character in each corrupted line of the navigation subsystem. What is the total syntax error score for those errors?
 
-Your puzzle answer was 392367.
+### Your puzzle answer was 392367.
 
---- Part Two ---
+#  Part Two 
 Now, discard the corrupted lines. The remaining lines are incomplete.
 
 Incomplete lines don't have any incorrect characters - instead, they're missing some closing characters at the end of the line. To repair the navigation subsystem, you just need to figure out the sequence of closing characters that complete all open chunks in the line.
@@ -89,4 +89,4 @@ Autocomplete tools are an odd bunch: the winner is found by sorting all of the s
 
 Find the completion string for each incomplete line, score the completion strings, and sort the scores. What is the middle score?
 
-Your puzzle answer was 2192104158.
+### Your puzzle answer was 2192104158.

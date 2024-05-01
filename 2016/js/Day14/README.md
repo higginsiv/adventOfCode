@@ -1,4 +1,4 @@
---- Day 14: One-Time Pad ---
+#  Day 14: One-Time Pad 
 In order to communicate securely with Santa while you're on this mission, you've been using a one-time pad that you generate using a pre-agreed algorithm. Unfortunately, you've run out of keys in your one-time pad, and so you need to generate some more.
 
 To generate keys, you first get a stream of random data by taking the MD5 of a pre-arranged salt (your puzzle input) and an increasing integer index (starting with 0, and represented in decimal); the resulting MD5 hash should be represented as a string of lowercase hexadecimal digits.
@@ -19,9 +19,9 @@ So, using our example salt of abc, index 22728 produces the 64th key.
 
 Given the actual salt in your puzzle input, what index produces your 64th one-time pad key?
 
-Your puzzle answer was 25427.
+### Your puzzle answer was 25427.
 
---- Part Two ---
+#  Part Two 
 Of course, in order to make this process even more secure, you've also implemented key stretching.
 
 Key stretching forces attackers to spend more time generating hashes. Unfortunately, it forces everyone else to spend more time, too.
@@ -44,7 +44,7 @@ The second triple (eee, at index 10) hash a matching eeeee at index 89, and so i
 Eventually, index 22551 produces the 64th key (triple fff with matching fffff at index 22859.
 Given the actual salt in your puzzle input and using 2016 extra MD5 calls of key stretching, what index now produces your 64th one-time pad key?
 
-Your puzzle answer was 22045.
+### Your puzzle answer was 22045.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

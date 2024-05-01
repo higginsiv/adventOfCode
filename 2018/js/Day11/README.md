@@ -1,4 +1,4 @@
---- Day 11: Chronal Charge ---
+#  Day 11: Chronal Charge 
 You watch the Elves and their sleigh fade into the distance as they head toward the North Pole.
 
 Actually, you're the one fading. The falling sensation returns.
@@ -50,9 +50,9 @@ For grid serial number 42, the largest 3x3 square's top-left is 21,61 (with a to
  3   3   3  -5  -1
 What is the X,Y coordinate of the top-left fuel cell of the 3x3 square with the largest total power?
 
-Your puzzle answer was 233,36.
+### Your puzzle answer was 233,36.
 
---- Part Two ---
+#  Part Two 
 You discover a dial on the side of the device; it seems to let you select a square of any size, not just 3x3. Sizes from 1x1 to 300x300 are supported.
 
 Realizing this, you now must find the square of any size with the largest total power. Identify this square by including its size as a third parameter after the top-left coordinate: a 9x9 square with a top-left corner of 3,5 is identified as 3,5,9.
@@ -63,7 +63,7 @@ For grid serial number 18, the largest total square (with a total power of 113) 
 For grid serial number 42, the largest total square (with a total power of 119) is 12x12 and has a top-left corner of 232,251, so its identifier is 232,251,12.
 What is the X,Y,size identifier of the square with the largest total power?
 
-Your puzzle answer was 231,107,14.
+### Your puzzle answer was 231,107,14.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

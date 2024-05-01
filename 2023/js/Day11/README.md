@@ -1,4 +1,4 @@
---- Day 11: Cosmic Expansion ---
+#  Day 11: Cosmic Expansion 
 You continue following signs for "Hot Springs" and eventually come across an observatory. The Elf within turns out to be a researcher studying cosmic expansion using the giant telescope here.
 
 He doesn't know anything about the missing machine parts; he's only visiting for this research project. However, he confirms that the hot springs are the next-closest area likely to have people; he'll even take you straight there once he's done with today's observation analysis.
@@ -88,9 +88,9 @@ In this example, after expanding the universe, the sum of the shortest path betw
 
 Expand the universe, then find the length of the shortest path between every pair of galaxies. What is the sum of these lengths?
 
-Your puzzle answer was 9509330.
+### Your puzzle answer was 9509330.
 
---- Part Two ---
+#  Part Two 
 The galaxies are much older (and thus much farther apart) than the researcher initially estimated.
 
 Now, instead of the expansion you did before, make each empty row or column one million times larger. That is, each empty row should be replaced with 1000000 empty rows, and each empty column should be replaced with 1000000 empty columns.
@@ -99,7 +99,7 @@ Now, instead of the expansion you did before, make each empty row or column one 
 
 Starting with the same initial image, expand the universe according to these new rules, then find the length of the shortest path between every pair of galaxies. What is the sum of these lengths?
 
-Your puzzle answer was 635832237682.
+### Your puzzle answer was 635832237682.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

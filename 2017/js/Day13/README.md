@@ -1,4 +1,4 @@
---- Day 13: Packet Scanners ---
+#  Day 13: Packet Scanners 
 You need to cross a vast firewall. The firewall consists of several layers, each with a security scanner that moves back and forth across the layer. To succeed, you must not be detected by a scanner.
 
 By studying the firewall briefly, you are able to record (in your puzzle input) the depth of each layer and the range of the scanning area for the scanner within it, written as depth: range. Each layer has a thickness of exactly 1. A layer at depth 0 begins immediately inside the firewall; a layer at depth 1 would start immediately after that.
@@ -157,9 +157,9 @@ The severity of getting caught on a layer is equal to its depth multiplied by it
 
 Given the details of the firewall you've recorded, if you leave immediately, what is the severity of your whole trip?
 
-Your puzzle answer was 1640.
+### Your puzzle answer was 1640.
 
---- Part Two ---
+#  Part Two 
 Now, you need to pass through the firewall without being caught - easier said than done.
 
 You can't control the speed of the packet, but you can delay it any number of picoseconds. For each picosecond you delay the packet before beginning your trip, all security scanners move one step. You're not in the firewall during this time; you don't enter layer 0 until you stop delaying the packet.
@@ -273,7 +273,7 @@ Because all smaller delays would get you caught, the fewest number of picosecond
 
 What is the fewest number of picoseconds that you need to delay the packet to pass through the firewall without being caught?
 
-Your puzzle answer was 3960702.
+### Your puzzle answer was 3960702.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

@@ -1,4 +1,4 @@
---- Day 22: Monkey Map ---
+#  Day 22: Monkey Map 
 The monkeys take you on a surprisingly easy trail through the jungle. They're even going in roughly the right direction according to your handheld device's Grove Positioning System.
 
 As you walk, the monkeys explain that the grove is protected by a force field. To pass through the force field, you have to enter a password; doing so involves tracing a specific path on a strangely-shaped board.
@@ -71,9 +71,9 @@ In the above example, the final row is 6, the final column is 8, and the final f
 
 Follow the path given in the monkeys' notes. What is the final password?
 
-Your puzzle answer was 181128.
+### Your puzzle answer was 181128.
 
---- Part Two ---
+#  Part Two 
 As you reach the force field, you think you hear some Elves in the distance. Perhaps they've already arrived?
 
 You approach the strange input device, but it isn't quite what the monkeys drew in their notes. Instead, you are met with a large cube; each of its six faces is a square of 50x50 tiles.
@@ -140,7 +140,7 @@ The final password is still calculated from your final position and facing from 
 
 Fold the map into a cube, then follow the path given in the monkeys' notes. What is the final password?
 
-Your puzzle answer was 52311.
+### Your puzzle answer was 52311.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

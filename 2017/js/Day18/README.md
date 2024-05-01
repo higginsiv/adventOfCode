@@ -1,4 +1,4 @@
---- Day 18: Duet ---
+#  Day 18: Duet 
 You discover a tablet containing some strange assembly code labeled simply "Duet". Rather than bother the sound card with it, you decide to run the code yourself. Unfortunately, you don't see any documentation, so you're left to figure out what the instructions mean on your own.
 
 It seems like the assembly is meant to operate on a set of registers that are each named with a single letter and that can each hold a single integer. You suppose each register should start with a value of 0.
@@ -36,9 +36,9 @@ At the time the recover operation is executed, the frequency of the last sound p
 
 What is the value of the recovered frequency (the value of the most recently played sound) the first time a rcv instruction is executed with a non-zero value?
 
-Your puzzle answer was 2951.
+### Your puzzle answer was 2951.
 
---- Part Two ---
+#  Part Two 
 As you congratulate yourself for a job well done, you notice that the documentation has been on the back of the tablet this entire time. While you actually got most of the instructions correct, there are a few key differences. This assembly code isn't about sound at all - it's meant to be run twice at the same time.
 
 Each running copy of the program has its own set of registers and follows the code independently - in fact, the programs don't even necessarily run at the same speed. To coordinate, they use the send (snd) and receive (rcv) instructions:
@@ -64,7 +64,7 @@ It should be noted that it would be equally valid for the programs to run at dif
 
 Once both of your programs have terminated (regardless of what caused them to do so), how many times did program 1 send a value?
 
-Your puzzle answer was 7366.
+### Your puzzle answer was 7366.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

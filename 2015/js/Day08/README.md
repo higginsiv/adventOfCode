@@ -1,4 +1,4 @@
---- Day 8: Matchsticks ---
+#  Day 8: Matchsticks 
 Space on the sleigh is limited this year, and so Santa will be bringing his list as a digital copy. He needs to know how much space it will take up when stored.
 
 It is common in many programming languages to provide a way to escape special characters in strings. For example, C, JavaScript, Perl, Python, and even PHP handle special characters in very similar ways.
@@ -17,9 +17,9 @@ Disregarding the whitespace in the file, what is the number of characters of cod
 
 For example, given the four strings above, the total number of characters of string code (2 + 5 + 10 + 6 = 23) minus the total number of characters in memory for string values (0 + 3 + 7 + 1 = 11) is 23 - 11 = 12.
 
-Your puzzle answer was 1342.
+### Your puzzle answer was 1342.
 
---- Part Two ---
+#  Part Two 
 Now, let's go the other way. In addition to finding the number of characters of code, you should now encode each code representation as a new string and find the number of characters of the new encoded representation, including the surrounding double quotes.
 
 For example:
@@ -30,7 +30,7 @@ For example:
 "\x27" encodes to "\"\\x27\"", an increase from 6 characters to 11.
 Your task is to find the total number of characters to represent the newly encoded strings minus the number of characters of code in each original string literal. For example, for the strings above, the total encoded length (6 + 9 + 16 + 11 = 42) minus the characters in the original code representation (23, just like in the first part of this puzzle) is 42 - 23 = 19.
 
-Your puzzle answer was 2074.
+### Your puzzle answer was 2074.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

@@ -1,4 +1,4 @@
---- Day 24: Lobby Layout ---
+#  Day 24: Lobby Layout 
 Your raft makes it to the tropical island; it turns out that the small crab was an excellent navigator. You make your way to the resort.
 
 As you enter the lobby, you discover a small problem: the floor is being renovated. You can't even reach the check-in desk until they've finished installing the new tile floor.
@@ -39,9 +39,9 @@ In the above example, 10 tiles are flipped once (to black), and 5 more are flipp
 
 Go through the renovation crew's list and determine which tiles they need to flip. After all of the instructions have been followed, how many tiles are left with the black side up?
 
-Your puzzle answer was 312.
+### Your puzzle answer was 312.
 
---- Part Two ---
+#  Part Two 
 The tile floor in the lobby is meant to be a living art exhibit. Every day, the tiles are all flipped according to the following rules:
 
 Any black tile with zero or more than 2 black tiles immediately adjacent to it is flipped to white.
@@ -76,7 +76,7 @@ After executing this process a total of 100 times, there would be 2208 black til
 
 How many tiles will be black after 100 days?
 
-Your puzzle answer was 3733.
+### Your puzzle answer was 3733.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

@@ -1,4 +1,4 @@
---- Day 3: Spiral Memory ---
+#  Day 3: Spiral Memory 
 You come across an experimental new kind of memory stored on an infinite two-dimensional grid.
 
 Each square on the grid is allocated in a spiral pattern starting at a location marked 1 and then counting up while spiraling outward. For example, the first few squares are allocated like this:
@@ -18,9 +18,9 @@ Data from square 23 is carried only 2 steps: up twice.
 Data from square 1024 must be carried 31 steps.
 How many steps are required to carry the data from the square identified in your puzzle input all the way to the access port?
 
-Your puzzle answer was 480.
+### Your puzzle answer was 480.
 
---- Part Two ---
+#  Part Two 
 As a stress test on the system, the programs here clear the grid and then store the value 1 in square 1. Then, in the same allocation order as shown above, they store the sum of the values in all adjacent squares, including diagonals.
 
 So, the first few squares' values are chosen as follows:
@@ -39,7 +39,7 @@ Once a square is written, its value does not change. Therefore, the first few sq
 362  747  806--->   ...
 What is the first value written that is larger than your puzzle input?
 
-Your puzzle answer was 349975.
+### Your puzzle answer was 349975.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

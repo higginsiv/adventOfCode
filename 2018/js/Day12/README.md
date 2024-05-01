@@ -1,4 +1,4 @@
---- Day 12: Subterranean Sustainability ---
+#  Day 12: Subterranean Sustainability 
 The year 518 is significantly more underground than your history books implied. Either that, or you've arrived in a vast cavern network under the North Pole.
 
 After exploring a little, you discover a long tunnel that contains a row of small pots as far as you can see to your left and right. A few of them contain plants - someone is trying to grow things in these geothermally-heated caves.
@@ -63,14 +63,14 @@ In this example, after 20 generations, the pots shown as # contain plants, the f
 
 After 20 generations, what is the sum of the numbers of all pots which contain a plant?
 
-Your puzzle answer was 3793.
+### Your puzzle answer was 3793.
 
---- Part Two ---
+#  Part Two 
 You realize that 20 generations aren't enough. After all, these plants will need to last another 1500 years to even reach your timeline, not to mention your future.
 
 After fifty billion (50000000000) generations, what is the sum of the numbers of all pots which contain a plant?
 
-Your puzzle answer was 4300000002414.
+### Your puzzle answer was 4300000002414.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

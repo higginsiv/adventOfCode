@@ -1,4 +1,4 @@
---- Day 15: Dueling Generators ---
+#  Day 15: Dueling Generators 
 Here, you encounter a pair of dueling generators. The generators, called generator A and generator B, are trying to agree on a sequence of numbers. However, one of them is malfunctioning, and so the sequences don't always match.
 
 As they do this, a judge waits for each of them to generate its next value, compares the lowest 16 bits of both values, and keeps track of the number of times those parts of the values match.
@@ -37,9 +37,9 @@ To get a significant sample, the judge would like to consider 40 million pairs. 
 
 After 40 million pairs, what is the judge's final count?
 
-Your puzzle answer was 577.
+### Your puzzle answer was 577.
 
---- Part Two ---
+#  Part Two 
 In the interest of trying to align a little better, the generators get more picky about the numbers they actually give to the judge.
 
 They still generate values in the same way, but now they only hand a value to the judge when it meets their criteria:
@@ -85,7 +85,7 @@ This change makes the generators much slower, and the judge is getting impatient
 
 After 5 million pairs, but using this new generator logic, what is the judge's final count?
 
-Your puzzle answer was 316.
+### Your puzzle answer was 316.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

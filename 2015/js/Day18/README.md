@@ -1,4 +1,4 @@
---- Day 18: Like a GIF For Your Yard ---
+#  Day 18: Like a GIF For Your Yard 
 After the million lights incident, the fire code has gotten stricter: now, at most ten thousand lights are allowed. You arrange them in a 100x100 grid.
 
 Never one to let you down, Santa again mails you instructions on the ideal lighting configuration. With so few lights, he says, you'll have to resort to animation.
@@ -66,9 +66,9 @@ After 4 steps, this example has four lights on.
 
 In your grid of 100x100 lights, given your initial configuration, how many lights are on after 100 steps?
 
-Your puzzle answer was 821.
+### Your puzzle answer was 821.
 
---- Part Two ---
+#  Part Two 
 You flip the instructions over; Santa goes on to point out that this is all just an implementation of Conway's Game of Life. At least, it was, until you notice that something's wrong with the grid of lights you bought: four lights, one in each corner, are stuck on and can't be turned off. The example above will actually run like this:
 
 Initial state:
@@ -122,7 +122,7 @@ After 5 steps, this example now has 17 lights on.
 
 In your grid of 100x100 lights, given your initial configuration, but with the four corners always in the on state, how many lights are on after 100 steps?
 
-Your puzzle answer was 886.
+### Your puzzle answer was 886.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

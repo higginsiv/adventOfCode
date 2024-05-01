@@ -1,4 +1,4 @@
---- Day 16: Permutation Promenade ---
+#  Day 16: Permutation Promenade 
 You come upon a very unusual sight; a group of programs here appear to be dancing.
 
 There are sixteen programs in total, named a through p. They start by standing in a line: a stands in position 0, b stands in position 1, and so on until p, which stands in position 15.
@@ -17,9 +17,9 @@ After finishing their dance, the programs end up in order baedc.
 
 You watch the dance for a while and record their dance moves (your puzzle input). In what order are the programs standing after their dance?
 
-Your puzzle answer was kpbodeajhlicngmf.
+### Your puzzle answer was kpbodeajhlicngmf.
 
---- Part Two ---
+#  Part Two 
 Now that you're starting to get a feel for the dance moves, you turn your attention to the dance as a whole.
 
 Keeping the positions they ended up in from their previous dance, the programs perform it again and again: including the first dance, a total of one billion (1000000000) times.
@@ -31,7 +31,7 @@ x3/4, swapping the last two programs: cbade.
 pe/b, swapping programs e and b: ceadb.
 In what order are the programs standing after their billion dances?
 
-Your puzzle answer was ahgpjdkcbfmneloi.
+### Your puzzle answer was ahgpjdkcbfmneloi.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

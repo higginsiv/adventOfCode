@@ -1,4 +1,4 @@
---- Day 23: Crab Cups ---
+#  Day 23: Crab Cups 
 The small crab challenges you to a game! The crab is going to mix up some cups, and you have to predict where they'll end up.
 
 The cups will be arranged in a circle and labeled clockwise (your puzzle input). For example, if your labeling were 32415, there would be five cups in the circle; going clockwise around the circle from the first cup, the cups would be labeled 3, 2, 4, 1, 5, and then back to 3 again.
@@ -71,9 +71,9 @@ After the crab is done, what order will the cups be in? Starting after the cup l
 
 Using your labeling, simulate 100 moves. What are the labels on the cups after cup 1?
 
-Your puzzle answer was 69473825.
+### Your puzzle answer was 69473825.
 
---- Part Two ---
+#  Part Two 
 Due to what you can only assume is a mistranslation (you're not exactly fluent in Crab), you are quite surprised when the crab starts arranging many cups in a circle on your raft - one million (1000000) in total.
 
 Your labeling is still correct for the first few cups; after that, the remaining cups are just numbered in an increasing fashion starting from the number after the highest number in your list and proceeding one by one until one million is reached. (For example, if your labeling were 54321, the cups would be numbered 5, 4, 3, 2, 1, and then start counting up from 6 until one million is reached.) In this way, every number from one through one million is used exactly once.
@@ -86,7 +86,7 @@ In the above example (389125467), this would be 934001 and then 159792; multiply
 
 Determine which two cups will end up immediately clockwise of cup 1. What do you get if you multiply their labels together?
 
-Your puzzle answer was 96604396189.
+### Your puzzle answer was 96604396189.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

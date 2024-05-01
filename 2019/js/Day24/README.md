@@ -1,4 +1,4 @@
---- Day 24: Planet of Discord ---
+#  Day 24: Planet of Discord 
 You land on Eris, your last stop before reaching Santa. As soon as you do, your sensors start picking up strange life forms moving around: Eris is infested with bugs! With an over 24-hour roundtrip for messages between you and Earth, you'll have to deal with this problem on your own.
 
 Eris isn't a very large place; a scan of the entire area fits into a 5x5 grid (your puzzle input). The scan shows bugs (#) and empty spaces (.).
@@ -56,9 +56,9 @@ To calculate the biodiversity rating for this layout, consider each tile left-to
 
 What is the biodiversity rating for the first layout that appears twice?
 
-Your puzzle answer was 18407158.
+### Your puzzle answer was 18407158.
 
---- Part Two ---
+#  Part Two 
 After careful analysis, one thing is certain: you have no idea where all these bugs are coming from.
 
 Then, you remember: Eris is an old Plutonian settlement! Clearly, the bugs are coming from recursively-folded space.
@@ -68,11 +68,11 @@ This 5x5 grid is only one level in an infinite number of recursion levels. The t
      |     |         |     |     
      |     |         |     |     
      |     |         |     |     
------+-----+---------+-----+-----
+# --+-----+---------+-----+--
      |     |         |     |     
      |     |         |     |     
      |     |         |     |     
------+-----+---------+-----+-----
+# --+-----+---------+-----+--
      |     | | | | | |     |     
      |     |-+-+-+-+-|     |     
      |     | | | | | |     |     
@@ -82,11 +82,11 @@ This 5x5 grid is only one level in an infinite number of recursion levels. The t
      |     | | | | | |     |     
      |     |-+-+-+-+-|     |     
      |     | | | | | |     |     
------+-----+---------+-----+-----
+# --+-----+---------+-----+--
      |     |         |     |     
      |     |         |     |     
      |     |         |     |     
------+-----+---------+-----+-----
+# --+-----+---------+-----+--
      |     |         |     |     
      |     |         |     |     
      |     |         |     |     
@@ -99,11 +99,11 @@ Tiles still count as adjacent if they are directly up, down, left, or right of a
      |     |         |     |     
   1  |  2  |    3    |  4  |  5  
      |     |         |     |     
------+-----+---------+-----+-----
+# --+-----+---------+-----+--
      |     |         |     |     
   6  |  7  |    8    |  9  |  10 
      |     |         |     |     
------+-----+---------+-----+-----
+# --+-----+---------+-----+--
      |     |A|B|C|D|E|     |     
      |     |-+-+-+-+-|     |     
      |     |F|G|H|I|J|     |     
@@ -113,11 +113,11 @@ Tiles still count as adjacent if they are directly up, down, left, or right of a
      |     |P|Q|R|S|T|     |     
      |     |-+-+-+-+-|     |     
      |     |U|V|W|X|Y|     |     
------+-----+---------+-----+-----
+# --+-----+---------+-----+--
      |     |         |     |     
  16  | 17  |    18   |  19 |  20 
      |     |         |     |     
------+-----+---------+-----+-----
+# --+-----+---------+-----+--
      |     |         |     |     
  21  | 22  |    23   |  24 |  25 
      |     |         |     |     
@@ -218,7 +218,7 @@ In this example, after 10 minutes, a total of 99 bugs are present.
 
 Starting with your scan, how many bugs are present after 200 minutes?
 
-Your puzzle answer was 1998.
+### Your puzzle answer was 1998.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

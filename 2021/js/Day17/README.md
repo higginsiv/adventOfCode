@@ -1,4 +1,4 @@
---- Day 17: Trick Shot ---
+#  Day 17: Trick Shot 
 You finally decode the Elves' message. HI, the message says. You continue searching for the sleigh keys.
 
 Ahead of you is what appears to be a large ocean trench. Could the keys have fallen into it? You'd better send a probe to investigate.
@@ -99,9 +99,9 @@ In the above example, using an initial velocity of 6,9 is the best you can do, c
 
 Find the initial velocity that causes the probe to reach the highest y position and still eventually be within the target area after any step. What is the highest y position it reaches on this trajectory?
 
-Your puzzle answer was 4186.
+### Your puzzle answer was 4186.
 
---- Part Two ---
+#  Part Two 
 Maybe a fancy trick shot isn't the best idea; after all, you only have one probe, so you had better not miss.
 
 To get the best idea of what your options are for launching the probe, you need to find every initial velocity that causes the probe to eventually be within the target area after any step.
@@ -123,7 +123,7 @@ In the above example, there are 112 different initial velocity values that meet 
 8,-2    27,-8   30,-5   24,-7
 How many distinct initial velocity values cause the probe to be within the target area after any step?
 
-Your puzzle answer was 2709.
+### Your puzzle answer was 2709.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

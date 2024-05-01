@@ -1,4 +1,4 @@
---- Day 2: Dive! ---
+#  Day 2: Dive! 
 
 Now, you need to figure out how to pilot this thing.
 
@@ -29,9 +29,9 @@ After following these instructions, you would have a horizontal position of 15 a
 
 Calculate the horizontal position and depth you would have after following the planned course. What do you get if you multiply your final horizontal position by your final depth?
 
-Your puzzle answer was 1714950.
+### Your puzzle answer was 1714950.
 
---- Part Two ---
+#  Part Two 
 
 Based on your calculations, the planned course doesn't seem to make any sense. You find the submarine manual and discover that the process is actually slightly more complicated.
 
@@ -56,4 +56,4 @@ After following these new instructions, you would have a horizontal position of 
 
 Using this new interpretation of the commands, calculate the horizontal position and depth you would have after following the planned course. What do you get if you multiply your final horizontal position by your final depth?
 
-Your puzzle answer was 1281977850.
+### Your puzzle answer was 1281977850.

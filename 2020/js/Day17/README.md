@@ -1,4 +1,4 @@
---- Day 17: Conway Cubes ---
+#  Day 17: Conway Cubes 
 As your flight slowly drifts through the sky, the Elves at the Mythical Information Bureau at the North Pole contact you. They'd like some help debugging a malfunctioning experimental energy source aboard one of their super-secret imaging satellites.
 
 The experimental energy source is based on cutting-edge technology: a set of Conway Cubes contained in a pocket dimension! When you hear it's having problems, you can't help but agree to take a look.
@@ -140,9 +140,9 @@ After the full six-cycle boot process completes, 112 cubes are left in the activ
 
 Starting with your given initial configuration, simulate six cycles. How many cubes are left in the active state after the sixth cycle?
 
-Your puzzle answer was 276.
+### Your puzzle answer was 276.
 
---- Part Two ---
+#  Part Two 
 For some reason, your simulated results don't match what the experimental energy source engineers expected. Apparently, the pocket dimension actually has four spatial dimensions, not three.
 
 The pocket dimension contains an infinite 4-dimensional grid. At every integer 4-dimensional coordinate (x,y,z,w), there exists a single cube (really, a hypercube) which is still either active or inactive.
@@ -391,7 +391,7 @@ After the full six-cycle boot process completes, 848 cubes are left in the activ
 
 Starting with your given initial configuration, simulate six cycles in a 4-dimensional space. How many cubes are left in the active state after the sixth cycle?
 
-Your puzzle answer was 2136.
+### Your puzzle answer was 2136.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

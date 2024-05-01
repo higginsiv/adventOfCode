@@ -1,4 +1,4 @@
---- Day 11: Seating System ---
+#  Day 11: Seating System 
 Your plane lands with plenty of time to spare. The final leg of your journey is a ferry that goes directly to the tropical island where you can finally start your vacation. As you reach the waiting area to board the ferry, you realize you're so early, nobody else has even arrived yet!
 
 By modeling the process people use to choose (or abandon) their seat in the waiting area, you're pretty sure you can predict the best place to sit. You make a quick map of the seat layout (your puzzle input).
@@ -82,9 +82,9 @@ At this point, something interesting happens: the chaos stabilizes and further a
 
 Simulate your seating area by applying the seating rules repeatedly until no seats change state. How many seats end up occupied?
 
-Your puzzle answer was 2334.
+### Your puzzle answer was 2334.
 
---- Part Two ---
+#  Part Two 
 As soon as people start to arrive, you realize your mistake. People don't just care about adjacent seats - they care about the first seat they can see in each of those eight directions!
 
 Now, instead of considering just the eight immediately adjacent seats, consider the first seat in each of those eight directions. For example, the empty seat below would see eight occupied seats:
@@ -190,7 +190,7 @@ Again, at this point, people stop shifting around and the seating area reaches e
 
 Given the new visibility method and the rule change for occupied seats becoming empty, once equilibrium is reached, how many seats end up occupied?
 
-Your puzzle answer was 2100.
+### Your puzzle answer was 2100.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

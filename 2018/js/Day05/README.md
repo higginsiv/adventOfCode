@@ -1,4 +1,4 @@
---- Day 5: Alchemical Reduction ---
+#  Day 5: Alchemical Reduction 
 You've managed to sneak in to the prototype suit manufacturing lab. The Elves are making decent progress, but are still struggling with the suit's size reduction capabilities.
 
 While the very latest in 1518 alchemical technology might have solved their problem eventually, you can do better. You scan the chemical composition of the suit's material and discover that it is formed by extremely long polymers (one of which is available as your puzzle input).
@@ -21,9 +21,9 @@ After all possible reactions, the resulting polymer contains 10 units.
 
 How many units remain after fully reacting the polymer you scanned? (Note: in this puzzle and others, the input is large; if you copy/paste your input, make sure you get the whole thing.)
 
-Your puzzle answer was 9686.
+### Your puzzle answer was 9686.
 
---- Part Two ---
+#  Part Two 
 Time to improve the polymer.
 
 One of the unit types is causing problems; it's preventing the polymer from collapsing as much as it should. Your goal is to figure out which unit type is causing the most problems, remove all instances of it (regardless of polarity), fully react the remaining polymer, and measure its length.
@@ -38,7 +38,7 @@ In this example, removing all C/c units was best, producing the answer 4.
 
 What is the length of the shortest polymer you can produce by removing all units of exactly one type and fully reacting the result?
 
-Your puzzle answer was 5524.
+### Your puzzle answer was 5524.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

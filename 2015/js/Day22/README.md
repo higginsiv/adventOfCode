@@ -1,4 +1,4 @@
---- Day 22: Wizard Simulator 20XX ---
+#  Day 22: Wizard Simulator 20XX 
 Little Henry Case decides that defeating bosses with swords and stuff is boring. Now he's playing the game with a wizard. Of course, he gets stuck on another boss and needs your help again.
 
 In this version, combat still proceeds with the player and the boss taking alternating turns. The player still goes first. Now, however, you don't get any equipment; instead, you must choose one of your spells to cast. The first character at or below 0 hit points loses.
@@ -105,16 +105,16 @@ Player casts Magic Missile, dealing 4 damage.
 Poison deals 3 damage. This kills the boss, and the player wins.
 You start with 50 hit points and 500 mana points. The boss's actual stats are in your puzzle input. What is the least amount of mana you can spend and still win the fight? (Do not include mana recharge effects as "spending" negative mana.)
 
-Your puzzle answer was 1269.
+### Your puzzle answer was 1269.
 
---- Part Two ---
+#  Part Two 
 On the next run through the game, you increase the difficulty to hard.
 
 At the start of each player turn (before any other effects apply), you lose 1 hit point. If this brings you to or below 0 hit points, you lose.
 
 With the same starting stats for you and the boss, what is the least amount of mana you can spend and still win the fight?
 
-Your puzzle answer was 1309.
+### Your puzzle answer was 1309.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

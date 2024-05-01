@@ -1,4 +1,4 @@
---- Day 22: Grid Computing ---
+#  Day 22: Grid Computing 
 You gain access to a massive storage cluster arranged in a grid; each storage node is only connected to the four nodes directly adjacent to it (three if the node is on an edge, two if it's in a corner).
 
 You can directly access data only on node /dev/grid/node-x0-y0, but you can perform some limited actions on the other nodes:
@@ -16,9 +16,9 @@ Nodes A and B are not the same node.
 The data on node A (its Used) would fit on node B (its Avail).
 How many viable pairs of nodes are there?
 
-Your puzzle answer was 967.
+### Your puzzle answer was 967.
 
---- Part Two ---
+#  Part Two 
 Now that you have a better understanding of the grid, it's time to get to work.
 
 Your goal is to gain access to the data which begins in the node with y=0 and the highest x (that is, the node in the top-right corner).
@@ -92,7 +92,7 @@ So, after 7 steps, we've accessed the data we want. Unfortunately, each of these
 
 What is the fewest number of steps required to move your goal data to node-x0-y0?
 
-Your puzzle answer was 205.
+### Your puzzle answer was 205.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

@@ -1,4 +1,4 @@
---- Day 25: Full of Hot Air ---
+#  Day 25: Full of Hot Air 
 As the expedition finally reaches the extraction point, several large hot air balloons drift down to meet you. Crews quickly start unloading the equipment the balloons brought: many hot air balloon kits, some fuel tanks, and a fuel heating machine.
 
 The fuel heating machine is a new addition to the process. When this mountain was a volcano, the ambient temperature was more reasonable; now, it's so cold that the fuel won't work at all without being warmed up first.
@@ -92,9 +92,9 @@ Reversing the process, you can determine that for the decimal number 4890, the S
 
 The Elves are starting to get cold. What SNAFU number do you supply to Bob's console?
 
-Your puzzle answer was 2=-0=1-0012-=-2=0=01.
+### Your puzzle answer was 2=-0=1-0012-=-2=0=01.
 
---- Part Two ---
+#  Part Two 
 The hot air balloons quickly carry you to the North Pole. As soon as you land, most of the expedition is escorted directly to a small building attached to the reindeer stables.
 
 The head smoothie chef has just finished warming up the industrial-grade smoothie blender as you arrive. It will take 50 stars to fill the blender. The expedition Elves turn their attention to you, and you begin emptying the fruit from your pack onto the table.

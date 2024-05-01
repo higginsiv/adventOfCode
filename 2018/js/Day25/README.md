@@ -1,4 +1,4 @@
---- Day 25: Four-Dimensional Adventure ---
+#  Day 25: Four-Dimensional Adventure 
 The reindeer's symptoms are getting worse, and neither you nor the white-bearded man have a solution. At least the reindeer has a warm place to rest: a small bed near where you're sitting.
 
 As you reach down, the reindeer looks up at you, accidentally bumping a button on your wrist-mounted device with its nose in the process - a button labeled "help".
@@ -73,9 +73,9 @@ The portly man nervously strokes his white beard. It's time to get that hot choc
 
 How many constellations are formed by the fixed points in spacetime?
 
-Your puzzle answer was 381.
+### Your puzzle answer was 381.
 
---- Part Two ---
+#  Part Two 
 A small glowing portal opens above the mug you prepared and just enough hot chocolate streams in to fill it. You suspect the reindeer has never encountered hot chocolate before, but seems to enjoy it anyway. You hope it works.
 
 It's time to start worrying about that integer underflow in time itself you set up a few days ago. You check the status of the device: "Insufficient chronal energy for activation. Energy required: 50 stars."

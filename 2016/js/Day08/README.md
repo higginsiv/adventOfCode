@@ -1,4 +1,4 @@
---- Day 8: Two-Factor Authentication ---
+#  Day 8: Two-Factor Authentication 
 You come across a door implementing what you can only assume is an implementation of two-factor authentication after a long game of requirements telephone.
 
 To get past the door, you first swipe a keycard (no problem; there was one on a nearby desk). Then, it displays a code on a little screen, and you type that code on a keypad. Then, presumably, the door unlocks.
@@ -36,14 +36,14 @@ As you can see, this display technology is extremely powerful, and will soon dom
 
 There seems to be an intermediate check of the voltage used by the display: after you swipe your card, if the screen did work, how many pixels should be lit?
 
-Your puzzle answer was 106.
+### Your puzzle answer was 106.
 
---- Part Two ---
+#  Part Two 
 You notice that the screen is only capable of displaying capital letters; in the font it uses, each letter is 5 pixels wide and 6 tall.
 
 After you swipe your card, what code is the screen trying to display?
 
-Your puzzle answer was CFLELOYFCS.
+### Your puzzle answer was CFLELOYFCS.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

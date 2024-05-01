@@ -1,4 +1,4 @@
---- Day 14: Regolith Reservoir ---
+#  Day 14: Regolith Reservoir 
 The distress signal leads you to a giant waterfall! Actually, hang on - the signal seems like it's coming from the waterfall itself, and that doesn't make any sense. However, you do notice a little path that leads behind the waterfall.
 
 Correction: the distress signal leads you behind a giant waterfall! There seems to be a large cave system here, and the signal definitely leads further inside.
@@ -112,9 +112,9 @@ Once all 24 units of sand shown above have come to rest, all further sand flows 
 ~..........
 Using your scan, simulate the falling sand. How many units of sand come to rest before sand starts flowing into the abyss below?
 
-Your puzzle answer was 728.
+### Your puzzle answer was 728.
 
---- Part Two ---
+#  Part Two 
 You realize you misread the scan. There isn't an endless void at the bottom of the scan - there's floor, and you're standing on it!
 
 You don't have time to scan the floor, so assume the floor is an infinite horizontal line with a y coordinate equal to two plus the highest y coordinate of any point in your scan.
@@ -149,7 +149,7 @@ To find somewhere safe to stand, you'll need to simulate falling sand until a un
 #########################
 Using your scan, simulate the falling sand until the source of the sand becomes blocked. How many units of sand come to rest?
 
-Your puzzle answer was 27623.
+### Your puzzle answer was 27623.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

@@ -1,4 +1,4 @@
---- Day 15: Beverage Bandits ---
+#  Day 15: Beverage Bandits 
 Having perfected their hot chocolate, the Elves have a new problem: the Goblins that live in these caves will do anything to steal it. Looks like they're here for a fight.
 
 You scan the area, generating a map of the walls (#), open cavern (.), and starting position of every Goblin (G) and Elf (E) (your puzzle input).
@@ -271,9 +271,9 @@ Goblins win with 937 total hit points left
 Outcome: 20 * 937 = 18740
 What is the outcome of the combat described in your puzzle input?
 
-Your puzzle answer was 218272.
+### Your puzzle answer was 218272.
 
---- Part Two ---
+#  Part Two 
 According to your calculations, the Elves are going to lose badly. Surely, you won't mess up the timeline too much if you give them just a little advanced technology, right?
 
 You need to make sure the Elves not only win, but also suffer no losses: even the death of a single Elf is unacceptable.
@@ -351,7 +351,7 @@ Elves win with 38 total hit points left
 Outcome: 30 * 38 = 1140
 After increasing the Elves' attack power until it is just barely enough for them to win without any Elves dying, what is the outcome of the combat described in your puzzle input?
 
-Your puzzle answer was 40861.
+### Your puzzle answer was 40861.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

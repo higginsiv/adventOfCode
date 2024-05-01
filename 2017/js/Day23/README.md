@@ -1,4 +1,4 @@
---- Day 23: Coprocessor Conflagration ---
+#  Day 23: Coprocessor Conflagration 
 You decide to head directly to the CPU and fix the printer from there. As you get close, you find an experimental coprocessor doing so much work that the local programs are afraid it will halt and catch fire. This would cause serious issues for the rest of the computer, so you head in and see what you can do.
 
 The code it's running seems to be a variant of the kind you saw recently on that tablet. The general functionality seems very similar, but some of the instructions are different:
@@ -13,9 +13,9 @@ The coprocessor is currently set to some kind of debug mode, which allows for te
 
 If you run the program (your puzzle input), how many times is the mul instruction invoked?
 
-Your puzzle answer was 6724.
+### Your puzzle answer was 6724.
 
---- Part Two ---
+#  Part Two 
 Now, it's time to fix the problem.
 
 The debug mode switch is wired directly to register a. You flip the switch, which makes register a now start at 1 when the program is executed.
@@ -26,7 +26,7 @@ The coprocessor's ultimate goal is to determine the final value left in register
 
 After setting register a to 1, if the program were to run to completion, what value would be left in register h?
 
-Your puzzle answer was 903.
+### Your puzzle answer was 903.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

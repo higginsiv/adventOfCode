@@ -1,4 +1,4 @@
---- Day 2: Bathroom Security ---
+#  Day 2: Bathroom Security 
 You arrive at Easter Bunny Headquarters under cover of darkness. However, you left in such a rush that you forgot to use the bathroom! Fancy office buildings like this one usually have keypad locks on their bathrooms, so you search the front desk for the code.
 
 "In order to improve security," the document you find says, "bathroom codes will no longer be written down. Instead, please memorize and follow the procedure below to access the bathrooms."
@@ -24,9 +24,9 @@ So, in this example, the bathroom code is 1985.
 
 Your puzzle input is the instructions from the document you found at the front desk. What is the bathroom code?
 
-Your puzzle answer was 56983.
+### Your puzzle answer was 56983.
 
---- Part Two ---
+#  Part Two 
 You finally arrive at the bathroom (it's a several minute walk from the lobby so visitors can behold the many fancy conference rooms and water coolers on this floor) and go to punch in the code. Much to your bladder's dismay, the keypad is not at all like you imagined it. Instead, you are confronted with the result of hundreds of man-hours of bathroom-keypad-design meetings:
 
     1
@@ -44,7 +44,7 @@ So, given the actual keypad layout, the code would be 5DB3.
 
 Using the same instructions in your puzzle input, what is the correct bathroom code?
 
-Your puzzle answer was 8B8B1.
+### Your puzzle answer was 8B8B1.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

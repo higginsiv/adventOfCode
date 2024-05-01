@@ -1,4 +1,4 @@
---- Day 16: Flawed Frequency Transmission ---
+#  Day 16: Flawed Frequency Transmission 
 You're 3/4ths of the way through the gas giants. Not only do roundtrip signals to Earth take five hours, but the signal quality is quite bad as well. You can clean up the signal with the Flawed Frequency Transmission algorithm, or FFT.
 
 As input, FFT takes a list of numbers. In the signal you received (your puzzle input), each number is a single digit: data like 15243 represents the sequence 1, 5, 2, 4, 3.
@@ -67,9 +67,9 @@ Here are the first eight digits of the final output list after 100 phases for so
 69317163492948606335995924319873 becomes 52432133.
 After 100 phases of FFT, what are the first eight digits in the final output list?
 
-Your puzzle answer was 23135243.
+### Your puzzle answer was 23135243.
 
---- Part Two ---
+#  Part Two 
 Now that your FFT is working, you can decode the real signal.
 
 The real signal is your puzzle input repeated 10000 times. Treat this new signal as a single input list. Patterns are still calculated as before, and 100 phases of FFT are still applied.
@@ -83,7 +83,7 @@ Here is the eight-digit message in the final output list after 100 phases. The m
 03081770884921959731165446850517 becomes 53553731.
 After repeating your input signal 10000 times and running 100 phases of FFT, what is the eight-digit message embedded in the final output list?
 
-Your puzzle answer was 21130597.
+### Your puzzle answer was 21130597.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

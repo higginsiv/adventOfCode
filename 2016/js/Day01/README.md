@@ -16,7 +16,7 @@ R2, R2, R2 leaves you 2 blocks due South of your starting position, which is 2 b
 R5, L5, R5, R3 leaves you 12 blocks away.
 How many blocks away is Easter Bunny HQ?
 
-Your puzzle answer was 291.
+### Your puzzle answer was 291.
 
 # Part Two
 Then, you notice the instructions continue on the back of the Recruiting Document. Easter Bunny HQ is actually at the first location you visit twice.
@@ -25,7 +25,7 @@ For example, if your instructions are R8, R4, R4, R8, the first location you vis
 
 How many blocks away is the first location you visit twice?
 
-Your puzzle answer was 159.
+### Your puzzle answer was 159.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

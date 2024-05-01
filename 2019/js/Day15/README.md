@@ -1,4 +1,4 @@
---- Day 15: Oxygen System ---
+#  Day 15: Oxygen System 
 Out here in deep space, many things can go wrong. Fortunately, many of those things have indicator lights. Unfortunately, one of those lights is lit: the oxygen system for part of the ship has failed!
 
 According to the readouts, the oxygen system must have failed days ago after a rupture in oxygen tank two; that section of the ship was automatically sealed once oxygen levels went dangerously low. A single remotely-operated repair droid is your only option for fixing the oxygen system.
@@ -66,9 +66,9 @@ Now, because of the reply of 2, you know you've found the oxygen system! In this
 
 What is the fewest number of movement commands required to move the repair droid from its starting position to the location of the oxygen system?
 
-Your puzzle answer was 210.
+### Your puzzle answer was 210.
 
---- Part Two ---
+#  Part Two 
 You quickly repair the oxygen system; oxygen gradually fills the area.
 
 Oxygen starts in the location containing the repaired oxygen system. It takes one minute for oxygen to spread to all open locations that are adjacent to a location that already contains oxygen. Diagonal locations are not adjacent.
@@ -112,7 +112,7 @@ So, in this example, all locations contain oxygen after 4 minutes.
 
 Use the repair droid to get a complete map of the area. How many minutes will it take to fill with oxygen?
 
-Your puzzle answer was 290.
+### Your puzzle answer was 290.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

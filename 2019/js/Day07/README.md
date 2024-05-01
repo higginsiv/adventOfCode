@@ -1,4 +1,4 @@
---- Day 7: Amplification Circuit ---
+#  Day 7: Amplification Circuit 
 Based on the navigational maps, you're going to need to send more power to your ship's thrusters to reach Santa in time. To do this, you'll need to configure a series of amplifiers already installed on the ship.
 
 There are five amplifiers connected in series; each one receives an input signal and produces an output signal. They are connected such that the first amplifier's output leads to the second amplifier's input, the second amplifier's output leads to the third amplifier's input, and so on. The first amplifier's input value is 0, and the last amplifier's output leads to your ship's thrusters.
@@ -38,9 +38,9 @@ Max thruster signal 65210 (from phase setting sequence 1,0,4,3,2):
 1002,33,7,33,1,33,31,31,1,32,31,31,4,31,99,0,0,0
 Try every combination of phase settings on the amplifiers. What is the highest signal that can be sent to the thrusters?
 
-Your puzzle answer was 437860.
+### Your puzzle answer was 437860.
 
---- Part Two ---
+#  Part Two 
 It's no good - in this configuration, the amplifiers can't generate a large enough output signal to produce the thrust you'll need. The Elves quickly talk you through rewiring the amplifiers into a feedback loop:
 
       O-------O  O-------O  O-------O  O-------O  O-------O
@@ -74,7 +74,7 @@ Max thruster signal 18216 (from phase setting sequence 9,7,8,5,6):
 53,1001,56,-1,56,1005,56,6,99,0,0,0,0,10
 Try every combination of the new phase settings on the amplifier feedback loop. What is the highest signal that can be sent to the thrusters?
 
-Your puzzle answer was 49810599.
+### Your puzzle answer was 49810599.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

@@ -1,4 +1,4 @@
---- Day 12: The N-Body Problem ---
+#  Day 12: The N-Body Problem 
 The space near Jupiter is not a very safe place; you need to be careful of a big distracting red spot, extreme radiation, and a whole lot of moons swirling around. You decide to start by tracking the four largest moons: Io, Europa, Ganymede, and Callisto.
 
 After a brief scan, you calculate the position of each moon (your puzzle input). You just need to simulate their motion so you can avoid them.
@@ -176,9 +176,9 @@ pot: 16 + 13 + 23 = 52;   kin: 7 +  1 + 1 =  9;   total: 52 *  9 = 468
 Sum of total energy: 290 + 608 + 574 + 468 = 1940
 What is the total energy in the system after simulating the moons given in your scan for 1000 steps?
 
-Your puzzle answer was 14907.
+### Your puzzle answer was 14907.
 
---- Part Two ---
+#  Part Two 
 All this drifting around in space makes you wonder about the nature of the universe. Does history really repeat itself? You're curious whether the moons will ever return to a previous state.
 
 Determine the number of steps that must occur before all of the moons' positions and velocities exactly match a previous point in time.
@@ -218,7 +218,7 @@ This set of initial positions takes 4686774924 steps before it repeats a previou
 
 How many steps does it take to reach the first state that exactly matches a previous state?
 
-Your puzzle answer was 467081194429464.
+### Your puzzle answer was 467081194429464.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

@@ -1,4 +1,4 @@
---- Day 7: Handy Haversacks ---
+#  Day 7: Handy Haversacks 
 You land at the regional airport in time for your next flight. In fact, it looks like you'll even have time to grab some food: all flights are currently delayed due to issues in luggage processing.
 
 Due to recent aviation regulations, many rules (your puzzle input) are being enforced about bags and their contents; bags must be color-coded and must contain specific quantities of other color-coded bags. Apparently, nobody responsible for these regulations considered how long they would take to enforce!
@@ -28,9 +28,9 @@ So, in this example, the number of bag colors that can eventually contain at lea
 
 How many bag colors can eventually contain at least one shiny gold bag? (The list of rules is quite long; make sure you get all of it.)
 
-Your puzzle answer was 211.
+### Your puzzle answer was 211.
 
---- Part Two ---
+#  Part Two 
 It's getting pretty expensive to fly these days - not because of ticket prices, but because of the ridiculous number of bags you need to buy!
 
 Consider again your shiny gold bag and the rules from the above example:
@@ -56,7 +56,7 @@ In this example, a single shiny gold bag must contain 126 other bags.
 
 How many individual bags are required inside your single shiny gold bag?
 
-Your puzzle answer was 12414.
+### Your puzzle answer was 12414.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

@@ -1,6 +1,6 @@
 Solutions were derived by following https://codeforces.com/blog/entry/72593
 
---- Day 22: Slam Shuffle ---
+#  Day 22: Slam Shuffle 
 There isn't much to do while you wait for the droids to repair your ship. At least you're drifting in the right direction. You decide to practice a new card shuffle you've been working on.
 
 Digging through the ship's storage, you find a deck of space cards! Just like any deck of space cards, there are 10007 cards in the deck numbered 0 through 10006. The deck must be new - they're still in factory order, with 0 on the top, then 1, then 2, and so on, all the way through to 10006 on the bottom.
@@ -136,9 +136,9 @@ Positions within the deck count from 0 at the top, then 1 for the card immediate
 
 After shuffling your factory order deck of 10007 cards, what is the position of card 2019?
 
-Your puzzle answer was 3074.
+### Your puzzle answer was 3074.
 
---- Part Two ---
+#  Part Two 
 After a while, you realize your shuffling skill won't improve much more with merely a single deck of cards. You ask every 3D printer on the ship to make you some more cards while you check on the ship repairs. While reviewing the work the droids have finished so far, you think you see Halley's Comet fly past!
 
 When you get back, you discover that the 3D printers have combined their power to create for you a single, giant, brand new, factory order deck of 119315717514047 space cards.
@@ -151,7 +151,7 @@ You'll need to be careful, though - one wrong move with this many cards and you 
 
 After shuffling your new, giant, factory order deck that many times, what number is on the card that ends up in position 2020?
 
-Your puzzle answer was 104073967000066.
+### Your puzzle answer was 104073967000066.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

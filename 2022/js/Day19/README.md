@@ -1,6 +1,6 @@
 Caveat: I did not calculate the actual MAX for ore bots or clay bots because I am lazy. May go back and add
 but you just need to grab the max ore/clay requirements for that blueprint in question
---- Day 19: Not Enough Minerals ---
+#  Day 19: Not Enough Minerals 
 Your scans show that the lava did indeed form obsidian!
 
 The wind has changed direction enough to stop sending lava droplets toward you, so you and the elephants exit the cave. As you do, you notice a collection of geodes around the pond. Perhaps you could use the obsidian to create some geode-cracking robots and break them open?
@@ -167,9 +167,9 @@ Determine the quality level of each blueprint by multiplying that blueprint's ID
 
 Determine the quality level of each blueprint using the largest number of geodes it could produce in 24 minutes. What do you get if you add up the quality level of all of the blueprints in your list?
 
-Your puzzle answer was 1365.
+### Your puzzle answer was 1365.
 
---- Part Two ---
+#  Part Two 
 While you were choosing the best blueprint, the elephants found some food on their own, so you're not in as much of a hurry; you figure you probably have 32 minutes before the wind changes direction again and you'll need to get out of range of the erupting volcano.
 
 Unfortunately, one of the elephants ate most of your blueprint list! Now, only the first three blueprints in your list are intact.
@@ -376,7 +376,7 @@ You no longer have enough blueprints to worry about quality levels. Instead, for
 
 Don't worry about quality levels; instead, just determine the largest number of geodes you could open using each of the first three blueprints. What do you get if you multiply these numbers together?
 
-Your puzzle answer was 4864.
+### Your puzzle answer was 4864.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

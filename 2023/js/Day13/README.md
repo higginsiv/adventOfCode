@@ -1,4 +1,4 @@
---- Day 13: Point of Incidence ---
+#  Day 13: Point of Incidence 
 With your help, the hot springs team locates an appropriate spring which launches you neatly and precisely up to the edge of Lava Island.
 
 There's just one problem: you don't see any lava.
@@ -58,9 +58,9 @@ To summarize your pattern notes, add up the number of columns to the left of eac
 
 Find the line of reflection in each of the patterns in your notes. What number do you get after summarizing all of your notes?
 
-Your puzzle answer was 34202.
+### Your puzzle answer was 34202.
 
---- Part Two ---
+#  Part Two 
 You resume walking through the valley of mirrors and - SMACK! - run directly into one. Hopefully nobody was watching, because that must have been pretty embarrassing.
 
 Upon closer inspection, you discover that every mirror has exactly one smudge: exactly one . or # should be the opposite type.
@@ -110,7 +110,7 @@ Summarize your notes as before, but instead use the new different reflection lin
 
 In each pattern, fix the smudge and find the different line of reflection. What number do you get after summarizing the new reflection line in each pattern in your notes?
 
-Your puzzle answer was 34230.
+### Your puzzle answer was 34230.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

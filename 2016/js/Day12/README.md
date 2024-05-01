@@ -1,4 +1,4 @@
---- Day 12: Leonardo's Monorail ---
+#  Day 12: Leonardo's Monorail 
 You finally reach the top floor of this building: a garden with a slanted glass ceiling. Looks like there are no more stars to be had.
 
 While sitting on a nearby bench amidst some tiger lilies, you manage to decrypt some of the files you extracted from the servers downstairs.
@@ -27,4 +27,4 @@ The above code would set register a to 41, increase its value by 2, decrease its
 
 After executing the assembunny code in your puzzle input, what value is left in register a?
 
-Your puzzle answer was 317993.
+### Your puzzle answer was 317993.

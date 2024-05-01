@@ -1,4 +1,4 @@
---- Day 12: Hot Springs ---
+#  Day 12: Hot Springs 
 You finally reach the hot springs! You can see steam rising from secluded areas attached to the primary, ornate building.
 
 As you turn to enter, the researcher stops you. "Wait - I thought you were looking for the hot springs, weren't you?" You indicate that this definitely looks like hot springs to you.
@@ -68,9 +68,9 @@ Adding all of the possible arrangement counts together produces a total of 21 ar
 
 For each row, count all of the different arrangements of operational and broken springs that meet the given criteria. What is the sum of those counts?
 
-Your puzzle answer was 7173.
+### Your puzzle answer was 7173.
 
---- Part Two ---
+#  Part Two 
 As you look out at the field of springs, you feel like there are way more springs than the condition records list. When you examine the records, you discover that they were actually folded up this whole time!
 
 To unfold the records, on each row, replace the list of spring conditions with five copies of itself (separated by ?) and replace the list of contiguous groups of damaged springs with five copies of itself (separated by ,).
@@ -96,7 +96,7 @@ After unfolding, adding all of the possible arrangement counts together produces
 
 Unfold your condition records; what is the new sum of possible arrangement counts?
 
-Your puzzle answer was 29826669191291.
+### Your puzzle answer was 29826669191291.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

@@ -1,4 +1,4 @@
---- Day 6: Chronal Coordinates ---
+#  Day 6: Chronal Coordinates 
 The device on your wrist beeps several times, and once again you feel like you're falling.
 
 "Situation critical," the device announces. "Destination indeterminate. Chronal interference detected. Please specify new target coordinates."
@@ -47,9 +47,9 @@ In this example, the areas of coordinates A, B, C, and F are infinite - while no
 
 What is the size of the largest area that isn't infinite?
 
-Your puzzle answer was 3882.
+### Your puzzle answer was 3882.
 
---- Part Two ---
+#  Part Two 
 On the other hand, if the coordinates are safe, maybe the best you can do is try to find a region near as many coordinates as possible.
 
 For example, suppose you want the sum of the Manhattan distance to all of the coordinates to be less than 32. For each location, add up the distances to all of the given coordinates; if the total of those distances is less than 32, that location is within the desired region. Using the same coordinates as above, the resulting region looks like this:
@@ -81,7 +81,7 @@ Your actual region will need to be much larger than this example, though, instea
 
 What is the size of the region containing all locations which have a total distance to all given coordinates of less than 10000?
 
-Your puzzle answer was 43852.
+### Your puzzle answer was 43852.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

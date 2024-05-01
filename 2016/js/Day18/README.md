@@ -1,4 +1,4 @@
---- Day 18: Like a Rogue ---
+#  Day 18: Like a Rogue 
 As you enter this room, you hear a loud click! Some of the tiles in the floor here seem to be pressure plates for traps, and the trap you just triggered has run out of... whatever it tried to do to you. You doubt you'll be so lucky next time.
 
 Upon closer examination, the traps and safe tiles in this room seem to follow a pattern. The tiles are arranged into rows that are all the same width; you take note of the safe tiles (.) and traps (^) in the first row (your puzzle input).
@@ -44,12 +44,12 @@ In ten rows, this larger example has 38 safe tiles.
 
 Starting with the map in your puzzle input, in a total of 40 rows (including the starting row), how many safe tiles are there?
 
-Your puzzle answer was 1987.
+### Your puzzle answer was 1987.
 
---- Part Two ---
+#  Part Two 
 How many safe tiles are there in a total of 400000 rows?
 
-Your puzzle answer was 19984714.
+### Your puzzle answer was 19984714.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

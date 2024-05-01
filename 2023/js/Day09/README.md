@@ -1,4 +1,4 @@
---- Day 9: Mirage Maintenance ---
+#  Day 9: Mirage Maintenance 
 You ride the camel through the sandstorm and stop where the ghost's maps told you to stop. The sandstorm subsequently subsides, somehow seeing you standing at an oasis!
 
 The camel goes to get some water and you stretch your neck. As you look up, you discover what must be yet another giant floating island, this one made of metal! That must be where the parts to fix the sand machines come from.
@@ -63,9 +63,9 @@ If you find the next value for each history in this example and add them togethe
 
 Analyze your OASIS report and extrapolate the next value for each history. What is the sum of these extrapolated values?
 
-Your puzzle answer was 1853145119.
+### Your puzzle answer was 1853145119.
 
---- Part Two ---
+#  Part Two 
 Of course, it would be nice to have even more history included in your report. Surely it's safe to just extrapolate backwards as well, right?
 
 For each history, repeat the process of finding differences until the sequence of differences is entirely zero. Then, rather than adding a zero to the end and filling in the next values of each previous sequence, you should instead add a zero to the beginning of your sequence of zeroes, then fill in new first values for each previous sequence.
@@ -83,7 +83,7 @@ Doing this for the remaining example data above results in previous values of -3
 
 Analyze your OASIS report again, this time extrapolating the previous value for each history. What is the sum of these extrapolated values?
 
-Your puzzle answer was 923.
+### Your puzzle answer was 923.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

@@ -1,4 +1,4 @@
---- Day 5: Doesn't He Have Intern-Elves For This? ---
+#  Day 5: Doesn't He Have Intern-Elves For This? 
 Santa needs help figuring out which strings in his text file are naughty or nice.
 
 A nice string is one with all of the following properties:
@@ -15,9 +15,9 @@ haegwjzuvuyypxyu is naughty because it contains the string xy.
 dvszwmarrgswjxmb is naughty because it contains only one vowel.
 How many strings are nice?
 
-Your puzzle answer was 238.
+### Your puzzle answer was 238.
 
---- Part Two ---
+#  Part Two 
 Realizing the error of his ways, Santa has switched to a better model of determining whether a string is naughty or nice. None of the old rules apply, as they are all clearly ridiculous.
 
 Now, a nice string is one with all of the following properties:
@@ -32,7 +32,7 @@ uurcxstgmygtbstg is naughty because it has a pair (tg) but no repeat with a sing
 ieodomkazucvgmuy is naughty because it has a repeating letter with one between (odo), but no pair that appears twice.
 How many strings are nice under these new rules?
 
-Your puzzle answer was 69.
+### Your puzzle answer was 69.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

@@ -1,4 +1,4 @@
---- Day 23: Safe Cracking ---
+#  Day 23: Safe Cracking 
 This is one of the top floors of the nicest tower in EBHQ. The Easter Bunny's private office is here, complete with a safe hidden behind a painting, and who wouldn't hide a star in a safe behind a painting?
 
 The safe has a digital screen and keypad for code entry. A sticky note attached to the safe has a password hint on it: "eggs". The painting is of a large rabbit coloring some eggs. You see 7.
@@ -36,9 +36,9 @@ The rest of the electronics seem to place the keypad entry (the number of eggs, 
 
 What value should be sent to the safe?
 
-Your puzzle answer was 12516.
+### Your puzzle answer was 12516.
 
---- Part Two ---
+#  Part Two 
 The safe doesn't open, but it does make several angry noises to express its frustration.
 
 You're quite sure your logic is working correctly, so the only other thing is... you check the painting again. As it turns out, colored eggs are still eggs. Now you count 12.
@@ -47,7 +47,7 @@ As you run the program with this new input, the prototype computer begins to ove
 
 Anyway, what value should actually be sent to the safe?
 
-Your puzzle answer was 479009076.
+### Your puzzle answer was 479009076.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

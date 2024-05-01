@@ -1,4 +1,4 @@
---- Day 20: Donut Maze ---
+#  Day 20: Donut Maze 
 You notice a strange pattern on the surface of Pluto and land nearby to get a closer look. Upon closer inspection, you realize you've come across one of the famous space-warping mazes of the long-lost Pluto civilization!
 
 Because there isn't much space on Pluto, the civilization that used to live here thrived by inventing a method for folding spacetime. Although the technology is no longer understood, mazes like this one provide a small glimpse into the daily life of an ancient Pluto citizen.
@@ -73,9 +73,9 @@ Here, AA has no direct path to ZZ, but it does connect to AS and CP. By passing 
 
 In your maze, how many steps does it take to get from the open tile marked AA to the open tile marked ZZ?
 
-Your puzzle answer was 620.
+### Your puzzle answer was 620.
 
---- Part Two ---
+#  Part Two 
 Strangely, the exit isn't open when you reach it. Then, you remember: the ancient Plutonians were famous for building recursive spaces.
 
 The marked connections in the maze aren't portals: they physically connect to a larger or smaller copy of the maze. Specifically, the labeled tiles around the inside edge actually connect to a smaller copy of the same maze, and the smaller copy's inner labeled tiles connect to yet a smaller copy, and so on.
@@ -198,7 +198,7 @@ This path takes a total of 396 steps to move from AA at the outermost layer to Z
 
 In your maze, when accounting for recursion, how many steps does it take to get from the open tile marked AA to the open tile marked ZZ, both at the outermost layer?
 
-Your puzzle answer was 7366.
+### Your puzzle answer was 7366.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

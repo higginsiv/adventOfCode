@@ -1,4 +1,4 @@
---- Day 16: Ticket Translation ---
+#  Day 16: Ticket Translation 
 As you're walking to yet another connecting flight, you realize that one of the legs of your re-routed trip coming up is on a high-speed train. However, the train ticket you were given is in a language you don't understand. You should probably figure out what it says before you get to the train station after the next flight.
 
 Unfortunately, you can't actually read the words on the ticket. You can, however, read the numbers, and so you figure out the fields these tickets must have and the valid ranges for values in those fields.
@@ -37,9 +37,9 @@ It doesn't matter which position corresponds to which field; you can identify in
 
 Consider the validity of the nearby tickets you scanned. What is your ticket scanning error rate?
 
-Your puzzle answer was 23009.
+### Your puzzle answer was 23009.
 
---- Part Two ---
+#  Part Two 
 Now that you've identified which tickets contain invalid values, discard those tickets entirely. Use the remaining valid tickets to determine which field is which.
 
 Using the valid ranges for each field, determine what order the fields appear on the tickets. The order is consistent between all tickets: if seat is the third field, it is the third field on every ticket, including your ticket.
@@ -61,7 +61,7 @@ Based on the nearby tickets in the above example, the first position must be row
 
 Once you work out which field is which, look for the six fields on your ticket that start with the word departure. What do you get if you multiply those six values together?
 
-Your puzzle answer was 10458887314153.
+### Your puzzle answer was 10458887314153.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

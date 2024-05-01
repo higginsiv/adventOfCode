@@ -1,4 +1,4 @@
---- Day 6: Probably a Fire Hazard ---
+#  Day 6: Probably a Fire Hazard 
 Because your neighbors keep defeating you in the holiday house decorating contest year after year, you've decided to deploy one million lights in a 1000x1000 grid.
 
 Furthermore, because you've been especially nice this year, Santa has mailed you instructions on how to display the ideal lighting configuration.
@@ -14,9 +14,9 @@ toggle 0,0 through 999,0 would toggle the first line of 1000 lights, turning off
 turn off 499,499 through 500,500 would turn off (or leave off) the middle four lights.
 After following the instructions, how many lights are lit?
 
-Your puzzle answer was 400410.
+### Your puzzle answer was 400410.
 
---- Part Two ---
+#  Part Two 
 You just finish implementing your winning light pattern when you realize you mistranslated Santa's message from Ancient Nordic Elvish.
 
 The light grid you bought actually has individual brightness controls; each light can have a brightness of zero or more. The lights all start at zero.
@@ -33,7 +33,7 @@ For example:
 
 turn on 0,0 through 0,0 would increase the total brightness by 1.
 toggle 0,0 through 999,999 would increase the total brightness by 2000000.
-Your puzzle answer was 15343601.
+### Your puzzle answer was 15343601.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

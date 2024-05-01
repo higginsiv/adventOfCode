@@ -1,4 +1,4 @@
---- Day 25: Cryostasis ---
+#  Day 25: Cryostasis 
 As you approach Santa's ship, your sensors report two important details:
 
 First, that you might be too late: the internal temperature is -40 degrees.
@@ -21,9 +21,9 @@ Santa's ship is a Reindeer-class starship; these ships use pressure-sensitive fl
 
 Look around the ship and see if you can find the password for the main airlock.
 
-Your puzzle answer was 278664.
+### Your puzzle answer was 278664.
 
---- Part Two ---
+#  Part Two 
 As you move through the main airlock, the air inside the ship is already heating up to reasonable levels. Santa explains that he didn't notice you coming because he was just taking a quick nap. The ship wasn't frozen; he just had the thermostat set to "North Pole".
 
 You make your way over to the navigation console. It beeps. "Status: Stranded. Please supply measurements from 49 stars to recalibrate."

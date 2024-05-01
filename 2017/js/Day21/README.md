@@ -1,4 +1,4 @@
---- Day 21: Fractal Art ---
+#  Day 21: Fractal Art 
 You find a program trying to generate some art. It uses a strange process that involves repeatedly enhancing the detail of an image through a set of rules.
 
 The image consists of a two-dimensional square grid of pixels that are either on (#) or off (.). The program always begins with this pattern:
@@ -59,7 +59,7 @@ Each of these squares matches the same rule (../.# => ##./#../...), three of whi
 ##.|##.
 #..|#..
 ...|...
----+---
+# +
 ##.|##.
 #..|#..
 ...|...
@@ -75,12 +75,12 @@ Thus, after 2 iterations, the grid contains 12 pixels that are on.
 
 How many pixels stay on after 5 iterations?
 
-Your puzzle answer was 164.
+### Your puzzle answer was 164.
 
---- Part Two ---
+#  Part Two 
 How many pixels stay on after 18 iterations?
 
-Your puzzle answer was 2355110.
+### Your puzzle answer was 2355110.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

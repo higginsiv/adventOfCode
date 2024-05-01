@@ -1,4 +1,4 @@
---- Day 24: Blizzard Basin ---
+#  Day 24: Blizzard Basin 
 With everything replanted for next year (and with elephants and monkeys to tend the grove), you and the Elves leave for the extraction point.
 
 Partway up the mountain that shields the grove is a flat, open area that serves as the extraction point. It's a bit of a climb, but nothing the expedition can't handle.
@@ -230,9 +230,9 @@ Minute 18, move down:
 ######E#
 What is the fewest number of minutes required to avoid the blizzards and reach the goal?
 
-Your puzzle answer was 251.
+### Your puzzle answer was 251.
 
---- Part Two ---
+#  Part Two 
 As the expedition reaches the far side of the valley, one of the Elves looks especially dismayed:
 
 He forgot his snacks at the entrance to the valley!
@@ -243,7 +243,7 @@ In the above example, the first trip to the goal takes 18 minutes, the trip back
 
 What is the fewest number of minutes required to reach the goal, go back to the start, then reach the goal again?
 
-Your puzzle answer was 758.
+### Your puzzle answer was 758.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

@@ -1,4 +1,4 @@
---- Day 22: Reactor Reboot ---
+#  Day 22: Reactor Reboot 
 Operating at these extreme ocean depths has overloaded the submarine's reactor; it needs to be rebooted.
 
 The reactor core is made up of a large 3-dimensional grid made up entirely of cubes, one cube per integer 3-dimensional coordinate (x,y,z). Each cube can be either on or off; at the start of the reboot process, they are all off. (Could it be an old model of a reactor you've seen before?)
@@ -103,9 +103,9 @@ The last two steps are fully outside the initialization procedure area; all othe
 
 Execute the reboot steps. Afterward, considering only cubes in the region x=-50..50,y=-50..50,z=-50..50, how many cubes are on?
 
-Your puzzle answer was 542711.
+### Your puzzle answer was 542711.
 
---- Part Two ---
+#  Part Two 
 Now that the initialization procedure is complete, you can reboot the reactor.
 
 Starting with all cubes off, run all of the reboot steps for all cubes in the reactor.
@@ -176,7 +176,7 @@ After running the above reboot steps, 2758514936282235 cubes are on. (Just for f
 
 Starting again with all cubes off, execute all reboot steps. Afterward, considering all cubes, how many cubes are on?
 
-Your puzzle answer was 1160303042684776.
+### Your puzzle answer was 1160303042684776.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

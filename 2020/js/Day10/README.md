@@ -1,4 +1,4 @@
---- Day 10: Adapter Array ---
+#  Day 10: Adapter Array 
 Patched into the aircraft's data port, you discover weather forecasts of a massive tropical storm. Before you can figure out whether it will impact your vacation plans, however, your device suddenly turns off!
 
 Its battery is dead.
@@ -79,9 +79,9 @@ In this larger example, in a chain that uses all of the adapters, there are 22 d
 
 Find a chain that uses all of your adapters to connect the charging outlet to your device's built-in adapter and count the joltage differences between the charging outlet, the adapters, and your device. What is the number of 1-jolt differences multiplied by the number of 3-jolt differences?
 
-Your puzzle answer was 1890.
+### Your puzzle answer was 1890.
 
---- Part Two ---
+#  Part Two 
 To completely determine whether you have enough adapters, you'll need to figure out how many different ways they can be arranged. Every arrangement needs to connect the charging outlet to your device. The previous rules about when adapters can successfully connect still apply.
 
 The first example above (the one that starts with 16, 10, 15) supports the following arrangements:
@@ -133,7 +133,7 @@ You glance back down at your bag and try to remember why you brought so many ada
 
 What is the total number of distinct ways you can arrange the adapters to connect the charging outlet to your device?
 
-Your puzzle answer was 49607173328384.
+### Your puzzle answer was 49607173328384.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

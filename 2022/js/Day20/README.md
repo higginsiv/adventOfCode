@@ -1,4 +1,4 @@
---- Day 20: Grove Positioning System ---
+#  Day 20: Grove Positioning System 
 It's finally time to meet back up with the Elves. When you try to contact them, however, you get no reply. Perhaps you're out of range?
 
 You know they're headed to the grove where the star fruit grows, so if you can figure out where that is, you should be able to meet back up with them.
@@ -53,9 +53,9 @@ Then, the grove coordinates can be found by looking at the 1000th, 2000th, and 3
 
 Mix your encrypted file exactly once. What is the sum of the three numbers that form the grove coordinates?
 
-Your puzzle answer was 4066.
+### Your puzzle answer was 4066.
 
---- Part Two ---
+#  Part Two 
 The grove coordinate values seem nonsensical. While you ponder the mysteries of Elf encryption, you suddenly remember the rest of the decryption routine you overheard back at camp.
 
 First, you need to apply the decryption key, 811589153. Multiply each number by the decryption key before you begin; this will produce the actual list of numbers to mix.
@@ -100,7 +100,7 @@ The grove coordinates can still be found in the same way. Here, the 1000th numbe
 
 Apply the decryption key and mix your encrypted file ten times. What is the sum of the three numbers that form the grove coordinates?
 
-Your puzzle answer was 6704537992933.
+### Your puzzle answer was 6704537992933.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

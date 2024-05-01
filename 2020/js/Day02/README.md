@@ -1,4 +1,4 @@
---- Day 2: Password Philosophy ---
+#  Day 2: Password Philosophy 
 Your flight departs in a few days from the coastal airport; the easiest way down to the coast from here is via toboggan.
 
 The shopkeeper at the North Pole Toboggan Rental Shop is having a bad day. "Something's wrong with our computers; we can't log in!" You ask if you can take a look.
@@ -18,9 +18,9 @@ In the above example, 2 passwords are valid. The middle password, cdefg, is not;
 
 How many passwords are valid according to their policies?
 
-Your puzzle answer was 515.
+### Your puzzle answer was 515.
 
---- Part Two ---
+#  Part Two 
 While it appears you validated the passwords correctly, they don't seem to be what the Official Toboggan Corporate Authentication System is expecting.
 
 The shopkeeper suddenly realizes that he just accidentally explained the password policy rules from his old job at the sled rental place down the street! The Official Toboggan Corporate Policy actually works a little differently.
@@ -34,7 +34,7 @@ Given the same example list from above:
 2-9 c: ccccccccc is invalid: both position 2 and position 9 contain c.
 How many passwords are valid according to the new interpretation of the policies?
 
-Your puzzle answer was 711.
+### Your puzzle answer was 711.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

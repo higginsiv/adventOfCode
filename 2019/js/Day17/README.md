@@ -1,4 +1,4 @@
---- Day 17: Set and Forget ---
+#  Day 17: Set and Forget 
 An early warning system detects an incoming solar flare and automatically activates the ship's electromagnetic shield. Unfortunately, this has cut off the Wi-Fi for many small robots that, unaware of the impending danger, are now trapped on exterior scaffolding on the unsafe side of the shield. To rescue them, you'll have to act quickly!
 
 The only tools at your disposal are some wired cameras and a small vacuum robot currently asleep at its charging station. The video quality is poor, but the vacuum robot has a needlessly bright LED that makes it easy to spot no matter where it is.
@@ -39,9 +39,9 @@ To calibrate the cameras, you need the sum of the alignment parameters. In the a
 
 Run your ASCII program. What is the sum of the alignment parameters for the scaffold intersections?
 
-Your puzzle answer was 5972.
+### Your puzzle answer was 5972.
 
---- Part Two ---
+#  Part Two 
 Now for the tricky part: notifying all the other robots about the solar flare. The vacuum robot can do this automatically if it gets into range of a robot. However, you can't see the other robots on the camera, so you need to be thorough instead: you need to make the vacuum robot visit every part of the scaffold at least once.
 
 The vacuum robot normally wanders randomly, but there isn't time for that today. Instead, you can override its movement logic with new rules.
@@ -114,7 +114,7 @@ As the vacuum robot finds other robots and notifies them of the impending solar 
 
 After visiting every part of the scaffold at least once, how much dust does the vacuum robot report it has collected?
 
-Your puzzle answer was 933214.
+### Your puzzle answer was 933214.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

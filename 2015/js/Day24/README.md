@@ -1,4 +1,4 @@
---- Day 24: It Hangs in the Balance ---
+#  Day 24: It Hangs in the Balance 
 It's Christmas Eve, and Santa is loading up the sleigh for this year's deliveries. However, there's one small problem: he can't get the sleigh to balance. If it isn't balanced, he can't defy physics, and nobody gets presents this year.
 
 No pressure.
@@ -29,9 +29,9 @@ Of these, although 10 9 1 has the smallest quantum entanglement (90), the config
 
 What is the quantum entanglement of the first group of packages in the ideal configuration?
 
-Your puzzle answer was 11266889531.
+### Your puzzle answer was 11266889531.
 
---- Part Two ---
+#  Part Two 
 That's weird... the sleigh still isn't balancing.
 
 "Ho ho ho", Santa muses to himself. "I forgot the trunk".
@@ -51,7 +51,7 @@ Of these, there are three arrangements that put the minimum (two) number of pack
 
 Now, what is the quantum entanglement of the first group of packages in the ideal configuration?
 
-Your puzzle answer was 77387711.
+### Your puzzle answer was 77387711.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

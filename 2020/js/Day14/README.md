@@ -1,4 +1,4 @@
---- Day 14: Docking Data ---
+#  Day 14: Docking Data 
 As your ferry approaches the sea port, the captain asks for your help again. The computer system that runs this port isn't compatible with the docking program on the ferry, so the docking parameters aren't being correctly initialized in the docking program's memory.
 
 After a brief inspection, you discover that the sea port's computer system uses a strange bitmask system in its initialization program. Although you don't have the correct decoder chip handy, you can emulate it in software!
@@ -36,9 +36,9 @@ To initialize your ferry's docking program, you need the sum of all values left 
 
 Execute the initialization program. What is the sum of all values left in memory after it completes? (Do not truncate the sum to 36 bits.)
 
-Your puzzle answer was 5875750429995.
+### Your puzzle answer was 5875750429995.
 
---- Part Two ---
+#  Part Two 
 For some reason, the sea port's computer system still can't communicate with your ferry's docking program. It must be using version 2 of the decoder chip!
 
 A version 2 decoder chip doesn't modify the values being written at all. Instead, it acts as a memory address decoder. Immediately before a value is written to memory, each bit in the bitmask modifies the corresponding bit of the destination memory address in the following way:
@@ -84,7 +84,7 @@ The entire 36-bit address space still begins initialized to the value 0 at every
 
 Execute the initialization program using an emulator for a version 2 decoder chip. What is the sum of all values left in memory after it completes?
 
-Your puzzle answer was 5272149590143.
+### Your puzzle answer was 5272149590143.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

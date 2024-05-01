@@ -1,4 +1,4 @@
---- Day 25: The Halting Problem ---
+#  Day 25: The Halting Problem 
 Following the twisty passageways deeper and deeper into the CPU, you finally reach the core of the computer. Here, in the expansive central chamber, you find a grand apparatus that fills the entire room, suspended nanometers above your head.
 
 You had always imagined CPUs to be noisy, chaotic places, bustling with activity. Instead, the room is quiet, motionless, and dark.
@@ -55,9 +55,9 @@ The CPU can confirm that the Turing machine is working by taking a diagnostic ch
 
 Recreate the Turing machine and save the computer! What is the diagnostic checksum it produces once it's working again?
 
-Your puzzle answer was 3362.
+### Your puzzle answer was 3362.
 
---- Part Two ---
+#  Part Two 
 The Turing machine, and soon the entire computer, springs back to life. A console glows dimly nearby, awaiting your command.
 
 > reboot printer

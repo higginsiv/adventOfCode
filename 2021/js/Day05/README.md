@@ -1,4 +1,4 @@
---- Day 5: Hydrothermal Venture ---
+#  Day 5: Hydrothermal Venture 
 You come across a field of hydrothermal vents on the ocean floor! These vents constantly produce large, opaque clouds, so it would be best to avoid them if possible.
 
 They tend to form in lines; the submarine helpfully produces a list of nearby lines of vents (your puzzle input) for you to review. For example:
@@ -37,9 +37,9 @@ To avoid the most dangerous areas, you need to determine the number of points wh
 
 Consider only horizontal and vertical lines. At how many points do at least two lines overlap?
 
-Your puzzle answer was 7318.
+### Your puzzle answer was 7318.
 
---- Part Two ---
+#  Part Two 
 Unfortunately, considering only horizontal and vertical lines doesn't give you the full picture; you need to also consider diagonal lines.
 
 Because of the limits of the hydrothermal vent mapping system, the lines in your list will only ever be horizontal, vertical, or a diagonal line at exactly 45 degrees. In other words:
@@ -62,4 +62,4 @@ You still need to determine the number of points where at least two lines overla
 
 Consider all of the lines. At how many points do at least two lines overlap?
 
-Your puzzle answer was 19939.
+### Your puzzle answer was 19939.

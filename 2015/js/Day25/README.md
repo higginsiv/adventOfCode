@@ -1,4 +1,4 @@
---- Day 25: Let It Snow ---
+#  Day 25: Let It Snow 
 Merry Christmas! Santa is booting up his weather machine; looks like you might get a white Christmas after all.
 
 The weather machine beeps! On the console of the machine is a copy protection message asking you to enter a code from the instruction manual. Apparently, it refuses to run unless you give it that code. No problem; you'll just look up the code in the--
@@ -14,7 +14,7 @@ After putting you on hold for twenty minutes (your call is very important to the
 The codes are printed on an infinite sheet of paper, starting in the top-left corner. The codes are filled in by diagonals: starting with the first row with an empty first box, the codes are filled in diagonally up and to the right. This process repeats until the infinite paper is covered. So, the first few codes are filled in in this order:
 
    | 1   2   3   4   5   6  
----+---+---+---+---+---+---+
+# +---+---+---+---+---+-
  1 |  1   3   6  10  15  21
  2 |  2   5   9  14  20
  3 |  4   8  13  19
@@ -30,7 +30,7 @@ So, to find the second code (which ends up in row 2, column 1), start with the p
 "Oh!", says the voice. "It looks like we missed a scrap from one of the manuals. Let me read it to you." You write down his numbers:
 
    |    1         2         3         4         5         6
----+---------+---------+---------+---------+---------+---------+
+# +---------+---------+---------+---------+---------+-------
  1 | 20151125  18749137  17289845  30943339  10071777  33511524
  2 | 31916031  21629792  16929656   7726640  15514188   4041754
  3 | 16080970   8057251   1601130   7981243  11661866  16474243
@@ -41,9 +41,9 @@ So, to find the second code (which ends up in row 2, column 1), start with the p
 
 Santa looks nervous. Your puzzle input contains the message on the machine's console. What code do you give the machine?
 
-Your puzzle answer was 8997277.
+### Your puzzle answer was 8997277.
 
---- Part Two ---
+#  Part Two 
 The machine springs to life, then falls silent again. It beeps. "Insufficient fuel", the console reads. "Fifty stars are required before proceeding. One star is available."
 
 ..."one star is available"? You check the fuel tank; sure enough, a lone star sits at the bottom, awaiting its friends. Looks like you need to provide 49 yourself.

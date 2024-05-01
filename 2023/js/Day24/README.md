@@ -1,4 +1,4 @@
---- Day 24: Never Tell Me The Odds ---
+#  Day 24: Never Tell Me The Odds 
 It seems like something is going wrong with the snow-making process. Instead of forming snow, the water that's been absorbed into the air seems to be forming hail!
 
 Maybe there's something you can do to break up the hailstones?
@@ -65,9 +65,9 @@ However, you'll need to search a much larger test area if you want to see if any
 
 Considering only the X and Y axes, check all pairs of hailstones' future paths for intersections. How many of these intersections occur within the test area?
 
-Your puzzle answer was 17906.
+### Your puzzle answer was 17906.
 
---- Part Two ---
+#  Part Two 
 Upon further analysis, it doesn't seem like any hailstones will naturally collide. It's up to you to fix that!
 
 You find a rock on the ground nearby. While it seems extremely unlikely, if you throw it just right, you should be able to hit every hailstone in a single throw!
@@ -103,7 +103,7 @@ So, at time 0, the rock needs to be at X position 24, Y position 13, and Z posit
 
 Determine the exact position and velocity the rock needs to have at time 0 so that it perfectly collides with every hailstone. What do you get if you add up the X, Y, and Z coordinates of that initial position?
 
-Your puzzle answer was 571093786416929.
+### Your puzzle answer was 571093786416929.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

@@ -1,4 +1,4 @@
---- Day 22: Mode Maze ---
+#  Day 22: Mode Maze 
 This is it, your final stop: the year -483. It's snowing and dark outside; the only light you can see is coming from a small cottage in the distance. You make your way there and knock on the door.
 
 A portly man with a large, white beard answers the door and invites you inside. For someone living near the North Pole in -483, he must not get many visitors, but he doesn't act surprised to see you. Instead, he offers you some milk and cookies.
@@ -52,9 +52,9 @@ In the cave system above, because the mouth is at 0,0 and the target is at 10,10
 
 What is the total risk level for the smallest rectangle that includes 0,0 and the target's coordinates?
 
-Your puzzle answer was 11810.
+### Your puzzle answer was 11810.
 
---- Part Two ---
+#  Part Two 
 Okay, it's time to go rescue the man's friend.
 
 As you leave, he hands you some tools: a torch and some climbing gear. You can't equip both tools at once, but you can choose to use neither.
@@ -329,7 +329,7 @@ This is tied with other routes as the fastest way to reach the target: 45 minute
 
 What is the fewest number of minutes you can take to reach the target?
 
-Your puzzle answer was 1015.
+### Your puzzle answer was 1015.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

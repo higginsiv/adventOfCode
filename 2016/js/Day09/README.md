@@ -1,4 +1,4 @@
---- Day 9: Explosives in Cyberspace ---
+#  Day 9: Explosives in Cyberspace 
 Wandering around a secure area, you come across a datalink port to a new part of the network. After briefly scanning it for interesting files, you find one file in particular that catches your attention. It's compressed with an experimental format, but fortunately, the documentation for the format is nearby.
 
 The format compresses a sequence of characters. Whitespace is ignored. To indicate that some sequence should be repeated, a marker is added to the file, like (10x2). To decompress this marker, take the subsequent 10 characters and repeat them 2 times. Then, continue reading the file after the repeated data. The marker itself is not included in the decompressed output.
@@ -15,9 +15,9 @@ A(2x2)BCD(2x2)EFG doubles the BC and EF, becoming ABCBCDEFEFG for a decompressed
 X(8x2)(3x3)ABCY becomes X(3x3)ABC(3x3)ABCY (for a decompressed length of 18), because the decompressed data from the (8x2) marker (the (3x3)ABC) is skipped and not processed further.
 What is the decompressed length of the file (your puzzle input)? Don't count whitespace.
 
-Your puzzle answer was 98135.
+### Your puzzle answer was 98135.
 
---- Part Two ---
+#  Part Two 
 Apparently, the file actually uses version two of the format.
 
 In version two, the only difference is that markers within decompressed data are decompressed. This, the documentation explains, provides much more substantial compression capabilities, allowing many-gigabyte files to be stored in only a few kilobytes.
@@ -32,7 +32,7 @@ Unfortunately, the computer you brought probably doesn't have enough memory to a
 
 What is the decompressed length of the file using this improved format?
 
-Your puzzle answer was 10964557606.
+### Your puzzle answer was 10964557606.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

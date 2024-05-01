@@ -1,4 +1,4 @@
---- Day 10: Monitoring Station ---
+#  Day 10: Monitoring Station 
 You fly into the asteroid belt and reach the Ceres monitoring station. The Elves here have an emergency: they're having trouble tracking all of the asteroids and can't be sure they're safe.
 
 The Elves would like to build a new monitoring station in a nearby area of space; they hand you a map of all of the asteroids in that region (your puzzle input).
@@ -95,9 +95,9 @@ Best is 11,13 with 210 other asteroids detected:
 ###.##.####.##.#..##
 Find the best location for a new monitoring station. How many other asteroids can be detected from that location?
 
-Your puzzle answer was 256.
+### Your puzzle answer was 256.
 
---- Part Two ---
+#  Part Two 
 Once you give them the coordinates, the Elves quickly deploy an Instant Monitoring Station to the location and discover the worst: there are simply too many asteroids.
 
 The only solution is complete vaporization by giant laser.
@@ -156,7 +156,7 @@ The 201st asteroid to be vaporized is at 10,9.
 The 299th and final asteroid to be vaporized is at 11,1.
 The Elves are placing bets on which will be the 200th asteroid to be vaporized. Win the bet by determining which asteroid that will be; what do you get if you multiply its X coordinate by 100 and then add its Y coordinate? (For example, 8,2 becomes 802.)
 
-Your puzzle answer was 1707.
+### Your puzzle answer was 1707.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

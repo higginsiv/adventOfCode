@@ -1,4 +1,4 @@
---- Day 15: Timing is Everything ---
+#  Day 15: Timing is Everything 
 The halls open into an interior plaza containing a large kinetic sculpture. The sculpture is in a sealed enclosure and seems to involve a set of identical spherical capsules that are carried to the top and allowed to bounce through the maze of spinning pieces.
 
 Part of the sculpture is even interactive! When a button is pressed, a capsule is dropped and tries to fall through slots in a set of rotating discs to finally go through a little hole at the bottom and come out of the sculpture. If any of the slots aren't aligned with the capsule as it passes, the capsule bounces off the disc and soars away. You feel compelled to get one of those capsules.
@@ -21,16 +21,16 @@ If, however, you wait until time=5 to push the button, then when the capsule rea
 
 However, your situation has more than two discs; you've noted their positions in your puzzle input. What is the first time you can press the button to get a capsule?
 
-Your puzzle answer was 376777.
+### Your puzzle answer was 376777.
 
---- Part Two ---
+#  Part Two 
 After getting the first capsule (it contained a star! what great fortune!), the machine detects your success and begins to rearrange itself.
 
 When it's done, the discs are back in their original configuration as if it were time=0 again, but a new disc with 11 positions and starting at position 0 has appeared exactly one second below the previously-bottom disc.
 
 With this new disc, and counting again starting from time=0 with the configuration in your puzzle input, what is the first time you can press the button to get another capsule?
 
-Your puzzle answer was 3903937.
+### Your puzzle answer was 3903937.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

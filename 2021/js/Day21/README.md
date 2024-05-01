@@ -1,4 +1,4 @@
---- Day 21: Dirac Dice ---
+#  Day 21: Dirac Dice 
 There's not much to do as you slowly descend to the bottom of the ocean. The submarine computer challenges you to a nice game of Dirac Dice.
 
 This game consists of a single die, two pawns, and a game board with a circular track containing ten spaces marked 1 through 10 clockwise. Each player's starting space is chosen randomly (your puzzle input). Player 1 goes first.
@@ -33,9 +33,9 @@ Since player 1 has at least 1000 points, player 1 wins and the game ends. At thi
 
 Play a practice game using the deterministic 100-sided die. The moment either player wins, what do you get if you multiply the score of the losing player by the number of times the die was rolled during the game?
 
-Your puzzle answer was 920580.
+### Your puzzle answer was 920580.
 
---- Part Two ---
+#  Part Two 
 Now that you're warmed up, it's time to play the real game.
 
 A second compartment opens, this time labeled Dirac dice. Out of it falls a single three-sided die.
@@ -48,7 +48,7 @@ Using the same starting positions as in the example above, player 1 wins in 4443
 
 Using your given starting positions, determine every possible outcome. Find the player that wins in more universes; in how many universes does that player win?
 
-Your puzzle answer was 647920021341197.
+### Your puzzle answer was 647920021341197.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

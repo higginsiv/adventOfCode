@@ -1,4 +1,4 @@
---- Day 19: Beacon Scanner ---
+#  Day 19: Beacon Scanner 
 As your probe drifted down through this area, it released an assortment of beacons and scanners into the water. It's difficult to navigate in the pitch black open waters of the ocean trench, but if you can build a map of the trench using data from the scanners, you should be able to safely reach the bottom.
 
 The beacons and scanners float motionless in the water; they're designed to maintain the same position for long periods of time. Each scanner is capable of detecting all beacons in a large cube centered on the scanner; beacons that are at most 1000 units away from the scanner in each of the three axes (x, y, and z) have their precise position determined relative to the scanner. However, scanners cannot detect other scanners. The submarine has automatically summarized the relative positions of beacons detected by each scanner (your puzzle input).
@@ -11,12 +11,12 @@ The scanners and beacons map a single contiguous 3d region. This region can be r
 
 For a moment, consider only two dimensions. Suppose you have the following scanner reports:
 
---- scanner 0 ---
+#  scanner 0 
 0,2
 4,1
 3,3
 
---- scanner 1 ---
+#  scanner 1 
 -1,-1
 -5,0
 -2,1
@@ -41,7 +41,7 @@ Unfortunately, there's a second problem: the scanners also don't know their rota
 
 For example, here is an arrangement of beacons as seen from a scanner in the same position but in different orientations:
 
---- scanner 0 ---
+#  scanner 0 
 -1,-1,1
 -2,-2,2
 -3,-3,3
@@ -49,7 +49,7 @@ For example, here is an arrangement of beacons as seen from a scanner in the sam
 5,6,-4
 8,0,7
 
---- scanner 0 ---
+#  scanner 0 
 1,-1,1
 2,-2,2
 3,-3,3
@@ -57,7 +57,7 @@ For example, here is an arrangement of beacons as seen from a scanner in the sam
 -5,4,-6
 -8,-7,0
 
---- scanner 0 ---
+#  scanner 0 
 -1,-1,-1
 -2,-2,-2
 -3,-3,-3
@@ -65,7 +65,7 @@ For example, here is an arrangement of beacons as seen from a scanner in the sam
 4,6,5
 -7,0,8
 
---- scanner 0 ---
+#  scanner 0 
 1,1,-1
 2,2,-2
 3,3,-3
@@ -73,7 +73,7 @@ For example, here is an arrangement of beacons as seen from a scanner in the sam
 -4,-6,5
 7,0,8
 
---- scanner 0 ---
+#  scanner 0 
 1,1,1
 2,2,2
 3,3,3
@@ -82,7 +82,7 @@ For example, here is an arrangement of beacons as seen from a scanner in the sam
 0,7,-8
 By finding pairs of scanners that both see at least 12 of the same beacons, you can assemble the entire map. For example, consider the following report:
 
---- scanner 0 ---
+#  scanner 0 
 404,-588,-901
 528,-643,409
 -838,591,734
@@ -109,7 +109,7 @@ By finding pairs of scanners that both see at least 12 of the same beacons, you 
 -789,900,-551
 459,-707,401
 
---- scanner 1 ---
+#  scanner 1 
 686,422,578
 605,423,415
 515,917,-361
@@ -136,7 +136,7 @@ By finding pairs of scanners that both see at least 12 of the same beacons, you 
 755,-354,-619
 553,889,-390
 
---- scanner 2 ---
+#  scanner 2 
 649,640,665
 682,-795,504
 -784,533,-524
@@ -164,7 +164,7 @@ By finding pairs of scanners that both see at least 12 of the same beacons, you 
 -742,-814,-386
 577,-820,562
 
---- scanner 3 ---
+#  scanner 3 
 -589,542,597
 605,-692,669
 -500,565,-823
@@ -191,7 +191,7 @@ By finding pairs of scanners that both see at least 12 of the same beacons, you 
 614,-800,639
 595,780,-596
 
---- scanner 4 ---
+#  scanner 4 
 727,592,562
 -293,-554,779
 441,611,-461
@@ -353,16 +353,16 @@ In total, there are 79 beacons.
 
 Assemble the full map of beacons. How many beacons are there?
 
-Your puzzle answer was 465.
+### Your puzzle answer was 465.
 
---- Part Two ---
+#  Part Two 
 Sometimes, it's a good idea to appreciate just how big the ocean is. Using the Manhattan distance, how far apart do the scanners get?
 
 In the above example, scanners 2 (1105,-1205,1229) and 3 (-92,-2380,-20) are the largest Manhattan distance apart. In total, they are 1197 + 1175 + 1249 = 3621 units apart.
 
 What is the largest Manhattan distance between any two scanners?
 
-Your puzzle answer was 12149.
+### Your puzzle answer was 12149.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

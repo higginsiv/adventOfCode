@@ -1,4 +1,4 @@
---- Day 19: Go With The Flow ---
+#  Day 19: Go With The Flow 
 With the Elves well on their way constructing the North Pole base, you turn your attention back to understanding the inner workings of programming the device.
 
 You can't help but notice that the device's opcodes don't contain any flow control like jump instructions. The device's manual goes on to explain:
@@ -40,14 +40,14 @@ The instruction pointer is 4, so the instruction setr 1 0 0 is run. This is like
 The instruction pointer is 6, so the instruction seti 9 0 5 stores 9 into register 5. The instruction pointer is incremented, causing it to point outside the program, and so the program ends.
 What value is left in register 0 when the background process halts?
 
-Your puzzle answer was 948.
+### Your puzzle answer was 948.
 
---- Part Two ---
+#  Part Two 
 A new background process immediately spins up in its place. It appears identical, but on closer inspection, you notice that this time, register 0 started with the value 1.
 
 What value is left in register 0 when this new background process halts?
 
-Your puzzle answer was 10695960.
+### Your puzzle answer was 10695960.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

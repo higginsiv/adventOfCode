@@ -1,4 +1,4 @@
---- Day 9: Marble Mania ---
+#  Day 9: Marble Mania 
 You talk to the Elves while you wait for your navigation system to initialize. To pass the time, they introduce you to their favorite marble game.
 
 The Elves play this game by taking turns arranging the marbles in a circle according to very particular rules. The marbles are numbered starting with 0 and increasing by 1 until every marble has a number.
@@ -48,14 +48,14 @@ Here are a few more examples:
 30 players; last marble is worth 5807 points: high score is 37305
 What is the winning Elf's score?
 
-Your puzzle answer was 409832.
+### Your puzzle answer was 409832.
 
---- Part Two ---
+#  Part Two 
 Amused by the speed of your answer, the Elves are curious:
 
 What would the new winning Elf's score be if the number of the last marble were 100 times larger?
 
-Your puzzle answer was 3469562780.
+### Your puzzle answer was 3469562780.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

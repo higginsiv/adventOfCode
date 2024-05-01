@@ -1,4 +1,4 @@
---- Day 19: Monster Messages ---
+#  Day 19: Monster Messages 
 You land in an airport surrounded by dense forest. As you walk to your high-speed train, the Elves at the Mythical Information Bureau contact you again. They think their satellite has collected an image of a sea monster! Unfortunately, the connection to the satellite is having problems, and many of the messages sent back from the satellite have been corrupted.
 
 They sent you a list of the rules valid messages should obey and a list of received messages they've collected so far (your puzzle input).
@@ -49,9 +49,9 @@ Your goal is to determine the number of messages that completely match rule 0. I
 
 How many messages completely match rule 0?
 
-Your puzzle answer was 210.
+### Your puzzle answer was 210.
 
---- Part Two ---
+#  Part Two 
 As you look over the list of messages, you realize your matching rules aren't quite right. To fix them, completely replace rules 8: 42 and 11: 42 31 with the following:
 
 8: 42 | 42 8
@@ -129,7 +129,7 @@ aaaabbaabbaaaaaaabbbabbbaaabbaabaaa
 aabbbbbaabbbaaaaaabbbbbababaaaaabbaaabba
 After updating rules 8 and 11, how many messages completely match rule 0?
 
-Your puzzle answer was 422.
+### Your puzzle answer was 422.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

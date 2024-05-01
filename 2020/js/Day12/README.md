@@ -1,4 +1,4 @@
---- Day 12: Rain Risk ---
+#  Day 12: Rain Risk 
 Your ferry made decent progress toward the island, but the storm came in faster than anyone expected. The ferry needs to take evasive actions!
 
 Unfortunately, the ship's navigation computer seems to be malfunctioning; rather than giving a route directly to safety, it produced extremely circuitous instructions. When the captain uses the PA system to ask if anyone can help, you quickly volunteer.
@@ -32,9 +32,9 @@ At the end of these instructions, the ship's Manhattan distance (sum of the abso
 
 Figure out where the navigation instructions lead. What is the Manhattan distance between that location and the ship's starting position?
 
-Your puzzle answer was 1221.
+### Your puzzle answer was 1221.
 
---- Part Two ---
+#  Part Two 
 Before you can give the destination to the captain, you realize that the actual action meanings were printed on the back of the instructions the whole time.
 
 Almost all of the actions indicate how to move a waypoint which is relative to the ship's position:
@@ -59,7 +59,7 @@ After these operations, the ship's Manhattan distance from its starting position
 
 Figure out where the navigation instructions actually lead. What is the Manhattan distance between that location and the ship's starting position?
 
-Your puzzle answer was 59435.
+### Your puzzle answer was 59435.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

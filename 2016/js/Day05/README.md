@@ -1,4 +1,4 @@
---- Day 5: How About a Nice Game of Chess? ---
+#  Day 5: How About a Nice Game of Chess? 
 You are faced with a security door designed by Easter Bunny engineers that seem to have acquired most of their security knowledge by watching hacking movies.
 
 The eight-character password for the door is generated one character at a time by finding the MD5 hash of some Door ID (your puzzle input) and an increasing integer index (starting with 0).
@@ -14,9 +14,9 @@ In this example, after continuing this search a total of eight times, the passwo
 
 Given the actual Door ID, what is the password?
 
-Your puzzle answer was 4543c154.
+### Your puzzle answer was 4543c154.
 
---- Part Two ---
+#  Part Two 
 As the door slides open, you are presented with a second door that uses a slightly more inspired security mechanism. Clearly unimpressed by the last version (in what movie is the password decrypted in order?!), the Easter Bunny engineers have worked out a better solution.
 
 Instead of simply filling in the password from left to right, the hash now also indicates the position within the password to fill. You still look for hashes that begin with five zeroes; however, now, the sixth character represents the position (0-7), and the seventh character is the character to put in that position.
@@ -32,7 +32,7 @@ You almost choke on your popcorn as the final character falls into place, produc
 
 Given the actual Door ID and this new method, what is the password? Be extra proud of your solution if it uses a cinematic "decrypting" animation.
 
-Your puzzle answer was 1050cbbd.
+### Your puzzle answer was 1050cbbd.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

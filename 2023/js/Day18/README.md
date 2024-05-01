@@ -1,4 +1,4 @@
---- Day 18: Lavaduct Lagoon ---
+#  Day 18: Lavaduct Lagoon 
 Thanks to your efforts, the machine parts factory is one of the first factories up and running since the lavafall came back. However, to catch up with the large backlog of parts requests, the factory will also need a large supply of lava for a while; the Elves have already started creating a large lagoon nearby for this purpose.
 
 However, they aren't sure the lagoon will be big enough; they've asked you to take a look at the dig plan (your puzzle input). For example:
@@ -47,9 +47,9 @@ Now, the lagoon can contain a much more respectable 62 cubic meters of lava. Whi
 
 The Elves are concerned the lagoon won't be large enough; if they follow their dig plan, how many cubic meters of lava could it hold?
 
-Your puzzle answer was 62500.
+### Your puzzle answer was 62500.
 
---- Part Two ---
+#  Part Two 
 The Elves were right to be concerned; the planned lagoon would be much too small.
 
 After a few minutes, someone realizes what happened; someone swapped the color and instruction parameters when producing the dig plan. They don't have time to fix the bug; one of them asks if you can extract the correct instructions from the hexadecimal codes.
@@ -76,7 +76,7 @@ Digging out this loop and its interior produces a lagoon that can hold an impres
 
 Convert the hexadecimal color codes into the correct instructions; if the Elves follow this new dig plan, how many cubic meters of lava could the lagoon hold?
 
-Your puzzle answer was 122109860712709.
+### Your puzzle answer was 122109860712709.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

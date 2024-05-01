@@ -1,4 +1,4 @@
---- Day 18: Many-Worlds Interpretation ---
+#  Day 18: Many-Worlds Interpretation 
 As you approach Neptune, a planetary security system detects you and activates a giant tractor beam on Triton! You have no choice but to land.
 
 A scan of the local area reveals only one interesting feature: a massive underground vault. You generate a map of the tunnels (your puzzle input). The tunnels are too narrow to move diagonally.
@@ -90,9 +90,9 @@ Shortest paths are 81 steps; one is: a, c, f, i, d, g, b, e, h
 
 How many steps is the shortest path that collects all of the keys?
 
-Your puzzle answer was 4246.
+### Your puzzle answer was 4246.
 
---- Part Two ---
+#  Part Two 
 You arrive at the vault only to discover that there is not one vault, but four - each with its own entrance.
 
 On your map, find the area in the middle that looks like this:
@@ -222,7 +222,7 @@ This example requires at least 72 steps to collect all keys.
 
 After updating your map and using the remote-controlled robots, what is the fewest steps necessary to collect all of the keys?
 
-Your puzzle answer was 1940.
+### Your puzzle answer was 1940.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

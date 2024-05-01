@@ -1,4 +1,4 @@
---- Day 23: Experimental Emergency Teleportation ---
+#  Day 23: Experimental Emergency Teleportation 
 Using your torch to search the darkness of the rocky cavern, you finally locate the man's friend: a small reindeer.
 
 You're not sure how it got so far in this cave. It looks sick - too sick to walk - and too heavy for you to carry all the way back. Sleighs won't be invented for another 1500 years, of course.
@@ -37,9 +37,9 @@ In this example, in total, 7 nanobots are in range of the nanobot with the large
 
 Find the nanobot with the largest signal radius. How many nanobots are in range of its signals?
 
-Your puzzle answer was 442.
+### Your puzzle answer was 442.
 
---- Part Two ---
+#  Part Two 
 Now, you just need to figure out where to position yourself so that you're actually teleported when the nanobots activate.
 
 To increase the probability of success, you need to find the coordinate which puts you in range of the largest number of nanobots. If there are multiple, choose one closest to your position (0,0,0, measured by manhattan distance).
@@ -56,7 +56,7 @@ Many coordinates are in range of some of the nanobots in this formation. However
 
 Find the coordinates that are in range of the largest number of nanobots. What is the shortest manhattan distance between any of those points and 0,0,0?
 
-Your puzzle answer was 100985898.
+### Your puzzle answer was 100985898.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 
