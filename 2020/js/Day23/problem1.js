@@ -37,6 +37,6 @@ function solve({ lines, rawData }) {
         data.push(data.shift());
     }
 
-    const answer = data.slice(1).join('');
+    const answer = parseInt(data.slice(1).join(''));
     return { value: answer };
 }
