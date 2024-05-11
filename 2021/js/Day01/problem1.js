@@ -1,14 +1,17 @@
-const fr = require('../../../tools/fileReader');
-const data = fr.getInput('2021', '01').map((x) => parseInt(x));
+module.exports = { solve: solve };
 
-let numOfIncreases = 0;
+function solve({ lines, rawData }) {
+    const data = lines.map((x) => parseInt(x));
 
-for (let i = 1; i < data.length; i++) {
-    let current = data[i];
-    let previous = data[i - 1];
+    let numOfIncreases = 0;
 
-    if (current > previous) {
-        numOfIncreases++;
+    for (let i = 1; i < data.length; i++) {
+        let current = data[i];
+        let previous = data[i - 1];
+
+        if (current > previous) {
+            numOfIncreases++;
+        }
     }
+    return { value: numOfIncreases };
 }
-console.log('Day 1 Puzzle 1: ' + numOfIncreases);
