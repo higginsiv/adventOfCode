@@ -66,5 +66,6 @@ function solve({ lines, rawData }) {
             });
         });
     });
+    
     return { value: lastBoardTot };
 }
