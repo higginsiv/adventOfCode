@@ -1,35 +1,33 @@
-// NOTE: This implementation is intentionally suboptimal to practice with the reduce command
+module.exports = { solve: solve };
 
-const fr = require('../../../tools/fileReader');
-const data = fr.getInput('2021', '04');
+function solve({ lines, rawData }) {
+    const drawn = lines[0].split(',');
 
-const drawn = data[0].split(',');
+    // remove all but bingo boards from lines
+    lines.splice(0, 2);
 
-// remove all but bingo boards from data
-data.splice(0, 2);
+    let boards = lines.reduce(
+        (previous, current) => {
+            let index = previous.length - 1;
+            if (current === '') {
+                previous.push([]);
+                return previous;
+            } else {
+                // ignore stupid leading whitespace
+                let currentTrim = current.trim();
+                // split on one or more whitespaces
+                previous[index] = previous[index].concat(currentTrim.split(/\s+/));
+                return previous;
+            }
+        },
+        [[]],
+    );
 
-let boards = data.reduce(
-    (previous, current) => {
-        let index = previous.length - 1;
-        if (current === '') {
-            previous.push([]);
-            return previous;
-        } else {
-            // ignore stupid leading whitespace
-            let currentTrim = current.trim();
-            // split on one or more whitespaces
-            previous[index] = previous[index].concat(currentTrim.split(/\s+/));
-            return previous;
-        }
-    },
-    [[]],
-);
+    let answer;
 
-let fuckThisIAmDrunk = false;
-drawn.forEach((num) => {
-    boards.forEach((board) => {
-        board.forEach((el, index) => {
-            if (!fuckThisIAmDrunk) {
+    outer: for (let num of drawn) {
+        for (let board of boards) {
+            for (let [index, el] of board.entries()) {
                 if (el === num) {
                     board[index] = 'X';
                 }
@@ -56,11 +54,12 @@ drawn.forEach((num) => {
                         }
                     }, 0);
 
-                    fuckThisIAmDrunk = true;
-
-                    console.log('Day 4 Puzzle 1: ' + sum * num);
+                    answer = sum * num;
+                    break outer;
                 }
             }
-        });
-    });
-});
+        }
+    }
+
+    return { value: answer };
+}
