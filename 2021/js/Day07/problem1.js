@@ -1,15 +1,19 @@
-const fr = require('../../../tools/fileReader');
-const data = fr
-    .getInput('2021', '07', ',')
-    .map((x) => parseInt(x))
-    .sort((x, y) => x - y);
+module.exports = { solve: solve };
 
-let bestDelta = null;
-for (let i = data[0]; i < data[data.length - 1]; i++) {
-    const delta = data.reduce((previous, current) => (previous += Math.abs(current - i)), 0);
-    if (bestDelta === null || delta < bestDelta) {
-        bestDelta = delta;
+function solve({ lines, rawData }) {
+    const data = rawData
+        .split(',')
+        .map((x) => parseInt(x))
+        .sort((x, y) => x - y);
+
+    let bestDelta = null;
+    for (let i = data[0]; i < data[data.length - 1]; i++) {
+        const delta = data.reduce((previous, current) => (previous += Math.abs(current - i)), 0);
+        if (bestDelta === null || delta < bestDelta) {
+            bestDelta = delta;
+        }
     }
-}
 
-console.log('Day 7 Puzzle 1: ' + bestDelta);
+    const answer = bestDelta;
+    return { value: answer };
+}
