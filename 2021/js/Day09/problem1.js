@@ -1,23 +1,27 @@
-const fr = require('../../../tools/fileReader');
-const data = fr.getInput('2021', '09').map((x) => x.split('').map((x) => parseInt(x)));
+module.exports = { solve: solve };
 
-let riskLevelSum = 0;
+function solve({ lines, rawData }) {
+    const data = lines.map((x) => x.split('').map((x) => parseInt(x)));
 
-data.forEach((line, index) => {
-    line.forEach((digit, indexy) => {
-        if (
-            (line[indexy - 1] === undefined || line[indexy - 1] > digit) &&
-            (line[indexy + 1] === undefined || line[indexy + 1] > digit) &&
-            (data[index - 1] === undefined ||
-                data[index - 1][indexy] === undefined ||
-                data[index - 1][indexy] > digit) &&
-            (data[index + 1] === undefined ||
-                data[index + 1][indexy] === undefined ||
-                data[index + 1][indexy] > digit)
-        ) {
-            riskLevelSum += digit + 1;
-        }
+    let riskLevelSum = 0;
+
+    data.forEach((line, index) => {
+        line.forEach((digit, indexy) => {
+            if (
+                (line[indexy - 1] === undefined || line[indexy - 1] > digit) &&
+                (line[indexy + 1] === undefined || line[indexy + 1] > digit) &&
+                (data[index - 1] === undefined ||
+                    data[index - 1][indexy] === undefined ||
+                    data[index - 1][indexy] > digit) &&
+                (data[index + 1] === undefined ||
+                    data[index + 1][indexy] === undefined ||
+                    data[index + 1][indexy] > digit)
+            ) {
+                riskLevelSum += digit + 1;
+            }
+        });
     });
-});
 
-console.log('Day 9 Puzzle 1: ' + riskLevelSum);
+    const answer = riskLevelSum;
+    return { value: answer };
+}
