@@ -1,36 +1,39 @@
-const fr = require('../../../tools/fileReader');
-const data = fr.getInput('2021', 10).map((x) => x.split(''));
+module.exports = { solve: solve };
 
-const symbols = new Map([
-    ['{', '}'],
-    ['(', ')'],
-    ['[', ']'],
-    ['<', '>'],
-]);
+function solve({ lines, rawData }) {
+    const data = lines.map((x) => x.split(''));
 
-const pointMap = new Map([
-    [')', 3],
-    [']', 57],
-    ['}', 1197],
-    ['>', 25137],
-]);
+    const symbols = new Map([
+        ['{', '}'],
+        ['(', ')'],
+        ['[', ']'],
+        ['<', '>'],
+    ]);
 
-let points = 0;
+    const pointMap = new Map([
+        [')', 3],
+        [']', 57],
+        ['}', 1197],
+        ['>', 25137],
+    ]);
 
-for (let line of data) {
-    let expected = [];
-    for (let char of line) {
-        if (symbols.has(char)) {
-            expected.push(symbols.get(char));
-        } else {
-            if (expected[expected.length - 1] === char) {
-                expected.pop();
+    let points = 0;
+
+    for (let line of data) {
+        let expected = [];
+        for (let char of line) {
+            if (symbols.has(char)) {
+                expected.push(symbols.get(char));
             } else {
-                points += pointMap.get(char);
-                break;
+                if (expected[expected.length - 1] === char) {
+                    expected.pop();
+                } else {
+                    points += pointMap.get(char);
+                    break;
+                }
             }
         }
     }
+    const answer = points;
+    return { value: answer };
 }
-
-console.log('Day 10 Puzzle 1: ' + points);

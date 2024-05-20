@@ -1,48 +1,52 @@
-const fr = require('../../../tools/fileReader');
-const data = fr.getInput('2021', 10).map((x) => x.split(''));
+module.exports = { solve: solve };
 
-const symbols = new Map([
-    ['{', '}'],
-    ['(', ')'],
-    ['[', ']'],
-    ['<', '>'],
-]);
+function solve({ lines, rawData }) {
+    const data = lines.map((x) => x.split(''));
 
-const pointMap = new Map([
-    [')', 1],
-    [']', 2],
-    ['}', 3],
-    ['>', 4],
-]);
+    const symbols = new Map([
+        ['{', '}'],
+        ['(', ')'],
+        ['[', ']'],
+        ['<', '>'],
+    ]);
 
-let points = [];
+    const pointMap = new Map([
+        [')', 1],
+        [']', 2],
+        ['}', 3],
+        ['>', 4],
+    ]);
 
-for (let line of data) {
-    let expected = [];
-    for (let char of line) {
-        if (symbols.has(char)) {
-            expected.push(symbols.get(char));
-        } else {
-            if (expected[expected.length - 1] === char) {
-                expected.pop();
+    let points = [];
+
+    for (let line of data) {
+        let expected = [];
+        for (let char of line) {
+            if (symbols.has(char)) {
+                expected.push(symbols.get(char));
             } else {
-                expected = null;
-                break;
+                if (expected[expected.length - 1] === char) {
+                    expected.pop();
+                } else {
+                    expected = null;
+                    break;
+                }
             }
+        }
+
+        if (expected !== null) {
+            let lineScore = 0;
+            expected.reverse();
+
+            expected.forEach((x) => {
+                lineScore *= 5;
+                lineScore += pointMap.get(x);
+            });
+            points.push(lineScore);
         }
     }
 
-    if (expected !== null) {
-        let lineScore = 0;
-        expected.reverse();
-
-        expected.forEach((x) => {
-            lineScore *= 5;
-            lineScore += pointMap.get(x);
-        });
-        points.push(lineScore);
-    }
+    points.sort((x, y) => x - y);
+    const answer = points[Math.floor(points.length / 2)];
+    return { value: answer };
 }
-
-points.sort((x, y) => x - y);
-console.log('Day 10 Puzzle 2: ' + points[Math.floor(points.length / 2)]);
