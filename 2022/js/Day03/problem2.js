@@ -1,16 +1,14 @@
-const fr = require('../../../tools/fileReader');
-const year = '2022';
-const day = '03';
-const data = fr.getInput(year, day);
+module.exports = { solve: solve };
 
-let priority = 0;
-for (let i = 0; i < data.length; i += 3) {
-    let badgeType = data[i].split('').find((item) => {
-        return data[i + 1].indexOf(item) !== -1 && data[i + 2].indexOf(item) !== -1;
-    });
+function solve({ lines, rawData }) {
+    let priority = 0;
+    for (let i = 0; i < lines.length; i += 3) {
+        let badgeType = lines[i].split('').find((item) => {
+            return lines[i + 1].indexOf(item) !== -1 && lines[i + 2].indexOf(item) !== -1;
+        });
 
-    let offset = badgeType == badgeType.toUpperCase() ? 38 : 96;
-    priority += badgeType.charCodeAt(0) - offset;
+        let offset = badgeType == badgeType.toUpperCase() ? 38 : 96;
+        priority += badgeType.charCodeAt(0) - offset;
+    }
+    return { value: priority };
 }
-
-console.log('Year ' + year + ' Day ' + day + ' Puzzle 2: ' + priority);
