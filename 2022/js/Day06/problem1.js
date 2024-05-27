@@ -1,19 +1,22 @@
-const fr = require('../../../tools/fileReader');
-const [year, day, part] = ['2022', '06', '1'];
-const data = fr.getInput(year, day, '');
+module.exports = { solve: solve };
 
-let answer;
+function solve({ lines, rawData }) {
+    const data = rawData.split('');
 
-const groupSize = 4;
-for (let i = 0; i < data.length; i++) {
-    if (
-        data
-            .slice(i, i + groupSize)
-            .every((current, index, currentGroup) => currentGroup.lastIndexOf(current) === index)
-    ) {
-        answer = i + groupSize;
-        break;
+    let answer;
+
+    const groupSize = 4;
+    for (let i = 0; i < data.length; i++) {
+        if (
+            data
+                .slice(i, i + groupSize)
+                .every(
+                    (current, index, currentGroup) => currentGroup.lastIndexOf(current) === index,
+                )
+        ) {
+            answer = i + groupSize;
+            break;
+        }
     }
+    return { value: answer };
 }
-
-console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + answer);
