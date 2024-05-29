@@ -1,63 +1,66 @@
-const fr = require('../../../tools/fileReader');
-const [year, day, part] = ['2022', '07', '2'];
-const data = fr.getInput(year, day).map((command) => command.split(' '));
+module.exports = { solve: solve };
 
-const root = '/';
+function solve({ lines, rawData }) {
+    const data = lines.map((command) => command.split(' '));
 
-class Dir {
-    name;
-    parent;
-    children = new Map();
-    size = 0;
-    constructor(name, parent) {
-        this.name = name;
-        this.parent = parent;
-    }
-}
+    const root = '/';
 
-let disk = new Dir(root);
-let currDir = disk;
-
-data.forEach((command) => {
-    [arg1, arg2, arg3] = command;
-    if (arg1 === '$') {
-        if (arg2 === 'cd') {
-            if (arg3 === '..') {
-                currDir = currDir.parent;
-            } else if (arg3 === root) {
-                currDir = disk;
-            } else {
-                currDir = currDir.children.get(arg3);
-            }
+    class Dir {
+        name;
+        parent;
+        children = new Map();
+        size = 0;
+        constructor(name, parent) {
+            this.name = name;
+            this.parent = parent;
         }
-    } else if (arg1 === 'dir') {
-        currDir.children.set(arg2, new Dir(arg2, currDir));
-    } else {
-        currDir.size += parseInt(arg1);
     }
-});
 
-const totalDiskSpace = 70000000;
-const requiredSpace = 30000000;
+    let disk = new Dir(root);
+    let currDir = disk;
 
-let lowestSumOverMin = Infinity;
-let sizes = [];
-const diskSpaceUsed = calculateSize(disk);
-const minSizeToDelete = requiredSpace - (totalDiskSpace - diskSpaceUsed);
+    data.forEach((command) => {
+        [arg1, arg2, arg3] = command;
+        if (arg1 === '$') {
+            if (arg2 === 'cd') {
+                if (arg3 === '..') {
+                    currDir = currDir.parent;
+                } else if (arg3 === root) {
+                    currDir = disk;
+                } else {
+                    currDir = currDir.children.get(arg3);
+                }
+            }
+        } else if (arg1 === 'dir') {
+            currDir.children.set(arg2, new Dir(arg2, currDir));
+        } else {
+            currDir.size += parseInt(arg1);
+        }
+    });
 
-lowestSumOverMin = sizes.reduce(
-    (lowest, curr) => (curr < lowest && curr > minSizeToDelete ? curr : lowest),
-    lowestSumOverMin,
-);
+    const totalDiskSpace = 70000000;
+    const requiredSpace = 30000000;
 
-function calculateSize(dir) {
-    let total = Array.from(dir.children.values()).reduce(
-        (acc, currDir) => acc + calculateSize(currDir),
-        dir.size,
+    let lowestSumOverMin = Infinity;
+    let sizes = [];
+    const diskSpaceUsed = calculateSize(disk);
+    const minSizeToDelete = requiredSpace - (totalDiskSpace - diskSpaceUsed);
+
+    lowestSumOverMin = sizes.reduce(
+        (lowest, curr) => (curr < lowest && curr > minSizeToDelete ? curr : lowest),
+        lowestSumOverMin,
     );
 
-    sizes.push(total);
-    return total;
-}
+    function calculateSize(dir) {
+        let total = Array.from(dir.children.values()).reduce(
+            (acc, currDir) => acc + calculateSize(currDir),
+            dir.size,
+        );
 
-console.log('Year ' + year + ' Day ' + day + ' Puzzle ' + part + ': ' + lowestSumOverMin);
+        sizes.push(total);
+        return total;
+    }
+
+    const answer = lowestSumOverMin;
+    return { value: answer };
+}
