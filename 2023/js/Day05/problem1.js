@@ -1,42 +1,44 @@
-const fr = require('../../../tools/fileReader');
-const EOL = require('os').EOL;
-const [YEAR, DAY, PART] = ['2023', '05', '1'];
-const DATA = fr.getInput(YEAR, DAY, EOL + EOL);
+module.exports = { solve: solve };
 
-let seeds = DATA[0].match(/\d+/g).map((x) => parseInt(x));
+function solve({ lines, rawData }) {
+    const EOL = require('os').EOL;
+    const DATA = rawData.split(EOL + EOL);
 
-let mappings = [];
+    let seeds = DATA[0].match(/\d+/g).map((x) => parseInt(x));
 
-for (let i = 1; i < DATA.length; i++) {
-    mappings.push(buildMapping(DATA[i]));
-}
+    let mappings = [];
 
-seeds = seeds.map((seed) => {
-    mappings.forEach((mapp) => {
-        seed = findMapping(mapp, seed);
-    });
-    return seed;
-});
-
-function buildMapping(dataString) {
-    let mapping = dataString.split(EOL);
-    mapping.shift();
-    mapping = mapping.map((line) => line.match(/\d+/g).map((x) => parseInt(x)));
-    return mapping;
-}
-
-function findMapping(mapp, seed) {
-    let newSeed = seed;
-    for (let i = 0; i < mapp.length; i++) {
-        const [DEST_RANGE_START, SOURCE_RANGE_START, RANGE_LENGTH] = mapp[i];
-        if (seed >= SOURCE_RANGE_START && seed <= SOURCE_RANGE_START + RANGE_LENGTH) {
-            newSeed = DEST_RANGE_START + (seed - SOURCE_RANGE_START);
-            return newSeed;
-        }
+    for (let i = 1; i < DATA.length; i++) {
+        mappings.push(buildMapping(DATA[i]));
     }
 
-    return newSeed;
-}
+    seeds = seeds.map((seed) => {
+        mappings.forEach((mapp) => {
+            seed = findMapping(mapp, seed);
+        });
+        return seed;
+    });
 
-let answer = seeds.reduce((a, b) => (a < b ? a : b), Infinity);
-console.log(`Year ${YEAR} Day ${DAY} Puzzle ${PART}: ${answer}`);
+    function buildMapping(dataString) {
+        let mapping = dataString.split(EOL);
+        mapping.shift();
+        mapping = mapping.map((line) => line.match(/\d+/g).map((x) => parseInt(x)));
+        return mapping;
+    }
+
+    function findMapping(mapp, seed) {
+        let newSeed = seed;
+        for (let i = 0; i < mapp.length; i++) {
+            const [DEST_RANGE_START, SOURCE_RANGE_START, RANGE_LENGTH] = mapp[i];
+            if (seed >= SOURCE_RANGE_START && seed <= SOURCE_RANGE_START + RANGE_LENGTH) {
+                newSeed = DEST_RANGE_START + (seed - SOURCE_RANGE_START);
+                return newSeed;
+            }
+        }
+
+        return newSeed;
+    }
+
+    const answer = seeds.reduce((a, b) => (a < b ? a : b), Infinity);
+    return { value: answer };
+}
