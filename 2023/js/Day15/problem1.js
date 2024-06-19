@@ -1,7 +1,7 @@
-const fr = require('../../../tools/fileReader');
-const [YEAR, DAY, PART] = ['2023', '15', '1'];
-const ANSWER = fr
-    .getInput(YEAR, DAY, ',')
+module.exports = { solve: solve };
+
+function solve({ lines, rawData }) {
+    const ANSWER = rawData.split(',')
     .map((x) => x.split(''))
     .reduce((total, curr) => {
         return (
@@ -11,5 +11,5 @@ const ANSWER = fr
             }, 0)
         );
     }, 0);
-
-console.log(`Year ${YEAR} Day ${DAY} Puzzle ${PART}: ${ANSWER}`);
+    return { value: ANSWER };
+}
