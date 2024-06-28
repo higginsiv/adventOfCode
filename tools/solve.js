@@ -26,7 +26,7 @@ if (!PART) {
     parts = [PART];
 }
 
-parts.forEach((part) => {
+parts.forEach(async (part) => {
     if (LEGACY) {
         // Get the path to the solution file
         const path = `../${YEAR}/js/Day${DAY}/problem${part}.js`;
@@ -45,7 +45,7 @@ parts.forEach((part) => {
         // run file at the path
         const timerKey = `${YEAR} Day ${DAY} Part ${part}`;
         console.time(timerKey);
-        let answer = solve(data);
+        const answer = await solve(data);
         console.timeEnd(timerKey);
 
         OUTPUT.output(YEAR, DAY, PART, answer.value, answer.strategy);
