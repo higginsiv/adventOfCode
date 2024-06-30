@@ -2,8 +2,6 @@ const fs = require('node:fs');
 
 let [YEAR, DAY] = process.argv.slice(2);
 
-const LEGACY = process.env.npm_config_legacy;
-
 if (!YEAR || !DAY) {
     console.error('Usage: node dayCreators.js <year> <day>');
     process.exit(1);
@@ -41,17 +39,8 @@ if (!fs.existsSync(`${YEAR}/js/Day${DAY}`)) {
     process.exit(1);
 }
 
-function getTemplate(part, legacy) {
-    if (legacy) {
-        return `const fr = require('../../../tools/fileReader');
-const OUTPUT = require('../../../tools/output');
-const [YEAR, DAY, PART] = ["${YEAR}","${DAY}","${part}"];
-const DATA = fr.getInput(YEAR,DAY);
-        
-let answer;
-OUTPUT.output(YEAR, DAY, PART, answer);`;
-    } else {
-        return `module.exports = { solve: solve };
+function getTemplate(part) {
+    return `module.exports = { solve: solve };
 const { Solution } = require('../../../tools/solution');
 
 function solve({ lines, rawData }) {
@@ -59,7 +48,6 @@ function solve({ lines, rawData }) {
     const answer = null;
     return new Solution(answer);
 }`;
-    }
 }
 
 function getTestTemplate(day) {
