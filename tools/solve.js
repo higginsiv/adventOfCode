@@ -1,5 +1,6 @@
 const fr = require('./fileReader');
 const OUTPUT = require('./output');
+const { Solution, LogStrategy } = require('./solution');
 
 // Get year, day, and part from arguments
 let [YEAR, DAY, PART] = process.argv.slice(2);
@@ -42,12 +43,16 @@ parts.forEach(async (part) => {
         const path = `../${YEAR}/js/Day${DAY}/problem${part}.js`;
         const { solve } = require(path);
 
-        // run file at the path
+        // Run file at the path
         const timerKey = `${YEAR} Day ${DAY} Part ${part}`;
         console.time(timerKey);
-        const answer = await solve(data);
+        let answer = await solve(data);
         console.timeEnd(timerKey);
 
-        OUTPUT.output(YEAR, DAY, PART, answer.value, answer.strategy);
+        // Output the answer
+        if (!(answer instanceof Solution)) {
+            answer = new Solution(answer.value, new LogStrategy());
+        }
+        answer.output();
     }
 });

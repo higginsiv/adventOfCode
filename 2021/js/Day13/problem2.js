@@ -1,4 +1,5 @@
 module.exports = { solve: solve };
+const { Solution, GridStrategy } = require('../../../tools/solution');
 
 function solve({ lines, rawData }) {
     const EOL = require('os').EOL;
@@ -89,5 +90,5 @@ function solve({ lines, rawData }) {
         tempGrid.push(tempLine);
     });
     
-    return { value: [tempGrid, ['*']], strategy: 'grid' };
+    return new Solution(tempGrid, new GridStrategy(['*']));
 }

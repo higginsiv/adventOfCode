@@ -1,5 +1,6 @@
 module.exports = { solve: solve };
 const { IntCode } = require('../common/IntCode.js');
+const { Solution, GridStrategy } = require('../../../tools/solution');
 const [BLACK, WHITE] = [0, 1];
 const [LEFT, RIGHT] = [0, 1];
 const [NORTH, EAST, SOUTH, WEST] = [0, 1, 2, 3];
@@ -44,7 +45,7 @@ function solve({ lines, rawData }) {
     }
 
     const answer = convertMapToArray(grid);
-    return { value: [answer, [WHITE]], strategy: 'grid' };
+    return new Solution(answer, new GridStrategy([WHITE]));
 }
 
 function turnRobot(direction, turn) {

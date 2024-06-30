@@ -52,11 +52,12 @@ let answer;
 OUTPUT.output(YEAR, DAY, PART, answer);`;
     } else {
         return `module.exports = { solve: solve };
+const { Solution } = require('../../../tools/solution');
 
 function solve({ lines, rawData }) {
 
     const answer = null;
-    return { value: answer };
+    return new Solution(answer);
 }`;
     }
 }

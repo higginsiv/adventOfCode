@@ -1,4 +1,5 @@
 module.exports = { solve: solve };
+const { Solution, GridStrategy } = require('../../../tools/solution');
 
 function solve({ lines, rawData }) {
     const BLACK = '0';
@@ -44,5 +45,5 @@ function solve({ lines, rawData }) {
             }
         });
 
-    return { value: [grid, [WHITE]], strategy: 'grid' };
+    return new Solution(grid, new GridStrategy([WHITE]));
 }

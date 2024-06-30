@@ -1,4 +1,5 @@
 module.exports = { solve: solve };
+const { Solution, GridStrategy } = require('../../../tools/solution');
 
 function solve({ lines, rawData }) {
     const { min, max } = Math;
@@ -43,6 +44,5 @@ function solve({ lines, rawData }) {
         grid[line.y - mins.y][line.x - mins.x] = '#';
     });
 
-    const answer = grid;
-    return { value: [answer, '#'], strategy: 'grid' };
+    return new Solution(grid, new GridStrategy(['#']));
 }
