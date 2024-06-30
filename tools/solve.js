@@ -1,5 +1,4 @@
 const fr = require('./fileReader');
-const OUTPUT = require('./output');
 const { Solution, LogStrategy } = require('./solution');
 
 // Get year, day, and part from arguments
