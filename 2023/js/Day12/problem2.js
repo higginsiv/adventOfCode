@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [YEAR, DAY, PART] = ['2023', '12', '2'];
     const DATA = lines.map((x) => x.split(' '));
     const [OPERATIONAL, DAMAGED, UNKNOWN] = ['.', '#', '?'];

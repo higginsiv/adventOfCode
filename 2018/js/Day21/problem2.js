@@ -1,24 +1,22 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const {
-        addi,
-        addr,
-        bani,
-        banr,
-        bori,
-        borr,
-        eqir,
-        eqri,
-        eqrr,
-        gtri,
-        gtir,
-        gtrr,
-        muli,
-        mulr,
-        seti,
-        setr,
-    } = require('../Day16/problem1');
+import {
+    addr,
+    addi,
+    mulr,
+    muli,
+    banr,
+    bani,
+    borr,
+    bori,
+    setr,
+    seti,
+    gtir,
+    gtri,
+    gtrr,
+    eqir,
+    eqri,
+    eqrr,
+} from '../Day16/problem1.js';
+export default function solve({ lines, rawData }) {
     const operations = {
         addi,
         addr,

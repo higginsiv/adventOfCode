@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const answer = lines
         .map((x) => {
             return x.split('x').map((v) => parseInt(v));

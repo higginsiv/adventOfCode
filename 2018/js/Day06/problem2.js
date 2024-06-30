@@ -1,7 +1,5 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const { manhattanDistance } = require('../../../tools/math');
+import { manhattanDistance } from '../../../tools/math.js';
+export default function solve({ lines, rawData }) {
     const MAX_DISTANCE = 10000;
     let lowX = Infinity;
     let highX = -Infinity;

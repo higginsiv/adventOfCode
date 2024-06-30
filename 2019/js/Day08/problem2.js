@@ -1,7 +1,6 @@
-module.exports = { solve: solve };
-const { Solution, GridStrategy } = require('../../../tools/solution');
+import { Solution, GridStrategy } from '../../../tools/solution.js';
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const BLACK = '0';
     const WHITE = '1';
     const TRANS = 'T';

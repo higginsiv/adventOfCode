@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const DISK_SIZE = 35651584;
 
     let a = rawData;

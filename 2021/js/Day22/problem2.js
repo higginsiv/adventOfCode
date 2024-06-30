@@ -1,9 +1,8 @@
-module.exports = { solve: solve };
 const { min, max } = Math;
 const ON = 1;
 const OFF = -1;
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const instructions = parseData(lines);
 
     let processedCubes = [];

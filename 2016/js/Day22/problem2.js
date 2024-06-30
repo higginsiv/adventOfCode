@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     function getNeighbors(x, y) {
         return [
             { x: x + 1, y: y },

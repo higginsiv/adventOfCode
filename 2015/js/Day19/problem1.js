@@ -1,7 +1,6 @@
-module.exports = { solve: solve };
-const { EOL } = require('os');
+import { EOL } from 'os';
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const data = rawData.split(EOL + EOL);
 
     const MOLECULE = data[1];

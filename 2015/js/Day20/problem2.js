@@ -1,10 +1,8 @@
-module.exports = {solve: solve};
-
-function solve({lines, rawData}) {
+export default function solve({ lines, rawData }) {
     const GOAL = parseInt(rawData);
 
     let house = 1;
-    
+
     while (true) {
         let factors = getFactors(house).filter((factor) => house / factor <= 50);
         let sum = 11 * factors.reduce((total, curr) => total + curr, 0);
@@ -13,7 +11,7 @@ function solve({lines, rawData}) {
         }
         house++;
     }
-    
+
     function getFactors(num) {
         let factors = [];
         for (let i = 1; i <= Math.sqrt(num); i++) {
@@ -28,6 +26,6 @@ function solve({lines, rawData}) {
         return factors.sort((a, b) => a - b); // sort factors in ascending order
     }
     let answer = house;
-    
-    return {value: answer};
+
+    return { value: answer };
 }

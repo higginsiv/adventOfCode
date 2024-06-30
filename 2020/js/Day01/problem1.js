@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const data = lines.map((x) => parseInt(x));
     const GOAL_NUM = 2020;
     let answer;

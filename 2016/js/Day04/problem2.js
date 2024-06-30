@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const Z = 'z'.charCodeAt(0);
     const ALPHA_LENGTH = 26;
 

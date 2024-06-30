@@ -1,7 +1,6 @@
-module.exports = { solve: solve };
+import { knotHash } from '../Day10/problem2.js';
 
-function solve({ lines, rawData }) {
-    const { knotHash } = require('../Day10/problem2');
+export default function solve({ lines, rawData }) {
     let answer = 0;
     let grid = Array(128)
         .fill(0)

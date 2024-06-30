@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     lines = lines.map((line) =>
         line.split(' ').map((value) => {
             let numValue = Number(value);

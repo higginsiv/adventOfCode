@@ -1,7 +1,6 @@
-module.exports = { solve: solve };
-const keys = require('../../../tools/keys');
+import keys from '../../../tools/keys.js';
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [ON, OFF, TOGGLE] = [0, 1, 2];
 
     let lightsOn = new Set();

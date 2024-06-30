@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [LEFT, RIGHT] = [-1, 1];
     const data = rawData.split('').map((x) => (x === '<' ? LEFT : RIGHT));
 

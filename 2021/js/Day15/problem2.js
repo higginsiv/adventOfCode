@@ -1,6 +1,5 @@
-module.exports = { solve: solve };
 // TODO rewrite for speed
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const data = lines.map((x) =>
         x.split('').map((y) => {
             return {

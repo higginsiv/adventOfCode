@@ -1,5 +1,3 @@
-module.exports = { solve: solve };
-
 // Assembunny had a bug. Decided to parse the input manually to learn what was happening.
 // The following explanation has values in parentheses that correspond to my input. The overall idea
 // is to take a value, print out if it is even or odd, half it, and repeat. When the value reaches 0, start over.
@@ -38,7 +36,7 @@ module.exports = { solve: solve };
 //      jnz a -19
 // Step 5: Once "a" reaches 0, loop back to step 1. "a" will be reset to the "d" value. This keeps the loop infinite
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const answerFloor = Number(lines[2].split(' ')[1]) * Number(lines[1].split(' ')[1]);
     const answerFloorBinary = answerFloor.toString(2);
 

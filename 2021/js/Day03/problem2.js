@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let oxygen = [...lines];
     let iteration = 0;
     while (oxygen.length > 1) {

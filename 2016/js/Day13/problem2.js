@@ -1,7 +1,6 @@
-module.exports = { solve: solve };
+import { insertIntoSortedQueue } from '../../../tools/iteration.js';
 
-function solve({ lines, rawData }) {
-    let { insertIntoSortedQueue } = require('../../../tools/iteration.js');
+export default function solve({ lines, rawData }) {
     const favoriteNumber = Number(rawData);
     const [OPEN, WALL] = ['.', '#'];
 

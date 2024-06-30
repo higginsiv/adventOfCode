@@ -1,7 +1,7 @@
-const fr = require('../../../../tools/fileReader');
-const { solve: part1 } = require(`../problem1.js`);
+import { getInputForFunction } from '../../../../tools/fileReader.js';
+import { solve as part1 } from '../problem1.js';
 
-const data = fr.getInputForFunction('2016', '25');
+const data = getInputForFunction('2016', '25');
 
 describe(`2016 Day 25`, () => {
     test('Part 1', () => {

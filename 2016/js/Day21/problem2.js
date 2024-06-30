@@ -1,8 +1,6 @@
-module.exports = { solve: solve };
+import { permute } from '../../../tools/math.js';
 
-function solve({ lines, rawData }) {
-    const permute = require('../../../tools/math').permute;
-
+export default function solve({ lines, rawData }) {
     function rotateRight(arr, n) {
         return arr.slice(-n).concat(arr.slice(0, -n));
     }

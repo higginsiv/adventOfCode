@@ -1,7 +1,5 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const EOL = require('os').EOL;
+import { EOL } from 'os';
+export default function solve({ lines, rawData }) {
     let [start, rulesRaw] = rawData.split(EOL + EOL);
     start = start.split('');
     rulesRaw = rulesRaw.split(EOL).map((x) => x.split(' -> '));

@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const answer = lines.reduce((badPairs, currentPair) => {
         const pair = currentPair.split(',');
         const elf1 = pair[0].split('-').map((x) => parseInt(x));

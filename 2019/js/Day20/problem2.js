@@ -1,7 +1,5 @@
-module.exports = { solve: solve };
-const PriorityQueue = require('../../../tools/queue');
-
-function solve({ lines, rawData }) {
+import PriorityQueue from '../../../tools/queue.js';
+export default function solve({ lines, rawData }) {
     let grid = lines.map((line) => {
         return line.split('').map((char) => {
             return {

@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const GOAL_BAG_TYPE = 'shiny gold';
 
     let bags = new Map();

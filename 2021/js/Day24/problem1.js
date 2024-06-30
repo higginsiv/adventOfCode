@@ -1,8 +1,6 @@
-module.exports = { solve: solve };
-const EOL = require('os').EOL;
+import { EOL } from 'os';
 const { floor } = Math;
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let params = getParams(lines);
     let modelNumber = new Array(14).fill(9);
 

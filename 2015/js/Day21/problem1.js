@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [BOSS_HEALTH, BOSS_DAMAGE, BOSS_ARMOR] = lines.map((x) => parseInt(x.split(': ')[1]));
 
     const HEALTH = 100;

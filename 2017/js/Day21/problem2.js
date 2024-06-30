@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const { floor, sqrt } = Math;
     function splitPattern(pattern) {
         pattern = pattern.split('/').map((row) => row.split(''));

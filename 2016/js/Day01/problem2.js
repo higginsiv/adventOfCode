@@ -1,24 +1,21 @@
-module.exports = {solve: solve};
-
-function solve({lines, rawData}) {
-    const KEYS = require('../../../tools/keys');
-
+export default function solve({ lines, rawData }) {
+    import keys from '../../../tools/keys.js';
     const [LEFT, RIGHT] = ['L', 'R'];
     const [NORTH, EAST, SOUTH, WEST] = [0, 1, 2, 3];
     const DIRECTIONS = [NORTH, EAST, SOUTH, WEST];
-    
+
     let x = 0;
     let y = 0;
     let direction = NORTH;
     let visited = new Set();
     visited.add(KEYS.generateKey(x, y));
-    
+
     const DATA = rawData.split(', ').map((x) => {
         const direction = x[0];
         const distance = parseInt(x.substring(1));
         return { direction, distance };
     });
-    
+
     let visitedTwice = false;
     for (movement of DATA) {
         switch (movement.direction) {
@@ -29,7 +26,7 @@ function solve({lines, rawData}) {
                 direction = DIRECTIONS[(direction + 1) % 4];
                 break;
         }
-    
+
         for (let i = 0; i < movement.distance; i++) {
             switch (direction) {
                 case NORTH:
@@ -45,7 +42,7 @@ function solve({lines, rawData}) {
                     x -= 1;
                     break;
             }
-    
+
             const key = KEYS.generateKey(x, y);
             if (visited.has(key)) {
                 visitedTwice = true;
@@ -57,8 +54,8 @@ function solve({lines, rawData}) {
             break;
         }
     }
-    
+
     let answer = Math.abs(x) + Math.abs(y);
-    
-    return {value: answer};
+
+    return { value: answer };
 }

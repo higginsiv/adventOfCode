@@ -1,7 +1,6 @@
-module.exports = { solve: solve };
 const { abs } = Math;
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     lines = lines
         .map((line) => line.split(',').map(Number))
         .sort((a, b) => {

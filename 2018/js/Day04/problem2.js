@@ -1,10 +1,4 @@
-const { map } = require('async');
-
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const { max } = Math;
-
+export default function solve({ lines, rawData }) {
     function addToFrequencyMap(key, start, end) {
         if (!guardIdToAsleepMinuteFrequency.has(key)) {
             guardIdToAsleepMinuteFrequency.set(key, new Array(60).fill(0));

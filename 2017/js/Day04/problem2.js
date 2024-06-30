@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let answer = lines
         .map((line) => line.split(' ').map((word) => word.split('').sort().join('')))
         .reduce((acc, line) => {

@@ -1,12 +1,8 @@
-module.exports = {
-    getNeighbors: getNeighbors,
-};
-
 /**
  * Given a point in n dimensions, return all points that are adjacent to it.
  * @param point string in the format "d1,d2,d3,...,dn"
  */
-function getNeighbors(point) {
+export default function getNeighbors(point) {
     let dimensions = point.split(',');
     let neighbors = [];
 

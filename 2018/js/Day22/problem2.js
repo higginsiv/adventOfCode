@@ -1,7 +1,5 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const PriorityQueue = require('../../../tools/queue');
+import PriorityQueue from '../../../tools/queue.js';
+export default function solve({ lines, rawData }) {
     const { abs } = Math;
     const [ROCKY, WET, NARROW] = [0, 1, 2];
     const [NEITHER, TORCH, CLIMBING_GEAR] = [0, 1, 2];

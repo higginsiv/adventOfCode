@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [CHILDREN, CATS, SAMOYEDS, POMS, AKITAS, VIZS, GOLDFISH, TREES, CARS, PERFS] = [
         3, 7, 2, 3, 0, 0, 5, 3, 2, 1,
     ];

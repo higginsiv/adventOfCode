@@ -1,7 +1,6 @@
-module.exports = { solve: solve };
-const { Solution, GridStrategy } = require('../../../tools/solution');
+import { Solution, GridStrategy } from '../../../tools/solution.js';
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [ON, OFF] = [1, 0];
 
     let screen = Array.from(Array(6), () => new Array(50).fill(OFF));

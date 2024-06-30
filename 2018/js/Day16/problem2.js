@@ -1,26 +1,23 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const {
-        addr,
-        addi,
-        mulr,
-        muli,
-        banr,
-        bani,
-        borr,
-        bori,
-        setr,
-        seti,
-        gtir,
-        gtri,
-        gtrr,
-        eqir,
-        eqri,
-        eqrr,
-    } = require('./problem1');
-    const { EOL } = require('os');
-
+import { EOL } from 'os';
+import {
+    addr,
+    addi,
+    mulr,
+    muli,
+    banr,
+    bani,
+    borr,
+    bori,
+    setr,
+    seti,
+    gtir,
+    gtri,
+    gtrr,
+    eqir,
+    eqri,
+    eqrr,
+} from './problem1.js';
+export default function solve({ lines, rawData }) {
     const opcodes = [
         addr,
         addi,

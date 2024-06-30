@@ -1,12 +1,10 @@
-module.exports = { solve: solve };
-const { manhattanDistance3d } = require('../../../tools/math');
-const EOL = require('os').EOL;
+import { manhattanDistance3d } from '../../../tools/math.js';
+import { EOL } from 'os';
 
 const MIN_MATCHES = 12;
 
 let grid = new Set();
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let scanners = [];
 
     rawData.split(EOL + EOL).forEach((scanner, index) => {

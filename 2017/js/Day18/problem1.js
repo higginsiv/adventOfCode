@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     function getValue(param) {
         if (registers[param] !== undefined) {
             return registers[param];

@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [EMPTY, FILLED, FLOOR] = ['L', '#', '.'];
     let data = lines.map((x) => x.split(''));
 
@@ -67,6 +65,6 @@ function solve({ lines, rawData }) {
         }, 0);
         return total + inRow;
     }, 0);
-    
+
     return { value: answer };
 }

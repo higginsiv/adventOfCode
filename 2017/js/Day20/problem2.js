@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     function moveParticle(particle) {
         particle.v.x += particle.a.x;
         particle.v.y += particle.a.y;

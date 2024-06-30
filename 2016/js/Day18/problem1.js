@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const MAX_ROWS = 40;
     const [SAFE, TRAP] = ['.', '^'];
     const TRAP_STRINGS = [

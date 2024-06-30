@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [ONE, ZERO, FLOAT] = ['1', '0', 'X'];
 
     let memory = new Map();

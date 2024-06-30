@@ -1,8 +1,7 @@
-module.exports = { solve: solve };
-const { IntCode } = require('../common/IntCode.js');
+import { IntCode } from '../common/IntCode.js';
 const [NORTH, SOUTH, WEST, EAST] = [1, 2, 3, 4];
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let ic = new IntCode(rawData, null, 0, [], []);
     let grid = new Map();
     grid.set(getKey(0, 0), {

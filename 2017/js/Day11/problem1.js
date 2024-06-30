@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const { abs, min } = Math;
     const [NORTH, SOUTH, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST] = [
         'n',

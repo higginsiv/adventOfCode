@@ -1,7 +1,5 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const EOL = require('os').EOL;
+import { EOL } from 'os';
+export default function solve({ lines, rawData }) {
     const START = 'in';
     const [ACCEPTED, REJECTED] = ['A', 'R'];
 

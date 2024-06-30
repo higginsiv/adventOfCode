@@ -1,8 +1,6 @@
-module.exports = { solve: solve };
+import * as GRAPH from '../../../tools/graph.js';
 
-function solve({ lines, rawData }) {
-    const GRAPH = require('../../../tools/graph');
-
+export default function solve({ lines, rawData }) {
     let nodes = new Map();
     lines.forEach((x) => {
         const [START, PREP, END, EQUALS, WEIGHT] = x.split(' ');

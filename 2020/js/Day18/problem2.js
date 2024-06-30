@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [PLUS, MULT] = ['+', '*'];
     const data = lines.map((line) => {
         line = line.replaceAll('(', '( ');

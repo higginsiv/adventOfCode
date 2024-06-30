@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const abaRegex = /(\w)(?=(?!\1)(\w)\1)/g;
 
     const answer = lines.reduce((total, line) => {

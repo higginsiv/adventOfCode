@@ -1,7 +1,6 @@
-module.exports = { solve: solve };
-const MATH = require('../../../tools/math');
+import * as MATH from '../../../tools/math.js';
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let people = new Map();
     lines.forEach((x) => {
         x = x.replace(' would ', ' ');

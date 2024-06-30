@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [low, high] = rawData.split('-').map((x) => parseInt(x));
 
     let answer = 0;

@@ -1,7 +1,5 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const EOL = require('os').EOL;
+import { EOL } from 'os';
+export default function solve({ lines, rawData }) {
     let [coordinates, folds] = rawData.split(EOL + EOL);
     coordinates = coordinates.split(EOL).map((x) => x.split(',').map((y) => parseInt(y)));
     folds = folds.split(EOL).map((x) => {

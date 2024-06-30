@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const HUMAN = 'humn';
     const ROOT = 'root';
     const NUMBER = 'number';

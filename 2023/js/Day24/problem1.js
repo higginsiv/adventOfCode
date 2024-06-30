@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const TEST_START = 200000000000000;
     const TEST_END = 400000000000000;
 

@@ -1,7 +1,5 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const { EOL } = require('os');
+export default function solve({ lines, rawData }) {
+    import { EOL } from 'os';
     const ON = '#';
 
     let edgesToTile = new Map();

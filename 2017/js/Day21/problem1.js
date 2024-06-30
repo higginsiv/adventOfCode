@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const { sqrt } = Math;
     function splitPattern(pattern) {
         if (pattern.length === 5) {

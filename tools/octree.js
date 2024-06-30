@@ -1,6 +1,6 @@
 const { floor } = Math;
 
-class OctreeNode {
+export default class OctreeNode {
     constructor(minX, minY, minZ, maxX, maxY, maxZ) {
         this.boundingBox = { minX, minY, minZ, maxX, maxY, maxZ };
         this.children = [];
@@ -48,5 +48,3 @@ class OctreeNode {
         }
     }
 }
-
-module.exports = OctreeNode;

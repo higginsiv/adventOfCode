@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     function validateInstruction(instruction, param1, param2) {
         switch (instruction) {
             case 'cpy':

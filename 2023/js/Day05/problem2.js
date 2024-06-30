@@ -1,7 +1,5 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const EOL = require('os').EOL;
+import { EOL } from 'os';
+export default function solve({ lines, rawData }) {
     const DATA = rawData.split(EOL + EOL);
 
     let seeds = DATA[0].match(/\d+\s\d+/g).map((x) => {

@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let answer = 0;
     let matches = rawData.match(/(\d)(?=\1)/g);
     if (matches) {

@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const data = lines.map((x) => x.split(' -> ').map((x) => x.split(',').map((x) => parseInt(x))));
     const ROCK = '#';
     const SAND = 'O';

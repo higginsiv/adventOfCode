@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const data = lines.map((x) => {
         x = x.replace('Sensor at x=', '');
         x = x.replace(': closest beacon is at x=', ' ');

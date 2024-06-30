@@ -1,4 +1,4 @@
-class PriorityQueue {
+export default class PriorityQueue {
     items;
     comparator;
 
@@ -38,5 +38,3 @@ class PriorityQueue {
         this.items.splice(low, 0, item);
     }
 }
-
-module.exports = PriorityQueue;

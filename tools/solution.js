@@ -1,4 +1,4 @@
-class Solution {
+export class Solution {
     value;
     outputStrategy;
 
@@ -12,13 +12,13 @@ class Solution {
     }
 }
 
-class LogStrategy {
+export class LogStrategy {
     execute(value) {
         console.log(value);
     }
 }
 
-class GridStrategy {
+export class GridStrategy {
     onChar = '⬜';
     offChar = '⬛';
     onValues;
@@ -39,7 +39,7 @@ class GridStrategy {
     }
 }
 
-class FileStrategy {
+export class FileStrategy {
     year;
     day;
     part;
@@ -54,10 +54,3 @@ class FileStrategy {
         fs.writeFileSync(`${this.year}/js/Day${this.day}/output-${this.part}.txt`, String(value));
     }
 }
-
-module.exports = {
-    Solution,
-    LogStrategy,
-    GridStrategy,
-    FileStrategy,
-};

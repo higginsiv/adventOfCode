@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [minX, maxX, minY, maxY] = lines.map((x) => {
         x = x.replace('target area: x=', '');
         x = x.replaceAll('..', ' ');

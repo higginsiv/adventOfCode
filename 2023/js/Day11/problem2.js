@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const EXPANSION_FACTOR = 1000000;
 
     let galaxies = [];

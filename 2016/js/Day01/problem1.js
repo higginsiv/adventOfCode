@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [LEFT, RIGHT] = ['L', 'R'];
     const [NORTH, EAST, SOUTH, WEST] = [0, 1, 2, 3];
     const DIRECTIONS = [NORTH, EAST, SOUTH, WEST];

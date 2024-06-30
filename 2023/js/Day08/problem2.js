@@ -1,8 +1,6 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const EOL = require('os').EOL;
-    const MATH = require('../../../tools/math');
+export default function solve({ lines, rawData }) {
+    import { EOL } from 'os';
+    import * as MATH from '../../../tools/math.js';
     const [LEFT, RIGHT] = ['L', 'R'];
 
     const DATA = rawData.split(EOL + EOL);

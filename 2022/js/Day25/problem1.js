@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const SNAFU_TO_DEC = new Map([
         ['=', -2],
         ['-', -1],

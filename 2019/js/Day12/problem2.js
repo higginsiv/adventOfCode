@@ -1,7 +1,5 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const math = require('../../../tools/math.js');
+export default function solve({ lines, rawData }) {
+    import * as MATH from '../../../tools/math.js';
     const DELIM = '|';
 
     class Moon {

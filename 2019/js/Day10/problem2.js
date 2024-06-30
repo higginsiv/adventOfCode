@@ -1,8 +1,6 @@
-module.exports = { solve: solve };
 // In order to maximize reuse of existing part 10 code you are going to see a LOT of messy code
 
-function solve({ lines, rawData }) {
-    const math = require('../../../tools/math');
+export default function solve({ lines, rawData }) {
     const [ASTEROID, EMPTY] = ['#', '.'];
     const DELIM = '|';
     const STROIDS_TO_STROY = 200;

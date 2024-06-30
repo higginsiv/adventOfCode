@@ -1,7 +1,6 @@
-module.exports = { solve: solve };
+import { condenseRanges } from '../../../tools/math.js';
 
-function solve({ lines, rawData }) {
-    const condenseRanges = require('../../../tools/math').condenseRanges;
+export default function solve({ lines, rawData }) {
     lines = lines.map((line) => line.split('-').map(Number)).sort((a, b) => a[0] - b[0]);
     lines = condenseRanges(lines);
 

@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [TIME, DISTANCE] = lines.map((x) => {
         x = x.replace(/\s+/g, '');
         return x.match(/\d+/g).map((x) => parseInt(x))[0];

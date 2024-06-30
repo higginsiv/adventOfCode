@@ -1,7 +1,6 @@
-module.exports = { solve: solve };
-const { IntCode } = require('../common/IntCode.js');
+import { IntCode } from '../common/IntCode.js';
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let input = [];
 
     let answer = 0;

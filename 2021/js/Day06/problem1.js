@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let data = rawData.split(',').map((x) => parseInt(x));
 
     const numOfDays = 80;

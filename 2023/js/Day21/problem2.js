@@ -1,7 +1,5 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const { insertIntoSortedQueue } = require('../../../tools/iteration');
+import { insertIntoSortedQueue } from '../../../tools/iteration.js';
+export default function solve({ lines, rawData }) {
     const DATA = lines.map((x) => x.split(''));
     const ROCK = '#';
     const MAX_STEPS = 26501365;

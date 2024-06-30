@@ -1,4 +1,4 @@
-const fs = require('node:fs');
+import fs from 'node:fs';
 
 let [YEAR, DAY] = process.argv.slice(2);
 
@@ -40,10 +40,9 @@ if (!fs.existsSync(`${YEAR}/js/Day${DAY}`)) {
 }
 
 function getTemplate(part) {
-    return `module.exports = { solve: solve };
-const { Solution } = require('../../../tools/solution');
+    return `import { Solution } from '../../../tools/solution.js';
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
 
     const answer = null;
     return new Solution(answer);
@@ -52,10 +51,10 @@ function solve({ lines, rawData }) {
 
 function getTestTemplate(day) {
     if (day === '25') {
-        return `const fr = require('../../../../tools/fileReader');
-const { solve: part1 } = require(\`../problem1.js\`);
+        return `import { getInputForFunction } from '../../../../tools/fileReader.js';
+import { solve as part1 } from '../problem1.js';
         
-const data = fr.getInputForFunction(\'${YEAR}\', \'${DAY}\');
+const data = getInputForFunction(\'${YEAR}\', \'${DAY}\');
         
 describe(\`${YEAR} Day ${DAY}\`, () => {
     test('Part 1', () => {
@@ -64,11 +63,11 @@ describe(\`${YEAR} Day ${DAY}\`, () => {
 });`;
     }
 
-    return `const fr = require('../../../../tools/fileReader');
-const { solve: part1 } = require(\`../problem1.js\`);
-const { solve: part2 } = require(\`../problem2.js\`);
+    return `import { getInputForFunction } from '../../../../tools/fileReader.js';
+import { solve as part1 } from '../problem1.js';
+import { solve as part2 } from '../problem2.js';
 
-const data = fr.getInputForFunction(\'${YEAR}\', \'${DAY}\');
+const data = getInputForFunction(\'${YEAR}\', \'${DAY}\');
 
 describe(\`${YEAR} Day ${DAY}\`, () => {
     test('Part 1', () => {

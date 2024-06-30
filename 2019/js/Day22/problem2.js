@@ -1,7 +1,6 @@
-module.exports = { solve: solve };
-const { modInv, modPow } = require('bigint-crypto-utils');
+import { modInv, modPow } from 'bigint-crypto-utils';
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     lines = lines.map((line) => {
         if (line.startsWith('deal into')) {
             return [-1n, -1n];

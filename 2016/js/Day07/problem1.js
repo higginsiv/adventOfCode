@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const regexInvalid = /\[[^\]]*?(\w)(?!\1)(\w)\2\1[^\]]*?\]/;
     const regexValid = /(\w)(?!\1)(\w)\2\1/;
 

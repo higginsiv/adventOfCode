@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let priority = 0;
     lines.forEach((sack) => {
         let [comp1, comp2] = [sack.slice(0, sack.length / 2), sack.slice(sack.length / 2)];

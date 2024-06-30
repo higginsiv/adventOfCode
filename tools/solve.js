@@ -1,5 +1,5 @@
-const fr = require('./fileReader');
-const { Solution, LogStrategy } = require('./solution');
+import { getInputForFunction } from './fileReader.js';
+import { Solution, LogStrategy } from './solution.js';
 
 // Get year, day, and part from arguments
 let [YEAR, DAY, PART] = process.argv.slice(2);
@@ -25,11 +25,12 @@ if (!PART) {
 }
 
 parts.forEach(async (part) => {
-    let data = fr.getInputForFunction(YEAR, DAY);
+    let data = getInputForFunction(YEAR, DAY);
 
     // Get the path to the solution file
     const path = `../${YEAR}/js/Day${DAY}/problem${part}.js`;
-    const { solve } = require(path);
+    const module = await import(path);
+    const solve = module.default;
 
     // Run file at the path
     const timerKey = `${YEAR} Day ${DAY} Part ${part}`;

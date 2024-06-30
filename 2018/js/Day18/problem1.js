@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const minutes = 10;
     const [open, trees, lumber] = [0, 1, 2];
     const [openChar, treeChar, lumberChar] = ['.', '|', '#'];

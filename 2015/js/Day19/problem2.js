@@ -1,12 +1,11 @@
-module.exports = {solve: solve};
-const { EOL } = require('os');
+import { EOL } from 'os';
 
-function solve({lines, rawData}) {
+export default function solve({ lines, rawData }) {
     const data = rawData.split(EOL + EOL);
-    
+
     const MOLECULE = data[1];
     let replacements = new Map();
-    
+
     data[0].split(EOL).forEach((x) => {
         x = x.split(' => ');
         if (replacements.get(x[1]) == null) {
@@ -14,16 +13,16 @@ function solve({lines, rawData}) {
         }
         replacements.get(x[1]).push(x[0]);
     });
-    
+
     let fastest = Infinity;
     let currentMolecule = MOLECULE;
     let goalMolecule = 'e';
-    
+
     let moleculesToSteps = new Map();
     moleculesToSteps.set(currentMolecule, 0);
-    
+
     let permutations = [currentMolecule];
-    
+
     while (permutations.length > 0) {
         // console.log(permutations.length);
         currentMolecule = permutations.shift();
@@ -34,31 +33,31 @@ function solve({lines, rawData}) {
             continue;
         }
         let newnew = new Set();
-    
+
         replacements.forEach((value, key) => {
             value.forEach((replacement) => {
                 let lastIndexOf = -Infinity;
-    
+
                 while (true) {
                     let index = currentMolecule.indexOf(key, lastIndexOf + 1);
                     if (index !== -1 && index > lastIndexOf) {
                         let firstPart = currentMolecule.substring(0, index);
                         let secondPart = currentMolecule.substring(index);
                         secondPart = secondPart.replace(key, replacement);
-    
+
                         let newMolecule = firstPart + secondPart;
-    
+
                         if (newMolecule === goalMolecule) {
                             console.log(newMolecule);
                             console.log('GOALLLLLLL ' + currentSteps + 1);
                             fastest = currentSteps + 1 < fastest ? currentSteps + 1 : fastest;
                             break;
                         }
-    
+
                         if (newMolecule.includes(goalMolecule)) {
                             break;
                         }
-    
+
                         if (
                             moleculesToSteps.get(newMolecule) == null ||
                             moleculesToSteps.get(newMolecule) > currentSteps + 1
@@ -68,7 +67,7 @@ function solve({lines, rawData}) {
                             }
                             moleculesToSteps.set(newMolecule, currentSteps + 1);
                         }
-    
+
                         lastIndexOf = index;
                     } else {
                         break;
@@ -88,7 +87,7 @@ function solve({lines, rawData}) {
             return sort;
         });
     }
-    
+
     let answer = fastest;
-    return {value: answer};
+    return { value: answer };
 }

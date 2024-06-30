@@ -15,7 +15,7 @@ const DEFAULT_MEMORY_VALUE = 0;
 
 const WAITING = -1;
 
-class IntCode {
+export default class IntCode {
     memory;
     pointer;
     input;
@@ -275,7 +275,3 @@ class IntCode {
         return this.getValueAtLocation(pos, memory);
     }
 }
-
-module.exports = {
-    IntCode: IntCode,
-};

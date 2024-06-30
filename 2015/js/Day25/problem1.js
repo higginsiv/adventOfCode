@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [ROW, COLUMN] = lines.map((line) => line.match(/\d+/g).map(Number))[0];
 
     const START = 20151125;

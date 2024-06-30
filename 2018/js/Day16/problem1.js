@@ -1,25 +1,5 @@
-module.exports = {
-    solve: solve,
-    addr,
-    addi,
-    mulr,
-    muli,
-    banr,
-    bani,
-    borr,
-    bori,
-    setr,
-    seti,
-    gtir,
-    gtri,
-    gtrr,
-    eqir,
-    eqri,
-    eqrr,
-};
-
-function solve({ lines, rawData }) {
-    const { EOL } = require('os');
+import { EOL } from 'os';
+export default function solve({ lines, rawData }) {
     let tests = rawData
         .split(EOL + EOL + EOL + EOL)[0]
         .split(EOL + EOL)
@@ -72,82 +52,82 @@ function solve({ lines, rawData }) {
     return { value: answer };
 }
 
-function addr(registers, a, b, c) {
+export function addr(registers, a, b, c) {
     registers[c] = registers[a] + registers[b];
     return registers;
 }
 
-function addi(registers, a, b, c) {
+export function addi(registers, a, b, c) {
     registers[c] = registers[a] + b;
     return registers;
 }
 
-function mulr(registers, a, b, c) {
+export function mulr(registers, a, b, c) {
     registers[c] = registers[a] * registers[b];
     return registers;
 }
 
-function muli(registers, a, b, c) {
+export function muli(registers, a, b, c) {
     registers[c] = registers[a] * b;
     return registers;
 }
 
-function banr(registers, a, b, c) {
+export function banr(registers, a, b, c) {
     registers[c] = registers[a] & registers[b];
     return registers;
 }
 
-function bani(registers, a, b, c) {
+export function bani(registers, a, b, c) {
     registers[c] = registers[a] & b;
     return registers;
 }
 
-function borr(registers, a, b, c) {
+export function borr(registers, a, b, c) {
     registers[c] = registers[a] | registers[b];
     return registers;
 }
 
-function bori(registers, a, b, c) {
+export function bori(registers, a, b, c) {
     registers[c] = registers[a] | b;
     return registers;
 }
 
-function setr(registers, a, b, c) {
+export function setr(registers, a, b, c) {
     registers[c] = registers[a];
     return registers;
 }
 
-function seti(registers, a, b, c) {
+export function seti(registers, a, b, c) {
     registers[c] = a;
     return registers;
 }
 
-function gtir(registers, a, b, c) {
+export function gtir(registers, a, b, c) {
     registers[c] = a > registers[b] ? 1 : 0;
     return registers;
 }
 
-function gtri(registers, a, b, c) {
+export function gtri(registers, a, b, c) {
     registers[c] = registers[a] > b ? 1 : 0;
     return registers;
 }
 
-function gtrr(registers, a, b, c) {
+export function gtrr(registers, a, b, c) {
     registers[c] = registers[a] > registers[b] ? 1 : 0;
     return registers;
 }
 
-function eqir(registers, a, b, c) {
+export function eqir(registers, a, b, c) {
     registers[c] = a === registers[b] ? 1 : 0;
     return registers;
 }
 
-function eqri(registers, a, b, c) {
+export function eqri(registers, a, b, c) {
     registers[c] = registers[a] === b ? 1 : 0;
     return registers;
 }
 
-function eqrr(registers, a, b, c) {
+export function eqrr(registers, a, b, c) {
     registers[c] = registers[a] === registers[b] ? 1 : 0;
     return registers;
 }

@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let hashes = new Map();
     let boxes = new Array(256).fill(null).map(() => []);
 

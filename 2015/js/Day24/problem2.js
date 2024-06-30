@@ -1,8 +1,6 @@
 // This problem uses bitmasks even though it is more complicated than necessary just for practice with them.
 // TODO go back thru these for speed improvements
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let bitmasks = new Map();
     const DATA = lines.map(Number).reverse();
 

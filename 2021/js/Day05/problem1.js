@@ -1,8 +1,5 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const tool = require('./tools.js');
-
+import tool from './tools.js';
+export default function solve({ lines, rawData }) {
     const data = lines;
 
     let grid = [];

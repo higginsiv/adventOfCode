@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let DATA = lines.map((x) => x.split(''));
     const START = 'S';
     const FLOOD = '*';

@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [ON, OFF] = ['#', '.'];
     const STEPS = 100;
     const [LENGTH, WIDTH] = [100, 100];

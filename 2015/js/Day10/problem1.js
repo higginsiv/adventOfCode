@@ -1,5 +1,4 @@
-module.exports = {solve: solve};
-function solve({lines, rawData}) {
+export default function solve({lines, rawData}) {
     const ITERATIONS = 40;
     let data = rawData;
     

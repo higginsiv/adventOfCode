@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const { floor } = Math;
     const [NORTH, EAST, SOUTH, WEST] = [0, 1, 2, 3];
     const [CLEAN, WEAKENED, INFECTED, FLAGGED] = [0, 1, 2, 3];

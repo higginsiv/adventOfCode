@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [FIVE, FOUR, FULL, THREE, TWO, ONE, HIGH] = [64, 32, 16, 8, 4, 2, 1];
 
     const cardScores = new Map([

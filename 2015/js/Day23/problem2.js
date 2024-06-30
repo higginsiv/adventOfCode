@@ -1,26 +1,24 @@
-module.exports = {solve: solve};
-
-function solve({lines, rawData}) {
+export default function solve({ lines, rawData }) {
     const DATA = lines.map((line) => {
         const [instruction, register, offset] = line.split(' ');
-    
+
         if (instruction === 'jmp') {
             return {
                 instruction,
                 offset: parseInt(register),
             };
         }
-    
+
         return {
             instruction,
             register: register.replace(',', ''),
             offset: parseInt(offset),
         };
     });
-    
+
     let pointer = 0;
     let registers = { a: 1, b: 0 };
-    
+
     while (pointer < DATA.length && pointer >= 0) {
         const { instruction, register, offset } = DATA[pointer];
         switch (instruction) {
@@ -55,7 +53,7 @@ function solve({lines, rawData}) {
                 break;
         }
     }
-    
+
     const answer = registers['b'];
-    return {value: answer};
+    return { value: answer };
 }

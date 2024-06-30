@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const ORE = 'ORE';
     const FUEL = 'FUEL';
     let oreAvailable = 1000000000000;

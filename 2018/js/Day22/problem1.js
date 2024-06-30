@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const depth = lines[0].match(/\d+/).map(Number)[0];
     const [targetX, targetY] = lines[1].match(/\d+/g).map(Number);
 

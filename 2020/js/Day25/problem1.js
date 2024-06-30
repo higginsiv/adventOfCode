@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [DOOR, CARD] = lines.map((x) => parseInt(x));
     const DIVIDEND = 20201227;
     const INITIAL_SUBJECT = 7;
