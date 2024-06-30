@@ -13,7 +13,7 @@ describe(`2021 Day 13`, () => {
         // Spells RGZLBH
         const expected = '***   **  **** *    ***  *  * _*  * *  *    * *    *  * *  * _*  * *      *  *    ***  **** _***  * **  *   *    *  * *  * _* *  *  * *    *    *  * *  * _*  *  *** **** **** ***  *  * ';
         const actual = part2(data)
-        .value[0].map((row) => row.join(''))
+        .value.map((row) => row.join(''))
         .join('_');
         expect(actual).toBe(expected);
     });

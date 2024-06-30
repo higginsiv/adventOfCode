@@ -11,7 +11,7 @@ describe(`2022 Day 10`, () => {
 
     test('Part 2', () => {
         // Spells BUCACBUZ (but oddly with the bottom row missing)
-        const rawAnswer = part2(data).value[0];
+        const rawAnswer = part2(data).value;
         let actual = '';
         rawAnswer.forEach((m) => {
             m.forEach((c) => {
