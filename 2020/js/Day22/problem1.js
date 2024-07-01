@@ -1,5 +1,5 @@
+import { EOL } from 'os';
 export default function solve({ lines, rawData }) {
-    import { EOL } from 'os';
     let [player1, player2] = rawData.split(EOL + EOL).map((x) => {
         x = x.split(EOL);
         x.shift();

@@ -8,7 +8,7 @@ export default function solve({ lines, rawData }) {
     });
 
     let answer;
-    for (room of DATA) {
+    for (let room of DATA) {
         const letters = room.letters.replace(/-/g, '').split('');
         const counts = letters.reduce((total, current) => {
             if (total[current] == null) {

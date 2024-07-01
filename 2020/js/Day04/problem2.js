@@ -1,5 +1,5 @@
+import { EOL } from 'os';
 export default function solve({ lines, rawData }) {
-    import { EOL } from 'os';
     const data = rawData.split(EOL + EOL).map((x) => {
         x = x.replaceAll(':', ' ');
         x = x.replaceAll(EOL, ' ');

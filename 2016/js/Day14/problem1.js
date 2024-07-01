@@ -1,5 +1,5 @@
+import { createHash } from 'node:crypto';
 export default function solve({ lines, rawData }) {
-    import { createHash } from 'node:crypto';
     const CREATE_HASH = createHash;
 
     let hashes = {};

@@ -1,5 +1,5 @@
+import { getLCM } from '../../../tools/math.js';
 export default function solve({ lines, rawData }) {
-    import * as MATH from '../../../tools/math.js';
     const DELIM = '|';
 
     class Moon {
@@ -125,7 +125,7 @@ export default function solve({ lines, rawData }) {
         return key;
     }
 
-    let answer = math.getLCM(xSteps, ySteps);
-    answer = math.getLCM(answer, zSteps);
+    let answer = getLCM(xSteps, ySteps);
+    answer = getLCM(answer, zSteps);
     return { value: answer };
 }

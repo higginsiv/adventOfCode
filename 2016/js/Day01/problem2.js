@@ -1,5 +1,5 @@
+import generateKey from '../../../tools/keys.js';
 export default function solve({ lines, rawData }) {
-    import keys from '../../../tools/keys.js';
     const [LEFT, RIGHT] = ['L', 'R'];
     const [NORTH, EAST, SOUTH, WEST] = [0, 1, 2, 3];
     const DIRECTIONS = [NORTH, EAST, SOUTH, WEST];
@@ -8,7 +8,7 @@ export default function solve({ lines, rawData }) {
     let y = 0;
     let direction = NORTH;
     let visited = new Set();
-    visited.add(KEYS.generateKey(x, y));
+    visited.add(generateKey(x, y));
 
     const DATA = rawData.split(', ').map((x) => {
         const direction = x[0];
@@ -17,7 +17,7 @@ export default function solve({ lines, rawData }) {
     });
 
     let visitedTwice = false;
-    for (movement of DATA) {
+    for (let movement of DATA) {
         switch (movement.direction) {
             case LEFT:
                 direction = DIRECTIONS[(direction + 3) % 4];
@@ -43,7 +43,7 @@ export default function solve({ lines, rawData }) {
                     break;
             }
 
-            const key = KEYS.generateKey(x, y);
+            const key = generateKey(x, y);
             if (visited.has(key)) {
                 visitedTwice = true;
                 break;

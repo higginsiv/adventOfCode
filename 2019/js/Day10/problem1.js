@@ -1,5 +1,5 @@
+import { getGCD } from '../../../tools/math.js';
 export default function solve({ lines, rawData }) {
-    import * as MATH from '../../../tools/math.js';
     const [ASTEROID, EMPTY] = ['#', '.'];
     const DELIM = '|';
 
@@ -14,7 +14,7 @@ export default function solve({ lines, rawData }) {
             } else if (y === 0) {
                 slopes.add(1 + DELIM + 0);
             } else {
-                let gcd = math.getGCD(x, y);
+                let gcd = getGCD(x, y);
                 let reducedX = x / gcd;
                 let reducedY = y / gcd;
                 slopes.add(reducedX + DELIM + reducedY);

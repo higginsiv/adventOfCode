@@ -15,7 +15,7 @@ const DEFAULT_MEMORY_VALUE = 0;
 
 const WAITING = -1;
 
-export default class IntCode {
+export class IntCode {
     memory;
     pointer;
     input;

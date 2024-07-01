@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { ceil } = Math;
     const ORE = 'ORE';
     const FUEL = 'FUEL';
     let oreAvailable = 1000000000000;
@@ -39,7 +40,7 @@ export default function solve({ lines, rawData }) {
         let ingredients = keyToIngredients.get(key);
         let numProduced = keyToNumberOutput.get(key);
 
-        let mult = Math.ceil(amount / numProduced);
+        let mult = ceil(amount / numProduced);
         let actualOutput = mult * numProduced;
 
         if (actualOutput > amount) {

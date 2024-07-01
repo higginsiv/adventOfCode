@@ -1,5 +1,5 @@
+import { EOL } from 'os';
 export default function solve({ lines, rawData }) {
-    import { EOL } from 'os';
     const ON = '#';
 
     let edgesToTile = new Map();

@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { sqrt } = Math;
     const GOAL = parseInt(rawData);
 
     let house = 1;
@@ -14,7 +15,7 @@ export default function solve({ lines, rawData }) {
 
     function getFactors(num) {
         let factors = [];
-        for (let i = 1; i <= Math.sqrt(num); i++) {
+        for (let i = 1; i <= sqrt(num); i++) {
             if (num % i === 0) {
                 factors.push(i);
                 if (num / i !== i) {

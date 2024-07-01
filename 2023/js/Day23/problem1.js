@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { max } = Math;
     const [FOREST, PATH] = ['#', '.'];
     const [NORTH, EAST, SOUTH, WEST] = ['^', '>', 'v', '<'];
 
@@ -28,7 +29,7 @@ export default function solve({ lines, rawData }) {
         let current = queue.shift();
 
         if (current.point.x === goal.x && current.point.y === goal.y) {
-            longestTrip = Math.max(longestTrip, current.distance);
+            longestTrip = max(longestTrip, current.distance);
             continue;
         }
 

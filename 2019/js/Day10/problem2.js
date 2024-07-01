@@ -1,5 +1,6 @@
 // In order to maximize reuse of existing part 10 code you are going to see a LOT of messy code
 
+import { getGCD } from '../../../tools/math.js';
 export default function solve({ lines, rawData }) {
     const [ASTEROID, EMPTY] = ['#', '.'];
     const DELIM = '|';
@@ -22,7 +23,7 @@ export default function solve({ lines, rawData }) {
                 slopes.add(1 + DELIM + 0);
                 posSlopes.add(1 + DELIM + 0);
             } else {
-                let gcd = math.getGCD(x, y);
+                let gcd = getGCD(x, y);
                 let reducedX = x / gcd;
                 let reducedY = y / gcd;
                 slopes.add(reducedX + DELIM + reducedY);

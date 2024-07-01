@@ -1,6 +1,5 @@
+import { EOL } from 'os';
 export default function solve({ lines, rawData }) {
-    import { EOL } from 'os';
-
     class Range {
         min;
         max;

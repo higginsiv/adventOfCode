@@ -8,7 +8,7 @@ export default function solve({ lines, rawData }) {
             before = before.match(/\d+/g).map(Number);
             instruction = instruction.split(' ').map(Number);
             after = after.match(/\d+/g).map(Number);
-            possibleOpcodes = [];
+            let possibleOpcodes = [];
             return { before, instruction, after, possibleOpcodes };
         });
 

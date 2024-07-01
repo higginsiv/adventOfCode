@@ -1,6 +1,6 @@
 import { getInputForFunction } from '../../../../tools/fileReader.js';
-import { solve as part1 } from '../problem1.js';
-import { solve as part2 } from '../problem2.js';
+import { default as part1 } from '../problem1.js';
+import { default as part2 } from '../problem2.js';
 
 const data = getInputForFunction('2019', '03');
 

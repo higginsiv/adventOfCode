@@ -52,7 +52,7 @@ export default function solve({ lines, rawData }) {
 function getTestTemplate(day) {
     if (day === '25') {
         return `import { getInputForFunction } from '../../../../tools/fileReader.js';
-import { solve as part1 } from '../problem1.js';
+import { default as part1 } from '../problem1.js';
         
 const data = getInputForFunction(\'${YEAR}\', \'${DAY}\');
         
@@ -64,8 +64,8 @@ describe(\`${YEAR} Day ${DAY}\`, () => {
     }
 
     return `import { getInputForFunction } from '../../../../tools/fileReader.js';
-import { solve as part1 } from '../problem1.js';
-import { solve as part2 } from '../problem2.js';
+import { default as part1 } from '../problem1.js';
+import { default as part2 } from '../problem2.js';
 
 const data = getInputForFunction(\'${YEAR}\', \'${DAY}\');
 

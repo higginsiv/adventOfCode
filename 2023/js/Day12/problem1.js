@@ -1,5 +1,5 @@
+import * as MATH from '../../../tools/math.js';
 export default function solve({ lines, rawData }) {
-    import * as MATH from '../../../tools/math.js';
     const DATA = lines.map((x) => x.split(' '));
     const [OPERATIONAL, DAMAGED, UNKNOWN] = ['.', '#', '?'];
     const SYMBOLS = [OPERATIONAL, DAMAGED];

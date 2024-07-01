@@ -1,6 +1,6 @@
+import { EOL } from 'os';
+import * as MATH from '../../../tools/math.js';
 export default function solve({ lines, rawData }) {
-    import { EOL } from 'os';
-    import * as MATH from '../../../tools/math.js';
     const [LEFT, RIGHT] = ['L', 'R'];
 
     const DATA = rawData.split(EOL + EOL);

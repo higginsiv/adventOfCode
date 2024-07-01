@@ -1,4 +1,4 @@
-import * as MATH from '../../../tools/math.js';
+import { permute } from '../../../tools/math.js';
 
 export default function solve({ lines, rawData }) {
     let people = new Map();
@@ -20,7 +20,7 @@ export default function solve({ lines, rawData }) {
 
     people.set('Willy', new Map());
 
-    let perms = MATH.permute([...people.keys()]);
+    let perms = permute([...people.keys()]);
 
     let answer = perms.reduce((total, curr, index) => {
         let happiness = 0;

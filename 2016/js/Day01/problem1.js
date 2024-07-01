@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { abs } = Math;
     const [LEFT, RIGHT] = ['L', 'R'];
     const [NORTH, EAST, SOUTH, WEST] = [0, 1, 2, 3];
     const DIRECTIONS = [NORTH, EAST, SOUTH, WEST];
@@ -40,7 +41,7 @@ export default function solve({ lines, rawData }) {
             }
         });
 
-    let answer = Math.abs(x) + Math.abs(y);
+    let answer = abs(x) + abs(y);
 
     return { value: answer };
 }

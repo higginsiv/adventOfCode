@@ -1,5 +1,5 @@
+import { EOL } from 'os';
 export default function solve({ lines, rawData }) {
-    import { EOL } from 'os';
     const data = rawData.split(EOL + EOL);
     const SELF = ' SELF ';
 
@@ -21,8 +21,8 @@ export default function solve({ lines, rawData }) {
             line = '11: 42 31 | 42 11 31';
         }
         line = line.split(': ');
-        key = parseInt(line[0]);
-        values = line[1].split(' | ').map((opt) => {
+        const key = parseInt(line[0]);
+        const values = line[1].split(' | ').map((opt) => {
             opt = opt.split(' ').map((r) => {
                 if (r.indexOf('"') !== -1) {
                     r = r.replaceAll('"', '');

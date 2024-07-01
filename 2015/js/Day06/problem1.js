@@ -1,5 +1,4 @@
-import keys from '../../../tools/keys.js';
-
+import { default as generateKey } from '../../../tools/keys.js';
 export default function solve({ lines, rawData }) {
     const [ON, OFF, TOGGLE] = [0, 1, 2];
 
@@ -28,7 +27,7 @@ export default function solve({ lines, rawData }) {
 
         for (let i = x1; i <= x2; i++) {
             for (let j = y1; j <= y2; j++) {
-                let key = keys.generateKey(i, j);
+                let key = generateKey(i, j);
 
                 if (instruction == ON) {
                     lightsOn.add(key);

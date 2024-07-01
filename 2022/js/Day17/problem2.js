@@ -113,7 +113,7 @@ export default function solve({ lines, rawData }) {
     }
 
     function getEdge(rock) {
-        rockPoints = rock.points;
+        let rockPoints = rock.points;
         rockPoints.forEach((p) => {
             if (p.y + 1 > highY) {
                 highY = p.y + 1;

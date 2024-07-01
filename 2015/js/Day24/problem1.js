@@ -1,6 +1,7 @@
 // This problem uses bitmasks even though it is more complicated than necessary just for practice with them.
 // TODO go back thru these for speed improvements
 export default function solve({ lines, rawData }) {
+    const { min } = Math;
     let bitmasks = new Map();
     const DATA = lines.map(Number).reverse();
 
@@ -70,12 +71,12 @@ export default function solve({ lines, rawData }) {
                     if (bucketIndex === 0) {
                         let oldBest = bestToGoalWeight;
                         let tentQE = getQE(newBuckets[0]);
-                        bestToGoalWeight = Math.min(
+                        bestToGoalWeight = min(
                             bestToGoalWeight,
                             newBuckets[0].toString(2).match(/1/g).length,
                         );
                         if (oldBest === bestToGoalWeight) {
-                            bestQE = Math.min(bestQE, tentQE);
+                            bestQE = min(bestQE, tentQE);
                             if (bestQE !== tentQE) {
                                 continue;
                             }

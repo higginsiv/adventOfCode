@@ -9,7 +9,7 @@ export default function solve({ lines, rawData }) {
                 /bot (\d+) gives low to (bot|output) (\d+) and high to (bot|output) (\d+)/,
             );
 
-            bot = {
+            let bot = {
                 key: parseInt(values[1]),
                 lowType: values[2],
                 lowKey: parseInt(values[3]),

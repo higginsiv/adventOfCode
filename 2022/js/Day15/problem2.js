@@ -86,8 +86,8 @@ export default function solve({ lines, rawData }) {
 
         let segment = [pairs[0][0], pairs[0][1]];
         for (let i = 1; i < pairs.length; i++) {
-            [p1a, p1b] = pairs[i];
-            [sega, segb] = segment;
+            let [p1a, p1b] = pairs[i];
+            let [sega, segb] = segment;
 
             if (p1a >= sega && p1a <= segb) {
                 if (p1b > segb) {

@@ -1,4 +1,4 @@
-import * as MATH from '../../../tools/math.js';
+import { permute } from '../../../tools/math.js';
 
 export default function solve({ lines, rawData }) {
     let people = new Map();
@@ -18,7 +18,7 @@ export default function solve({ lines, rawData }) {
         person.set(GUEST, DIRECTION == 'gain' ? parseInt(NUMBER) : -parseInt(NUMBER));
     });
 
-    let perms = MATH.permute([...people.keys()]);
+    let perms = permute([...people.keys()]);
 
     let answer = perms.reduce((total, curr, index) => {
         let happiness = 0;

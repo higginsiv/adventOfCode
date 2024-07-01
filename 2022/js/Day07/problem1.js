@@ -18,7 +18,7 @@ export default function solve({ lines, rawData }) {
     let currDir = disk;
 
     data.forEach((command) => {
-        [arg1, arg2, arg3] = command;
+        let [arg1, arg2, arg3] = command;
         if (arg1 === '$') {
             if (arg2 === 'cd') {
                 if (arg3 === '..') {

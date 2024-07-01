@@ -1,5 +1,5 @@
+import { EOL } from 'os';
 export default function solve({ lines, rawData }) {
-    import { EOL } from 'os';
     const data = rawData.split(EOL + EOL).map((x) => x.split(EOL).map((y) => JSON.parse(y)));
     const [ORDERED, CHAOS, NEUTRAL] = [1, -1, 0];
     let indexSum = 0;

@@ -7,7 +7,7 @@ export function getGCD(a, b) {
     return b == 0 ? a : getGCD(b, a % b);
 }
 
-function permute(data, perm = [], results = []) {
+export function permute(data, perm = [], results = []) {
     if (data.length === 0) {
         results.push(perm);
         return;
