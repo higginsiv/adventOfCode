@@ -6,7 +6,7 @@
     "keywords": [
         "Advent of Code"
     ],
-    "license": "",
+    "license": "MIT",
     "author": "William Higgins",
     "scripts": {
         "test": "npm run test:base -- --config ./jest-all.config.json",
