@@ -9,8 +9,8 @@
     "license": "",
     "author": "William Higgins",
     "scripts": {
-        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config ./jest-all.config.json",
-        "test:fast": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config ./jest-fast.config.json",
+        "test": "npm run test:base -- --config ./jest-all.config.json",
+        "test:fast": "npm run test:base -- --config ./jest-fast.config.json",
         "test:base": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
         "test:2015": "npm run test:base -- --testPathPattern=2015",
         "test:2016": "npm run test:base -- --testPathPattern=2016",
