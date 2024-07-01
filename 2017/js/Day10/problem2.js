@@ -1,6 +1,4 @@
-module.exports = { solve: solve, knotHash: knotHash };
-
-function knotHash(input) {
+export function knotHash(input) {
     input.push(17, 31, 73, 47, 23);
     let numbers = new Array(256).fill(0).map((_, i) => i);
     let currentPosition = 0;
@@ -28,6 +26,6 @@ function knotHash(input) {
     return denseHash.map((x) => x.toString(16).padStart(2, '0')).join('');
 }
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     return { value: knotHash(rawData.split('').map((x) => x.charCodeAt(0))) };
 }

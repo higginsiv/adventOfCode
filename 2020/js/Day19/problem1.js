@@ -1,8 +1,5 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const { EOL } = require('os');
-
+import { EOL } from 'os';
+export default function solve({ lines, rawData }) {
     const data = rawData.split(EOL + EOL);
 
     class Rule {
@@ -18,8 +15,8 @@ function solve({ lines, rawData }) {
     let keysToRules = new Map();
     data[0].split(EOL).forEach((line) => {
         line = line.split(': ');
-        key = parseInt(line[0]);
-        values = line[1].split(' | ').map((opt) => {
+        const key = parseInt(line[0]);
+        const values = line[1].split(' | ').map((opt) => {
             opt = opt.split(' ').map((r) => {
                 if (r.indexOf('"') !== -1) {
                     r = r.replaceAll('"', '');

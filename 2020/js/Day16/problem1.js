@@ -1,8 +1,5 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const { EOL } = require('os');
-
+import { EOL } from 'os';
+export default function solve({ lines, rawData }) {
     class Range {
         min;
         max;

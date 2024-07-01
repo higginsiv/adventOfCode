@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const { floor } = Math;
     const MAX = 1000000000;
     let input = rawData.split(',');

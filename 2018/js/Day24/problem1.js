@@ -1,18 +1,15 @@
-const { run } = require('jest');
-
-module.exports = { solve: solve, getGroups: getGroups, runSimulation: runSimulation };
-const EOL = require('os').EOL;
+import { EOL } from 'os';
 const { floor } = Math;
 const [IMMUNE, INFECTION] = [0, 1];
 const TYPES = ['cold', 'fire', 'slashing', 'radiation', 'bludgeoning'];
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let groups = runSimulation(getGroups(rawData));
     const answer = groups.reduce((acc, group) => acc + group.units, 0);
     return { value: answer };
 }
 
-function runSimulation(groups, boost = 0) {
+export function runSimulation(groups, boost = 0) {
     if (boost > 0) {
         groups = groups.map((group) => {
             if (group.affiliation === IMMUNE) {
@@ -48,13 +45,7 @@ function runSimulation(groups, boost = 0) {
     return groups;
 }
 
-function populateEffectivePower(groups) {
-    groups.forEach((group) => {
-        group.effectivePower = group.units * group.damage;
-    });
-}
-
-function getGroups(rawData) {
+export function getGroups(rawData) {
     let armies = rawData.split(EOL + EOL);
     armies = armies.map((army) => {
         army = army.split(EOL);
@@ -95,6 +86,12 @@ function getGroups(rawData) {
         return army;
     });
     return armies.flat();
+}
+
+function populateEffectivePower(groups) {
+    groups.forEach((group) => {
+        group.effectivePower = group.units * group.damage;
+    });
 }
 
 function calculateDamage(attacker, defender) {

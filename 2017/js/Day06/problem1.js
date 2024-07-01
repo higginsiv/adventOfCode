@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const { max } = Math;
     let registers = rawData.match(/\d+/g).map(Number);
     let seen = new Set();

@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     for (let i = 0; i < lines.length; i++) {
         for (let j = 1; j < lines.length; j++) {
             let differences = 0;

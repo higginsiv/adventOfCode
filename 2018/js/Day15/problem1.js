@@ -1,11 +1,9 @@
-module.exports = { solve: solve, run: run };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const answer = run(lines);
     return { value: answer };
 }
 
-function run(lines, elfAttackPower = 3, bailOnElfDeath = false) {
+export function run(lines, elfAttackPower = 3, bailOnElfDeath = false) {
     const directions = [
         [-1, 0],
         [0, -1],

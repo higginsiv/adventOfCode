@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let data = lines.filter((x) => x !== '').map((x) => JSON.parse(x));
     const marker1 = [[2]];
     const marker2 = [[6]];

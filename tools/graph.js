@@ -3,7 +3,7 @@
 /**
  * A representation of a decision point in a graph
  */
-class Node {
+export class Node {
     name;
     edges = [];
     constructor(name) {
@@ -14,7 +14,7 @@ class Node {
 /**
  * Connects two Nodes together with a weight/cost
  */
-class Edge {
+export class Edge {
     startNode;
     endNode;
     weight;
@@ -28,7 +28,7 @@ class Edge {
 /**
  * A representation of a state in the graph traversal. Keeps track of all nodes visited and the total weight of the traversal.
  */
-class State {
+export class State {
     currNode;
     totalWeight;
     visited = [];
@@ -50,7 +50,13 @@ class State {
  * @param {*} pruneCallback function that prematurely ends the traversal if the current state is worse than the best state.
  * @returns
  */
-function traverse(startNode, data, reachedGoalCallback, determineBestStateCallback, pruneCallback) {
+export function traverse(
+    startNode,
+    data,
+    reachedGoalCallback,
+    determineBestStateCallback,
+    pruneCallback,
+) {
     let startState = new State(startNode, 0, [startNode.name]);
     let queue = [startState];
     let bestState;
@@ -83,10 +89,3 @@ function traverse(startNode, data, reachedGoalCallback, determineBestStateCallba
 
     return bestState;
 }
-
-module.exports = {
-    traverse: traverse,
-    Node: Node,
-    Edge: Edge,
-    State: State,
-};

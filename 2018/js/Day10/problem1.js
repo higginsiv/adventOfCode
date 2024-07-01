@@ -1,7 +1,6 @@
-module.exports = { solve: solve };
-const { Solution, GridStrategy } = require('../../../tools/solution');
+import { Solution, GridStrategy } from '../../../tools/solution.js';
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const { min, max } = Math;
     lines = lines.map((line) => {
         line = line.match(/-?\d+/g).map(Number);

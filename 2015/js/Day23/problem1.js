@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const DATA = lines.map((line) => {
         const [instruction, register, offset] = line.split(' ');
 

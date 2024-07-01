@@ -1,7 +1,5 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const { EOL } = require('os');
+import { EOL } from 'os';
+export default function solve({ lines, rawData }) {
     const data = rawData.split(EOL + EOL).map((x) => x.split(EOL).map((y) => y.split('')));
 
     const answer = data.reduce((total, curr) => {

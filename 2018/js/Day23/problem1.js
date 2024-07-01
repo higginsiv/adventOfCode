@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const { abs } = Math;
     function getDistance(p1, p2) {
         return abs(p1 - p2);

@@ -1,13 +1,11 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const {abs} = Math;
+export default function solve({ lines, rawData }) {
+    const { abs } = Math;
     const [NORTH, EAST, SOUTH, WEST] = ['N', 'E', 'S', 'W'];
     const [LEFT, RIGHT] = ['L', 'R'];
     const FORWARD = 'F';
     const SINGLE_TURN = 90;
     const [START_ROW, START_COL] = [0, 0];
-    
+
     class Entity {
         row;
         col;
@@ -16,10 +14,10 @@ function solve({ lines, rawData }) {
             this.col = col;
         }
     }
-    
+
     let ship = new Entity(START_ROW, START_COL);
     let waypoint = new Entity(START_ROW - 1, START_COL + 10);
-    
+
     const data = lines
         .map((x) => {
             return [x.substring(0, 1), parseInt(x.substring(1))];
@@ -27,7 +25,7 @@ function solve({ lines, rawData }) {
         .forEach(([dir, dist]) => {
             move(dir, dist, waypoint);
         });
-    
+
     function move(dir, dist, ent) {
         let steps;
         switch (dir) {
@@ -67,7 +65,7 @@ function solve({ lines, rawData }) {
                 break;
         }
     }
-    
+
     const answer = abs(ship.row - START_ROW) + abs(ship.col - START_COL);
 
     return { value: answer };

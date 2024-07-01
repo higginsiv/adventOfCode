@@ -1,11 +1,10 @@
-module.exports = { solve: solve };
 const BOARD_SIZE = 10;
 const DIE_SIZE = 100;
 const GOAL = 1000;
 const PLAYER_ONE = 0;
 const PLAYER_TWO = 1;
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let [player1, player2] = lines.map((line) => line.match(/\d+/g).map(Number)[1]);
     const gameResult = playGame(player1, player2, GOAL, DIE_SIZE, BOARD_SIZE);
     const loserScore = gameResult.players.filter((player) => player.score < GOAL)[0].score;

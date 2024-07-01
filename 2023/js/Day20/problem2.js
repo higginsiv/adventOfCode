@@ -1,7 +1,5 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const { getLCM } = require('../../../tools/math');
+import { getLCM } from '../../../tools/math.js';
+export default function solve({ lines, rawData }) {
     const [HIGH, LOW] = [1, 0];
     const START = 'broadcaster';
 

@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [EMPTY, FILLED, FLOOR] = ['L', '#', '.'];
     let data = lines.map((x) => x.split(''));
 

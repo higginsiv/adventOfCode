@@ -1,8 +1,7 @@
-module.exports = { solve: solve };
-const MATH = require('../../../tools/math.js');
-const { IntCode } = require('../common/IntCode.js');
+import * as MATH from '../../../tools/math.js';
+import { IntCode } from '../common/IntCode.js';
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const PHASES = [0, 1, 2, 3, 4];
     const [A, B, C, D, E] = [0, 1, 2, 3, 4];
     const AMP_KEYS = [A, B, C, D, E];

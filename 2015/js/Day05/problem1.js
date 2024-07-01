@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const VOWELS = ['a', 'e', 'i', 'o', 'u'];
 
     let numNiceStrings = 0;

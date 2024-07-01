@@ -1,11 +1,11 @@
-module.exports = { solve: solve };
-const { IntCode } = require('../common/IntCode.js');
-const { Solution, GridStrategy } = require('../../../tools/solution');
+import { IntCode } from '../common/IntCode.js';
+import { Solution, GridStrategy } from '../../../tools/solution.js';
+
 const [BLACK, WHITE] = [0, 1];
 const [LEFT, RIGHT] = [0, 1];
 const [NORTH, EAST, SOUTH, WEST] = [0, 1, 2, 3];
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let input = [1];
     let output = [];
     let robot = new IntCode(rawData, new Map(), 0, input, output);

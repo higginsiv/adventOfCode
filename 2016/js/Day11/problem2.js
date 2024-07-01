@@ -1,7 +1,6 @@
-module.exports = { solve: solve };
+import { insertIntoSortedQueue } from '../../../tools/iteration.js';
 
-function solve({ lines, rawData }) {
-    let { insertIntoSortedQueue } = require('../../../tools/iteration.js');
+export default function solve({ lines, rawData }) {
     const [MICROCHIPS, GENERATORS] = [0, 1];
     let answer;
 

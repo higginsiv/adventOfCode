@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const KEYPAD = [
         ['-', '-', '1', '-', '-'],
         ['-', '2', '3', '4', '-'],

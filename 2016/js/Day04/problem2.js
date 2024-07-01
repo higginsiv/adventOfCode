@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const Z = 'z'.charCodeAt(0);
     const ALPHA_LENGTH = 26;
 
@@ -10,7 +8,7 @@ function solve({ lines, rawData }) {
     });
 
     let answer;
-    for (room of DATA) {
+    for (let room of DATA) {
         const letters = room.letters.replace(/-/g, '').split('');
         const counts = letters.reduce((total, current) => {
             if (total[current] == null) {

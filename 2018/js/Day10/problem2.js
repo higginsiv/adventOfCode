@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const { min, max } = Math;
     lines = lines.map((line) => {
         line = line.match(/-?\d+/g).map(Number);

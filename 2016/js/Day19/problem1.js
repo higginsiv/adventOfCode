@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     // Josephus problem: https://en.wikipedia.org/wiki/Josephus_problem
     const n = Number(rawData);
     return { value: 2 * (n - Math.pow(2, Math.floor(Math.log2(n)))) + 1 };

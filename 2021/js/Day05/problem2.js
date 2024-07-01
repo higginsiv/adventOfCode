@@ -1,14 +1,11 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const tool = require('./tools.js');
-
+import getPoints from './tools.js';
+export default function solve({ lines, rawData }) {
     const data = lines;
 
     let grid = [];
 
     for (let i = 0; i < data.length; i++) {
-        const [point1p, point2p, horLine, vertLine, diagLine] = tool.getPoints(data[i]);
+        const [point1p, point2p, horLine, vertLine, diagLine] = getPoints(data[i]);
 
         if (!horLine && !vertLine && !diagLine) {
             // Only consider horizontal or vertical lines, no diagonals

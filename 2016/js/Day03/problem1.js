@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const answer = lines
         .map((x) => x.match(/\d+/g).map(Number))
         .reduce((total, current) => {

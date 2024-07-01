@@ -1,6 +1,3 @@
-const { find } = require('async');
-
-module.exports = { solve: solve };
 const BOARD_SIZE = 10;
 const GOAL = 21;
 const PLAYER_ONE = 1;
@@ -16,7 +13,7 @@ const dieDistrubtion = new Map([
     [9, 1],
 ]);
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let [player1, player2] = lines.map((line) => line.match(/\d+/g).map(Number)[1]);
 
     let player1Wins = play(player1, 0, player2, 0, true);

@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let grid = lines.map((line) => {
         return line.split('').map((char) => {
             return { char, visited: new Map() };

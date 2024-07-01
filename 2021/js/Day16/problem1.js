@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let data = rawData.split('').map((x) => parseInt(x, 16).toString(2).padStart(4, '0'));
 
     data = data.join('');

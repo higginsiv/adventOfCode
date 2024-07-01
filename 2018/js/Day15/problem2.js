@@ -1,8 +1,6 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+import { run } from './problem1.js';
+export default function solve({ lines, rawData }) {
     const { floor } = Math;
-    const { run } = require('./problem1.js');
     let attackFloor = 4;
     let attackCeiling = 50;
     let currentAttack = 25;

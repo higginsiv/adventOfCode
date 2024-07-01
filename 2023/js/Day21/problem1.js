@@ -1,7 +1,5 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const ITERATION = require('../../../tools/iteration');
+import * as ITERATION from '../../../tools/iteration.js';
+export default function solve({ lines, rawData }) {
     const DATA = lines.map((x) => x.split(''));
     const ROCK = '#';
     const MAX_STEPS = 64;

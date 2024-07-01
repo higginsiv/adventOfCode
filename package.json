@@ -1,36 +1,38 @@
 {
-  "name": "advent-of-code-solutions",
-  "version": "0.0.1",
-  "description": "Advent of Code solutions in JavaScript",
-  "keywords": [
-    "Advent of Code"
-  ],
-  "license": "",
-  "author": "William Higgins",
-  "scripts": {
-    "test": "jest --config ./jest-all.config.json",
-    "test:fast": "jest --config ./jest-fast.config.json",
-    "test:2015": "jest --testPathPattern=2015",
-    "test:2016": "jest --testPathPattern=2016",
-    "test:2017": "jest --testPathPattern=2017",
-    "test:2018": "jest --testPathPattern=2018",
-    "test:2019": "jest --testPathPattern=2019",
-    "test:2020": "jest --testPathPattern=2020",
-    "test:2021": "jest --testPathPattern=2021",
-    "test:2022": "jest --testPathPattern=2022",
-    "test:2023": "jest --testPathPattern=2023",
-    "create": "node ./tools/dayCreator.js",
-    "solve": "node ./tools/solve.js",
-    "format": "prettier --write \"./**/*.js\"",
-    "format:readme": "node ./tools/readme-formatter.js"
-  },
-  "dependencies": {
-    "async": "^3.2.4",
-    "bigint-crypto-utils": "^3.3.0",
-    "z3-solver": "^4.12.4"
-  },
-  "devDependencies": {
-    "jest": "^29.7.0",
-    "prettier": "3.2.4"
-  }
+    "name": "advent-of-code-solutions",
+    "version": "0.0.1",
+    "description": "Advent of Code solutions in JavaScript",
+    "type": "module",
+    "keywords": [
+        "Advent of Code"
+    ],
+    "license": "",
+    "author": "William Higgins",
+    "scripts": {
+        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config ./jest-all.config.json",
+        "test:fast": "node --experimental-vm-modules node_modules/jest/bin/jest.js --config ./jest-fast.config.json",
+        "test:base": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+        "test:2015": "npm run test:base -- --testPathPattern=2015",
+        "test:2016": "npm run test:base -- --testPathPattern=2016",
+        "test:2017": "npm run test:base -- --testPathPattern=2017",
+        "test:2018": "npm run test:base -- --testPathPattern=2018",
+        "test:2019": "npm run test:base -- --testPathPattern=2019",
+        "test:2020": "npm run test:base -- --testPathPattern=2020",
+        "test:2021": "npm run test:base -- --testPathPattern=2021",
+        "test:2022": "npm run test:base -- --testPathPattern=2022",
+        "test:2023": "npm run test:base -- --testPathPattern=2023",
+        "create": "node ./tools/dayCreator.js",
+        "solve": "node ./tools/solve.js",
+        "format": "prettier --write \"./**/*.js\"",
+        "format:readme": "node ./tools/readme-formatter.js"
+    },
+    "dependencies": {
+        "async": "^3.2.4",
+        "bigint-crypto-utils": "^3.3.0",
+        "z3-solver": "^4.12.4"
+    },
+    "devDependencies": {
+        "jest": "^29.7.0",
+        "prettier": "3.2.4"
+    }
 }

@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const drawn = lines[0].split(',');
 
     // remove all but bingo boards from lines

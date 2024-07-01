@@ -1,7 +1,5 @@
-module.exports = { solve: solve };
-
 // These values came from analysis of the input data
-function solve() {
+export default function solve() {
     let b = 84 * 100 + 100000;
     const c = b + 17000;
 

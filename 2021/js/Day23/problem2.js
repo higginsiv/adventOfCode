@@ -1,5 +1,4 @@
-module.exports = { solve: solve };
-const PriorityQueue = require('../../../tools/queue.js');
+import PriorityQueue from '../../../tools/queue.js';
 const { abs } = Math;
 
 const [WALL, EMPTY, VOID] = ['#', '.', ''];
@@ -22,7 +21,7 @@ const HALLWAY_ROW = 1;
 
 const cache = new Map();
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const answer = runSimulation(lines);
     return { value: answer };
 }

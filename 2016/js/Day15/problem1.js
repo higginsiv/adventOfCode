@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     lines = lines.map((line, i) => {
         let [discNumber, positions, time, start] = line.match(/\d+/g).map(Number);
         return { discNumber, positions, start };

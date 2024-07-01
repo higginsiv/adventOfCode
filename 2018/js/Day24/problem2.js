@@ -1,7 +1,5 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const { getGroups, runSimulation } = require('./problem1');
+import { getGroups, runSimulation } from './problem1.js';
+export default function solve({ lines, rawData }) {
     const { floor } = Math;
 
     const INFECTION = 1;

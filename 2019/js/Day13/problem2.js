@@ -1,9 +1,8 @@
-module.exports = { solve: solve };
-const { IntCode } = require('../common/IntCode.js');
+import { IntCode } from '../common/IntCode.js';
 const [EMPTY, WALL, BLOCK, HOR_PADDLE, BALL] = [0, 1, 2, 3, 4];
 const [LEFT, NEUTRAL, RIGHT] = [-1, 0, 1];
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let input = [];
     let ic = new IntCode(rawData, new Map([[0, 2]]), 0, input, []);
     let score;

@@ -1,7 +1,5 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const EOL = require('os').EOL;
+import { EOL } from 'os';
+export default function solve({ lines, rawData }) {
     const [LEFT, RIGHT] = ['L', 'R'];
 
     const DATA = rawData.split(EOL + EOL);

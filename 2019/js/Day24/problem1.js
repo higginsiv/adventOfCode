@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [BUG, EMPTY] = [1, 0];
     let grid = lines.map((line) => line.split('').map((char) => (char === '#' ? 1 : 0)));
 

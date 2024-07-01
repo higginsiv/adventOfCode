@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let lengths = rawData.split(',').map((x) => parseInt(x));
     let numbers = new Array(256).fill(0).map((_, i) => i);
     let currentPosition = 0;

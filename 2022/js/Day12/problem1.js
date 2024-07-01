@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const minCharCode = 'a'.charCodeAt(0);
     const maxCharCode = 'z'.charCodeAt(0);
     const [startCharCode, goalCharCode] = [

@@ -1,9 +1,7 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+import PriorityQueue from '../../../tools/queue.js';
+import OctreeNode from '../../../tools/octree.js';
+export default function solve({ lines, rawData }) {
     const { abs, min, max, floor } = Math;
-    const PriorityQueue = require('../../../tools/queue.js');
-    const OctreeNode = require('../../../tools/octree.js');
 
     function getDistance(p1, p2) {
         return abs(p1 - p2);

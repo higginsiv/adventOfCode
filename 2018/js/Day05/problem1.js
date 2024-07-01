@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     function polymerize(polymer) {
         const difference = 'A'.charCodeAt(0) - 'a'.charCodeAt(0);
         let destroyed = true;

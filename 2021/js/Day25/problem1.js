@@ -1,16 +1,14 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [EMPTY, EAST, SOUTH] = [0, 1, 2];
     let data = lines.map((x) => x.split('').map((y) => (y === '.' ? 0 : y === '>' ? 1 : 2)));
-    
+
     let moved = true;
     let steps = 0;
-    
+
     while (moved) {
         moved = false;
         steps++;
-    
+
         // Move East Side
         for (let i = 0; i < data.length; i++) {
             let lastCanMove = data[i][0] === EMPTY;
@@ -27,7 +25,7 @@ function solve({ lines, rawData }) {
                 }
             }
         }
-    
+
         // Move South Side
         for (let i = 0; i < data[0].length; i++) {
             let lastCanMove = data[0][i] === EMPTY;

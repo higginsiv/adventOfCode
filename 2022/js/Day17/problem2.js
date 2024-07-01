@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [LEFT, RIGHT] = [-1, 1];
     const data = rawData.split('').map((x) => (x === '<' ? LEFT : RIGHT));
 
@@ -115,7 +113,7 @@ function solve({ lines, rawData }) {
     }
 
     function getEdge(rock) {
-        rockPoints = rock.points;
+        let rockPoints = rock.points;
         rockPoints.forEach((p) => {
             if (p.y + 1 > highY) {
                 highY = p.y + 1;

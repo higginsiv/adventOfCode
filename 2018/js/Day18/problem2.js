@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const floor = Math.floor;
     const minutes = 1000000000;
     const [open, trees, lumber] = [0, 1, 2];

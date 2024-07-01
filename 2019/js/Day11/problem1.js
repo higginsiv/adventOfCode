@@ -1,10 +1,9 @@
-module.exports = { solve: solve };
-const { IntCode } = require('../common/IntCode.js');
+import { IntCode } from '../common/IntCode.js';
 const [BLACK, WHITE] = [0, 1];
 const [LEFT, RIGHT] = [0, 1];
 const [NORTH, EAST, SOUTH, WEST] = [0, 1, 2, 3];
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let input = [0];
     let output = [];
     let robot = new IntCode(rawData, new Map(), 0, input, output);

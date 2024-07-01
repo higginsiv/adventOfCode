@@ -1,4 +1,3 @@
-module.exports = { solve: solve, add: add, buildTree: buildTree, findMagnitude: findMagnitude };
 const EXPLOSION_RESIDUE = 0;
 const SPLIT_THRESHOLD = 10;
 const { floor, ceil } = Math;
@@ -16,7 +15,7 @@ class Node {
     }
 }
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     lines = lines.map((line) => buildTree(JSON.parse(line)));
     let snailNumber = lines.shift();
     while (lines.length > 0) {
@@ -27,7 +26,7 @@ function solve({ lines, rawData }) {
     return { value: answer };
 }
 
-function buildTree(snailNumber, parent = null) {
+export function buildTree(snailNumber, parent = null) {
     let left = snailNumber[0];
     let right = snailNumber[1];
     let node = new Node(left, right, parent, null);
@@ -46,7 +45,7 @@ function buildTree(snailNumber, parent = null) {
     return node;
 }
 
-function add(a, b) {
+export function add(a, b) {
     let snailNumber = formPair(a, b);
     reduce(snailNumber);
     return snailNumber;
@@ -207,7 +206,7 @@ function split(node) {
     node.value = null;
 }
 
-function findMagnitude(snailNumber) {
+export function findMagnitude(snailNumber) {
     if (snailNumber.value != null) {
         return snailNumber.value;
     } else {

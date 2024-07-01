@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const MAX = 100;
     const CALORIE_GOAL = 500;
     let ingredients = [];

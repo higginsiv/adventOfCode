@@ -1,13 +1,11 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const data = lines;
 
     const drawn = data[0].split(',');
-    
+
     // remove all but bingo boards from data
     data.splice(0, 2);
-    
+
     let boards = data.reduce(
         (previous, current) => {
             let index = previous.length - 1;
@@ -24,7 +22,7 @@ function solve({ lines, rawData }) {
         },
         [[]],
     );
-    
+
     let lastBoardTot = null;
     let solvedBoards = [];
     drawn.forEach((num) => {
@@ -33,7 +31,7 @@ function solve({ lines, rawData }) {
                 if (el === num) {
                     board[index] = 'X';
                 }
-    
+
                 // TODO: Could be simplified with modulo arithmetic
                 // TODO: Could be broken into a shared function with problem 1
                 if (
@@ -58,7 +56,7 @@ function solve({ lines, rawData }) {
                                 return previous;
                             }
                         }, 0);
-    
+
                         lastBoardTot = sum * num;
                     }
                     solvedBoards[bIndex] = true;
@@ -66,6 +64,6 @@ function solve({ lines, rawData }) {
             });
         });
     });
-    
+
     return { value: lastBoardTot };
 }

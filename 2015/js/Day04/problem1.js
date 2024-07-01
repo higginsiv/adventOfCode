@@ -1,7 +1,6 @@
-module.exports = { solve: solve };
-const crypto = require('crypto');
+import crypto from 'crypto';
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const START_GOAL = '00000';
     const input = rawData;
     let num = 0;

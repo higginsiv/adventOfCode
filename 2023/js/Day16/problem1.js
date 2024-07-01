@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [VERTICAL_SPLITTER, HORIZONTAL_SPLITTER] = ['|', '-'];
     const [POSITIVE_REFLECTION, NEGATIVE_REFLECTION] = ['/', '\\'];
     const [NORTH, EAST, SOUTH, WEST] = [1, 2, 3, 4];

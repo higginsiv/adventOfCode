@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [RED, GREEN, BLUE] = [12, 13, 14];
 
     let colorMaxes = new Map([

@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const DATA = lines.reduce((total, line) => {
         line.split('').forEach((char, index) => {
             if (total[index] == null) {

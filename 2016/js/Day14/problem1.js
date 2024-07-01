@@ -1,7 +1,6 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const CREATE_HASH = require('node:crypto').createHash;
+import { createHash } from 'node:crypto';
+export default function solve({ lines, rawData }) {
+    const CREATE_HASH = createHash;
 
     let hashes = {};
     let index = 0;

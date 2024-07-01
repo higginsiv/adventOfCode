@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     lines = lines.map((line, index) => {
         line = line.split('/').map(Number);
         return { id: index, ports: line };

@@ -1,6 +1,4 @@
-module.exports = {solve: solve};
-
-function solve({lines, rawData}) {
+export default function solve({ lines, rawData }) {
     const MAX = 100;
     let ingredients = [];
     lines.forEach((x) => {
@@ -12,16 +10,16 @@ function solve({lines, rawData}) {
         ingredient[x[5]] = parseInt(x[6]);
         ingredient[x[7]] = parseInt(x[8]);
         ingredient[x[9]] = parseInt(x[10]);
-    
+
         ingredients.push(ingredient);
     });
-    
+
     let best = -Infinity;
     for (let i = 0; i <= MAX; i++) {
         for (let j = 0; j + i <= 100; j++) {
             for (let k = 0; j + i + k <= 100; k++) {
                 let l = 100 - j - i - k;
-    
+
                 let capacity =
                     i * ingredients[0].capacity +
                     j * ingredients[1].capacity +
@@ -42,12 +40,12 @@ function solve({lines, rawData}) {
                     j * ingredients[1].texture +
                     k * ingredients[2].texture +
                     l * ingredients[3].texture;
-    
+
                 capacity = Math.max(0, capacity);
                 durability = Math.max(0, durability);
                 flavor = Math.max(0, flavor);
                 texture = Math.max(0, texture);
-    
+
                 let score = capacity * durability * flavor * texture;
                 if (score > best) {
                     best = score;
@@ -55,5 +53,5 @@ function solve({lines, rawData}) {
             }
         }
     }
-    return {value: best};
+    return { value: best };
 }

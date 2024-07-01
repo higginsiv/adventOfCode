@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let powerSum = 0;
     lines.forEach((x) => {
         x = x.replace('Game ', '');

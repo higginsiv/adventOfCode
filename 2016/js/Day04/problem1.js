@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const answer = lines
         .map((x) => {
             const [letters, sector, checksum] = x.match(/([a-z-]+)-(\d+)\[([a-z]+)\]/).slice(1);

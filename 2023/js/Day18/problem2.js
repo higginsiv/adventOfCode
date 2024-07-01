@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [UP, DOWN, LEFT, RIGHT] = ['3', '1', '2', '0'];
 
     let vertices = [];

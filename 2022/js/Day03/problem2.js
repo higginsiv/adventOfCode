@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let priority = 0;
     for (let i = 0; i < lines.length; i += 3) {
         let badgeType = lines[i].split('').find((item) => {

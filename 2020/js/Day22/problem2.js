@@ -1,7 +1,5 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const { EOL } = require('os');
+import { EOL } from 'os';
+export default function solve({ lines, rawData }) {
     const [PLAYER_ONE, PLAYER_TWO] = [1, 2];
 
     let [player1, player2] = rawData.split(EOL + EOL).map((x) => {

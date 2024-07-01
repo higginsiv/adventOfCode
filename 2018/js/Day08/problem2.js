@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     function sumMetadata(elements, numChildren, numMetadata) {
         let sum = 0;
 

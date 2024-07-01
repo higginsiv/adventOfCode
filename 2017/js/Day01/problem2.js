@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let answer = 0;
     let digits = rawData.split('').map((char) => parseInt(char));
     const half = digits.length / 2;

@@ -1,7 +1,6 @@
-module.exports = { solve: solve };
-const { Solution, GridStrategy } = require('../../../tools/solution');
+import { Solution, GridStrategy } from '../../../tools/solution.js';
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const data = lines.map((x) => {
         return x.split(' ').map((y) => {
             if (y === 'noop') {

@@ -1,8 +1,5 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const { add, buildTree, findMagnitude } = require('./problem1');
-
+import { add, buildTree, findMagnitude } from './problem1.js';
+export default function solve({ lines, rawData }) {
     let highestMagnitude = -Infinity;
 
     for (let i = 0; i < lines.length; i++) {

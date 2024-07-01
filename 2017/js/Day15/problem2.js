@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     function generateNextValue(value, factor, multipleOf) {
         while (true) {
             value = (value * factor) % 2147483647;

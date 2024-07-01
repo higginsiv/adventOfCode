@@ -1,5 +1,4 @@
-module.exports = { solve: solve };
-const { IntCode } = require('../common/IntCode.js');
+import { IntCode } from '../common/IntCode.js';
 const [SCAFFOLD, SPACE, ROBOT_UP, ROBOT_DOWN, ROBOT_LEFT, ROBOT_RIGHT] = [
     '#',
     '.',
@@ -9,7 +8,7 @@ const [SCAFFOLD, SPACE, ROBOT_UP, ROBOT_DOWN, ROBOT_LEFT, ROBOT_RIGHT] = [
     '>',
 ];
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let input = [
         'A,A,B,C,B,C,B,A,C,A\n',
         'R,8,L,12,R,8\n',

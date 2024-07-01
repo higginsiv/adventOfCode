@@ -1,7 +1,5 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const { EOL } = require('os');
+import { EOL } from 'os';
+export default function solve({ lines, rawData }) {
     const data = rawData.split(EOL + EOL).map((x) => {
         x = x.replaceAll(EOL, '');
         x = x.split('');

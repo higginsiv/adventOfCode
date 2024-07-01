@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const data = lines.map((x) => x.split(''));
     const [FRONT, BACK, LEFT, RIGHT] = ['F', 'B', 'L', 'R'];
     const ROWS = 127;

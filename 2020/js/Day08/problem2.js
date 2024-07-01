@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [ACCUMULATE, JUMP, NONE] = ['acc', 'jmp', 'nop'];
 
     class Instruction {

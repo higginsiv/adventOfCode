@@ -5,7 +5,7 @@
  * @param {*} state
  * @param {*} weightVariableName
  */
-function insertIntoSortedQueue(queue, state, weightVariableName) {
+export function insertIntoSortedQueue(queue, state, weightVariableName) {
     let low = 0;
     let high = queue.length;
 
@@ -22,7 +22,7 @@ function insertIntoSortedQueue(queue, state, weightVariableName) {
     queue.splice(low, 0, state);
 }
 
-function insertIntoSortedQueueDesc(queue, state, weightVariableName) {
+export function insertIntoSortedQueueDesc(queue, state, weightVariableName) {
     let low = 0;
     let high = queue.length;
 
@@ -38,8 +38,3 @@ function insertIntoSortedQueueDesc(queue, state, weightVariableName) {
 
     queue.splice(low, 0, state);
 }
-
-module.exports = {
-    insertIntoSortedQueue: insertIntoSortedQueue,
-    insertIntoSortedQueueDesc: insertIntoSortedQueueDesc,
-};

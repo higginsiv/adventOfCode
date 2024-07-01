@@ -1,7 +1,6 @@
-module.exports = { solve: solve };
-const { IntCode } = require('../common/IntCode.js');
+import { IntCode } from '../common/IntCode.js';
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const NUM_COMPUTERS = 50;
 
     let inputs = Array.from({ length: NUM_COMPUTERS }, () => []);
@@ -14,8 +13,8 @@ function solve({ lines, rawData }) {
         computers.push(new IntCode(rawData, null, 0, inputs[i], [], true, false));
     }
 
-    let lastNat = { x: null, y: null};
-    let lastNatDelivered = { x: -1, y: null};
+    let lastNat = { x: null, y: null };
+    let lastNatDelivered = { x: -1, y: null };
 
     let answer = null;
     outer: while (true) {
@@ -33,14 +32,17 @@ function solve({ lines, rawData }) {
                 const x = output.shift();
                 const y = output.shift();
                 if (address === 255) {
-                    lastNat = {x, y};
+                    lastNat = { x, y };
                 } else {
                     inputs[address].push(x);
                     inputs[address].push(y);
                     idle[address] = false;
                 }
             } else {
-                idle[i] = output.length === 0 && computer.input.length === 0 && computer.failedInput === true;
+                idle[i] =
+                    output.length === 0 &&
+                    computer.input.length === 0 &&
+                    computer.failedInput === true;
             }
         }
 
@@ -54,11 +56,11 @@ function solve({ lines, rawData }) {
             let setNull = lastNatDelivered.x === null;
             lastNatDelivered.x = lastNat.x;
             lastNatDelivered.y = lastNat.y;
-        
+
             if (setNull) {
-                lastNat = { x: null, y: null};
+                lastNat = { x: null, y: null };
             }
-        } 
+        }
     }
 
     return { value: answer };

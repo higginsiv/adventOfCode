@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [BUG, EMPTY] = [1, 0];
     const MINUTES = 200;
     let grids = new Map();

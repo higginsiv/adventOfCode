@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const data = lines.map((x) => x.split(',').map((y) => parseInt(y)));
 
     let jsonData = data.slice().map((x) => JSON.stringify(x));
@@ -66,7 +64,7 @@ function solve({ lines, rawData }) {
         let sides = getAdjacent(x, y, z);
 
         sides.forEach((p) => {
-            jsonP = JSON.stringify(p);
+            let jsonP = JSON.stringify(p);
             if (inBounds(p) && !flooded.includes(jsonP) && !lava.includes(jsonP)) {
                 adjacent.push(p);
             }
@@ -79,7 +77,7 @@ function solve({ lines, rawData }) {
         let sides = getAdjacent(x, y, z);
 
         sides.forEach((p) => {
-            jsonP = JSON.stringify(p);
+            let jsonP = JSON.stringify(p);
             if (flooded.includes(jsonP)) {
                 adjacent.push(p);
             }
@@ -109,7 +107,7 @@ function solve({ lines, rawData }) {
 
     flood(0, 0, 0);
     const answer = lava.reduce((total, current) => {
-        [x, y, z] = JSON.parse(current);
+        let [x, y, z] = JSON.parse(current);
         let waterAdjacent = getWaterAdjacent(x, y, z);
         return total + waterAdjacent.length;
     }, 0);

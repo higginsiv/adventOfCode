@@ -1,7 +1,6 @@
-module.exports = { solve: solve };
+import { knotHash } from '../Day10/problem2.js';
 
-function solve({ lines, rawData }) {
-    const { knotHash } = require('../Day10/problem2');
+export default function solve({ lines, rawData }) {
     let answer = 0;
     for (let i = 0; i < 128; i++) {
         const hash = knotHash(`${rawData}-${i}`.split('').map((x) => x.charCodeAt(0)));

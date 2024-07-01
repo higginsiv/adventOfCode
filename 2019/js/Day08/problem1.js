@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const WIDTH = 25;
     const HEIGHT = 6;
     const LAYER_SIZE = WIDTH * HEIGHT;

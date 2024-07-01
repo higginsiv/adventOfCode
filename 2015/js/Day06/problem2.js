@@ -1,7 +1,5 @@
-module.exports = { solve: solve };
-const keys = require('../../../tools/keys');
-
-function solve({ lines, rawData }) {
+import { default as generateKey } from '../../../tools/keys.js';
+export default function solve({ lines, rawData }) {
     const [ON, OFF, TOGGLE] = [0, 1, 2];
 
     let lightsOn = new Map();
@@ -29,7 +27,7 @@ function solve({ lines, rawData }) {
 
         for (let i = x1; i <= x2; i++) {
             for (let j = y1; j <= y2; j++) {
-                let key = keys.generateKey(i, j);
+                let key = generateKey(i, j);
                 let lightLevel = lightsOn.get(key) == null ? 0 : lightsOn.get(key);
                 if (instruction == ON) {
                     lightsOn.set(key, lightLevel + 1);

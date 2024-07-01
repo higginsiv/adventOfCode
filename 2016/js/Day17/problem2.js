@@ -1,8 +1,6 @@
-module.exports = { solve: solve };
+import crypto from 'crypto';
 
-function solve({ lines, rawData }) {
-    const { insertIntoSortedQueue } = require('../../../tools/iteration.js');
-    const crypto = require('crypto');
+export default function solve({ lines, rawData }) {
     const OPEN = ['b', 'c', 'd', 'e', 'f'];
     const MAX = 3;
 

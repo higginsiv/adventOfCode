@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let [players, lastMarble] = rawData.match(/\d+/g).map(Number);
     lastMarble *= 100;
     let elves = Array(players).fill(0);

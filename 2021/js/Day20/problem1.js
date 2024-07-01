@@ -1,7 +1,5 @@
-module.exports = { solve: solve };
-const EOL = require('os').EOL;
-
-function solve({ lines, rawData }) {
+import { EOL } from 'os';
+export default function solve({ lines, rawData }) {
     const ITERATIONS = 2;
     let symbols = new Map([
         ['#', 1],

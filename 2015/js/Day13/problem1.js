@@ -1,7 +1,6 @@
-module.exports = { solve: solve };
-const MATH = require('../../../tools/math');
+import { permute } from '../../../tools/math.js';
 
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let people = new Map();
     lines.forEach((x) => {
         x = x.replace(' would ', ' ');
@@ -19,7 +18,7 @@ function solve({ lines, rawData }) {
         person.set(GUEST, DIRECTION == 'gain' ? parseInt(NUMBER) : -parseInt(NUMBER));
     });
 
-    let perms = MATH.permute([...people.keys()]);
+    let perms = permute([...people.keys()]);
 
     let answer = perms.reduce((total, curr, index) => {
         let happiness = 0;

@@ -1,37 +1,35 @@
-module.exports = { solve: solve };
-const { Solution, GridStrategy } = require('../../../tools/solution');
-
-function solve({ lines, rawData }) {
-    const EOL = require('os').EOL;
+import { EOL } from 'os';
+import { Solution, GridStrategy } from '../../../tools/solution.js';
+export default function solve({ lines, rawData }) {
     let [coordinates, folds] = rawData.split(EOL + EOL);
     coordinates = coordinates.split(EOL).map((x) => x.split(',').map((y) => parseInt(y)));
     folds = folds.split(EOL).map((x) => {
         x = x.replace('fold along ', '');
         return x.split('=');
     });
-    
+
     let grid = [];
     let gridMaxX = 0;
     let gridMaxY = 0;
-    
+
     // idk why the prompt does weird x and y coords, but this reverses it
     coordinates.forEach((coordinate) => {
         const [x, y] = coordinate;
         if (!grid[y]) {
             grid[y] = [];
         }
-    
+
         gridMaxX = gridMaxX > y ? gridMaxX : y;
         gridMaxY = gridMaxY > x ? gridMaxY : x;
-    
+
         grid[y][x] = true;
     });
-    
+
     for (let foldI = 0; foldI < folds.length; foldI++) {
         let fold = folds[foldI];
         let [foldDir, foldIndex] = fold;
         foldIndex = parseInt(foldIndex);
-    
+
         let foldedGrid = [];
         if (foldDir === 'x') {
             grid.forEach((line, index) => {
@@ -51,7 +49,7 @@ function solve({ lines, rawData }) {
                     if (!foldedGrid[i]) {
                         foldedGrid[i] = [];
                     }
-    
+
                     foldedGrid[i][j] =
                         (grid[i] && grid[i][j]) ||
                         (grid[foldIndex + (foldIndex - i)] && grid[foldIndex + (foldIndex - i)][j]);
@@ -68,7 +66,7 @@ function solve({ lines, rawData }) {
             });
         });
     }
-    
+
     // map the grid into easier to read symbols
     grid = grid.map((line) => {
         return line.map((point) => {
@@ -89,6 +87,6 @@ function solve({ lines, rawData }) {
         }
         tempGrid.push(tempLine);
     });
-    
+
     return new Solution(tempGrid, new GridStrategy(['*']));
 }

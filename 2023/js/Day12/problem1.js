@@ -1,7 +1,5 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const MATH = require('../../../tools/math');
+import * as MATH from '../../../tools/math.js';
+export default function solve({ lines, rawData }) {
     const DATA = lines.map((x) => x.split(' '));
     const [OPERATIONAL, DAMAGED, UNKNOWN] = ['.', '#', '?'];
     const SYMBOLS = [OPERATIONAL, DAMAGED];

@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const [TIMES, DISTANCES] = lines.map((x) => x.match(/\d+/g).map((x) => parseInt(x)));
 
     const answer = TIMES.reduce((total, curr, index) => {

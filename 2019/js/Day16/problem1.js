@@ -1,6 +1,5 @@
-module.exports = { solve: solve };
 const { floor, abs } = Math;
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let input = rawData.split('').map(Number);
     const PHASES = 100;
     const basePattern = [0, 1, 0, -1];

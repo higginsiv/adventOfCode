@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const OUTPUT_PART_1 = 3176;
 
     let gates = new Map();

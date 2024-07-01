@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 // Define the directory where you want to check for README.md files
 const directoryPath = path.join('..');

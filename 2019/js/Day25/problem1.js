@@ -1,13 +1,13 @@
-module.exports = { solve: solve };
-const readline = require('readline');
-const { IntCode } = require('../common/IntCode.js');
+import readline from 'readline';
+import { IntCode } from '../common/IntCode.js';
 
 // Input Options
 // north, east, south, west
 // take <item>
 // drop <item>
 // inv
-async function solve({ lines, rawData }) {
+
+export default async function solve({ lines, rawData }) {
     const QUIT = 'q';
 
     let ic = new IntCode(rawData, null, 0, [], []);

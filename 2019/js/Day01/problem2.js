@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     const answer = lines.map(Number).reduce((total, curr) => {
         return total + calcFuel(curr);
     }, 0);

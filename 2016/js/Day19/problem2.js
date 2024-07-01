@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let n = Number(rawData);
     let idToElf = new Map();
     idToElf.set(1, { id: 1, next: null, prev: null });

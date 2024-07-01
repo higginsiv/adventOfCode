@@ -1,8 +1,6 @@
-module.exports = { solve: solve };
+import { init } from 'z3-solver';
 
-async function solve({ lines, rawData }) {
-    const { init } = require('z3-solver');
-
+export default async function solve({ lines, rawData }) {
     const DATA = lines.map((x) => x.match(/-?\d+/g).map((x) => parseInt(x)));
 
     async function getAnswer() {

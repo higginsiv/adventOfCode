@@ -1,7 +1,5 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
-    const { EOL } = require('os');
+import { EOL } from 'os';
+export default function solve({ lines, rawData }) {
     const data = rawData.split(EOL + EOL);
 
     const [BIRTH_YEAR, ISSUE_YEAR, EXPIRATION_YEAR, HEIGHT, HAIR_COLOR, EYE_COLOR, PASSPORT_ID] = [

@@ -1,6 +1,4 @@
-module.exports = { solve: solve };
-
-function solve({ lines, rawData }) {
+export default function solve({ lines, rawData }) {
     let zToDroppedBricks = new Map();
     let brickSupports = new Map();
     let brickSupportedBy = new Map();
@@ -84,7 +82,7 @@ function solve({ lines, rawData }) {
 
         let localDeadBricks = new Set();
         currBrickSupports.forEach((x) => {
-            supportedBy = brickSupportedBy.get(x);
+            let supportedBy = brickSupportedBy.get(x);
             let noLongerSupported = true;
             supportedBy.forEach((y) => {
                 if (!deadBricks.has(y)) {
