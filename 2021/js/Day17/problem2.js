@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { abs } = Math;
     const [MIN_X, MAX_X, MIN_Y, MAX_Y] = lines.map((x) => {
         x = x.replace('target area: x=', '');
         x = x.replaceAll('..', ' ');
@@ -20,7 +21,7 @@ export default function solve({ lines, rawData }) {
         }
     }
 
-    const yVelMax = Math.abs(MIN_Y);
+    const yVelMax = abs(MIN_Y);
     const yVelMin = MIN_Y;
 
     let velocities = [];

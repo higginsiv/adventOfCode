@@ -1,6 +1,7 @@
 import PriorityQueue from '../../../tools/queue.js';
 
 export default function solve({ lines, rawData }) {
+    const { floor } = Math;
     const DATA = lines.map((x) => x.split(''));
     const ROCK = '#';
     const MAX_STEPS = 26501365;
@@ -20,7 +21,7 @@ export default function solve({ lines, rawData }) {
     }
 
     let distanceToNextStart = DATA.length;
-    let numberOfGridsReached = Math.floor(MAX_STEPS / distanceToNextStart);
+    let numberOfGridsReached = floor(MAX_STEPS / distanceToNextStart);
     let stepsRemaining = MAX_STEPS % distanceToNextStart;
 
     let totalOddGrids = countOddPointsWithinDistance(numberOfGridsReached);

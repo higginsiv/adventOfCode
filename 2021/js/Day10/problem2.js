@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { floor } = Math;
     const data = lines.map((x) => x.split(''));
 
     const symbols = new Map([
@@ -45,6 +46,6 @@ export default function solve({ lines, rawData }) {
     }
 
     points.sort((x, y) => x - y);
-    const answer = points[Math.floor(points.length / 2)];
+    const answer = points[floor(points.length / 2)];
     return { value: answer };
 }

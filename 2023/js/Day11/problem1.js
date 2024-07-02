@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { abs } = Math;
     let galaxies = [];
     let expandedRows = [];
     let expandedColumns = [];
@@ -45,7 +46,7 @@ export default function solve({ lines, rawData }) {
             (col) => (col > a[1] && col < b[1]) || (col < a[1] && col > b[1]),
         );
         return (
-            Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]) + rowsBetween.length + colsBetween.length
+            abs(a[0] - b[0]) + abs(a[1] - b[1]) + rowsBetween.length + colsBetween.length
         );
     }
     return { value: answer };

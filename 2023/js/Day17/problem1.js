@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { min } = Math;
     const [NORTH, EAST, SOUTH, WEST] = [1, 2, 3, 4];
 
     const DATA = lines.map((x) => {
@@ -97,7 +98,7 @@ export default function solve({ lines, rawData }) {
         let current = queue.shift();
 
         if (current.x === DATA.length - 1 && current.y === DATA[0].length - 1) {
-            answer = Math.min(answer, current.heatLoss);
+            answer = min(answer, current.heatLoss);
             break;
         }
 

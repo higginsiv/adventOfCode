@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { max, min } = Math;
     const [BOSS_HEALTH, BOSS_DAMAGE] = lines.map((x) => parseInt(x.split(': ')[1]));
     const [MAGIC_MISSILE_COST, DRAIN_COST, SHIELD_COST, POISON_COST, RECHARGE_COST] = [
         53, 73, 113, 173, 229,
@@ -78,7 +79,7 @@ export default function solve({ lines, rawData }) {
 
         // Check if boss is dead
         if (state.boss <= 0) {
-            leastMana = Math.min(leastMana, state.manaSpent);
+            leastMana = min(leastMana, state.manaSpent);
             continue;
         }
 
@@ -161,7 +162,7 @@ export default function solve({ lines, rawData }) {
             }
         } else {
             // Boss turn
-            let damage = Math.max(1, BOSS_DAMAGE - state.armor);
+            let damage = max(1, BOSS_DAMAGE - state.armor);
             let newState = new State(
                 state.player - damage,
                 state.boss,

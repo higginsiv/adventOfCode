@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { round } = Math;
     const FILLED = 1;
     const [UP, DOWN, LEFT, RIGHT] = ['U', 'D', 'L', 'R'];
 
@@ -60,7 +61,7 @@ export default function solve({ lines, rawData }) {
                 y += point[1];
             });
 
-        return [Math.round(x / points.length), Math.round(y / points.length)];
+        return [round(x / points.length), round(y / points.length)];
     }
 
     function floodFill(startX, startY, points) {

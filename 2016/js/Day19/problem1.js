@@ -1,7 +1,8 @@
 export default function solve({ lines, rawData }) {
+    const { pow, floor, log2 } = Math;
     // Josephus problem: https://en.wikipedia.org/wiki/Josephus_problem
     const n = Number(rawData);
-    return { value: 2 * (n - Math.pow(2, Math.floor(Math.log2(n)))) + 1 };
+    return { value: 2 * (n - pow(2, floor(log2(n)))) + 1 };
 }
 
 // Original solution kept for posterity

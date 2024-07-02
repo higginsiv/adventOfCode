@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { min, max } = Math;
     const data = lines.map((x) => parseInt(x));
     const CHUNK_SIZE = 25;
     // derived from part 1
@@ -13,8 +14,8 @@ export default function solve({ lines, rawData }) {
     while (true) {
         let current = data[index + offset];
         total += current;
-        smallest = Math.min(smallest, current);
-        largest = Math.max(largest, current);
+        smallest = min(smallest, current);
+        largest = max(largest, current);
 
         if (total > GOAL) {
             smallest = Infinity;

@@ -1,5 +1,5 @@
 export default function solve({ lines, rawData }) {
-    const floor = Math.floor;
+    const { floor } = Math;
     const minutes = 1000000000;
     const [open, trees, lumber] = [0, 1, 2];
     const [openChar, treeChar, lumberChar] = ['.', '|', '#'];

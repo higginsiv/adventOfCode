@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { pow, floor } = Math;
     const SNAFU_TO_DEC = new Map([
         ['=', -2],
         ['-', -1],
@@ -26,13 +27,13 @@ export default function solve({ lines, rawData }) {
             return (
                 sum +
                 curr.reduce((conversion, digit, index, number) => {
-                    return conversion + digit * Math.pow(BASE, number.length - index - 1);
+                    return conversion + digit * pow(BASE, number.length - index - 1);
                 }, 0)
             );
         }, 0);
 
     function decToBaseFive(dec, digits) {
-        let quotient = Math.floor(dec / BASE);
+        let quotient = floor(dec / BASE);
         let remainder = dec % BASE;
         digits.push(remainder);
         if (quotient === 0) {

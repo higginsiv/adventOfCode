@@ -1,5 +1,6 @@
 import { EOL } from 'os';
 export default function solve({ lines, rawData }) {
+    const { min, max } = Math;
     const START = 'in';
     const [ACCEPTED, REJECTED] = ['A', 'R'];
 
@@ -68,44 +69,44 @@ export default function solve({ lines, rawData }) {
                         if (newX[1] >= rule.number) {
                             newX[1] = rule.number - 1;
                         }
-                        altX[0] = Math.max(rule.number, altX[0]);
+                        altX[0] = max(rule.number, altX[0]);
                     } else if (rule.category === 'm') {
                         if (newM[1] >= rule.number) {
                             newM[1] = rule.number - 1;
                         }
-                        altM[0] = Math.max(rule.number, altM[0]);
+                        altM[0] = max(rule.number, altM[0]);
                     } else if (rule.category === 'a') {
                         if (newA[1] >= rule.number) {
                             newA[1] = rule.number - 1;
                         }
-                        altA[0] = Math.max(rule.number, altA[0]);
+                        altA[0] = max(rule.number, altA[0]);
                     } else if (rule.category === 's') {
                         if (newS[1] >= rule.number) {
                             newS[1] = rule.number - 1;
                         }
-                        altS[0] = Math.max(rule.number, altS[0]);
+                        altS[0] = max(rule.number, altS[0]);
                     }
                 } else if (rule.symbol === '>') {
                     if (rule.category === 'x') {
                         if (newX[0] <= rule.number) {
                             newX[0] = rule.number + 1;
                         }
-                        altX[1] = Math.min(rule.number, altX[1]);
+                        altX[1] = min(rule.number, altX[1]);
                     } else if (rule.category === 'm') {
                         if (newM[0] <= rule.number) {
                             newM[0] = rule.number + 1;
                         }
-                        altM[1] = Math.min(rule.number, altM[1]);
+                        altM[1] = min(rule.number, altM[1]);
                     } else if (rule.category === 'a') {
                         if (newA[0] <= rule.number) {
                             newA[0] = rule.number + 1;
                         }
-                        altA[1] = Math.min(rule.number, altA[1]);
+                        altA[1] = min(rule.number, altA[1]);
                     } else if (rule.category === 's') {
                         if (newS[0] <= rule.number) {
                             newS[0] = rule.number + 1;
                         }
-                        altS[1] = Math.min(rule.number, altS[1]);
+                        altS[1] = min(rule.number, altS[1]);
                     }
                 }
 

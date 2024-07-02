@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { min } = Math;
     function getNeighbors(x, y) {
         let neighbors = [];
         if (x > 0) {
@@ -74,7 +75,7 @@ export default function solve({ lines, rawData }) {
         let current = queue.shift();
         let node = graph.get(current.current);
         if (current.visited.length === goals.length) {
-            answer = Math.min(answer, current.distance + node.distances.get('0'));
+            answer = min(answer, current.distance + node.distances.get('0'));
         }
 
         node.distances.forEach((distance, goal) => {

@@ -1,5 +1,6 @@
 import { EOL } from 'os';
 export default function solve({ lines, rawData }) {
+    const { max, min } = Math;
     const DATA = rawData.split(EOL + EOL);
 
     let seeds = DATA[0].match(/\d+\s\d+/g).map((x) => {
@@ -95,7 +96,7 @@ export default function solve({ lines, rawData }) {
             return null;
         }
 
-        return [Math.max(range1[0], range2[0]), Math.min(range1[1], range2[1])];
+        return [max(range1[0], range2[0]), min(range1[1], range2[1])];
     }
 
     function condenseRanges(ranges) {
@@ -109,7 +110,7 @@ export default function solve({ lines, rawData }) {
 
             // If the current range overlaps with the last range, merge them
             if (currentRange[0] <= lastRange[1]) {
-                lastRange[1] = Math.max(lastRange[1], currentRange[1]);
+                lastRange[1] = max(lastRange[1], currentRange[1]);
             } else {
                 // Otherwise, add the current range to the result
                 result.push(currentRange);

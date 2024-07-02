@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { max } = Math;
     const MAX = 100;
     const CALORIE_GOAL = 500;
     let ingredients = [];
@@ -52,10 +53,10 @@ export default function solve({ lines, rawData }) {
                     k * ingredients[2].texture +
                     l * ingredients[3].texture;
 
-                capacity = Math.max(0, capacity);
-                durability = Math.max(0, durability);
-                flavor = Math.max(0, flavor);
-                texture = Math.max(0, texture);
+                capacity = max(0, capacity);
+                durability = max(0, durability);
+                flavor = max(0, flavor);
+                texture = max(0, texture);
 
                 let score = capacity * durability * flavor * texture;
                 if (score > best) {

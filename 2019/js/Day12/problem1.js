@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { abs } = Math;
     const STEPS = 1000;
 
     class Moon {
@@ -69,8 +70,8 @@ export default function solve({ lines, rawData }) {
     const answer = moons.reduce((total, curr) => {
         return (
             total +
-            (Math.abs(curr.x) + Math.abs(curr.y) + Math.abs(curr.z)) *
-                (Math.abs(curr.xVel) + Math.abs(curr.yVel) + Math.abs(curr.zVel))
+            (abs(curr.x) + abs(curr.y) + abs(curr.z)) *
+                (abs(curr.xVel) + abs(curr.yVel) + abs(curr.zVel))
         );
     }, 0);
     return { value: answer };

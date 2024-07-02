@@ -1,5 +1,6 @@
 import { EOL } from 'os';
 export default function solve({ lines, rawData }) {
+    const { max, min } = Math;
     let [start, rulesRaw] = rawData.split(EOL + EOL);
     start = start.split('');
     rulesRaw = rulesRaw.split(EOL).map((x) => x.split(' -> '));
@@ -30,8 +31,8 @@ export default function solve({ lines, rawData }) {
         current = [...newArray];
     }
 
-    const highest = Math.max(...totalOccurrences.values());
-    const lowest = Math.min(...totalOccurrences.values());
+    const highest = max(...totalOccurrences.values());
+    const lowest = min(...totalOccurrences.values());
     const dif = highest - lowest;
     return { value: dif };
 }

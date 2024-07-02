@@ -1,5 +1,6 @@
 import { EOL } from 'os';
 export default function solve({ lines, rawData }) {
+    const { floor } = Math;
     const answer = rawData
         .split(EOL + EOL)
         .map((x) => {
@@ -49,7 +50,7 @@ export default function solve({ lines, rawData }) {
                     }
                     let subRow = row.slice(i, j + 1);
                     if (isMirror(subRow)) {
-                        return i + Math.floor(subRow.length / 2);
+                        return i + floor(subRow.length / 2);
                     }
                 }
             } else {
@@ -58,7 +59,7 @@ export default function solve({ lines, rawData }) {
                 }
                 let subRow = row.slice(i);
                 if (isMirror(subRow)) {
-                    return i + Math.floor(subRow.length / 2);
+                    return i + floor(subRow.length / 2);
                 }
             }
         }
@@ -67,7 +68,7 @@ export default function solve({ lines, rawData }) {
 
     function isMirror(arr) {
         let len = arr.length;
-        for (let i = 0; i < Math.floor(len / 2); i++) {
+        for (let i = 0; i < floor(len / 2); i++) {
             if (arr[i] !== arr[len - i - 1]) {
                 return false;
             }

@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { floor } = Math;
     const [LEFT, RIGHT] = [-1, 1];
     const data = rawData.split('').map((x) => (x === '<' ? LEFT : RIGHT));
 
@@ -160,7 +161,7 @@ export default function solve({ lines, rawData }) {
                     let rocksSoFar = i;
 
                     i = maxRocks - ((maxRocks - rocksSoFar) % rocksInCycle);
-                    cycleBonus = Math.floor((maxRocks - rocksSoFar) / rocksInCycle) * heightInCycle;
+                    cycleBonus = floor((maxRocks - rocksSoFar) / rocksInCycle) * heightInCycle;
                 }
             }
         }

@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { floor } = Math;
     const DATA = lines.map((x) => x.split(''));
     const [ROUND, CUBE] = ['O', '#'];
     const DIRECTIONS = ['N', 'W', 'S', 'E'];
@@ -17,7 +18,7 @@ export default function solve({ lines, rawData }) {
                 let originalIndex = cycles.get(key);
                 let cycleLength = i - originalIndex;
 
-                let fullCycles = Math.floor((CYCLES - originalIndex) / cycleLength);
+                let fullCycles = floor((CYCLES - originalIndex) / cycleLength);
                 i = originalIndex + fullCycles * cycleLength;
 
                 if (i < CYCLES) {

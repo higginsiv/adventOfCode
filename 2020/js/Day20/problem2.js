@@ -1,5 +1,6 @@
 import { EOL } from 'os';
 export default function solve({ lines, rawData }) {
+    const { sqrt } = Math;
     const ON = '#';
 
     class Tile {
@@ -83,7 +84,7 @@ export default function solve({ lines, rawData }) {
         tileIdToTile.set(id, new Tile(id, [north, east, south, west], art));
     });
 
-    let gridWidth = Math.sqrt(tileIdToTile.size);
+    let gridWidth = sqrt(tileIdToTile.size);
 
     edgesToTileId.forEach((value, edge) => {
         value.forEach((tileKey) => {

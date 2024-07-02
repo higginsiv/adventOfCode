@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { abs, sqrt } = Math;
     const [UP, DOWN, LEFT, RIGHT] = ['3', '1', '2', '0'];
 
     let vertices = [];
@@ -48,7 +49,7 @@ export default function solve({ lines, rawData }) {
             area += vertices[i][0] * vertices[j][1];
             area -= vertices[j][0] * vertices[i][1];
         }
-        return Math.abs(area / 2);
+        return abs(area / 2);
     }
 
     // This function is aggressive because it accounts for non-right-angles in the polygon
@@ -59,7 +60,7 @@ export default function solve({ lines, rawData }) {
             let j = (i + 1) % vertices.length;
             let dx = vertices[j][0] - vertices[i][0];
             let dy = vertices[j][1] - vertices[i][1];
-            perimeter += Math.sqrt(dx * dx + dy * dy);
+            perimeter += sqrt(dx * dx + dy * dy);
         }
         return perimeter;
     }

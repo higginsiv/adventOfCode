@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { max } = Math;
     const [FOREST, PATH] = ['#', '.'];
     const [NORTH, EAST, SOUTH, WEST] = ['^', '>', 'v', '<'];
     const DIRECTIONS = [NORTH, EAST, SOUTH, WEST];
@@ -117,7 +118,7 @@ export default function solve({ lines, rawData }) {
     while (queue.length > 0) {
         let current = queue.pop();
         if (current.key === goal.key) {
-            longestTrip = Math.max(longestTrip, current.distance);
+            longestTrip = max(longestTrip, current.distance);
             continue;
         }
 
@@ -196,7 +197,7 @@ export default function solve({ lines, rawData }) {
                 if (visited.has(junctionPoints[j].key)) {
                     continue;
                 }
-                max = Math.max(
+                max = max(
                     max,
                     junctionToJunctionDistances
                         .get(junctionPoints[i].key)

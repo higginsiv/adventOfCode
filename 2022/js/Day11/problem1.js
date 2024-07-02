@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { floor } = Math;
     const data = lines;
 
     const rounds = 20;
@@ -53,7 +54,7 @@ export default function solve({ lines, rawData }) {
                 let item = monkey.items.shift();
                 item = monkey.operation(item);
                 monkey.inspections++;
-                item = Math.floor(item / 3);
+                item = floor(item / 3);
 
                 let monkeyToPass = monkey.test(item) ? monkey.passDest : monkey.failDest;
                 monkeys[monkeyToPass].items.push(item);

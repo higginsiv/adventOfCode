@@ -1,5 +1,6 @@
 // TODO rewrite for speed
 export default function solve({ lines, rawData }) {
+    const { floor } = Math;
     const data = lines.map((x) =>
         x.split('').map((y) => {
             return {
@@ -26,7 +27,7 @@ export default function solve({ lines, rawData }) {
                         line[j].risk + riskAddition > 9
                             ? line[j].risk +
                               riskAddition -
-                              9 * Math.floor((line[j].risk + riskAddition) / 9)
+                              9 * floor((line[j].risk + riskAddition) / 9)
                             : line[j].risk + riskAddition;
 
                     bigData[i + l * dataXLength][j + k * dataYLength] = {

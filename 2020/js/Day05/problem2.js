@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { floor } = Math;
     const data = lines.map((x) => x.split(''));
     const [FRONT, BACK, LEFT, RIGHT] = ['F', 'B', 'L', 'R'];
     const ROWS = 127;
@@ -14,8 +15,8 @@ export default function solve({ lines, rawData }) {
         let colMax = COLS;
 
         while (rowMin !== rowMax || colMin !== colMax) {
-            let midRow = rowMin + Math.floor((rowMax - rowMin) / 2);
-            let midCol = colMin + Math.floor((colMax - colMin) / 2);
+            let midRow = rowMin + floor((rowMax - rowMin) / 2);
+            let midCol = colMin + floor((colMax - colMin) / 2);
             let dir = curr.shift();
             switch (dir) {
                 case FRONT:

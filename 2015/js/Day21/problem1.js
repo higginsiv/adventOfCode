@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { max, ceil } = Math;
     const [BOSS_HEALTH, BOSS_DAMAGE, BOSS_ARMOR] = lines.map((x) => parseInt(x.split(': ')[1]));
 
     const HEALTH = 100;
@@ -40,10 +41,10 @@ export default function solve({ lines, rawData }) {
                         let damage = w[1] + a[1] + r1[1] + r2[1];
                         let armor = w[2] + a[2] + r1[2] + r2[2];
 
-                        let playerTurnsToKill = Math.ceil(
-                            BOSS_HEALTH / Math.max(1, damage - BOSS_ARMOR),
+                        let playerTurnsToKill = ceil(
+                            BOSS_HEALTH / max(1, damage - BOSS_ARMOR),
                         );
-                        let bossTurnsToKill = Math.ceil(HEALTH / Math.max(1, BOSS_DAMAGE - armor));
+                        let bossTurnsToKill = ceil(HEALTH / max(1, BOSS_DAMAGE - armor));
 
                         if (playerTurnsToKill <= bossTurnsToKill) {
                             if (answer > cost) {

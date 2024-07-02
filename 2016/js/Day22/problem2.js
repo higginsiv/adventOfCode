@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { max } = Math;
     function getNeighbors(x, y) {
         return [
             { x: x + 1, y: y },
@@ -19,8 +20,8 @@ export default function solve({ lines, rawData }) {
         let matches = line.match(/\d+/g);
         let x = parseInt(matches[0]);
         let y = parseInt(matches[1]);
-        maxX = Math.max(maxX, x);
-        maxY = Math.max(maxY, y);
+        maxX = max(maxX, x);
+        maxY = max(maxY, y);
 
         let used = parseInt(matches[3]);
         if (used === 0) {

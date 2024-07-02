@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { floor } = Math;
     let reindeer = [];
     let points = new Map();
     const SECONDS = 2503;
@@ -24,7 +25,7 @@ export default function solve({ lines, rawData }) {
             (best, curr) => {
                 let distance =
                     curr.fly *
-                    (curr.time * Math.floor(i / (curr.time + curr.rest)) +
+                    (curr.time * floor(i / (curr.time + curr.rest)) +
                         (curr.time > i % (curr.time + curr.rest)
                             ? i % (curr.time + curr.rest)
                             : curr.time));

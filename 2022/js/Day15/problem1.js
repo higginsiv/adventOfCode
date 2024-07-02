@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { abs } = Math;
     const data = lines.map((x) => {
         x = x.replace('Sensor at x=', '');
         x = x.replace(': closest beacon is at x=', ' ');
@@ -48,7 +49,7 @@ export default function solve({ lines, rawData }) {
     });
 
     function getDistance(x, y, a, b) {
-        return Math.abs(x - a) + Math.abs(y - b);
+        return abs(x - a) + abs(y - b);
     }
 
     const answer = invalidPoints.size;

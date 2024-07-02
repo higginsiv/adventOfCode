@@ -35,7 +35,7 @@ export default function solve({ lines, rawData }) {
     }
 
     function joinPattern(patterns) {
-        let size = Math.sqrt(patterns.length);
+        let size = sqrt(patterns.length);
         let newPattern = [];
         for (let i = 0; i < patterns.length; i++) {
             let pattern = patterns[i].split('/');

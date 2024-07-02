@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { abs } = Math;
     const EXPANSION_FACTOR = 1000000;
 
     let galaxies = [];
@@ -47,8 +48,8 @@ export default function solve({ lines, rawData }) {
             (col) => (col > a[1] && col < b[1]) || (col < a[1] && col > b[1]),
         );
         return (
-            Math.abs(a[0] - b[0]) +
-            Math.abs(a[1] - b[1]) +
+            abs(a[0] - b[0]) +
+            abs(a[1] - b[1]) +
             (EXPANSION_FACTOR - 1) * (rowsBetween.length + colsBetween.length)
         );
     }

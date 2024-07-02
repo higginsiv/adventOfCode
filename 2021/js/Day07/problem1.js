@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { abs } = Math;
     const data = rawData
         .split(',')
         .map((x) => parseInt(x))
@@ -6,7 +7,7 @@ export default function solve({ lines, rawData }) {
 
     let bestDelta = null;
     for (let i = data[0]; i < data[data.length - 1]; i++) {
-        const delta = data.reduce((previous, current) => (previous += Math.abs(current - i)), 0);
+        const delta = data.reduce((previous, current) => (previous += abs(current - i)), 0);
         if (bestDelta === null || delta < bestDelta) {
             bestDelta = delta;
         }

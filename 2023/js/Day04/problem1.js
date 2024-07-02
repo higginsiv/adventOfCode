@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { pow } = Math;
     const answer = lines.reduce((acc, line) => {
         line = line.replace(/\s+/g, ' ');
         line = line.split(': ');
@@ -13,7 +14,7 @@ export default function solve({ lines, rawData }) {
             }
         });
 
-        return acc + (winNum > 0 ? Math.pow(2, winNum - 1) : 0);
+        return acc + (winNum > 0 ? pow(2, winNum - 1) : 0);
     }, 0);
     return { value: answer };
 }

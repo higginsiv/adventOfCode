@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { floor } = Math;
     let DATA = lines.map((x) => x.split(''));
     const START = 'S';
 
@@ -75,7 +76,7 @@ export default function solve({ lines, rawData }) {
         let state = queue.shift();
 
         if (state.x === startX && state.y === startY && state.visited.length > 1) {
-            answer = Math.floor(state.visited.length / 2);
+            answer = floor(state.visited.length / 2);
             break;
         }
 

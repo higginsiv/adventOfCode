@@ -1,6 +1,7 @@
 import PriorityQueue from '../../../tools/queue.js';
 
 export default function solve({ lines, rawData }) {
+    const { abs } = Math;
     const favoriteNumber = Number(rawData);
     let answer;
     const [OPEN, WALL] = ['.', '#'];
@@ -47,7 +48,7 @@ export default function solve({ lines, rawData }) {
         if (locationToHScore.has(key)) {
             return locationToHScore.get(key);
         }
-        const hScore = Math.abs(x - GOAL_X) + Math.abs(y - GOAL_Y);
+        const hScore = abs(x - GOAL_X) + abs(y - GOAL_Y);
         locationToHScore.set(key, hScore);
         return hScore;
     }

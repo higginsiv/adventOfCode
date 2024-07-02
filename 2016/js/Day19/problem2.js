@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { floor } = Math;
     let n = Number(rawData);
     let idToElf = new Map();
     idToElf.set(1, { id: 1, next: null, prev: null });
@@ -14,7 +15,7 @@ export default function solve({ lines, rawData }) {
 
     current.next = head;
     head.prev = current;
-    let toDelete = idToElf.get(Math.floor((idToElf.size + 1) / 2));
+    let toDelete = idToElf.get(floor((idToElf.size + 1) / 2));
 
     while (idToElf.size > 1) {
         toDelete.prev.next = toDelete.next;

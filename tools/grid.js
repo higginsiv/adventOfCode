@@ -1,3 +1,4 @@
+const { pow, floor } = Math;
 /**
  * Given a point in n dimensions, return all points that are adjacent to it.
  * @param point string in the format "d1,d2,d3,...,dn"
@@ -25,11 +26,11 @@ export default function getNeighbors(point) {
 function generateNeighborCoordinateCombinations(dimensions) {
     let combinations = [];
 
-    for (let i = 0; i < Math.pow(3, dimensions); i++) {
+    for (let i = 0; i < pow(3, dimensions); i++) {
         let combination = [];
 
         for (let j = 0; j < dimensions; j++) {
-            combination.push((Math.floor(i / Math.pow(3, j)) % 3) - 1);
+            combination.push((floor(i / pow(3, j)) % 3) - 1);
         }
 
         // Filter out the combination that results in the original point (all zeros)

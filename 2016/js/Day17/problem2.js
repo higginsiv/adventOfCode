@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 
 export default function solve({ lines, rawData }) {
+    const { max } = Math;
     const OPEN = ['b', 'c', 'd', 'e', 'f'];
     const MAX = 3;
 
@@ -10,7 +11,7 @@ export default function solve({ lines, rawData }) {
     while (queue.length > 0) {
         let state = queue.shift();
         if (state.x === 3 && state.y === 3) {
-            answer = Math.max(answer || 0, state.pathLength);
+            answer = max(answer || 0, state.pathLength);
             continue;
         }
 

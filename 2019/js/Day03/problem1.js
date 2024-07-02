@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { abs } = Math;
     const [LEFT, RIGHT, UP, DOWN] = ['L', 'R', 'U', 'D'];
     const [HOR, VERT] = ['h', 'v'];
 
@@ -60,7 +61,7 @@ export default function solve({ lines, rawData }) {
 
     const answer = [...intersections]
         .map((x) => {
-            return Math.abs(x[0]) + Math.abs(x[1]);
+            return abs(x[0]) + abs(x[1]);
         })
         .sort((a, b) => a - b)[0];
 

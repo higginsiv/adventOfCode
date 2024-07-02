@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { max, ceil } = Math;
     class Blueprint {
         id;
         oreBotCost;
@@ -75,8 +76,8 @@ export default function solve({ lines, rawData }) {
         }
 
         if (oreBots > 0) {
-            let oreReqOreBot = Math.max(Math.ceil((print.oreBotCost - ore) / oreBots), 0);
-            let oreReqClayBot = Math.max(Math.ceil((print.clayBotCost - ore) / oreBots), 0);
+            let oreReqOreBot = max(ceil((print.oreBotCost - ore) / oreBots), 0);
+            let oreReqClayBot = max(ceil((print.clayBotCost - ore) / oreBots), 0);
             if (minutes + oreReqOreBot < MAX_MIN && oreBots < oreBotMax) {
                 options.push([oreReqOreBot, ORE_BOT]);
             }
@@ -86,18 +87,18 @@ export default function solve({ lines, rawData }) {
         }
 
         if (clayBots > 0 && obsBots < print.geoBotObsCost) {
-            let oreReqObsBot = Math.max(Math.ceil((print.obsBotOreCost - ore) / oreBots), 0);
-            let clayReqObsBot = Math.max(Math.ceil((print.obsBotClayCost - clay) / clayBots), 0);
-            let timeCost = Math.max(oreReqObsBot, clayReqObsBot);
+            let oreReqObsBot = max(ceil((print.obsBotOreCost - ore) / oreBots), 0);
+            let clayReqObsBot = max(ceil((print.obsBotClayCost - clay) / clayBots), 0);
+            let timeCost = max(oreReqObsBot, clayReqObsBot);
             if (minutes + timeCost < MAX_MIN) {
                 options.push([timeCost, OBS_BOT]);
             }
         }
 
         if (obsBots > 0) {
-            let oreReqGeoBot = Math.max(Math.ceil((print.geoBotOreCost - ore) / oreBots), 0);
-            let obsReqGeoBot = Math.max(Math.ceil((print.geoBotObsCost - obs) / obsBots), 0);
-            let timeCost = Math.max(oreReqGeoBot, obsReqGeoBot);
+            let oreReqGeoBot = max(ceil((print.geoBotOreCost - ore) / oreBots), 0);
+            let obsReqGeoBot = max(ceil((print.geoBotObsCost - obs) / obsBots), 0);
+            let timeCost = max(oreReqGeoBot, obsReqGeoBot);
 
             if (minutes + timeCost < MAX_MIN) {
                 options.push([timeCost, GEO_BOT]);

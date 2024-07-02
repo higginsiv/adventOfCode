@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { abs } = Math;
     const [minX, maxX, minY, maxY] = lines.map((x) => {
         x = x.replace('target area: x=', '');
         x = x.replaceAll('..', ' ');
@@ -13,7 +14,7 @@ export default function solve({ lines, rawData }) {
     // Idea here is that Y must equal 0 again on the downswing, and the fastest y can
     // be going has to still barely clip the bottom of the valid y box. This probably
     // doesn't work directly for non negative y's but yolo
-    let answer = factorialAddition(yStart - minY) - Math.abs(minY);
+    let answer = factorialAddition(yStart - minY) - abs(minY);
 
     /** Idk the math name but imagine a factorial that adds intstead of multiplying */
     function factorialAddition(int) {

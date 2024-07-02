@@ -1,4 +1,4 @@
-const {abs} = Math;
+const { abs, pow, sqrt, max } = Math;
 export function getLCM(a, b) {
     return (a * b) / getGCD(a, b);
 }
@@ -66,12 +66,12 @@ export function manhattanDistance3d(start, end) {
 }
 
 export function solveQuadratic(a, b, c) {
-    let discriminant = Math.pow(b, 2) - 4 * a * c;
+    let discriminant = pow(b, 2) - 4 * a * c;
     if (discriminant < 0) {
         return null;
     }
-    let x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
-    let x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+    let x1 = (-b + sqrt(discriminant)) / (2 * a);
+    let x2 = (-b - sqrt(discriminant)) / (2 * a);
     return [x1, x2];
 }
 
@@ -111,7 +111,7 @@ export function condenseRanges(ranges) {
         let lastRange = result[result.length - 1];
 
         if (range[0] <= lastRange[1] + 1) {
-            lastRange[1] = Math.max(range[1], lastRange[1]);
+            lastRange[1] = max(range[1], lastRange[1]);
         } else {
             result.push(range);
         }
@@ -122,7 +122,7 @@ export function condenseRanges(ranges) {
 
 export function getFactors(n) {
     let factors = [];
-    for (let i = 1; i <= Math.sqrt(n); i++) {
+    for (let i = 1; i <= sqrt(n); i++) {
         if (n % i === 0) {
             factors.push(i);
             if (n / i !== i) {

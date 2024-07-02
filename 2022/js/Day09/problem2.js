@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { abs } = Math;
     const data = lines.map((x) => x.split(' ').map((y, index) => (index === 0 ? y : parseInt(y))));
 
     let knots = Array.from(Array(10), () => {
@@ -28,7 +29,7 @@ export default function solve({ lines, rawData }) {
 
     function move(axis, delta) {
         const increment = delta > 0 ? 1 : -1;
-        for (let i = 0; i < Math.abs(delta); i++) {
+        for (let i = 0; i < abs(delta); i++) {
             knots[0][axis] += increment;
             for (let j = 0; j < knots.length - 1; j++) {
                 let head = knots[j];
@@ -51,7 +52,7 @@ export default function solve({ lines, rawData }) {
     }
 
     function isTouching(head, tail) {
-        return Math.abs(head.x - tail.x) <= 1 && Math.abs(head.y - tail.y) <= 1;
+        return abs(head.x - tail.x) <= 1 && abs(head.y - tail.y) <= 1;
     }
 
     return { value: answer };

@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { abs } = Math;
     const data = lines.map((x) => x.split(' ').map((y, index) => (index === 0 ? y : parseInt(y))));
 
     let head = {
@@ -33,7 +34,7 @@ export default function solve({ lines, rawData }) {
 
     function move(axis, delta) {
         const increment = delta > 0 ? 1 : -1;
-        for (let i = 0; i < Math.abs(delta); i++) {
+        for (let i = 0; i < abs(delta); i++) {
             head[axis] += increment;
             if (!isTouching()) {
                 tail[axis] += increment;
@@ -44,7 +45,7 @@ export default function solve({ lines, rawData }) {
     }
 
     function isTouching() {
-        return Math.abs(head.x - tail.x) <= 1 && Math.abs(head.y - tail.y) <= 1;
+        return abs(head.x - tail.x) <= 1 && abs(head.y - tail.y) <= 1;
     }
 
     function oppositeAxis(axis) {

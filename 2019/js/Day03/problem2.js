@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { abs } = Math;
     const [LEFT, RIGHT, UP, DOWN] = ['L', 'R', 'U', 'D'];
     const [HOR, VERT] = ['h', 'v'];
 
@@ -58,7 +59,7 @@ export default function solve({ lines, rawData }) {
                 let orientation = newY === y ? HOR : VERT;
 
                 s.get(orientation).add(new Segment(distToReach, [x, y], [newX, newY]));
-                distToReach += Math.abs(x - newX) + Math.abs(y - newY);
+                distToReach += abs(x - newX) + abs(y - newY);
                 x = newX;
                 y = newY;
             });
@@ -80,8 +81,8 @@ export default function solve({ lines, rawData }) {
                 let x = vertP1[0];
                 let [lowY, highY] = [vertP1[1], vertP2[1]].sort((a, b) => a - b);
                 if (lowY <= y && y <= highY && lowX <= x && x <= highX) {
-                    let totalVertSegDist = vertSeg.distToReach + Math.abs(vertP1[1] - y);
-                    let totalHorSegDist = horSeg.distToReach + Math.abs(horP1[0] - x);
+                    let totalVertSegDist = vertSeg.distToReach + abs(vertP1[1] - y);
+                    let totalHorSegDist = horSeg.distToReach + abs(horP1[0] - x);
                     let totalDist = totalVertSegDist + totalHorSegDist;
                     intersections.add(totalDist);
                 }

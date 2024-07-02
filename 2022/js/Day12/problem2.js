@@ -1,4 +1,5 @@
 export default function solve({ lines, rawData }) {
+    const { min } = Math;
     const minCharCode = 'a'.charCodeAt(0);
     const maxCharCode = 'z'.charCodeAt(0);
     const [startCharCode, goalCharCode] = [
@@ -69,7 +70,7 @@ export default function solve({ lines, rawData }) {
 
     for (let i = 0; i < start.length; i++) {
         findGoal(start[i][0], start[i][1], 0);
-        minStepsToGoal = Math.min(data[goal[0]][goal[1]].minStepsToReach, minStepsToGoal);
+        minStepsToGoal = min(data[goal[0]][goal[1]].minStepsToReach, minStepsToGoal);
         resetData();
     }
 
