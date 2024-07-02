@@ -1,4 +1,5 @@
-import { insertIntoSortedQueue } from '../../../tools/iteration.js';
+import PriorityQueue from '../../../tools/queue.js';
+
 export default function solve({ lines, rawData }) {
     const DATA = lines.map((x) => x.split(''));
     const ROCK = '#';
@@ -44,11 +45,11 @@ export default function solve({ lines, rawData }) {
     }).length;
 
     function traverse(start, startingStep) {
-        let queue = [{ point: start.slice(), stepsTaken: startingStep }];
+        let queue = new PriorityQueue([{ point: start.slice(), stepsTaken: startingStep }], (a, b) => a.stepsTaken - b.stepsTaken);
         let pointToStepsTaken = new Map();
         pointToStepsTaken.set(generateKey(start[0], start[1]), startingStep);
-        while (queue.length > 0) {
-            let current = queue.shift();
+        while (queue.isNotEmpty()) {
+            let current = queue.next();
 
             let neighbors = getAdjacentCoordinates(current.point[0], current.point[1]);
 
@@ -63,11 +64,7 @@ export default function solve({ lines, rawData }) {
 
                 if (bestStepsToNeighbor == null || bestStepsToNeighbor > current.stepsTaken + 1) {
                     pointToStepsTaken.set(neighborKey, current.stepsTaken + 1);
-                    insertIntoSortedQueue(
-                        queue,
-                        { point: neighbor, stepsTaken: current.stepsTaken + 1 },
-                        'stepsTaken',
-                    );
+                    queue.insert({ point: neighbor, stepsTaken: current.stepsTaken + 1 });
                 }
             });
         }

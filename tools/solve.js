@@ -24,7 +24,7 @@ if (!PART) {
     parts = [PART];
 }
 
-parts.forEach(async (part) => {
+for (const part of parts) {
     let data = getInputForFunction(YEAR, DAY);
 
     // Get the path to the solution file
@@ -43,4 +43,4 @@ parts.forEach(async (part) => {
         answer = new Solution(answer.value, new LogStrategy());
     }
     answer.output();
-});
+}

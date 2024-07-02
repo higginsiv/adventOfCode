@@ -1,15 +1,15 @@
 import crypto from 'crypto';
-import { insertIntoSortedQueue } from '../../../tools/iteration.js';
+import PriorityQueue from '../../../tools/queue.js';
 
 export default function solve({ lines, rawData }) {
     const OPEN = ['b', 'c', 'd', 'e', 'f'];
     const MAX = 3;
 
-    let queue = [{ x: 0, y: 0, path: '', pathLength: 0 }];
+    let queue = new PriorityQueue([{ x: 0, y: 0, path: '', pathLength: 0 }], (a, b) => a.pathLength - b.pathLength);
     let answer;
 
-    while (queue.length > 0) {
-        let state = queue.shift();
+    while (queue.isNotEmpty()) {
+        let state = queue.next();
 
         if (state.x === MAX && state.y === MAX) {
             answer = state.path;
@@ -17,7 +17,7 @@ export default function solve({ lines, rawData }) {
         }
 
         let neighbors = getNeighbors(state);
-        neighbors.forEach((neighbor) => insertIntoSortedQueue(queue, neighbor, 'pathLength'));
+        neighbors.forEach((neighbor) => queue.insert(neighbor));
     }
 
     function getHash(path) {

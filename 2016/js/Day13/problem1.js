@@ -1,4 +1,4 @@
-import { insertIntoSortedQueue } from '../../../tools/iteration.js';
+import PriorityQueue from '../../../tools/queue.js';
 
 export default function solve({ lines, rawData }) {
     const favoriteNumber = Number(rawData);
@@ -11,10 +11,10 @@ export default function solve({ lines, rawData }) {
     let visited = new Map();
     visited.set('1,1', 0);
 
-    let queue = [{ x: 1, y: 1, distance: 0 }];
+    let queue = new PriorityQueue([{ x: 1, y: 1, distance: 0 }], (a, b) => a.fScore - b.fScore);
 
-    while (queue.length > 0) {
-        let { x, y, distance } = queue.shift();
+    while (queue.isNotEmpty()) {
+        let { x, y, distance } = queue.next();
 
         if (x === GOAL_X && y === GOAL_Y) {
             answer = distance;
@@ -33,11 +33,7 @@ export default function solve({ lines, rawData }) {
                 let nextDistance = distance + 1;
                 let fScore = getFScore(x, y, nextDistance);
                 visited.set(neighborKey, nextDistance);
-                insertIntoSortedQueue(
-                    queue,
-                    { x, y, distance: nextDistance, fScore: fScore },
-                    'fScore',
-                );
+                queue.insert({ x, y, distance: nextDistance, fScore: fScore });
             }
         });
     }

@@ -1,4 +1,4 @@
-import { insertIntoSortedQueue } from '../../../tools/iteration.js';
+import PriorityQueue from '../../../tools/queue.js';
 
 export default function solve({ lines, rawData }) {
     const favoriteNumber = Number(rawData);
@@ -10,10 +10,10 @@ export default function solve({ lines, rawData }) {
 
     let uniqueVisits = 1;
 
-    let queue = [{ x: 1, y: 1, distance: 0 }];
+    let queue = new PriorityQueue([{ x: 1, y: 1, distance: 0 }], (a, b) => a.distance - b.distance);
 
-    while (queue.length > 0) {
-        let { x, y, distance } = queue.shift();
+    while (queue.isNotEmpty()) {
+        let { x, y, distance } = queue.next();
 
         if (distance === 50) {
             continue;
@@ -35,7 +35,7 @@ export default function solve({ lines, rawData }) {
                 }
 
                 visited.set(neighborKey, nextDistance);
-                insertIntoSortedQueue(queue, { x, y, distance: nextDistance }, 'distance');
+                queue.insert({ x, y, distance: nextDistance });
             }
         });
     }

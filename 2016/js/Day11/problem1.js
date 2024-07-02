@@ -1,4 +1,4 @@
-import { insertIntoSortedQueue } from '../../../tools/iteration.js';
+import PriorityQueue from '../../../tools/queue.js';
 
 export default function solve({ lines, rawData }) {
     const [MICROCHIPS, GENERATORS] = [0, 1];
@@ -49,18 +49,21 @@ export default function solve({ lines, rawData }) {
 
     let goalFloor = containment.length - 1;
 
-    let queue = [
-        {
-            elevator: 0,
-            state: containment,
-            steps: 0,
-            floor: 0,
-            minFloor: 0,
-        },
-    ];
+    let queue = new PriorityQueue(
+        [
+            {
+                elevator: 0,
+                state: containment,
+                steps: 0,
+                floor: 0,
+                minFloor: 0,
+            },
+        ],
+        (a, b) => a.fScore - b.fScore,
+    );
 
-    while (queue.length > 0) {
-        let { elevator, state, steps, floor, fScore, minFloor } = queue.shift();
+    while (queue.isNotEmpty()) {
+        let { elevator, state, steps, floor, fScore, minFloor } = queue.next();
 
         if (
             elevator === goalFloor &&
@@ -86,7 +89,7 @@ export default function solve({ lines, rawData }) {
                 if (!hasVisitedSooner(stateKey, possibility.steps)) {
                     possibility.fScore = getFScore(possibility.state, stateKey, possibility.steps);
 
-                    insertIntoSortedQueue(queue, possibility, 'fScore');
+                    queue.insert(possibility);
                     globalVisited.set(stateKey, possibility.steps);
                 }
             });
