@@ -1,7 +1,7 @@
 # Advent Of Code
 https://adventofcode.com/
 
-## Create Days
+## Create Day
 ```
 npm run create yyyy dd
 ```
