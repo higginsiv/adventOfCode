@@ -22,9 +22,9 @@ if (!fs.existsSync(`${YEAR}/js/Day${DAY}`)) {
 
     fs.mkdirSync(`${YEAR}/js/Day${DAY}`, { recursive: true });
 
-    fs.writeFileSync(`${YEAR}/js/Day${DAY}/problem1.js`, getTemplate(1, LEGACY));
+    fs.writeFileSync(`${YEAR}/js/Day${DAY}/problem1.js`, getTemplate(1));
     if (DAY !== '25') {
-        fs.writeFileSync(`${YEAR}/js/Day${DAY}/problem2.js`, getTemplate(2, LEGACY));
+        fs.writeFileSync(`${YEAR}/js/Day${DAY}/problem2.js`, getTemplate(2));
     }
 
     fs.writeFileSync(`${YEAR}/js/Day${DAY}/input.txt`, '');
