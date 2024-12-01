@@ -6,10 +6,10 @@ const data = getInputForFunction('2024', '01');
 
 describe(`2024 Day 01`, () => {
     test('Part 1', () => {
-        expect(part1(data).value).toBe();
+        expect(part1(data).value).toBe(1666427);
     });
 
     test('Part 2', () => {
-        expect(part2(data).value).toBe();
+        expect(part2(data).value).toBe(24316233);
     });
 });
