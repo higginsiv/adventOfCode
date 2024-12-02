@@ -1,5 +1,6 @@
 import { Solution } from '../../../tools/solution.js';
 
+// TODO this solution makes a lot of assumptions that I don't think hold up but that worked for my input. Should fix later
 export default function solve({ lines, rawData }) {
     const UP = 'UP';
     const DOWN = 'DOWN';
