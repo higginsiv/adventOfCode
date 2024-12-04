@@ -1,9 +1,7 @@
 import { Solution } from '../../../tools/solution.js';
 
-// TODO this solution makes a lot of assumptions that I don't think hold up but that worked for my input. Should fix later
 export default function solve({ lines, rawData }) {
-    const UP = 'UP';
-    const DOWN = 'DOWN';
+    const [ASC, DESC, FLAT] = [0, 1, 2];
 
     const answer = lines
         .map((line) => {
@@ -11,42 +9,50 @@ export default function solve({ lines, rawData }) {
             return line;
         })
         .filter((line) => {
-            let mode;
-            let dampenerIndex;
-            if (line[0] > line[1]) {
-                mode = DOWN;
-            } else if (line[0] < line[1]) {
-                mode = UP;
-            } else {
-                return false;
+            return evaluateLine(line);
+        }).length;
+
+    return new Solution(answer);
+
+    function evaluateLine(line, allowRetry = true) {
+        let mode;
+
+        for (let i = 0; i < line.length - 1; i++) {
+            let currentMode = getMode(line, i);
+            if (mode == null) {
+                mode = currentMode;
             }
 
-            for (let i = 0; i < line.length - 1; i++) {
-                if (mode === UP && line[i] >= line[i + 1]) {
-                    if (dampenerIndex === undefined) {
-                        dampenerIndex = i;
-                    }
-                    if (dampenerIndex !== i) {
-                        return false;
-                    }
-                } else if (mode === DOWN && line[i] <= line[i + 1]) {
-                    if (dampenerIndex === undefined) {
-                        dampenerIndex = i;
-                    }
-                    if (dampenerIndex !== i) {
-                        return false;
-                    }
-                } else if (Math.abs(line[i] - line[i + 1]) > 3) {
-                    if (dampenerIndex === undefined) {
-                        dampenerIndex = i;
-                    }
-                    if (dampenerIndex !== i) {
-                        return false;
-                    }
-                }
+            if (
+                currentMode !== mode ||
+                currentMode === FLAT ||
+                Math.abs(line[i] - line[i + 1]) > 3
+            ) {
+                return allowRetry && evaluateDampLines(line, i);
             }
-            return true;
-        })
-        .length;
-    return new Solution(answer);
+        }
+
+        return true;
+    }
+
+    function evaluateDampLines(line, i) {
+        let safety =
+            evaluateLine([...line.slice(0, i), ...line.slice(i + 1)], false) ||
+            evaluateLine([...line.slice(0, i + 1), ...line.slice(i + 2)], false);
+
+        if (i > 0 && !safety) {
+            safety = safety || evaluateLine([...line.slice(0, i - 1), ...line.slice(i)], false);
+        }
+
+        return safety;
+    }
+
+    function getMode(line, i) {
+        if (line[i] > line[i + 1]) {
+            return DESC;
+        } else if (line[i] < line[i + 1]) {
+            return ASC;
+        }
+        return FLAT;
+    }
 }
