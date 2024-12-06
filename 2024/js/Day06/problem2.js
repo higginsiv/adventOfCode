@@ -11,28 +11,38 @@ export default function solve({ lines, rawData }) {
     const [OBSTACLE, GUARD] = ['#', '^'];
 
     const grid = lines.map((line) => line.split(''));
-
     const guard = getGuardPosition(grid);
-    let cycles = 0;
-    for (let y = 0; y < grid.length; y++) {
-        for (let x = 0; x < grid[y].length; x++) {
-            if (grid[y][x] !== OBSTACLE && grid[y][x] !== GUARD) {
-                const temp = grid[y][x];
-                grid[y][x] = OBSTACLE;
-                const createsCycle = navigate(grid, { ...guard });
-                if (createsCycle) {
-                    cycles++;
-                }
-                grid[y][x] = temp;
-            }
-        }
-    }
+    const startKey = getKey(guard.x, guard.y, guard.dir);
 
-    const answer = cycles;
+    const originalVisited = new Set([startKey]);
+    navigate(grid, {...guard}, originalVisited);
+
+    let cycleStarters = new Set();
+    [...originalVisited].forEach((key) => {
+        const [x, y, dir] = key.split(',').map(Number);
+        if (x === guard.x && y === guard.y) {
+            return;
+        }
+
+        const temp = grid[y][x];
+        grid[y][x] = OBSTACLE;
+
+        const createsCycle = navigate(
+            grid,
+            { ...guard },
+            new Set([startKey]),
+        );
+
+        if (createsCycle) {
+            cycleStarters.add(`${x},${y}`);
+        }
+        grid[y][x] = temp;
+    });
+
+    const answer = cycleStarters.size;
     return new Solution(answer);
 
-    function navigate(grid, guard) {
-        const visited = new Set([getKey(guard.x, guard.y, guard.dir)]);
+    function navigate(grid, guard, visited) {
         while (
             guard.x > 0 &&
             guard.y > 0 &&
