@@ -1,4 +1,4 @@
---- Day 1: Historian Hysteria ---
+#  Day 1: Historian Hysteria 
 The Chief Historian is always present for the big Christmas sleigh launch, but nobody has seen him in months! Last anyone heard, he was visiting locations that are historically significant to the North Pole; a group of Senior Historians has asked you to accompany them as they check the places they think he was most likely to visit.
 
 As each location is checked, they will mark it on their list with a star. They figure the Chief Historian must be in one of the first fifty places they'll look, so in order to save Christmas, you need to help them get fifty stars on their list before Santa takes off on December 25th.
@@ -37,9 +37,9 @@ To find the total distance between the left list and the right list, add up the 
 
 Your actual left and right lists contain many location IDs. What is the total distance between your lists?
 
-Your puzzle answer was 1666427.
+### Your puzzle answer was 1666427.
 
---- Part Two ---
+#  Part Two 
 Your analysis only confirmed what everyone feared: the two lists of location IDs are indeed very different.
 
 Or are they?
@@ -68,7 +68,7 @@ So, for these example lists, the similarity score at the end of this process is 
 
 Once again consider your left and right lists. What is their similarity score?
 
-Your puzzle answer was 24316233.
+### Your puzzle answer was 24316233.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

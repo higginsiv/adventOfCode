@@ -1,4 +1,4 @@
---- Day 3: Mull It Over ---
+#  Day 3: Mull It Over 
 "Our computers are having issues, so I have no idea if we have any Chief Historians in stock! You're welcome to check the warehouse, though," says the mildly flustered shopkeeper at the North Pole Toboggan Rental Shop. The Historians head out to take a look.
 
 The shopkeeper turns to you. "Any chance you can see why our computers are having issues again?"
@@ -16,9 +16,9 @@ Only the four highlighted sections are real mul instructions. Adding up the resu
 
 Scan the corrupted memory for uncorrupted mul instructions. What do you get if you add up all of the results of the multiplications?
 
-Your puzzle answer was 182780583.
+### Your puzzle answer was 182780583.
 
---- Part Two ---
+#  Part Two 
 As you scan through the corrupted memory, you notice that some of the conditional statements are also still intact. If you handle some of the uncorrupted conditional statements in the program, you might be able to get an even more accurate result.
 
 There are two new instructions you'll need to handle:
@@ -36,7 +36,7 @@ This time, the sum of the results is 48 (2*4 + 8*5).
 
 Handle the new instructions; what do you get if you add up all of the results of just the enabled multiplications?
 
-Your puzzle answer was 90772405.
+### Your puzzle answer was 90772405.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 
