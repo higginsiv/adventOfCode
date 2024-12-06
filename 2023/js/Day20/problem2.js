@@ -1,4 +1,4 @@
-import { getLCM } from '../../../tools/math.js';
+import { getLCM } from '#tools/math.js';
 export default function solve({ lines, rawData }) {
     const [HIGH, LOW] = [1, 0];
     const START = 'broadcaster';

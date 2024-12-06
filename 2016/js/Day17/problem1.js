@@ -1,11 +1,14 @@
 import crypto from 'crypto';
-import PriorityQueue from '../../../tools/queue.js';
+import PriorityQueue from '#tools/queue.js';
 
 export default function solve({ lines, rawData }) {
     const OPEN = ['b', 'c', 'd', 'e', 'f'];
     const MAX = 3;
 
-    let queue = new PriorityQueue([{ x: 0, y: 0, path: '', pathLength: 0 }], (a, b) => a.pathLength - b.pathLength);
+    let queue = new PriorityQueue(
+        [{ x: 0, y: 0, path: '', pathLength: 0 }],
+        (a, b) => a.pathLength - b.pathLength,
+    );
     let answer;
 
     while (queue.isNotEmpty()) {

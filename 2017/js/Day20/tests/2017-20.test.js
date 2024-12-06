@@ -1,4 +1,4 @@
-import { getInputForFunction } from '../../../../tools/fileReader.js';
+import { getInputForFunction } from '#tools/fileReader.js';
 import { default as part1 } from '../problem1.js';
 import { default as part2 } from '../problem2.js';
 

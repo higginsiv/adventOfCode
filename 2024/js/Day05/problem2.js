@@ -1,4 +1,4 @@
-import { Solution } from '../../../tools/solution.js';
+import { Solution } from '#tools/solution.js';
 import { EOL } from 'os';
 
 export default function solve({ lines, rawData }) {

@@ -1,5 +1,5 @@
 import { EOL } from 'os';
-import { Solution, GridStrategy } from '../../../tools/solution.js';
+import { Solution, GridStrategy } from '#tools/solution.js';
 export default function solve({ lines, rawData }) {
     let [coordinates, folds] = rawData.split(EOL + EOL);
     coordinates = coordinates.split(EOL).map((x) => x.split(',').map((y) => parseInt(y)));

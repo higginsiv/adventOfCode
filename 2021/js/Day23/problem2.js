@@ -1,4 +1,4 @@
-import PriorityQueue from '../../../tools/queue.js';
+import PriorityQueue from '#tools/queue.js';
 const { abs } = Math;
 
 const [WALL, EMPTY, VOID] = ['#', '.', ''];

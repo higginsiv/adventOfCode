@@ -1,5 +1,5 @@
 import { EOL } from 'os';
-import * as MATH from '../../../tools/math.js';
+import * as MATH from '#tools/math.js';
 export default function solve({ lines, rawData }) {
     const [LEFT, RIGHT] = ['L', 'R'];
 

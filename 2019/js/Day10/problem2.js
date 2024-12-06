@@ -1,6 +1,6 @@
 // In order to maximize reuse of existing part 10 code you are going to see a LOT of messy code
 
-import { getGCD } from '../../../tools/math.js';
+import { getGCD } from '#tools/math.js';
 export default function solve({ lines, rawData }) {
     const [ASTEROID, EMPTY] = ['#', '.'];
     const DELIM = '|';

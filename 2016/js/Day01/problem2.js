@@ -1,4 +1,4 @@
-import generateKey from '../../../tools/keys.js';
+import generateKey from '#tools/keys.js';
 export default function solve({ lines, rawData }) {
     const { abs } = Math;
     const [LEFT, RIGHT] = ['L', 'R'];

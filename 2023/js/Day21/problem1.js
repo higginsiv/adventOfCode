@@ -1,4 +1,4 @@
-import PriorityQueue from '../../../tools/queue.js';
+import PriorityQueue from '#tools/queue.js';
 
 export default function solve({ lines, rawData }) {
     const DATA = lines.map((x) => x.split(''));
@@ -19,7 +19,10 @@ export default function solve({ lines, rawData }) {
     }
 
     function traverse(start, startingStep) {
-        let queue = new PriorityQueue([{ point: start.slice(), stepsTaken: startingStep }], (a, b) => a.stepsTaken - b.stepsTaken);
+        let queue = new PriorityQueue(
+            [{ point: start.slice(), stepsTaken: startingStep }],
+            (a, b) => a.stepsTaken - b.stepsTaken,
+        );
         let pointToStepsTaken = new Map();
         pointToStepsTaken.set(generateKey(start[0], start[1]), startingStep);
 

@@ -1,4 +1,4 @@
-import { Solution } from '../../../tools/solution.js';
+import { Solution } from '#tools/solution.js';
 
 export default function solve({ lines, rawData }) {
     const UP = 'UP';
@@ -29,7 +29,6 @@ export default function solve({ lines, rawData }) {
                 }
             }
             return true;
-        })
-        .length;
+        }).length;
     return new Solution(answer);
 }

@@ -1,4 +1,4 @@
-import { manhattanDistance } from '../../../tools/math.js';
+import { manhattanDistance } from '#tools/math.js';
 
 export default function solve({ lines, rawData }) {
     let lowX = Infinity;

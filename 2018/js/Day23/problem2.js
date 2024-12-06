@@ -1,5 +1,5 @@
-import PriorityQueue from '../../../tools/queue.js';
-import OctreeNode from '../../../tools/octree.js';
+import PriorityQueue from '#tools/queue.js';
+import OctreeNode from '#tools/octree.js';
 export default function solve({ lines, rawData }) {
     const { abs, min, max, floor } = Math;
 

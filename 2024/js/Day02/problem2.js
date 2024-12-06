@@ -1,4 +1,4 @@
-import { Solution } from '../../../tools/solution.js';
+import { Solution } from '#tools/solution.js';
 
 export default function solve({ lines, rawData }) {
     const [ASC, DESC, FLAT] = [0, 1, 2];

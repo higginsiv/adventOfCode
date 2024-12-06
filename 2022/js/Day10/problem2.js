@@ -1,4 +1,4 @@
-import { Solution, GridStrategy } from '../../../tools/solution.js';
+import { Solution, GridStrategy } from '#tools/solution.js';
 
 export default function solve({ lines, rawData }) {
     const data = lines.map((x) => {

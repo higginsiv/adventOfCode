@@ -1,4 +1,4 @@
-import { Solution } from '../../../tools/solution.js';
+import { Solution } from '#tools/solution.js';
 
 export default function solve({ lines, rawData }) {
     let grid = lines.map((line) => line.split(''));

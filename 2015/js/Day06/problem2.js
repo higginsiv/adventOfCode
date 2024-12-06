@@ -1,4 +1,4 @@
-import { default as generateKey } from '../../../tools/keys.js';
+import { default as generateKey } from '#tools/keys.js';
 export default function solve({ lines, rawData }) {
     const [ON, OFF, TOGGLE] = [0, 1, 2];
 

@@ -1,4 +1,4 @@
-import { condenseRanges } from '../../../tools/math.js';
+import { condenseRanges } from '#tools/math.js';
 
 export default function solve({ lines, rawData }) {
     lines = lines.map((line) => line.split('-').map(Number)).sort((a, b) => a[0] - b[0]);

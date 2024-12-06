@@ -1,4 +1,4 @@
-import { manhattanDistance3d } from '../../../tools/math.js';
+import { manhattanDistance3d } from '#tools/math.js';
 import { EOL } from 'os';
 
 const MIN_MATCHES = 12;

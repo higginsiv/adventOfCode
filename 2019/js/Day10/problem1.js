@@ -1,4 +1,4 @@
-import { getGCD } from '../../../tools/math.js';
+import { getGCD } from '#tools/math.js';
 export default function solve({ lines, rawData }) {
     const [ASTEROID, EMPTY] = ['#', '.'];
     const DELIM = '|';

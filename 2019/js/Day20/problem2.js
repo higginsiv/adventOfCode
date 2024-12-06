@@ -1,4 +1,4 @@
-import PriorityQueue from '../../../tools/queue.js';
+import PriorityQueue from '#tools/queue.js';
 export default function solve({ lines, rawData }) {
     let grid = lines.map((line) => {
         return line.split('').map((char) => {

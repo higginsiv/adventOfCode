@@ -1,4 +1,4 @@
-import { Solution } from '../../../tools/solution.js';
+import { Solution } from '#tools/solution.js';
 
 export default function solve({ lines, rawData }) {
     const matches = rawData.match(/mul\(\d{1,3},\d{1,3}\)|don't\(\)|do\(\)/g);

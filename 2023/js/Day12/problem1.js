@@ -1,4 +1,4 @@
-import * as MATH from '../../../tools/math.js';
+import * as MATH from '#tools/math.js';
 export default function solve({ lines, rawData }) {
     const DATA = lines.map((x) => x.split(' '));
     const [OPERATIONAL, DAMAGED, UNKNOWN] = ['.', '#', '?'];

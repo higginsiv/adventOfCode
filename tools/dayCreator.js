@@ -40,7 +40,7 @@ if (!fs.existsSync(`${YEAR}/js/Day${DAY}`)) {
 }
 
 function getTemplate(part) {
-    return `import { Solution } from '../../../tools/solution.js';
+    return `import { Solution } from '#tools/solution.js';
 
 export default function solve({ lines, rawData }) {
 
@@ -51,7 +51,7 @@ export default function solve({ lines, rawData }) {
 
 function getTestTemplate(day) {
     if (day === '25') {
-        return `import { getInputForFunction } from '../../../../tools/fileReader.js';
+        return `import { getInputForFunction } from '#tools/fileReader.js';
 import { default as part1 } from '../problem1.js';
         
 const data = getInputForFunction(\'${YEAR}\', \'${DAY}\');
@@ -63,7 +63,7 @@ describe(\`${YEAR} Day ${DAY}\`, () => {
 });`;
     }
 
-    return `import { getInputForFunction } from '../../../../tools/fileReader.js';
+    return `import { getInputForFunction } from '#tools/fileReader.js';
 import { default as part1 } from '../problem1.js';
 import { default as part2 } from '../problem2.js';
 

@@ -1,4 +1,4 @@
-import { Solution } from '../../../tools/solution.js';
+import { Solution } from '#tools/solution.js';
 
 export default function solve({ lines, rawData }) {
     const left = [];
@@ -8,7 +8,7 @@ export default function solve({ lines, rawData }) {
         left.push(l);
         right.push(r);
     });
-    
+
     const frequencies = new Map();
     let answer = 0;
     for (let i = 0; i < right.length; i++) {

@@ -1,5 +1,5 @@
 import { IntCode } from '../common/IntCode.js';
-import { Solution, GridStrategy } from '../../../tools/solution.js';
+import { Solution, GridStrategy } from '#tools/solution.js';
 
 const [BLACK, WHITE] = [0, 1];
 const [LEFT, RIGHT] = [0, 1];

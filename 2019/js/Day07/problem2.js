@@ -1,4 +1,4 @@
-import * as MATH from '../../../tools/math.js';
+import * as MATH from '#tools/math.js';
 import { IntCode } from '../common/IntCode.js';
 export default function solve({ lines, rawData }) {
     const PHASES = [5, 6, 7, 8, 9];

@@ -1,4 +1,4 @@
-import * as GRAPH from '../../../tools/graph.js';
+import * as GRAPH from '#tools/graph.js';
 
 export default function solve({ lines, rawData }) {
     let nodes = new Map();

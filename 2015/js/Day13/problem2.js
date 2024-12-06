@@ -1,4 +1,4 @@
-import { permute } from '../../../tools/math.js';
+import { permute } from '#tools/math.js';
 
 export default function solve({ lines, rawData }) {
     let people = new Map();
