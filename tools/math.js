@@ -20,6 +20,23 @@ export function permute(data, perm = [], results = []) {
     }
     return results;
 }
+
+/**
+ * Returns binary string array that represents all possible combinations of a given length and number of symbols
+ * @param {*} comboLength 
+ * @param {*} symbolCount 
+ * @returns 
+ */
+export function getCombos(comboLength, symbolCount) {
+    const combos = [];
+    for (let i = 0; i < symbolCount ** comboLength; i++) {
+        const combo = i.toString(symbolCount).padStart(comboLength, '0').split('').map(Number);
+        combos.push(combo);
+    }
+    return combos;
+}
+
+// TODO can this be deprecated for getCombos?
 export function getCombinations(symbols, length) {
     if (length === 1) {
         return symbols;
@@ -38,6 +55,7 @@ export function getCombinations(symbols, length) {
     return combinations;
 }
 
+// TODO can this be deprecated for getCombos?
 export function getCombinationsQueue(symbols, length) {
     let allCombinations = [];
     let queue = symbols.map((symbol) => [symbol]);
