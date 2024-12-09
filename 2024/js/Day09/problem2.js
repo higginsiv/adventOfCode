@@ -29,7 +29,6 @@ export default function solve({ lines, rawData }) {
     while (right >= 0) {
         while (left < right) {
             if (computer[left].free >= computer[right].size) {
-                // add to checksum
                 index += (computer[left].size - computer[left].free);
                 while (computer[right].size > 0) {
                     computer[right].size--;
@@ -44,7 +43,7 @@ export default function solve({ lines, rawData }) {
                 }
                 break;
             }
-            index += computer[left].size + computer[left + 1].size; // adding too much index when left catches right
+            index += computer[left].size + computer[left + 1].size;
             left += 2;
         }
         if (left > right) {
