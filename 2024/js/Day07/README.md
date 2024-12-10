@@ -1,4 +1,4 @@
---- Day 7: Bridge Repair ---
+#  Day 7: Bridge Repair 
 The Historians take you to a familiar rope bridge over a river in the middle of a jungle. The Chief isn't on this side of the bridge, though; maybe he's on the other side?
 
 When you go to cross the bridge, you notice a group of engineers trying to repair it. (Apparently, it breaks pretty frequently.) You won't be able to cross until it's fixed.
@@ -29,9 +29,9 @@ The engineers just need the total calibration result, which is the sum of the te
 
 Determine which equations could possibly be true. What is their total calibration result?
 
-Your puzzle answer was 2654749936343.
+### Your puzzle answer was 2654749936343.
 
---- Part Two ---
+#  Part Two 
 The engineers seem concerned; the total calibration result you gave them is nowhere close to being within safety tolerances. Just then, you spot your mistake: some well-hidden elephants are holding a third type of operator.
 
 The concatenation operator (||) combines the digits from its left and right inputs into a single number. For example, 12 || 345 would become 12345. All operators are still evaluated left-to-right.
@@ -45,7 +45,7 @@ Adding up all six test values (the three that could be made before using only + 
 
 Using your new knowledge of elephant hiding spots, determine which equations could possibly be true. What is their total calibration result?
 
-Your puzzle answer was 124060392153684.
+### Your puzzle answer was 124060392153684.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

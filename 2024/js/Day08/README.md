@@ -1,4 +1,4 @@
---- Day 8: Resonant Collinearity ---
+#  Day 8: Resonant Collinearity 
 You find yourselves on the roof of a top-secret Easter Bunny installation.
 
 While The Historians do their thing, you take a look at the familiar huge antenna. Much to your surprise, it seems to have been reconfigured to emit a signal that makes people 0.1% more likely to buy Easter Bunny brand Imitation Mediocre Chocolate as a Christmas gift! Unthinkable!
@@ -73,9 +73,9 @@ Because the topmost A-frequency antenna overlaps with a 0-frequency antinode, th
 
 Calculate the impact of the signal. How many unique locations within the bounds of the map contain an antinode?
 
-Your puzzle answer was 361.
+### Your puzzle answer was 361.
 
---- Part Two ---
+#  Part Two 
 Watching over your shoulder as you work, one of The Historians asks if you took the effects of resonant harmonics into your calculations.
 
 Whoops!
@@ -112,7 +112,7 @@ The original example now has 34 antinodes, including the antinodes that appear o
 ...#......##
 Calculate the impact of the signal using this updated model. How many unique locations within the bounds of the map contain an antinode?
 
-Your puzzle answer was 1249.
+### Your puzzle answer was 1249.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

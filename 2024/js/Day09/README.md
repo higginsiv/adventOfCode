@@ -1,4 +1,4 @@
---- Day 9: Disk Fragmenter ---
+#  Day 9: Disk Fragmenter 
 Another push of the button leaves you in the familiar hallways of some friendly amphipods! Good thing you each somehow got your own personal mini submarine. The Historians jet away in search of the Chief, mostly by driving directly into walls.
 
 While The Historians quickly figure out how to pilot these things, you notice an amphipod in the corner struggling with his computer. He's trying to make more contiguous free space by compacting all of the files, but his program isn't working; you offer to help.
@@ -45,9 +45,9 @@ Continuing the first example, the first few blocks' position multiplied by its f
 
 Compact the amphipod's hard drive using the process he requested. What is the resulting filesystem checksum? (Be careful copy/pasting the input for this puzzle; it is a single, very long line.)
 
-Your puzzle answer was 6463499258318.
+### Your puzzle answer was 6463499258318.
 
---- Part Two ---
+#  Part Two 
 Upon completion, two things immediately become clear. First, the disk definitely has a lot more contiguous free space, just like the amphipod hoped. Second, the computer is running much more slowly! Maybe introducing all of that file system fragmentation was a bad idea?
 
 The eager amphipod already has a new plan: rather than move individual blocks, he'd like to try compacting the files on his disk by moving whole files instead.
@@ -65,7 +65,7 @@ The process of updating the filesystem checksum is the same; now, this example's
 
 Start over, now compacting the amphipod's hard drive using this new method instead. What is the resulting filesystem checksum?
 
-Your puzzle answer was 6493634986625.
+### Your puzzle answer was 6493634986625.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 
