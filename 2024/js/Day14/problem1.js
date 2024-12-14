@@ -12,31 +12,11 @@ export default function solve({ lines, rawData }) {
     });
 
     lines.forEach((point) => {
-        let visited = new Map();
-        visited.set(`${point.posX},${point.posY}`, 0);
-
-        for (let i = 1; i <= SECONDS; i++) {
-            point.posX = wrap(point.posX + point.vX, WIDTH);
-            point.posY = wrap(point.posY + point.vY, HEIGHT);
-
-            const key = `${point.posX},${point.posY}`;
-            if (visited.has(key)) {
-                const diffSeconds = i - visited.get(key);
-                const remainingTime = SECONDS - i;
-                const extraTime = remainingTime % diffSeconds;
-
-                const final = {
-                    posX: wrap(point.posX + extraTime * point.vX, WIDTH),
-                    posY: wrap(point.posY + extraTime * point.vY, HEIGHT),
-                };
-                addToQuadrant(final);
-                break;
-            } else if (i === SECONDS) {
-                addToQuadrant(point);
-                break;
-            }
-            visited.set(key, i);
+        const finalPosition = {
+            posX: wrap(point.posX + SECONDS * point.vX, WIDTH),
+            posY: wrap(point.posY + SECONDS * point.vY, HEIGHT)
         }
+        addToQuadrant(finalPosition);
     });
 
     const answer = quadrants.reduce((acc, curr) => acc * curr, 1);
