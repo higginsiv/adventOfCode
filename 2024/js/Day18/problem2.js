@@ -1,3 +1,5 @@
+// TODO there is a faster solution if you pathfind along the corrupted cells
+// trying to reach from bottom/left edge to top/right edge
 import { Solution } from '#tools/solution.js';
 import PriorityQueue from '#tools/queue.js';
 
