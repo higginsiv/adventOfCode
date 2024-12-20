@@ -1,8 +1,12 @@
 import { Solution } from '#tools/solution.js';
 import PriorityQueue from '#tools/queue.js';
+import { max } from 'bigint-crypto-utils';
 
 export default function solve({ lines, rawData }) {
     const [WALL, EMPTY] = ['#', '.'];
+    const MARGIN = 100;
+    const CHEATS = 2;
+
     const DIRECTIONS = [
         { x: 0, y: -1 },
         { x: 1, y: 0 },
@@ -12,54 +16,96 @@ export default function solve({ lines, rawData }) {
     let grid = resetGrid();
 
     const { start, end } = getStartAndEnd();
-
     const { time, path } = simulate();
-    const MARGIN = 100;
-    const maxTimeAllowed = time - MARGIN;
-
-    let cellToTime = new Map();
-    path.forEach((cell, index) => {
-        cellToTime.set(`${cell.x},${cell.y}`, index);
-    });
-
-    let wallsTested = new Set();
-
-    const answer = path.reduce((acc, { x, y }, index) => {
-        const walledNeighbors = getWalledNeighbors({ x, y });
+    const answer = path.reduce((acc, current, index) => {
+        const points = getAllPointsWithinDistance(current, CHEATS);
         let cheatsThatWork = 0;
-        walledNeighbors.forEach((walled) => {
-            const key = `${walled.x},${walled.y}`;
-            if (!wallsTested.has(key)) {
-                wallsTested.add(key);
-                grid = resetGrid(index);
+        points.forEach((point) => {
+            if (point.x < 0 || point.x >= grid[0].length || point.y < 0 || point.y >= grid.length) {
+                return;
+            }
 
-                grid[walled.y][walled.x].val = EMPTY;
+            const locationOnPath = path.findIndex((p) => p.x === point.x && p.y === point.y);
+            if (locationOnPath === -1) {
+                return;
+            }
 
-                const result = simulate(
-                    {
-                        x: walled.x,
-                        y: walled.y,
-                        time: index + 1,
-                        path: [{ x: walled.x, y: walled.y }],
-                        passedCheatSpot: false,
-                    },
-                    maxTimeAllowed,
-                    { x: walled.x, y: walled.y },
-                );
-
-                if (!result.failed) {
-                    if (result.time <= maxTimeAllowed) {
-                        cheatsThatWork++;
-                    }
-                }
-
-                grid[walled.y][walled.x].val = WALL;
+            const timeSaved = locationOnPath - index - point.md;
+            if (timeSaved >= MARGIN) {
+                cheatsThatWork++;
             }
         });
         return acc + cheatsThatWork;
     }, 0);
 
     return new Solution(answer);
+
+    function simulate() {
+        let queue = new PriorityQueue(
+            {
+                x: start.x,
+                y: start.y,
+                time: 0,
+                path: [{ x: start.x, y: start.y }],
+            },
+            (a, b) => a.time - b.time,
+        );
+
+        while (queue.isNotEmpty()) {
+            let current = queue.next();
+
+            if (current.x === end.x && current.y === end.y) {
+                return current;
+            }
+
+            DIRECTIONS.forEach((dir) => {
+                let x = current.x + dir.x;
+                let y = current.y + dir.y;
+                if (x < 0 || x >= grid[0].length || y < 0 || y >= grid.length) {
+                    return;
+                }
+
+                if (grid[y][x].val === WALL) {
+                    return;
+                }
+
+                if (
+                    current.path.length > 1 &&
+                    current.path[current.path.length - 2].x === x &&
+                    current.path[current.path.length - 2].y === y
+                ) {
+                    return;
+                }
+
+                if (grid[y][x].visited <= current.time + 1) {
+                    return;
+                }
+
+                grid[y][x].visited = current.time + 1;
+
+                queue.insert({
+                    x,
+                    y,
+                    time: current.time + 1,
+                    path: [...current.path, { x, y }],
+                });
+            });
+        }
+        return [];
+    }
+
+    function resetGrid() {
+        let grid = lines.map((line) =>
+            line.split('').map((char) => {
+                return {
+                    val: char,
+                    visited: Infinity,
+                };
+            }),
+        );
+
+        return grid;
+    }
 
     function getStartAndEnd() {
         let start, end;
@@ -77,129 +123,40 @@ export default function solve({ lines, rawData }) {
         }
     }
 
-    function simulate(init, maxTime = Infinity, cheatSpot) {
-        const queue = new PriorityQueue(
-            init
-                ? [init]
-                : [
-                      {
-                          ...start,
-                          time: 0,
-                          path: [{ x: start.x, y: start.y }],
-                          passedCheatSpot: false,
-                      },
-                  ],
-            (a, b) => {
-                if (a.passedCheatSpot && !b.passedCheatSpot) {
-                    return -1;
-                } else if (!a.passedCheatSpot && b.passedCheatSpot) {
-                    return 1;
-                }
-                return a.time - b.time;
-            },
-        );
+    // TODO adjust this to onlly go thru walls at first
+    function getAllPointsWithinDistance(start, distance) {
+        let points = [];
+        let adjacentWalls = [];
 
-        while (queue.isNotEmpty()) {
-            let current = queue.next();
-
-            if (current.x === end.x && current.y === end.y) {
-                return current;
-            }
-
-            if (current.time + manhattanDistance(current) > maxTime) {
-                return { failed: true };
-            }
-
-            if (cheatSpot && current.passedCheatSpot) {
-                let originalPathTime = cellToTime.get(`${current.x},${current.y}`) ?? -1;
-                if (originalPathTime !== -1) {
-                    if (current.time > originalPathTime - MARGIN) {
-                        return { failed: true };
-                    } else {
-                        return current;
-                    }
-                }
-            }
-
-            // TODO can remove as this happens on start of cheats every time
-            if (cheatSpot && current.x === cheatSpot.x && current.y === cheatSpot.y) {
-                current.passedCheatSpot = true;
-            }
-
-            DIRECTIONS.forEach((dir) => {
-                let x = current.x + dir.x;
-                let y = current.y + dir.y;
-                if (x < 0 || x >= grid[0].length || y < 0 || y >= grid.length) {
-                    return;
-                }
-
-                if (
-                    grid[y][x].val !== WALL &&
-                    (current.path.length <= 1 ||
-                        current.path[current.path.length - 2].x !== x ||
-                        current.path[current.path.length - 2].y !== y) &&
-                    grid[y][x].visited > current.time + 1
-                ) {
-                    grid[y][x].visited = current.time + 1;
-                    queue.insert({
-                        x,
-                        y,
-                        time: current.time + 1,
-                        path: [...current.path, { x, y }],
-                        passedCheatSpot: current.passedCheatSpot,
-                    });
-                }
-            });
-        }
-        return { failed: true };
-    }
-
-    function getWalledNeighbors(current) {
-        let walled = [];
         DIRECTIONS.forEach((dir) => {
-            let x = current.x + dir.x;
-            let y = current.y + dir.y;
+            let x = start.x + dir.x;
+            let y = start.y + dir.y;
             if (x < 0 || x >= grid[0].length || y < 0 || y >= grid.length) {
                 return;
             }
             if (grid[y][x].val === WALL) {
-                walled.push({ x, y });
+                adjacentWalls.push({ x, y });
             }
         });
-        return walled;
-    }
 
-    function resetGrid(index) {
-        let grid = lines.map((line) =>
-            line.split('').map((char) => {
-                return {
-                    val: char,
-                    visited: Infinity,
-                };
-            }),
-        );
-
-        if (index) {
-            for (let i = 0; i <= index; i++) {
-                grid[path[i].y][path[i].x].visited = -Infinity;
+        distance--;
+        adjacentWalls.forEach((wall) => {
+            for (let dx = -distance; dx <= distance; dx++) {
+                for (let dy = -distance; dy <= distance; dy++) {
+                    const md = Math.abs(dx) + Math.abs(dy);
+                    if (md <= distance) {
+                        if (
+                            !points.find(
+                                (point) => point.x === wall.x + dx && point.y === wall.y + dy,
+                            )
+                        ) {
+                            points.push({ x: wall.x + dx, y: wall.y + dy, md: md + 1 });
+                        }
+                    }
+                }
             }
-        }
+        });
 
-        return grid;
-    }
-
-    function manhattanDistance(a) {
-        return Math.abs(a.x - end.x) + Math.abs(a.y - end.y);
+        return points;
     }
 }
-
-// TODO after making efficieny adjustments I'm now wrong
-// I think my assumption that I could destroy blocks only near the path is wrong.
-// I could destroy any block and then check if it creates a new shorter path
-// I'm not sure why the original solution worked. Perhaps my assumption is good for the designed inputs or maybe I was lucky
-
-
-// New plan:
-// When getting neighbors, if blocks left > 0, add neighbors with walls
-// Sort queue by time
-// Avoid neighbor if time >= visited.time && squaresRemaining <= visited.remaining
