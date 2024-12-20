@@ -17,6 +17,11 @@ export default function solve({ lines, rawData }) {
 
     const { start, end } = getStartAndEnd();
     const { time, path } = simulate();
+    let pointToTime = new Map();
+    path.forEach((point, index) => {
+        pointToTime.set(`${point.x},${point.y}`, index);
+    });
+
     const answer = path.reduce((acc, current, index) => {
         const points = getAllPointsWithinDistance(current, CHEATS);
         let cheatsThatWork = 0;
@@ -25,7 +30,8 @@ export default function solve({ lines, rawData }) {
                 return;
             }
 
-            const locationOnPath = path.findIndex((p) => p.x === point.x && p.y === point.y);
+            const key = `${point.x},${point.y}`;
+            const locationOnPath = pointToTime.get(key) ?? -1;
             if (locationOnPath === -1) {
                 return;
             }
