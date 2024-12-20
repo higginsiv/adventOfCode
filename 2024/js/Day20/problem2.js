@@ -5,7 +5,7 @@ import { max } from 'bigint-crypto-utils';
 export default function solve({ lines, rawData }) {
     const [WALL, EMPTY] = ['#', '.'];
     const MARGIN = 100;
-    const CHEATS = 2;
+    const CHEATS = 20;
 
     const DIRECTIONS = [
         { x: 0, y: -1 },
@@ -123,39 +123,23 @@ export default function solve({ lines, rawData }) {
         }
     }
 
-    // TODO adjust this to onlly go thru walls at first
     function getAllPointsWithinDistance(start, distance) {
         let points = [];
-        let adjacentWalls = [];
 
-        DIRECTIONS.forEach((dir) => {
-            let x = start.x + dir.x;
-            let y = start.y + dir.y;
-            if (x < 0 || x >= grid[0].length || y < 0 || y >= grid.length) {
-                return;
-            }
-            if (grid[y][x].val === WALL) {
-                adjacentWalls.push({ x, y });
-            }
-        });
-
-        distance--;
-        adjacentWalls.forEach((wall) => {
-            for (let dx = -distance; dx <= distance; dx++) {
-                for (let dy = -distance; dy <= distance; dy++) {
-                    const md = Math.abs(dx) + Math.abs(dy);
-                    if (md <= distance) {
-                        if (
-                            !points.find(
-                                (point) => point.x === wall.x + dx && point.y === wall.y + dy,
-                            )
-                        ) {
-                            points.push({ x: wall.x + dx, y: wall.y + dy, md: md + 1 });
-                        }
+        for (let dx = -distance; dx <= distance; dx++) {
+            for (let dy = -distance; dy <= distance; dy++) {
+                const md = Math.abs(dx) + Math.abs(dy);
+                if (md <= distance) {
+                    if (
+                        !points.find(
+                            (point) => point.x === start.x + dx && point.y === start.y + dy,
+                        )
+                    ) {
+                        points.push({ x: start.x + dx, y: start.y + dy, md: md });
                     }
                 }
             }
-        });
+        }
 
         return points;
     }

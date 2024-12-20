@@ -10,6 +10,6 @@ describe(`2024 Day 20`, () => {
     });
 
     test('Part 2', () => {
-        expect(part2(data).value).toBe();
+        expect(part2(data).value).toBe(1027501);
     });
 });
