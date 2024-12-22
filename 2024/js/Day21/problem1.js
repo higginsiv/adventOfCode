@@ -1,7 +1,7 @@
 import { Solution } from '#tools/solution.js';
-import { dir } from 'async';
 
 export default function solve({ lines, rawData }) {
+    const MAX_DEPTH = 2;
     const numbersGraph = new Map();
     const directionGraph = new Map();
 
@@ -34,9 +34,6 @@ export default function solve({ lines, rawData }) {
     directionGraph.forEach((value, key) => {
         value.forEach((ops, key) => {
             let sorted = ops.split('').sort((a, b) => {
-                if (key === 'A') {
-                    console.log(a, b, directionPadPriority.indexOf(a), directionPadPriority.indexOf(b));
-                }
                 return directionPadPriority.indexOf(a) - directionPadPriority.indexOf(b);
             });
 
@@ -44,56 +41,17 @@ export default function solve({ lines, rawData }) {
         });
     });
 
-    // console.log(directionGraph);
-    // return new Solution(0);
-
     const answer = lines.reduce((acc, line) => {
-        let numPadLoc = 'A';
-        let dirPad1Loc = 'A';
-        let dirPad2Loc = 'A';
-
-        let numCommands = 0;
-        let numPadOperations = line.split('');
-        let numPadPath = '';
-        numPadOperations.forEach((operation) => {
-            console.log(operation, numPadLoc, numbersGraph.get(numPadLoc).get(operation));
-            numPadPath += numbersGraph.get(numPadLoc).get(operation);
-            numPadLoc = operation;
-            numPadPath += 'A';
-            // numPadLoc = 'A';
-        });
-        console.log('Directional 1: ', numPadPath, numPadPath.length);
-
-        let dirPad1Operations = numPadPath.split('');
-        let dirPad1Path = '';
-        // console.log(dirPad1Operations)
-        dirPad1Operations.forEach((dirPad1Operation) => {
-            dirPad1Path += directionGraph.get(dirPad1Loc).get(dirPad1Operation);
-            dirPad1Loc = dirPad1Operation;
-            // console.log(dirPad1Loc)
-            dirPad1Path += 'A';
-            // dirPad1Loc = 'A';
-        });
-        console.log('Directional 2: ', dirPad1Path, dirPad1Path.length);
-
-        let dirPad2Operations = dirPad1Path.split('');
-        let dirPad2Path = '';
-        dirPad2Operations.forEach((dirPad2Operation) => {
-            dirPad2Path += directionGraph.get(dirPad2Loc).get(dirPad2Operation);
-            dirPad2Loc = dirPad2Operation;
-            dirPad2Path += 'A';
-            // dirPad2Loc = 'A';
-        });
-        console.log('Directional 3: ', dirPad2Path, dirPad2Path.length);
-
-        numCommands = dirPad2Path.length;
-        console.log(numCommands);
-
-        return acc + numCommands * parseInt(line);
+        let total = fastestFromAToB(numbersGraph, 'A', line[0], 0);
+        for (let i = 0; i < line.length - 1; i++) {
+            total += fastestFromAToB(numbersGraph, line[i], line[i + 1], 0);
+        }
+        return acc + total * parseInt(line);
     }, 0);
+
     return new Solution(answer);
 
-    function fillGraph(pad, graph, includeA) {
+    function fillGraph(pad, graph) {
         for (let i = 0; i < pad.length; i++) {
             for (let j = 0; j < pad[i].length; j++) {
                 if (pad[i][j] === null) {
@@ -132,9 +90,6 @@ export default function solve({ lines, rawData }) {
                             continue;
                         }
                         if (!visited.includes(next)) {
-                            // if (includeA) {
-                            //     neighbor.path += 'A';
-                            // }
                             queue.push(neighbor);
                             graph.get(start).set(next, neighbor.path);
                         }
@@ -163,13 +118,33 @@ export default function solve({ lines, rawData }) {
 
         return true;
     }
+
+    function fastestFromAToB(graph, start, end, depth) {
+        let options = [];
+        let path = graph.get(start).get(end);
+        options.push(path + 'A');
+        if (canReverse(start, end)) {
+            options.push(path.split('').reverse().join('') + 'A');
+        }
+
+        if (depth === MAX_DEPTH) {
+            return Math.min(...options.map((option) => option.length));
+        }
+
+        let min = Infinity;
+        options.forEach((option) => {
+            let operations = option.split('');
+            let total = fastestFromAToB(directionGraph, 'A', operations[0], depth + 1);
+            for (let i = 0; i < operations.length - 1; i++) {
+                total += fastestFromAToB(
+                    directionGraph,
+                    operations[i],
+                    operations[i + 1],
+                    depth + 1,
+                );
+            }
+            min = Math.min(min, total);
+        });
+        return min;
+    }
 }
-
-// 102426 too low
-// 154997 too low
-
-// TODO is it because there are many different paths and the shortest might depend on the current position of the robots on each pad?
-
-// <v<A >>^A vA ^A <vA <A A >>^A A vA <^A >A A vA ^A <vA >^A A <A >A <v<A >A >^A A A vA <^A >A
-// <A   >A  v<<A A  >^A A  >A  vA  A  ^A  <vA  A A >^A
-// ^    A    <   <  ^   ^   A  >   >  A   v   v  v  A
