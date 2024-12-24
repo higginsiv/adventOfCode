@@ -21,6 +21,7 @@
         "test:2021": "npm run test:base -- --testPathPattern=2021",
         "test:2022": "npm run test:base -- --testPathPattern=2022",
         "test:2023": "npm run test:base -- --testPathPattern=2023",
+        "test:2024": "npm run test:base -- --testPathPattern=2024",
         "create": "node ./tools/dayCreator.js",
         "solve": "node ./tools/solve.js",
         "format": "prettier --write \"./**/*.js\"",
