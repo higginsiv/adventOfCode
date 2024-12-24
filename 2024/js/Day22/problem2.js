@@ -9,6 +9,7 @@ export default function solve({ lines, rawData }) {
         .forEach((secret, index) => {
             let lastPrice = getPrice(secret);
             let lastFourChanges = [];
+            let visited = new Set();
 
             for (let i = 0n; i < MAX_SECRET; i++) {
                 let mixIn = xor(secret, secret * 64n);
@@ -28,10 +29,11 @@ export default function solve({ lines, rawData }) {
 
                 if (lastFourChanges.length === 4) {
                     let key = lastFourChanges.join(',');
-                    let prices = sequenceToPrices.get(key) || [];
-                    if (prices[index] === undefined) {
-                        prices[index] = price;
-                        sequenceToPrices.set(key, prices);
+                    if (!visited.has(key)) {
+                        let currentSum = sequenceToPrices.get(key) || 0n;
+                        visited.add(key);
+                        currentSum += price;
+                        sequenceToPrices.set(key, currentSum);
                     }
                 }
 
@@ -39,10 +41,7 @@ export default function solve({ lines, rawData }) {
             }
         });
 
-    const answer = [...sequenceToPrices].reduce((acc, [key, prices]) => {
-        let bananas = prices.reduce((acc, price) => acc + price, 0n);
-        return acc > bananas ? acc : bananas;
-    }, 0n);
+    const answer = [...sequenceToPrices.values()].sort((a, b) => Number(b - a))[0];
 
     return new Solution(Number(answer));
 }
