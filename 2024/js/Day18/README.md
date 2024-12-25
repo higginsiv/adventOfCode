@@ -1,4 +1,4 @@
---- Day 18: RAM Run ---
+#  Day 18: RAM Run 
 You and The Historians look a lot more pixelated than you remember. You're inside a computer at the North Pole!
 
 Just as you're about to check out your surroundings, a program runs up to you. "This region of memory isn't safe! The User misunderstood what a pushdown automaton is and their algorithm is pushing whole bytes down on top of us! Run!"
@@ -58,9 +58,9 @@ OO.#OOO
 #.#OOOO
 Simulate the first kilobyte (1024 bytes) falling onto your memory space. Afterward, what is the minimum number of steps needed to reach the exit?
 
-Your puzzle answer was 302.
+### Your puzzle answer was 302.
 
---- Part Two ---
+#  Part Two 
 The Historians aren't as used to moving around in this pixelated universe as you are. You're afraid they're not going to be fast enough to make it to the exit before the path is completely blocked.
 
 To determine how fast everyone needs to go, you need to determine the first byte that will cut off the path to the exit.
@@ -87,7 +87,7 @@ So, in this example, the coordinates of the first byte that prevents the exit fr
 
 Simulate more of the bytes that are about to corrupt your memory space. What are the coordinates of the first byte that will prevent the exit from being reachable from your starting position? (Provide the answer as two integers separated by a comma with no other characters.)
 
-Your puzzle answer was 24,32.
+### Your puzzle answer was 24,32.
 
 Both parts of this puzzle are complete! They provide two gold stars: \*\*
 

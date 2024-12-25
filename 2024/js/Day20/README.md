@@ -1,4 +1,4 @@
---- Day 20: Race Condition ---
+#  Day 20: Race Condition 
 The Historians are quite pixelated again. This time, a massive, black building looms over you - you're right outside the CPU!
 
 While The Historians get to work, a nearby program sees that you're idle and challenges you to a race. Apparently, you've arrived just in time for the frequently-held race condition festival!
@@ -115,9 +115,9 @@ There is one cheat that saves 40 picoseconds.
 There is one cheat that saves 64 picoseconds.
 You aren't sure what the conditions of the racetrack will be like, so to give yourself as many options as possible, you'll need a list of the best cheats. How many cheats would save you at least 100 picoseconds?
 
-Your puzzle answer was 1485.
+### Your puzzle answer was 1485.
 
---- Part Two ---
+#  Part Two 
 The programs seem perplexed by your list of cheats. Apparently, the two-picosecond cheating rule was deprecated several milliseconds ago! The latest version of the cheating rule permits a single cheat that instead lasts at most 20 picoseconds.
 
 Now, in addition to all the cheats that were possible in just two picoseconds, many more cheats are possible. This six-picosecond cheat saves 76 picoseconds:
@@ -174,7 +174,7 @@ There are 4 cheats that save 74 picoseconds.
 There are 3 cheats that save 76 picoseconds.
 Find the best cheats using the updated cheating rules. How many cheats would save you at least 100 picoseconds?
 
-Your puzzle answer was 1027501.
+### Your puzzle answer was 1027501.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

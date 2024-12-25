@@ -1,4 +1,4 @@
---- Day 24: Crossed Wires ---
+#  Day 24: Crossed Wires 
 You and The Historians arrive at the edge of a large grove somewhere in the jungle. After the last incident, the Elves installed a small device that monitors the fruit. While The Historians search the grove, one of them asks if you can take a look at the monitoring device; apparently, it's been malfunctioning recently.
 
 The device seems to be trying to produce a number through some boolean logic gates. Each gate has two inputs and one output. The gates all operate on values that are either true (1) or false (0).
@@ -121,9 +121,9 @@ Combining the bits from all wires starting with z produces the binary number 001
 
 Simulate the system of gates and wires. What decimal number does it output on the wires starting with z?
 
-Your puzzle answer was 41324968993486.
+### Your puzzle answer was 41324968993486.
 
---- Part Two ---
+#  Part Two 
 After inspecting the monitoring device more closely, you determine that the system you're simulating is trying to add two binary numbers.
 
 Specifically, it is treating the bits on wires starting with x as one binary number, treating the bits on wires starting with y as a second binary number, and then attempting to add those two numbers together. The output of this operation is produced as a binary number on the wires starting with z. (In all three cases, wire 00 is the least significant bit, then 01, then 02, and so on.)
@@ -186,7 +186,7 @@ Of course, your actual system is much more complex than this, and the gates that
 
 Your system of gates and wires has four pairs of gates which need their output wires swapped - eight wires in total. Determine which four pairs of gates need their outputs swapped so that your system correctly performs addition; what do you get if you sort the names of the eight wires involved in a swap and then join those names with commas?
 
-Your puzzle answer was bmn,jss,mvb,rds,wss,z08,z18,z23.
+### Your puzzle answer was bmn,jss,mvb,rds,wss,z08,z18,z23.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

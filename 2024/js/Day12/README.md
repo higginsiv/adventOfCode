@@ -1,4 +1,4 @@
---- Day 12: Garden Groups ---
+#  Day 12: Garden Groups 
 Why not search for the Chief Historian near the gardener and his massive farm? There's plenty of food, so The Historians grab something to eat while they search.
 
 You're about to settle near a complex arrangement of garden plots when some Elves ask if you can lend a hand. They'd like to set up fences around each region of garden plots, but they can't figure out how much fence they need to order or how much it will cost. They hand you a map (your puzzle input) of the garden plots.
@@ -78,9 +78,9 @@ So, it has a total price of 1930.
 
 What is the total price of fencing all regions on your map?
 
-Your puzzle answer was 1431440.
+### Your puzzle answer was 1431440.
 
---- Part Two ---
+#  Part Two 
 Fortunately, the Elves are trying to order so much fence that they qualify for a bulk discount!
 
 Under the bulk discount, instead of using the perimeter to calculate the price, you need to use the number of sides each region has. Each straight section of fence counts as a side, regardless of how long it is.
@@ -133,7 +133,7 @@ Adding these together produces its new total price of 1206.
 
 What is the new total price of fencing all regions on your map?
 
-Your puzzle answer was 869070.
+### Your puzzle answer was 869070.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

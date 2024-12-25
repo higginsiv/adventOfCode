@@ -1,4 +1,4 @@
---- Day 21: Keypad Conundrum ---
+#  Day 21: Keypad Conundrum 
 As you teleport onto Santa's Reindeer-class starship, The Historians begin to panic: someone from their search party is missing. A quick life-form scan by the ship's computer reveals that when the missing Historian teleported, he arrived in another part of the ship.
 
 The door to that area is locked, but the computer can't open it; it can only be opened by physically typing the door codes (your puzzle input) on the numeric keypad on the door.
@@ -87,9 +87,9 @@ In the above example, complexity of the five codes can be found by calculating 6
 
 Find the fewest number of button presses you'll need to perform in order to cause the robot in front of the door to type each code. What is the sum of the complexities of the five codes on your list?
 
-Your puzzle answer was 176650.
+### Your puzzle answer was 176650.
 
---- Part Two ---
+#  Part Two 
 Just as the missing Historian is released, The Historians realize that a second member of their search party has also been missing this entire time!
 
 A quick life-form scan reveals the Historian is also trapped in a locked area of the ship. Due to a variety of hazards, robots are once again dispatched, forming another chain of remote control keypads managing robotic-arm-wielding robots.
@@ -105,7 +105,7 @@ The door codes are the same this time around; only the number of robots and dire
 
 Find the fewest number of button presses you'll need to perform in order to cause the robot in front of the door to type each code. What is the sum of the complexities of the five codes on your list?
 
-Your puzzle answer was 217698355426872.
+### Your puzzle answer was 217698355426872.
 
 Both parts of this puzzle are complete! They provide two gold stars: \*\*
 

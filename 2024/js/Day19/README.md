@@ -1,4 +1,4 @@
---- Day 19: Linen Layout ---
+#  Day 19: Linen Layout 
 Today, The Historians take you up to the hot springs on Gear Island! Very suspiciously, absolutely nothing goes wrong as they begin their careful search of the vast field of helixes.
 
 Could this finally be your chance to visit the onsen next door? Only one way to find out.
@@ -39,9 +39,9 @@ In this example, 6 of the eight designs are possible with the available towel pa
 
 To get into the onsen as soon as possible, consult your list of towel patterns and desired designs carefully. How many designs are possible?
 
-Your puzzle answer was 285.
+### Your puzzle answer was 285.
 
---- Part Two ---
+#  Part Two 
 The staff don't really like some of the towel arrangements you came up with. To avoid an endless cycle of towel rearrangement, maybe you should just give them every possible option.
 
 Here are all of the different ways the above example's designs can be made:
@@ -74,7 +74,7 @@ Adding up all of the ways the towels in this example could be arranged into the 
 
 They'll let you into the onsen as soon as you have the list. What do you get if you add up the number of different ways you could make each design?
 
-Your puzzle answer was 636483903099279.
+### Your puzzle answer was 636483903099279.
 
 Both parts of this puzzle are complete! They provide two gold stars: \*\*
 

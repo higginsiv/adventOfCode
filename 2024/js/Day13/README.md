@@ -1,4 +1,4 @@
---- Day 13: Claw Contraption ---
+#  Day 13: Claw Contraption 
 Next up: the lobby of a resort on a tropical island. The Historians take a moment to admire the hexagonal floor tiles before spreading out.
 
 Fortunately, it looks like the resort has a new arcade! Maybe you can win some prizes from the claw machines?
@@ -45,9 +45,9 @@ You estimate that each button would need to be pressed no more than 100 times to
 
 Figure out how to win as many prizes as possible. What is the fewest tokens you would have to spend to win all possible prizes?
 
-Your puzzle answer was 33209.
+### Your puzzle answer was 33209.
 
---- Part Two ---
+#  Part Two 
 As you go to win the first prize, you discover that the claw is nowhere near where you expected it would be. Due to a unit conversion error in your measurements, the position of every prize is actually 10000000000000 higher on both the X and Y axis!
 
 Add 10000000000000 to the X and Y position of every prize. After making this change, the example above would now look like this:
@@ -71,7 +71,7 @@ Now, it is only possible to win a prize on the second and fourth claw machines. 
 
 Using the corrected prize coordinates, figure out how to win as many prizes as possible. What is the fewest tokens you would have to spend to win all possible prizes?
 
-Your puzzle answer was 83102355665474.
+### Your puzzle answer was 83102355665474.
 
 Both parts of this puzzle are complete! They provide two gold stars: \*\*
 

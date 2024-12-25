@@ -1,4 +1,4 @@
---- Day 25: Code Chronicle ---
+#  Day 25: Code Chronicle 
 Out of ideas and time, The Historians agree that they should go back to check the Chief Historian's office one last time, just in case he went back there without you noticing.
 
 When you get there, you are surprised to discover that the door to his office is locked! You can hear someone inside, but knocking yields no response. The locks on this floor are all fancy, expensive, virtual versions of five-pin tumbler locks, so you contact North Pole security to see if they can help open the door.
@@ -101,9 +101,9 @@ So, in this example, the number of unique lock/key pairs that fit together witho
 
 Analyze your lock and key schematics. How many unique lock/key pairs fit together without overlapping in any column?
 
-Your puzzle answer was 2691.
+### Your puzzle answer was 2691.
 
---- Part Two ---
+#  Part Two 
 You and The Historians crowd into the office, startling the Chief Historian awake! The Historians all take turns looking confused until one asks where he's been for the last few months.
 
 "I've been right here, working on this high-priority request from Santa! I think the only time I even stepped away was about a month ago when I went to grab a cup of coffee..."

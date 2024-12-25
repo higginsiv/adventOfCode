@@ -1,4 +1,4 @@
---- Day 10: Hoof It ---
+#  Day 10: Hoof It 
 You all arrive at a Lava Production Facility on a floating island in the sky. As the others begin to search the massive industrial complex, you feel a small nose boop your leg and look down to discover a reindeer wearing a hard hat.
 
 The reindeer is holding a book titled "Lava Island Hiking Guide". However, when you open the book, you discover that most of it seems to have been scorched by lava! As you're about to ask how you can help, the reindeer brings you a blank topographic map of the surrounding area (your puzzle input) and looks up at you excitedly.
@@ -60,9 +60,9 @@ This larger example has 9 trailheads. Considering the trailheads in reading orde
 
 The reindeer gleefully carries over a protractor and adds it to the pile. What is the sum of the scores of all trailheads on your topographic map?
 
-Your puzzle answer was 459.
+### Your puzzle answer was 459.
 
---- Part Two ---
+#  Part Two 
 The reindeer spends a few minutes reviewing your hiking trail map before realizing something, disappearing for a few minutes, and finally returning with yet another slightly-charred piece of paper.
 
 The paper describes a second way to measure a trailhead called its rating. A trailhead's rating is the number of distinct hiking trails which begin at that trailhead. For example:
@@ -114,7 +114,7 @@ Considering its trailheads in reading order, they have ratings of 20, 24, 10, 4,
 
 You're not sure how, but the reindeer seems to have crafted some tiny flags out of toothpicks and bits of paper and is using them to mark trailheads on your topographic map. What is the sum of the ratings of all trailheads?
 
-Your puzzle answer was 1034.
+### Your puzzle answer was 1034.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

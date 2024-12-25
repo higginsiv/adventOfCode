@@ -1,4 +1,4 @@
---- Day 23: LAN Party ---
+#  Day 23: LAN Party 
 As The Historians wander around a secure area at Easter Bunny HQ, you come across posters for a LAN party scheduled for today! Maybe you can find it; you connect to a nearby datalink port and download a map of the local network (your puzzle input).
 
 The network map provides a list of every connection between two computers. For example:
@@ -64,9 +64,9 @@ tc,td,wh
 td,wh,yn
 Find all the sets of three inter-connected computers. How many contain at least one computer with a name that starts with t?
 
-Your puzzle answer was 1238.
+### Your puzzle answer was 1238.
 
---- Part Two ---
+#  Part Two 
 There are still way too many results to go through them all. You'll have to find the LAN party another way and go there yourself.
 
 Since it doesn't seem like any employees are around, you figure they must all be at the LAN party. If that's true, the LAN party will be the largest set of computers that are all connected to each other. That is, for each computer at the LAN party, that computer will have a connection to every other computer at the LAN party.
@@ -83,7 +83,7 @@ The LAN party posters say that the password to get into the LAN party is the nam
 
 What is the password to get into the LAN party?
 
-Your puzzle answer was bg,bl,ch,fn,fv,gd,jn,kk,lk,pv,rr,tb,vw.
+### Your puzzle answer was bg,bl,ch,fn,fv,gd,jn,kk,lk,pv,rr,tb,vw.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

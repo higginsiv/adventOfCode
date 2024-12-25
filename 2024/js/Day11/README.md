@@ -1,4 +1,4 @@
---- Day 11: Plutonian Pebbles ---
+#  Day 11: Plutonian Pebbles 
 The ancient civilization on Pluto was known for its ability to manipulate spacetime, and while The Historians explore their infinite corridors, you've noticed a strange set of physics-defying stones.
 
 At first glance, they seem like normal stones: they're arranged in a perfectly straight line, and each stone has a number engraved on it.
@@ -51,14 +51,14 @@ In this example, after blinking six times, you would have 22 stones. After blink
 
 Consider the arrangement of stones in front of you. How many stones will you have after blinking 25 times?
 
-Your puzzle answer was 216042.
+### Your puzzle answer was 216042.
 
---- Part Two ---
+#  Part Two 
 The Historians sure are taking a long time. To be fair, the infinite corridors are very large.
 
 How many stones would you have after blinking a total of 75 times?
 
-Your puzzle answer was 255758646442399.
+### Your puzzle answer was 255758646442399.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

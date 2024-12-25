@@ -1,4 +1,4 @@
---- Day 17: Chronospatial Computer ---
+#  Day 17: Chronospatial Computer 
 The Historians push the button on their strange device, but this time, you all just feel like you're falling.
 
 "Situation critical", the device announces in a familiar voice. "Bootstrapping process failed. Initializing debugger...."
@@ -56,9 +56,9 @@ Your first task is to determine what the program is trying to output. To do this
 
 Using the information provided by the debugger, initialize the registers to the given values, then run the program. Once it halts, what do you get if you use commas to join the values it output into a single string?
 
-Your puzzle answer was 3,4,3,1,7,6,5,6,0.
+### Your puzzle answer was 3,4,3,1,7,6,5,6,0.
 
---- Part Two ---
+#  Part Two 
 Digging deeper in the device's manual, you discover the problem: this program is supposed to output another copy of the program! Unfortunately, the value in register A seems to have been corrupted. You'll need to find a new value to which you can initialize register A so that the program's output instructions produce an exact copy of the program itself.
 
 For example:
@@ -72,7 +72,7 @@ This program outputs a copy of itself if register A is instead initialized to 11
 
 What is the lowest positive initial value for register A that causes the program to output a copy of itself?
 
-Your puzzle answer was 109019930331546.
+### Your puzzle answer was 109019930331546.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 
