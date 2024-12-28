@@ -28,7 +28,7 @@ for (const part of parts) {
     let data = getInputForFunction(YEAR, DAY);
 
     // Get the path to the solution file
-    const path = `../${YEAR}/js/Day${DAY}/problem${part}.js`;
+    const path = `../${YEAR}/js/Day${DAY}/part${part}.js`;
     const module = await import(path);
     const solve = module.default;
 
