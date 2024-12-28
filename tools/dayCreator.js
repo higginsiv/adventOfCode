@@ -22,9 +22,9 @@ if (!fs.existsSync(`${YEAR}/js/Day${DAY}`)) {
 
     fs.mkdirSync(`${YEAR}/js/Day${DAY}`, { recursive: true });
 
-    fs.writeFileSync(`${YEAR}/js/Day${DAY}/problem1.js`, getTemplate(1));
+    fs.writeFileSync(`${YEAR}/js/Day${DAY}/part1.js`, getTemplate(1));
     if (DAY !== '25') {
-        fs.writeFileSync(`${YEAR}/js/Day${DAY}/problem2.js`, getTemplate(2));
+        fs.writeFileSync(`${YEAR}/js/Day${DAY}/part2.js`, getTemplate(2));
     }
 
     fs.writeFileSync(`${YEAR}/js/Day${DAY}/input.txt`, '');
@@ -52,7 +52,7 @@ export default function solve({ lines, rawData }) {
 function getTestTemplate(day) {
     if (day === '25') {
         return `import { getInputForFunction } from '#tools/fileReader.js';
-import { default as part1 } from '../problem1.js';
+import { default as part1 } from '../part1.js';
         
 const data = getInputForFunction(\'${YEAR}\', \'${DAY}\');
         
@@ -64,8 +64,8 @@ describe(\`${YEAR} Day ${DAY}\`, () => {
     }
 
     return `import { getInputForFunction } from '#tools/fileReader.js';
-import { default as part1 } from '../problem1.js';
-import { default as part2 } from '../problem2.js';
+import { default as part1 } from '../part1.js';
+import { default as part2 } from '../part2.js';
 
 const data = getInputForFunction(\'${YEAR}\', \'${DAY}\');
 

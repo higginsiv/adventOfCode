@@ -1,4 +1,4 @@
-import { add, buildTree, findMagnitude } from './problem1.js';
+import { add, buildTree, findMagnitude } from './part1.js';
 export default function solve({ lines, rawData }) {
     let highestMagnitude = -Infinity;
 

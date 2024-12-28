@@ -1,4 +1,4 @@
-import { run } from './problem1.js';
+import { run } from './part1.js';
 export default function solve({ lines, rawData }) {
     const { floor } = Math;
     let attackFloor = 4;

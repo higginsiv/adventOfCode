@@ -1,5 +1,5 @@
 import { getInputForFunction } from '#tools/fileReader.js';
-import { default as part1 } from '../problem1.js';
+import { default as part1 } from '../part1.js';
 
 const data = getInputForFunction('2019', '25');
 

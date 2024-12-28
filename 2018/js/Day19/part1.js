@@ -15,7 +15,7 @@ import {
     eqir,
     eqri,
     eqrr,
-} from '../Day16/problem1.js';
+} from '../Day16/part1.js';
 export default function solve({ lines, rawData }) {
     const operations = {
         addi,

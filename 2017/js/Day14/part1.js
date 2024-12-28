@@ -1,4 +1,4 @@
-import { knotHash } from '../Day10/problem2.js';
+import { knotHash } from '../Day10/part2.js';
 
 export default function solve({ lines, rawData }) {
     let answer = 0;

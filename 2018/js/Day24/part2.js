@@ -1,4 +1,4 @@
-import { getGroups, runSimulation } from './problem1.js';
+import { getGroups, runSimulation } from './part1.js';
 export default function solve({ lines, rawData }) {
     const { floor } = Math;
 

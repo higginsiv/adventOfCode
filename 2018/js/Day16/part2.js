@@ -16,7 +16,7 @@ import {
     eqir,
     eqri,
     eqrr,
-} from './problem1.js';
+} from './part1.js';
 export default function solve({ lines, rawData }) {
     const opcodes = [
         addr,
