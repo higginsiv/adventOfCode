@@ -1,7 +1,4 @@
-// TODO there is a faster solution if you pathfind along the corrupted cells
-// trying to reach from bottom/left edge to top/right edge
 import { Solution } from '#tools/solution.js';
-import PriorityQueue from '#tools/queue.js';
 
 export default function solve({ lines, rawData }) {
     lines = lines.map((line) => line.split(',').map(Number));
@@ -9,11 +6,11 @@ export default function solve({ lines, rawData }) {
     const [EMPTY, CORRUPTED] = [0, 1];
     const grid = Array.from({ length: SIZE + 1 }, () =>
         Array.from({ length: SIZE + 1 }, () => {
-            return { value: EMPTY, steps: Infinity };
+            return { value: EMPTY, flooded: false };
         }),
     );
 
-    for (let i = 0; i < 1024; i++) {
+    for (let i = 0; i < lines.length; i++) {
         const [x, y] = lines[i];
         grid[y][x].value = CORRUPTED;
     }
@@ -25,54 +22,50 @@ export default function solve({ lines, rawData }) {
         [-1, 0],
     ];
 
-    let answer;
-    let corruptionIndex = 1023;
-    while (answer !== -1) {
-        corruptionIndex++;
-        const [x, y] = lines[corruptionIndex];
-        grid[y][x].value = CORRUPTED;
+    let foundEnd = flood({ x: 0, y: 0 });
 
-        // Reset Grid
-        for (let i = 0; i <= SIZE; i++) {
-            for (let j = 0; j <= SIZE; j++) {
-                grid[j][i].steps = Infinity;
+    let corruptionIndex = lines.length;
+    while (!foundEnd) {
+        corruptionIndex--;
+        const [x, y] = lines[corruptionIndex];
+        grid[y][x].value = EMPTY;
+
+        for (let i = 0; i < DIRECTIONS.length; i++) {
+            const [dx, dy] = DIRECTIONS[i];
+            if (grid[y + dy] && grid[y + dy][x + dx] && grid[y + dy][x + dx].flooded) {
+                foundEnd = flood({ x, y });
+                break;
             }
         }
-
-        answer = simulate();
     }
 
     return new Solution(`${lines[corruptionIndex][0]},${lines[corruptionIndex][1]}`);
 
-    function simulate() {
-        const queue = new PriorityQueue({ x: 0, y: 0, steps: 0 }, (a, b) => {
-            let manhattanA = Math.abs(a.x - SIZE) + Math.abs(a.y - SIZE);
-            let manhattanB = Math.abs(b.x - SIZE) + Math.abs(b.y - SIZE);
-            return a.steps + manhattanA - (b.steps + manhattanB);
-        });
+    function flood(start) {
+        if (start.x === SIZE && start.y === SIZE) {
+            return true;
+        }
 
-        let answer = -1;
-        while (queue.isNotEmpty()) {
-            let current = queue.next();
-            grid[current.y][current.x].steps = current.steps;
-            if (current.x === SIZE && current.y === SIZE) {
-                answer = current.steps;
-                break;
+        let foundEnd = false;
+
+        for (let i = 0; i < DIRECTIONS.length; i++) {
+            const [dx, dy] = DIRECTIONS[i];
+            const [nx, ny] = [start.x + dx, start.y + dy];
+            if (nx < 0 || nx > SIZE || ny < 0 || ny > SIZE) {
+                continue;
             }
 
-            DIRECTIONS.forEach(([dx, dy]) => {
-                const [nx, ny] = [current.x + dx, current.y + dy];
-                if (nx < 0 || nx > SIZE || ny < 0 || ny > SIZE) {
-                    return;
-                }
+            if (grid[ny][nx].flooded || grid[ny][nx].value === CORRUPTED) {
+                continue;
+            }
 
-                if (grid[ny][nx].value === CORRUPTED || grid[ny][nx].steps <= current.steps + 1) {
-                    return;
-                }
+            grid[ny][nx].flooded = true;
+            foundEnd = flood({ x: nx, y: ny });
 
-                queue.insert({ x: nx, y: ny, steps: current.steps + 1 });
-            });
+            if (foundEnd) {
+                break;
+            }
         }
-        return answer;
+        return foundEnd;
     }
 }
