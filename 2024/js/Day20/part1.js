@@ -1,6 +1,5 @@
 import { Solution } from '#tools/solution.js';
 import PriorityQueue from '#tools/queue.js';
-import { max } from 'bigint-crypto-utils';
 
 export default function solve({ lines, rawData }) {
     const [WALL, EMPTY] = ['#', '.'];
@@ -47,32 +46,31 @@ export default function solve({ lines, rawData }) {
     return new Solution(answer);
 
     function simulate() {
-        let queue = new PriorityQueue(
+        let queue = [
             {
                 x: start.x,
                 y: start.y,
                 time: 0,
                 path: [{ x: start.x, y: start.y }],
             },
-            (a, b) => a.time - b.time,
-        );
-
-        while (queue.isNotEmpty()) {
-            let current = queue.next();
+        ];
+        while (queue.length > 0) {
+            let current = queue.pop();
 
             if (current.x === end.x && current.y === end.y) {
                 return current;
             }
 
-            DIRECTIONS.forEach((dir) => {
+            for (let i = 0; i < DIRECTIONS.length; i++) {
+                let dir = DIRECTIONS[i];
                 let x = current.x + dir.x;
                 let y = current.y + dir.y;
                 if (x < 0 || x >= grid[0].length || y < 0 || y >= grid.length) {
-                    return;
+                    continue;
                 }
 
                 if (grid[y][x].val === WALL) {
-                    return;
+                    continue;
                 }
 
                 if (
@@ -80,22 +78,23 @@ export default function solve({ lines, rawData }) {
                     current.path[current.path.length - 2].x === x &&
                     current.path[current.path.length - 2].y === y
                 ) {
-                    return;
+                    continue;
                 }
 
                 if (grid[y][x].visited <= current.time + 1) {
-                    return;
+                    continue;
                 }
 
                 grid[y][x].visited = current.time + 1;
 
-                queue.insert({
+                queue.push({
                     x,
                     y,
                     time: current.time + 1,
                     path: [...current.path, { x, y }],
                 });
-            });
+                break;
+            }
         }
         return [];
     }
