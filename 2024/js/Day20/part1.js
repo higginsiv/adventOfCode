@@ -46,19 +46,14 @@ export default function solve({ lines, rawData }) {
     return new Solution(answer);
 
     function simulate() {
-        let queue = [
-            {
-                x: start.x,
-                y: start.y,
-                time: 0,
-                path: [{ x: start.x, y: start.y }],
-            },
-        ];
-        while (queue.length > 0) {
-            let current = queue.pop();
+        let next = { x: start.x, y: start.y, time: 0 };
+        let path = [{ x: start.x, y: start.y }];
+        while (next != null) {
+            let current = next;
+            next = null;
 
             if (current.x === end.x && current.y === end.y) {
-                return current;
+                return { time: current.time, path };
             }
 
             for (let i = 0; i < DIRECTIONS.length; i++) {
@@ -74,9 +69,9 @@ export default function solve({ lines, rawData }) {
                 }
 
                 if (
-                    current.path.length > 1 &&
-                    current.path[current.path.length - 2].x === x &&
-                    current.path[current.path.length - 2].y === y
+                    path.length > 1 &&
+                    path[path.length - 2].x === x &&
+                    path[path.length - 2].y === y
                 ) {
                     continue;
                 }
@@ -87,12 +82,12 @@ export default function solve({ lines, rawData }) {
 
                 grid[y][x].visited = current.time + 1;
 
-                queue.push({
+                next = {
                     x,
                     y,
                     time: current.time + 1,
-                    path: [...current.path, { x, y }],
-                });
+                };
+                path.push({ x, y });
                 break;
             }
         }
