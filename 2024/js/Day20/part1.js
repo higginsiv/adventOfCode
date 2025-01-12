@@ -1,5 +1,4 @@
 import { Solution } from '#tools/solution.js';
-import PriorityQueue from '#tools/queue.js';
 
 export default function solve({ lines, rawData }) {
     const [WALL, EMPTY] = ['#', '.'];
@@ -91,7 +90,6 @@ export default function solve({ lines, rawData }) {
                 break;
             }
         }
-        return [];
     }
 
     function resetGrid() {
