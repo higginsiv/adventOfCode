@@ -20,21 +20,17 @@ export default function solve({ lines, rawData }) {
         pointToTime.set(`${point.x},${point.y}`, index);
     });
 
-    const answer = path.reduce((acc, current, index) => {
-        const points = getAllPointsWithinDistance(current, CHEATS);
+    const answer = path.reduce((acc, current, indexOfPath) => {
+        const pointsReachableByCheating = getAllPointsWithinDistance(current, CHEATS);
         let cheatsThatWork = 0;
-        points.forEach((point) => {
-            if (point.x < 0 || point.x >= grid[0].length || point.y < 0 || point.y >= grid.length) {
-                return;
-            }
-
+        pointsReachableByCheating.forEach((point) => {
             const key = `${point.x},${point.y}`;
-            const locationOnPath = pointToTime.get(key) ?? -1;
-            if (locationOnPath === -1) {
+            const indexReachedByCheating = pointToTime.get(key) ?? -1;
+            if (indexReachedByCheating === -1) {
                 return;
             }
 
-            const timeSaved = locationOnPath - index - point.md;
+            const timeSaved = indexReachedByCheating - indexOfPath - point.md;
             if (timeSaved >= MARGIN) {
                 cheatsThatWork++;
             }
@@ -126,15 +122,19 @@ export default function solve({ lines, rawData }) {
 
         for (let dx = -distance; dx <= distance; dx++) {
             for (let dy = -distance; dy <= distance; dy++) {
+                const newX = start.x + dx;
+                const newY = start.y + dy;
+                if (newX < 0 || newX >= grid[0].length || newY < 0 || newY >= grid.length) {
+                    continue;
+                }
+
+                if (grid[newY][newX].val === WALL) {
+                    continue;
+                }
+
                 const md = Math.abs(dx) + Math.abs(dy);
                 if (md <= distance) {
-                    if (
-                        !points.find(
-                            (point) => point.x === start.x + dx && point.y === start.y + dy,
-                        )
-                    ) {
-                        points.push({ x: start.x + dx, y: start.y + dy, md: md });
-                    }
+                    points.push({ x: start.x + dx, y: start.y + dy, md: md });
                 }
             }
         }
