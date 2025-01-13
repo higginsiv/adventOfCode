@@ -5,25 +5,22 @@ export default function solve({ lines, rawData }) {
     let keyToIngredients = new Map();
     let keyToNumberOutput = new Map();
     let ingredientsOnHand = new Map();
-    let oreReliant = [];
 
-    const data = lines.forEach((line) => {
+    lines.forEach((line) => {
         let [inputs, output] = line.split(' => ');
 
         output = output.split(' ');
         output[0] = parseInt(output[0]);
+        output = { amount: output[0], key: output[1] };
 
         inputs = inputs.split(', ').map((ingredient) => {
             ingredient = ingredient.split(' ');
             ingredient[0] = parseInt(ingredient[0]);
-            if (ingredient[1] === ORE) {
-                oreReliant.push(output[1]);
-            }
-            return ingredient;
+            return { amount: ingredient[0], key: ingredient[1] };
         });
 
-        keyToIngredients.set(output[1], inputs);
-        keyToNumberOutput.set(output[1], output[0]);
+        keyToIngredients.set(output.key, inputs);
+        keyToNumberOutput.set(output.key, output.amount);
     });
 
     function calculateOre(key, amount) {
@@ -48,11 +45,11 @@ export default function solve({ lines, rawData }) {
             ingredientsOnHand.set(key, currOnHand);
         }
 
-        if (ingredients[0][1] === ORE) {
-            return ingredients[0][0] * mult;
+        if (ingredients[0].key === ORE) {
+            return ingredients[0].amount * mult;
         } else {
             return ingredients.reduce((total, curr) => {
-                return total + calculateOre(curr[1], mult * curr[0]);
+                return total + calculateOre(curr.key, mult * curr.amount);
             }, 0);
         }
     }
