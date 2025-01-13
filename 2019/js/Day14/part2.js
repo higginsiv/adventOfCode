@@ -57,7 +57,7 @@ export default function solve({ lines, rawData }) {
     }
 
     let fuel = 0;
-    let fuelIncrement = 10000;
+    let fuelIncrement = 1000000;
     while (oreAvailable > 0) {
         const tempOnHand = new Map(ingredientsOnHand);
         const oreRequired = calculateOre(FUEL, fuelIncrement);
