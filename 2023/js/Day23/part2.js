@@ -1,12 +1,19 @@
+import { Solution } from '#tools/solution.js';
+import { find } from 'async';
+
 export default function solve({ lines, rawData }) {
     const { max } = Math;
     const [FOREST, PATH] = ['#', '.'];
-    const [NORTH, EAST, SOUTH, WEST] = ['^', '>', 'v', '<'];
-    const DIRECTIONS = [NORTH, EAST, SOUTH, WEST];
+    const DIRECTIONS = [
+        [-1, 0],
+        [0, 1],
+        [1, 0],
+        [0, -1],
+    ];
 
+    // Find start and goal
     let start = { x: 0, y: 0, key: -1 };
     let goal;
-    let junctionPoints = [];
     const GRID = lines.map((line, index, grid) => {
         if (index === 0) {
             start.y = line.indexOf(PATH);
@@ -20,199 +27,115 @@ export default function solve({ lines, rawData }) {
         return line;
     });
 
-    let junctionKeyNum = 0;
-    let junctionPointsString = new Set();
-    GRID.forEach((line, x) => {
-        line.forEach((point, y) => {
-            if (point === PATH) {
-                let neighbors = getValidNeighbors({ x: x, y: y }, point);
-                let neighborCount = 0;
-                neighbors.forEach((neighbor) => {
-                    if (DIRECTIONS.includes(GRID[neighbor.x][neighbor.y])) {
-                        neighborCount++;
-                    }
-                });
-                if (neighborCount >= 3) {
-                    junctionPoints.push({ x: x, y: y, key: junctionKeyNum++ });
-                    junctionPointsString.add(generateKey(x, y));
-                }
-            }
-        });
-    });
-    junctionPoints.unshift(start);
-    junctionPoints.push(goal);
-
-    let distances = Array.from({ length: GRID.length }, () =>
-        Array(GRID[0].length).fill(-Infinity),
-    );
-    distances[start.x][start.y] = 0;
-
-    let junctionToJunctionDistances = new Map();
-
-    for (let i = 0; i < junctionPoints.length; i++) {
-        for (let j = i + 1; j < junctionPoints.length; j++) {
-            let queue = [{ point: junctionPoints[i], distance: 0, visited: new Set() }];
-
-            while (queue.length > 0) {
-                let current = queue.shift();
-
-                if (
-                    current.point.x === junctionPoints[j].x &&
-                    current.point.y === junctionPoints[j].y
-                ) {
-                    if (junctionToJunctionDistances.get(junctionPoints[i].key) === undefined) {
-                        junctionToJunctionDistances.set(junctionPoints[i].key, new Map());
-                    }
-                    junctionToJunctionDistances
-                        .get(junctionPoints[i].key)
-                        .set(junctionPoints[j].key, current.distance);
-
-                    if (junctionToJunctionDistances.get(junctionPoints[j].key) === undefined) {
-                        junctionToJunctionDistances.set(junctionPoints[j].key, new Map());
-                    }
-                    junctionToJunctionDistances
-                        .get(junctionPoints[j].key)
-                        .set(junctionPoints[i].key, current.distance);
-                    break;
-                }
-
-                let neighbors = getValidNeighbors(
-                    current.point,
-                    GRID[current.point.x][current.point.y],
-                );
-
-                neighbors.forEach((neighbor) => {
-                    let neighborKey = generateKey(neighbor.x, neighbor.y);
-                    if (
-                        junctionPointsString.has(neighborKey) &&
-                        neighborKey !== generateKey(junctionPoints[j].x, junctionPoints[j].y)
-                    ) {
-                        return;
-                    }
-                    if (current.visited.has(neighborKey)) {
-                        return;
-                    }
-
-                    if (GRID[neighbor.x][neighbor.y] === FOREST) {
-                        return;
-                    }
-
-                    let newVisited = new Set(current.visited);
-                    newVisited.add(neighborKey);
-                    queue.push({
-                        point: neighbor,
-                        distance: current.distance + 1,
-                        visited: newVisited,
-                    });
-                });
-            }
+    // Build graph of junctions including start and goal
+    const junctionToJunctionDistances = new Map();
+    const junctionQueue = [generateKey(start.x, start.y)];
+    while (junctionQueue.length > 0) {
+        const current = junctionQueue.pop();
+        const [x, y] = current.split(',').map(Number);
+        const newJunctions = findAllJunctions(x, y);
+        if (newJunctions.size > 0) {
+            junctionQueue.push(...newJunctions);
         }
     }
 
-    let distancesToJunctions = new Map();
-    let visited = new Set();
-    visited.add(start.key);
-    let queue = [{ key: -1, distance: 0, visited: visited }];
-    let longestTrip = -Infinity;
+    // Traverse graph recursively to find longest path
+    const answer = findLongestPath(
+        generateKey(start.x, start.y),
+        generateKey(goal.x, goal.y),
+        0,
+        new Set([generateKey(start.x, start.y)]),
+    );
 
-    while (queue.length > 0) {
-        let current = queue.pop();
-        if (current.key === goal.key) {
-            longestTrip = max(longestTrip, current.distance);
-            continue;
+    return new Solution(answer);
+
+    function findLongestPath(current, goal, totalDistance, visited) {
+        if (current === goal) {
+            return totalDistance;
         }
 
-        let neighbors = [...junctionToJunctionDistances.get(current.key).keys()].filter(
-            (key) => !current.visited.has(key),
-        );
-
-        neighbors.forEach((neighbor) => {
-            let neighborKey = neighbor;
-            if (current.visited.has(neighborKey)) {
+        let longestDistance = -Infinity;
+        const connectedNodes = junctionToJunctionDistances.get(current);
+        connectedNodes.forEach((distance, key) => {
+            if (visited.has(key)) {
                 return;
             }
 
-            // if (distancesToJunctions.get(neighbor) != null && distancesToJunctions.get(neighbor) > current.distance + junctionToJunctionDistances.get(current.key).get(neighbor)) {
-            //     return;
-            // }
-
-            let newVisited = new Set(current.visited);
-            newVisited.add(neighborKey);
-            // if (sumRemainingEdges(junctionToJunctionDistances, newVisited) + junctionToJunctionDistances.get(current.key).get(neighbor) < longestTrip) {
-            //     return;
-            // }
-
-            // this ignores long distances that ultimately fail to reach junction
-            distancesToJunctions.set(
-                neighbor,
-                current.distance + junctionToJunctionDistances.get(current.key).get(neighbor),
+            visited.add(key);
+            longestDistance = max(
+                longestDistance,
+                findLongestPath(key, goal, totalDistance + distance, visited),
             );
-            queue.push({
-                key: neighbor,
-                distance:
-                    current.distance + junctionToJunctionDistances.get(current.key).get(neighbor),
-                visited: newVisited,
-            });
+            visited.delete(key);
         });
+
+        return longestDistance;
     }
 
-    function getValidNeighbors(point, value) {
-        let neighbors = [];
+    function getValidNeighbors(point) {
+        const neighbors = [];
 
-        let includeNorth = point.x > 0;
-        let includeEast = point.y < GRID[0].length - 1;
-        let includeSouth = point.x < GRID.length - 1;
-        let includeWest = point.y > 0;
+        DIRECTIONS.forEach(([dx, dy]) => {
+            const x = point.x + dx;
+            const y = point.y + dy;
 
-        if (includeNorth) {
-            neighbors.push({ x: point.x - 1, y: point.y, dir: NORTH });
-        }
+            if (x < 0 || x >= GRID.length || y < 0 || y >= GRID[0].length) {
+                return;
+            }
 
-        if (includeEast) {
-            neighbors.push({ x: point.x, y: point.y + 1, dir: EAST });
-        }
+            if (GRID[x][y] === FOREST) {
+                return;
+            }
 
-        if (includeSouth) {
-            neighbors.push({ x: point.x + 1, y: point.y, dir: SOUTH });
-        }
+            if (point.visited.has(generateKey(x, y))) {
+                return;
+            }
 
-        if (includeWest) {
-            neighbors.push({ x: point.x, y: point.y - 1, dir: WEST });
-        }
+            neighbors.push({ x, y });
+        });
 
         return neighbors;
-    }
-
-    function sumRemainingEdges(junctionToJunctionDistances, visited) {
-        let sum = 0;
-        for (let i = 0; i < junctionPoints.length; i++) {
-            if (visited.has(junctionPoints[i].key)) {
-                continue;
-            }
-            let max = -Infinity;
-            for (let j = 0; j < junctionPoints.length; j++) {
-                if (i === j) {
-                    continue;
-                }
-                if (visited.has(junctionPoints[j].key)) {
-                    continue;
-                }
-                max = max(
-                    max,
-                    junctionToJunctionDistances
-                        .get(junctionPoints[i].key)
-                        .get(junctionPoints[j].key),
-                );
-            }
-            sum += max;
-        }
-        return sum;
     }
 
     function generateKey(x, y) {
         return `${x},${y}`;
     }
 
-    const answer = longestTrip;
-    return { value: answer };
+    function findAllJunctions(x, y) {
+        const startKey = generateKey(x, y);
+        if (junctionToJunctionDistances.has(startKey)) {
+            return new Set();
+        }
+
+        junctionToJunctionDistances.set(startKey, new Map());
+
+        const junctions = new Set();
+        const visited = new Set();
+        visited.add(startKey);
+        const stack = [{ x, y, distance: 0, visited: visited }];
+
+        while (stack.length > 0) {
+            const current = stack.pop();
+            const neighbors = getValidNeighbors(current);
+
+            if ((neighbors.length >= 2 && current.distance > 0) || neighbors.length === 0) {
+                const junctionKey = generateKey(current.x, current.y);
+                junctionToJunctionDistances.get(startKey).set(junctionKey, current.distance);
+                junctions.add(generateKey(current.x, current.y));
+                continue;
+            }
+
+            neighbors.forEach((neighbor) => {
+                const newVisited = new Set(current.visited);
+                newVisited.add(generateKey(neighbor.x, neighbor.y));
+                stack.push({
+                    x: neighbor.x,
+                    y: neighbor.y,
+                    distance: current.distance + 1,
+                    visited: newVisited,
+                });
+            });
+        }
+        return junctions;
+    }
 }

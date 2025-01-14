@@ -19,10 +19,10 @@ export default function solve({ lines, rawData }) {
     });
 
     const pointToLongestTrip = new Map();
-    let queue = [{ point: start, distance: 0, visited: new Set() }];
+    let stack = [{ point: start, distance: 0, visited: new Set() }];
 
-    while (queue.length > 0) {
-        let current = queue.pop();
+    while (stack.length > 0) {
+        let current = stack.pop();
 
         const key = generateKey(current.point.x, current.point.y);
         const longestTripToPoint = max(pointToLongestTrip.get(key) || -Infinity, current.distance);
@@ -49,7 +49,7 @@ export default function solve({ lines, rawData }) {
             }
 
             current.visited.add(neighborKey);
-            queue.push({
+            stack.push({
                 point: neighbor,
                 distance: current.distance + 1,
                 visited: new Set(current.visited),
