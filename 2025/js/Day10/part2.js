@@ -50,7 +50,6 @@ export default async function solve({ lines, rawData }) {
             };
         });
 
-
         const solver = new Optimize();
         const variables = buttons.map((_, index) => Int.const(`b${index}`));
         joltages.forEach(({ joltage, buttonsThatAffectThisJoltage }, index) => {
@@ -74,7 +73,6 @@ export default async function solve({ lines, rawData }) {
             throw new Error('Unsatisfiable');
         }
 
-        
         const model = solver.model();
         let totalPresses = 0;
         variables.forEach((variable) => {
