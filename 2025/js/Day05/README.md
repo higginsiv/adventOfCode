@@ -1,4 +1,4 @@
---- Day 5: Cafeteria ---
+#  Day 5: Cafeteria 
 As the forklifts break through the wall, the Elves are delighted to discover that there was a cafeteria on the other side after all.
 
 You can hear a commotion coming from the kitchen. "At this rate, we won't have any time left to put the wreaths up in the dining hall!" Resolute in your quest, you investigate.
@@ -34,9 +34,9 @@ So, in this example, 3 of the available ingredient IDs are fresh.
 
 Process the database file from the new inventory management system. How many of the available ingredient IDs are fresh?
 
-Your puzzle answer was 638.
+### Your puzzle answer was 638.
 
---- Part Two ---
+#  Part Two 
 The Elves start bringing their spoiled inventory to the trash chute at the back of the kitchen.
 
 So that they can stop bugging you when they get new inventory, the Elves would like to know all of the IDs that the fresh ingredient ID ranges consider to be fresh. An ingredient ID is still considered fresh if it is in any range.
@@ -51,7 +51,7 @@ The ingredient IDs that these ranges consider to be fresh are 3, 4, 5, 10, 11, 1
 
 Process the database file again. How many ingredient IDs are considered to be fresh according to the fresh ingredient ID ranges?
 
-Your puzzle answer was 352946349407338.
+### Your puzzle answer was 352946349407338.
 
 Both parts of this puzzle are complete! They provide two gold stars: \*\*
 

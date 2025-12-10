@@ -1,4 +1,4 @@
---- Day 1: Secret Entrance ---
+#  Day 1: Secret Entrance 
 The Elves have good news and bad news.
 
 The good news is that they've discovered project management! This has given them the tools they need to prevent their usual Christmas emergency. For example, they now know that the North Pole decorations need to be finished soon so that other critical tasks can start on time.
@@ -56,9 +56,9 @@ Because the dial points at 0 a total of three times during this process, the pas
 
 Analyze the rotations in your attached document. What's the actual password to open the door?
 
-Your puzzle answer was 1141.
+### Your puzzle answer was 1141.
 
---- Part Two ---
+#  Part Two 
 You're sure that's the right password, but the door won't open. You knock, but nobody answers. You build a snowman while you think.
 
 As you're rolling the snowballs for your snowman, you find another security document that must have fallen into the snow:
@@ -86,7 +86,7 @@ Be careful: if the dial were pointing at 50, a single rotation like R1000 would 
 
 Using password method 0x434C49434B, what is the password to open the door?
 
-Your puzzle answer was 6634.
+### Your puzzle answer was 6634.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

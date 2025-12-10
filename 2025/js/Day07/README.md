@@ -1,4 +1,4 @@
---- Day 7: Laboratories ---
+#  Day 7: Laboratories 
 You thank the cephalopods for the help and exit the trash compactor, finding yourself in the familiar halls of a North Pole research wing.
 
 Based on the large sign that says "teleporter hub", they seem to be researching teleportation; you can't help but try it for yourself and step onto the large yellow teleporter pad.
@@ -121,9 +121,9 @@ To repair the teleporter, you first need to understand the beam-splitting proper
 
 Analyze your manifold diagram. How many times will the beam be split?
 
-Your puzzle answer was 1703.
+### Your puzzle answer was 1703.
 
---- Part Two ---
+#  Part Two 
 With your analysis of the manifold complete, you begin fixing the teleporter. However, as you open the side of the teleporter to replace the broken manifold, you are surprised to discover that it isn't a classical tachyon manifold - it's a quantum tachyon manifold.
 
 With a quantum tachyon manifold, only a single tachyon particle is sent through the manifold. A tachyon particle takes both the left and right path of each splitter encountered.
@@ -190,7 +190,7 @@ In this example, in total, the particle ends up on 40 different timelines.
 
 Apply the many-worlds interpretation of quantum tachyon splitting to your manifold diagram. In total, how many different timelines would a single tachyon particle end up on?
 
-Your puzzle answer was 171692855075500.
+### Your puzzle answer was 171692855075500.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

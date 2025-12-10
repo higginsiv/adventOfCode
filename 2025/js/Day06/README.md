@@ -1,4 +1,4 @@
---- Day 6: Trash Compactor ---
+#  Day 6: Trash Compactor 
 After helping the Elves in the kitchen, you were taking a break and helping them re-enact a movie scene when you over-enthusiastically jumped into the garbage chute!
 
 A brief fall later, you find yourself in a garbage smasher. Unfortunately, the door's been magnetically sealed.
@@ -27,9 +27,9 @@ Of course, the actual worksheet is much wider. You'll need to make sure to unrol
 
 Solve the problems on the math worksheet. What is the grand total found by adding together all of the answers to the individual problems?
 
-Your puzzle answer was 5524274308182.
+### Your puzzle answer was 5524274308182.
 
---- Part Two ---
+#  Part Two 
 The big cephalopods come back to check on how things are going. When they see that your grand total doesn't match the one expected by the worksheet, they realize they forgot to explain how to read cephalopod math.
 
 Cephalopod math is written right-to-left in columns. Each number is given in its own column, with the most significant digit at the top and the least significant digit at the bottom. (Problems are still separated with a column consisting only of spaces, and the symbol at the bottom of the problem is still the operator to use.)
@@ -50,7 +50,7 @@ Now, the grand total is 1058 + 3253600 + 625 + 8544 = 3263827.
 
 Solve the problems on the math worksheet again. What is the grand total found by adding together all of the answers to the individual problems?
 
-Your puzzle answer was 8843673199391.
+### Your puzzle answer was 8843673199391.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 
