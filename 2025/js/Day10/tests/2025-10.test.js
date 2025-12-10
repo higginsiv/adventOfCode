@@ -9,7 +9,8 @@ describe(`2025 Day 10`, () => {
         expect(part1(data).value).toBe(532);
     });
 
-    test('Part 2', () => {
-        expect(part2(data).value).toBe(18387);
+    test('Part 2', async () => {
+        const result = await part2(data);
+        expect(result.value).toBe(18387);
     });
 });
