@@ -1,4 +1,4 @@
---- Day 10: Factory ---
+#  Day 10: Factory 
 Just across the hall, you find a large factory. Fortunately, the Elves here have plenty of time to decorate. Unfortunately, it's because the factory machines are all offline, and none of the Elves can figure out the initialization procedure.
 
 The Elves do have the manual for the machines, but the section detailing the initialization procedure was eaten by a Shiba Inu. All that remains of the manual are some indicator light diagrams, button wiring schematics, and joltage requirements for each machine.
@@ -44,9 +44,9 @@ So, the fewest button presses required to correctly configure the indicator ligh
 
 Analyze each machine's indicator light diagram and button wiring schematics. What is the fewest button presses required to correctly configure the indicator lights on all of the machines?
 
-Your puzzle answer was 532.
+### Your puzzle answer was 532.
 
---- Part Two ---
+#  Part Two 
 All of the machines are starting to come online! Now, it's time to worry about the joltage requirements.
 
 Each machine needs to be configured to exactly the specified joltage levels to function properly. Below the buttons on each machine is a big lever that you can use to switch the buttons from configuring the indicator lights to increasing the joltage levels. (Ignore the indicator light diagrams.)
@@ -76,7 +76,7 @@ So, the fewest button presses required to correctly configure the joltage level 
 
 Analyze each machine's joltage requirements and button wiring schematics. What is the fewest button presses required to correctly configure the joltage level counters on all of the machines?
 
-Your puzzle answer was 18387.
+### Your puzzle answer was 18387.
 
 Both parts of this puzzle are complete! They provide two gold stars: **
 

@@ -1,4 +1,4 @@
---- Day 11: Reactor ---
+#  Day 11: Reactor 
 You hear some loud beeping coming from a hatch in the floor of the factory, so you decide to check it out. Inside, you find several large electrical conduits and a ladder.
 
 Climbing down the ladder, you discover the source of the beeping: a large, toroidal reactor which powers the factory above. Some Elves here are hurriedly running between the reactor and a nearby server rack, apparently trying to fix something.
@@ -36,9 +36,9 @@ In total, there are 5 different paths leading from you to out.
 
 How many different paths lead from you to out?
 
-Your puzzle answer was 413.
+### Your puzzle answer was 413.
 
---- Part Two ---
+#  Part Two 
 Thanks in part to your analysis, the Elves have figured out a little bit about the issue. They now know that the problematic data path passes through both dac (a digital-to-analog converter) and fft (a device which performs a fast Fourier transform).
 
 They're still not sure which specific path is the problem, and so they now need you to find every path from svr (the server rack) to out. However, the paths you find must all also visit both dac and fft (in any order).
@@ -72,7 +72,7 @@ However, only 2 paths from svr to out visit both dac and fft.
 
 Find all of the paths that lead from svr to out. How many of those paths visit both dac and fft?
 
-Your puzzle answer was 525518050323600.
+### Your puzzle answer was 525518050323600.
 
 Both parts of this puzzle are complete! They provide two gold stars: \*\*
 
